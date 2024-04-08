@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2842ec3a-e5e5-4ff8-9cf2-d318d27d04ec" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerAim.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/CameraFollow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/WorldBounds.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Core/Health/Idamageable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Core/Health/ObjectHealth.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Enemy/Enemy Collision.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerHealth.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/UI/PlayerUIUpdater.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Core/RandomSpawnPoint.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Enemy/EnemySpawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Core/ObjectPool.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Pistol.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerShoot.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponStats.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Core/IActivatable.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponTranslate.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/DroneWeapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/BaseWeapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Projectile.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Suriken/Suriken.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Enemy/EnemyCollision.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/RadiationWeapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Enemy/EnemyHealth.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/FrozenWeapon/FrozenWEapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/DI/PlayerInstaller.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Suriken/SurikenWeapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/FrozenWeapon/FrozenBullet.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/FrozenWeapon/FrozenWeapon.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Game/Enemy/EnemyMove.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="2dK7WtUow3HpOUuidre7IA3gOut" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2842ec3a-e5e5-4ff8-9cf2-d318d27d04ec" name="Default Changelist" comment="" />
+      <created>1709744954059</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709744954059</updated>
+      <workItem from="1709744967904" duration="8954000" />
+      <workItem from="1709795751234" duration="8329000" />
+      <workItem from="1709927311247" duration="4622000" />
+      <workItem from="1709968366918" duration="2679000" />
+      <workItem from="1710187462612" duration="947000" />
+      <workItem from="1710250357637" duration="3606000" />
+      <workItem from="1710262459704" duration="5472000" />
+      <workItem from="1710488537511" duration="939000" />
+      <workItem from="1710490263510" duration="2219000" />
+      <workItem from="1710770963315" duration="8478000" />
+      <workItem from="1710841972881" duration="4900000" />
+      <workItem from="1711036372797" duration="6199000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1179" y="226" key="RiderGenerateDialog" timestamp="1711041264506">
+      <screen x="0" y="0" width="2752" height="1104" />
+    </state>
+    <state x="1179" y="226" key="RiderGenerateDialog/0.0.2752.1104@0.0.2752.1104" timestamp="1711041264506" />
+  </component>
+</project>
