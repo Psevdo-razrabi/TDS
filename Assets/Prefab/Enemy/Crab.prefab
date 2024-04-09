@@ -321,9 +321,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1417088132520028669}
-  - component: {fileID: 2242928748590763444}
-  - component: {fileID: 8304499899316852211}
-  - component: {fileID: 6119910144242897117}
   - component: {fileID: 8344509484923934573}
   m_Layer: 8
   m_Name: Crab
@@ -348,47 +345,6 @@ Transform:
   - {fileID: 6879318179474629714}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &2242928748590763444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6879319130833507645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aa53d6711d54695bfb5a2e91c141dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 1
-  _freezeTimer: 2
---- !u!114 &8304499899316852211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6879319130833507645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be411140812e47a2992b44a8cd27fbd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 10
-  _currentHealth: 0
---- !u!114 &6119910144242897117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6879319130833507645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf6effd5ee7f46d59366ecd3f47a47a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 10
 --- !u!136 &8344509484923934573
 CapsuleCollider:
   m_ObjectHideFlags: 0

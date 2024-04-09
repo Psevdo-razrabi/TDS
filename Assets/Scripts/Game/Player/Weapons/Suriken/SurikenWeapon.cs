@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Player.Weapons.Suriken
 {
-    public class SurikenWeapon : BaseWeapon, IActivatable
+    /*public class SurikenWeapon : BaseWeapon, IActivatable
     {
         [SerializeField] private ObjectPool _objectPool;
         [SerializeField] private Transform _container;
@@ -52,5 +52,5 @@ namespace Game.Player.Weapons.Suriken
                     yield return _timeBetweenAttack;
             }
         }
-    }
+    }*/
 }

@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 201564561424090230}
   - component: {fileID: 8628433957658234880}
   - component: {fileID: 8377319876940979393}
-  - component: {fileID: 1120885030032481310}
   m_Layer: 7
   m_Name: Suriken
   m_TagString: Untagged
@@ -166,19 +165,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1120885030032481310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6680863801379459111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 431c0c5ce3894da0a5448a969b761e0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mesh: {fileID: 458103746283777367}
 --- !u!1 &6698240782578707840
 GameObject:
   m_ObjectHideFlags: 0
