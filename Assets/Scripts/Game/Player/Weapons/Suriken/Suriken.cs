@@ -3,7 +3,7 @@ using Zenject;
 
 namespace Game.Player.Weapons.Suriken
 {
-    public class Suriken : Projectile
+    /*public class Suriken : Projectile
     {
         [SerializeField] private Transform _mesh;
         private SurikenWeapon _surikenWeapon;
@@ -21,5 +21,5 @@ namespace Game.Player.Weapons.Suriken
         }
         
         [Inject] private void Construct(SurikenWeapon surikenWeapon) => _surikenWeapon = surikenWeapon;
-    }
+    }*/
 }

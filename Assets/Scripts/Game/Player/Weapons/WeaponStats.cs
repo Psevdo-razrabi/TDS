@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Game.Player.Weapons
 {
-    [Serializable]
-    public class WeaponStats
+    [CreateAssetMenu(menuName = "Weapon Stats", fileName = "WeaponStats")]
+    public class WeaponStats : ScriptableObject
     {
         [SerializeField] private float _speed, _damage, _range, _timeBetweenAttack, _duration;
 

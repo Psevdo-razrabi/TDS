@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Game.Player.Weapons
 {
-    public class DroneWeapon : BaseWeapon, IActivatable
+    /*public class DroneWeapon : BaseWeapon, IActivatable
     {
         [Header("Single")] 
         [SerializeField] private MeshRenderer _mesh1x;
@@ -85,5 +85,5 @@ namespace Game.Player.Weapons
                 _colliders2x[1].center = new Vector3(- WeaponStats[CurrentLevel - 1].Range,0,0);   
             }
         }
-    }
+    }*/
 }

@@ -6,10 +6,29 @@ namespace DI
 {
     public class GameInstaller : MonoInstaller
     {
-        [SerializeField] private RandomSpawnPoint _randomSpawnPoint;
+        [field: SerializeField] public InputSystemPC InputSystemPC { get; private set; }
+        
         public override void InstallBindings()
-        {
-            Container.Bind<RandomSpawnPoint>().FromInstance(_randomSpawnPoint).AsSingle().NonLazy();
+        { 
+            BindInput();
         }
+
+        private void BindInput()
+        {
+            BindNewInstance<InputSystem>();
+            BindInstance(InputSystemPC);
+        }
+
+        private void BindNewInstance<T>() => Container
+            .BindInterfacesAndSelfTo<T>()
+            .AsSingle()
+            .NonLazy();
+
+        private void BindInstance<T>(T instance) =>
+            Container
+                .BindInterfacesAndSelfTo<T>()
+                .FromInstance(instance)
+                .AsSingle()
+                .NonLazy();
     }
 }
