@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using Game.Player;
 using Game.Player.PlayerStateMashine.Interfase;
-using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine
 {
     private Dictionary<Type, IState> _states = null;
     public IState currentStates { get; private set; }
@@ -20,10 +18,10 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    public void SwitchStates<TState>() where TState : IState,  new()
+    public void SwitchStates<TState>() where TState : IState
     {
         isUpdate = false;
-        TryExitStates<TState>();
+        TryExitStates();
         GetNewState<TState>();
         TryEnterStates<TState>();
         isUpdate = true;
@@ -37,9 +35,9 @@ public class StateMachine : MonoBehaviour
         }
     }
 
-    private void TryExitStates<TState>() where TState : IState
+    private void TryExitStates()
     {
-        if (currentStates is TState playerBehaviour)
+        if (currentStates is { } playerBehaviour)
         {
             playerBehaviour.OnExit();
         }
@@ -51,22 +49,22 @@ public class StateMachine : MonoBehaviour
         currentStates = newState;
     }
 
-    private async void StartUpdate(IState state)
+    /*private async UniTask StartUpdate(IState state)
     {
-        while (isUpdate)
+        while (isUpdate && state == currentStates)
         {
             state.OnUpdateBehaviour();
             await UniTask.Yield();
         }
     }
     
-    private void UpdateStates<TState>() where TState : IState
+    private async UniTask UpdateStates<TState>() where TState : IState
     {
         if (currentStates is TState playerBehaviour)
         {
-            StartUpdate(playerBehaviour);
+            await StartUpdate(playerBehaviour);
         }
-    }
+    }*/
     
     private TState GetState<TState>() where TState: IState
     {

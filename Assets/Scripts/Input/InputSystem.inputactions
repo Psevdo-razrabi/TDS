@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
+                    "type": "Button",
+                    "id": "04fbddb3-c551-4123-9457-1c57a4b18f64",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -24,6 +33,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6db670fb-9673-4110-804f-ad5d621cd5bc",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -43,40 +63,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MoveLeft",
+                    "name": "Dash",
                     "type": "Button",
-                    "id": "98539b9f-37ae-4e1d-816f-86ca61bf0c5c",
+                    "id": "db2ac6d7-8bb1-4d36-a08d-c9b6c19654e1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MoveRight",
-                    "type": "Button",
-                    "id": "cf6fce12-d557-4ae0-a82e-1708af280fb8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MoveUp",
-                    "type": "Button",
-                    "id": "009e341f-ab59-47d8-9664-217f07e830bc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MoveDown",
-                    "type": "Button",
-                    "id": "bfb42c78-aa1d-4dff-9143-fcdfc1500149",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -93,45 +86,12 @@
                 },
                 {
                     "name": "",
-                    "id": "8e515df3-b925-49df-b93f-1a0daa7e3eff",
-                    "path": "<Keyboard>/a",
+                    "id": "d5cf5d1c-3645-439f-ae62-36b10a1fe88b",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MoveLeft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cb002554-65d2-41bb-892b-1d8163a8eee9",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveRight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "61dd6e34-f821-46f6-b011-de31970ae699",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e939bdd4-598a-459a-9ccd-0c7d34fef8bb",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MoveDown",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

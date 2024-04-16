@@ -1,22 +1,64 @@
-﻿using Game.Core;
+﻿using Game.Player;
+using Game.Player.AnimatorScripts;
+using Game.Player.PlayerStateMashine;
+using Game.Player.States;
+using Game.Player.States.StateHandle;
+using Input.Interface;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace DI
 {
     public class GameInstaller : MonoInstaller
     {
-        [field: SerializeField] public InputSystemPC InputSystemPC { get; private set; }
+        [SerializeField] private InputSystemPC inputSystemPC;
+        [SerializeField] private AnimatorController animatorController;
+        [SerializeField] private PlayerAim playerAim;
+        [SerializeField] private Player player;
         
         public override void InstallBindings()
         { 
             BindInput();
+            BindAnimator();
+            BindPlayerAim();
+            BindPlayer();
+            BindLoader();
+            BindPlayerConfig();
+            BindInitStateMachine();
+            BindHandlesState();
+            BindStateMachineData();
         }
 
         private void BindInput()
         {
             BindNewInstance<InputSystem>();
-            BindInstance(InputSystemPC);
+            BindInstance(inputSystemPC);
+        }
+
+        private void BindAnimator() => BindInstance(animatorController);
+
+        private void BindPlayerAim() => BindInstance(playerAim);
+
+        private void BindPlayer() => BindInstance(player);
+
+        private void BindLoader() => BindNewInstance<Loader>();
+
+        private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
+
+        private void BindPlayerConfig() => BindNewInstance<PlayerConfigs>();
+
+        private void BindStateMachineData() => BindNewInstance<StateMachineData>();
+
+        private void BindHandlesState()
+        {
+            Container.Bind<IStateHandle>().To<PlayerAimIdleHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerAimMoveHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerDashHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerIdleHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
+            
+            BindNewInstance<StateHandleChain>();
         }
 
         private void BindNewInstance<T>() => Container
