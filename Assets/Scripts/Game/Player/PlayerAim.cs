@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Player.Interfaces;
 using Input.Interface;
 using UniRx;
 using UnityEngine;
@@ -6,7 +7,7 @@ using Zenject;
 
 namespace Game.Player
 {
-    public class PlayerAim : MonoBehaviour
+    public class PlayerAim : MonoBehaviour, IPlayerAim
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
@@ -24,16 +25,14 @@ namespace Game.Player
                 .Subscribe(vector => _mouse = vector)
                 .AddTo(_compositeDisposable);
         }
-        
-        private void Update() => Aim();
 
-        private (bool, Vector3) GetMousePosition()
+        public (bool, Vector3) GetMousePosition()
         {
             Ray ray = _camera.ScreenPointToRay(_mouse);
             return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
         }
 
-        private void Aim()
+        public void Aim()
         {
             (bool success, Vector3 position) = GetMousePosition();
             if (success)
