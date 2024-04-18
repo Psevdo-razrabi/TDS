@@ -1,4 +1,5 @@
 using System;
+using Game.Player.PlayerStateMashine;
 using Input.Interface;
 using UniRx;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
     private Action _mouseClickUpHandler;
     private Action _mouseClickDownHandler;
     private Action _dashButton;
+    private Subject<Unit> _dashClick = new();
+    private CompositeDisposable _compositeDisposable = new();
+    private PlayerConfigs _playerConfigs;
 
     public void OnSubscribeMouseClickUp(Action action)
     {
@@ -43,20 +47,18 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
     public void OnSubscribeDash(Action action)
     {
         _dashButton = action;
-        _input.Movement.Dash.performed += DashClickHandler;
     }
 
     public void OnUnsubscribeDash()
     {
-        _input.Movement.Dash.performed -= DashClickHandler;
         _dashButton = null;
     }
-
+    
     private void MouseClickUpHandler(InputAction.CallbackContext context) => _mouseClickUpHandler?.Invoke();
 
     private void MouseClickDownHandler(InputAction.CallbackContext context) => _mouseClickDownHandler?.Invoke();
 
-    private void DashClickHandler(InputAction.CallbackContext context) => _dashButton?.Invoke();
+    private void DashClickHandler() => _dashButton?.Invoke();
 
     private void MousePosition(InputAction.CallbackContext obj)
     {
@@ -64,10 +66,11 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
     }
     
     [Inject]
-    private void Construct(InputSystem input)
+    private void Construct(InputSystem input, PlayerConfigs playerConfigs)
     {
         _input = input ?? throw new ArgumentNullException($"{nameof(input)} is null");
         _input.Enable();
+        _playerConfigs = playerConfigs;
     }
     
     private void Jump(InputAction.CallbackContext obj)
@@ -80,16 +83,28 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
         Move.Value = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), UnityEngine.Input.GetAxis("Vertical"));
     }
     
-    private void OnEnable()
+    private async void OnEnable()
     {
         _input.Mouse.MousePosition.performed += MousePosition;
         _input.Movement.Jump.performed += Jump;
+        _input.Movement.Dash.performed += _ => _dashClick.OnNext(Unit.Default);
+
+        await _playerConfigs.AwaitLoadConfig();
+        
+        _dashClick
+            .ThrottleFirst(TimeSpan.FromSeconds(_playerConfigs.DashConfig.DelayAfterEachDash))
+            .Subscribe(_ => DashClickHandler())
+            .AddTo(_compositeDisposable);
     }
 
     private void OnDisable()
     {
-        _input.Disable();
+        _compositeDisposable.Clear();
+        _compositeDisposable.Dispose();
         _input.Movement.Jump.performed -= Jump;
         _input.Mouse.MousePosition.performed -= MousePosition;
+        _input.Movement.Dash.performed -= _ => _dashClick.OnNext(Unit.Default);
+        
+        _input.Disable();
     }
 }
