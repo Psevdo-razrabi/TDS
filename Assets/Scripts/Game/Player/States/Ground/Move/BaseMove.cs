@@ -51,10 +51,9 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            var direction = Movement.normalized;
             var speed = Movement.magnitude * Data.CurrentSpeed * Time.deltaTime;
 
-            Player.CharacterController.Move((Player.transform.forward * direction.z + Player.transform.right * direction.x) * speed);
+            Player.CharacterController.Move( Movement * speed);
             
             Debug.Log("я выполняюсь");
         }

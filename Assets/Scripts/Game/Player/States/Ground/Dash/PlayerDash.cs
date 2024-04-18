@@ -26,7 +26,6 @@ namespace Game.Player.States.Dash
         {
             base.OnExit();
             Debug.Log("вышел из состояние Dash");
-            OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameters);
             OnAnimatorStateSet(ref Data.IsDashing, false, Player.AnimatorController.NameDashParameters);
         }
 
