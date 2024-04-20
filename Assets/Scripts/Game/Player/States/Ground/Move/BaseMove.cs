@@ -1,4 +1,6 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Dash;
 using UniRx;
@@ -24,6 +26,8 @@ namespace Game.Player.States
             
             Player.InputSystem.OnSubscribeDash(() =>
             {
+                if(Data.DashCount == 0) return;
+                
                 OnAnimatorStateSet(ref Data.IsDashing, true, Player.AnimatorController.NameDashParameters);
                 Player.StateChain.HandleState();
             });
@@ -53,7 +57,7 @@ namespace Game.Player.States
         {
             var speed = Movement.magnitude * Data.CurrentSpeed * Time.deltaTime;
 
-            Player.CharacterController.Move( Movement * speed);
+            Player.CharacterController.Move(speed * Movement);
             
             Debug.Log("я выполняюсь");
         }

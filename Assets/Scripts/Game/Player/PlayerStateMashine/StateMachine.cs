@@ -49,23 +49,6 @@ public class StateMachine
         currentStates = newState;
     }
 
-    /*private async UniTask StartUpdate(IState state)
-    {
-        while (isUpdate && state == currentStates)
-        {
-            state.OnUpdateBehaviour();
-            await UniTask.Yield();
-        }
-    }
-    
-    private async UniTask UpdateStates<TState>() where TState : IState
-    {
-        if (currentStates is TState playerBehaviour)
-        {
-            await StartUpdate(playerBehaviour);
-        }
-    }*/
-    
     private TState GetState<TState>() where TState: IState
     {
         return (TState)_states[typeof(TState)];

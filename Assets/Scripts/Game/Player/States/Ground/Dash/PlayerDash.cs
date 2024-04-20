@@ -26,12 +26,11 @@ namespace Game.Player.States.Dash
         {
             base.OnExit();
             Debug.Log("вышел из состояние Dash");
-            OnAnimatorStateSet(ref Data.IsDashing, false, Player.AnimatorController.NameDashParameters);
+            OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameters);
         }
 
         protected async override void Move()
         {
-            if(_isDashing) return;
             await Dash();
         }
 
@@ -40,22 +39,26 @@ namespace Game.Player.States.Dash
             Player.StateChain.HandleState();
         }
 
+        private async void AwaitDash()
+        {
+            await Player.AsyncWorker.Dash(-1);
+        }
+
         private async UniTask Dash()
         {
             var startPosition = Player.transform.position;
-            var mousePosition = Player.PlayerAim.GetMousePosition();
-            var direction = (mousePosition.Item2 - startPosition).normalized;
-            
-            var endPosition = startPosition + direction * _dashConfig.DashDistance;
 
-            if (Physics.Raycast(startPosition, direction, out var raycastHit,
+            var endPosition = startPosition + Movement.normalized * _dashConfig.DashDistance;
+
+            if (Physics.Raycast(startPosition, Movement.normalized, out var raycastHit,
                     _dashConfig.DashDistance, _dashConfig.LayerObstacle))
             {
                 endPosition = raycastHit.point;
             }
             
             var elapsedTime = 0f;
-
+            
+            
             while (elapsedTime < _dashConfig.DashDuration)
             {
                 var currentPosition = Vector3.Lerp(startPosition, endPosition, elapsedTime / _dashConfig.DashDuration);
@@ -65,10 +68,13 @@ namespace Game.Player.States.Dash
 
                 await UniTask.Yield();
             }
+            
+            OnAnimatorStateSet(ref Data.IsDashing, false, Player.AnimatorController.NameDashParameters);
 
             SwitchState();
-            
-            await UniTask.Delay(TimeSpan.FromSeconds(_dashConfig.DashDelay));
+            AwaitDash();
+
+            await UniTask.Delay(TimeSpan.FromSeconds(_dashConfig.DelayAfterEachDash));
         }
 
     }

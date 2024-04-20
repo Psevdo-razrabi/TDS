@@ -6,6 +6,7 @@ namespace Game.Player.States
     {
         protected GroundState(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
         {
+            
         }
 
         protected void OnAnimatorStateSet(ref bool parameters, bool state, string nameStateAnimator)
@@ -38,7 +39,6 @@ namespace Game.Player.States
             
             Player.InputSystem.OnUnsubscribeMouseClickDown();
         }
-
 
         //private void OnJumpPressedKey() => StateMachine.PlayerStateMachine.SwitchStates<>(); //Jump
     }

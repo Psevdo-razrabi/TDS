@@ -4,6 +4,13 @@ namespace Game.Player.PlayerStateMashine
 {
     public class StateMachineData
     {
+        private PlayerConfigs _playerConfigs;
+
+        public StateMachineData(PlayerConfigs configs)
+        {
+            _playerConfigs = configs ?? throw new ArgumentNullException($"{configs} is null");
+        }
+        
         public bool IsMove;
         public bool IsAim;
         public bool IsDashing;
@@ -11,13 +18,14 @@ namespace Game.Player.PlayerStateMashine
         private float _xInput;
         private float _yInput;
         private float _currentSpeed;
+        private int _dashCount;
 
         public float XInput
         {
             get => _xInput;
             set
             {
-                if (value < -1 || value > 1)
+                if (value is < -1 or > 1)
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 _xInput = value;
@@ -29,7 +37,7 @@ namespace Game.Player.PlayerStateMashine
             get => _yInput;
             set
             {
-                if (value < -1 || value > 1)
+                if (value is < -1 or > 1)
                     throw new ArgumentOutOfRangeException(nameof(value));
 
                 _yInput = value;
@@ -46,7 +54,19 @@ namespace Game.Player.PlayerStateMashine
                 _currentSpeed = value;
             }
         }
-        
+
+        public int DashCount
+        {
+            get => _dashCount;
+            set
+            {
+                if (value < 0 - 1 || value > _playerConfigs.DashConfig.NumberChargesDash + 1)
+                    throw new ArgumentOutOfRangeException();
+
+                _dashCount = value;
+            }
+        }
+
         public bool IsInputZero() => _xInput == 0 && _yInput == 0;
     }
 }

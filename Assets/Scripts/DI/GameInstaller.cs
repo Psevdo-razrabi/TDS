@@ -1,4 +1,5 @@
-﻿using Game.Player;
+﻿using Game.AsyncWorker;
+using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States;
@@ -28,6 +29,7 @@ namespace DI
             BindInitStateMachine();
             BindHandlesState();
             BindStateMachineData();
+            BindAsyncWorker();
         }
 
         private void BindInput()
@@ -60,6 +62,8 @@ namespace DI
             
             BindNewInstance<StateHandleChain>();
         }
+
+        private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();
 
         private void BindNewInstance<T>() => Container
             .BindInterfacesAndSelfTo<T>()
