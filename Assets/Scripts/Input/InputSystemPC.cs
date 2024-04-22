@@ -1,4 +1,5 @@
 using System;
+using Game.AsyncWorker;
 using Game.Player.PlayerStateMashine;
 using Input.Interface;
 using UniRx;
@@ -19,6 +20,7 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
     private Subject<Unit> _dashClick = new();
     private CompositeDisposable _compositeDisposable = new();
     private PlayerConfigs _playerConfigs;
+    private AsyncWorker _asyncWorker;
 
     public void OnSubscribeMouseClickUp(Action action)
     {
@@ -66,11 +68,12 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
     }
     
     [Inject]
-    private void Construct(InputSystem input, PlayerConfigs playerConfigs)
+    private void Construct(InputSystem input, PlayerConfigs playerConfigs, AsyncWorker worker)
     {
         _input = input ?? throw new ArgumentNullException($"{nameof(input)} is null");
         _input.Enable();
         _playerConfigs = playerConfigs;
+        _asyncWorker = worker;
     }
     
     private void Jump(InputAction.CallbackContext obj)
@@ -89,7 +92,7 @@ public class InputSystemPC : MonoBehaviour, IMouse, IMove, IJump
         _input.Movement.Jump.performed += Jump;
         _input.Movement.Dash.performed += _ => _dashClick.OnNext(Unit.Default);
 
-        await _playerConfigs.AwaitLoadConfig();
+        await _asyncWorker.Await(_playerConfigs);
         
         _dashClick
             .ThrottleFirst(TimeSpan.FromSeconds(_playerConfigs.DashConfig.DelayAfterEachDash))
