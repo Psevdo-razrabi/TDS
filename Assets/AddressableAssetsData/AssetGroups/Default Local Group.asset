@@ -16,22 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: e53251534fc56144bb4f2a195db21c05
-  m_SerializeEntries:
-  - m_GUID: ec66aea65483a71488f8c3dba11b98d2
-    m_Address: Move
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cb9fa2ba8d3f74a4b886b1955c0d45f8
-    m_Address: MoveStateAim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3d835d45c9442634cb6d041a7f70908c
-    m_Address: Dash
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 94ab1d46eaa81f643983f05adece687f, type: 2}
   m_SchemaSet:

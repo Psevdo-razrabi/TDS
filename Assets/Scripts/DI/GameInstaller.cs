@@ -1,10 +1,11 @@
-﻿using Game.AsyncWorker;
+﻿using Customs;
+using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
-using Game.Player.States;
 using Game.Player.States.StateHandle;
-using Input.Interface;
+using Game.Player.Weapons;
+using Game.Player.Weapons.Mediators;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -19,7 +20,8 @@ namespace DI
         [SerializeField] private Player player;
         
         public override void InstallBindings()
-        { 
+        {
+            BindMethodInfo();
             BindInput();
             BindAnimator();
             BindPlayerAim();
@@ -30,6 +32,22 @@ namespace DI
             BindHandlesState();
             BindStateMachineData();
             BindAsyncWorker();
+            BindWeaponComponents();
+            BindMediator();
+        }
+
+        private void BindMediator()
+        {
+            BindNewInstance<MediatorFireStrategy>();
+        }
+
+        private void BindWeaponComponents()
+        {
+            BindNewInstance<WeaponComponent>();
+        }
+
+        private void BindMethodInfo()
+        {
         }
 
         private void BindInput()

@@ -47,7 +47,7 @@ namespace Game.Player
                 .Subscribe(_ => text.text = $"Dash Count : {Text1.Value}")
                 .AddTo(_disposable);
 
-            await PlayerConfigs.AwaitLoadConfig();
+            await AsyncWorker.Await(PlayerConfigs);
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
         }
 
