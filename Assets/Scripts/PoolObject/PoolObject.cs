@@ -23,6 +23,7 @@ public class PoolObject<TComponent> where TComponent : Object
 
     public void AddElementsInPool(string keyObjectInPool, GameObject objectInPool, float countElementsWillBeInPool = 1f)
     {
+        Debug.Log(1);
         if (_poolObject.ContainsKey(keyObjectInPool))
         {
             AddElement(countElementsWillBeInPool, keyObjectInPool, objectInPool);

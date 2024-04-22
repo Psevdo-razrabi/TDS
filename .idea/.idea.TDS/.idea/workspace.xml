@@ -6,10 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/BeamBullet.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BeamBullet.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponStats.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PoolObject/PoolObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PoolObject/PoolObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +17,16 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/CameraShake.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/Configs/BulletConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/Configs/CameraShakeConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/Configs/GunConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/ShootConfigs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/ShootController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/TestGun.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/Shooting/WeaponInstaller.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -94,7 +103,13 @@
       <option name="presentableId" value="Default" />
       <updated>1713344672444</updated>
       <workItem from="1713344673505" duration="1782000" />
-      <workItem from="1713461005652" duration="4467000" />
+      <workItem from="1713461005652" duration="8092000" />
+      <workItem from="1713624951373" duration="597000" />
+      <workItem from="1713645859985" duration="879000" />
+      <workItem from="1713680561625" duration="1217000" />
+      <workItem from="1713725479968" duration="6682000" />
+      <workItem from="1713734024202" duration="73000" />
+      <workItem from="1713771513035" duration="19490000" />
     </task>
     <servers />
   </component>
