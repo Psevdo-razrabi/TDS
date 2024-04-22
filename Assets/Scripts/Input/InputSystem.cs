@@ -118,6 +118,74 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Weapon"",
+            ""id"": ""c9768721-b1d5-4862-b4d9-b6e1a077aeeb"",
+            ""actions"": [
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""94ba69bd-f429-436a-b27b-47ca3e815f05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""8efa953b-84bc-4e85-b1f3-5b9d97f9818a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeFireMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""48aa6124-89fa-4f42-afcb-d168323a915b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""161f97f1-9bda-4882-88bb-512088b811a6"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a6321b31-0c4e-4ab3-9d16-a452586e91c0"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""93d7b34f-3a39-40b8-b109-879e6cd3a1fb"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeFireMode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -130,6 +198,11 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
         m_Movement_Dash = m_Movement.FindAction("Dash", throwIfNotFound: true);
+        // Weapon
+        m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
+        m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
+        m_Weapon_Fire = m_Weapon.FindAction("Fire", throwIfNotFound: true);
+        m_Weapon_ChangeFireMode = m_Weapon.FindAction("ChangeFireMode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -295,6 +368,68 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         }
     }
     public MovementActions @Movement => new MovementActions(this);
+
+    // Weapon
+    private readonly InputActionMap m_Weapon;
+    private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
+    private readonly InputAction m_Weapon_Reload;
+    private readonly InputAction m_Weapon_Fire;
+    private readonly InputAction m_Weapon_ChangeFireMode;
+    public struct WeaponActions
+    {
+        private @InputSystem m_Wrapper;
+        public WeaponActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Reload => m_Wrapper.m_Weapon_Reload;
+        public InputAction @Fire => m_Wrapper.m_Weapon_Fire;
+        public InputAction @ChangeFireMode => m_Wrapper.m_Weapon_ChangeFireMode;
+        public InputActionMap Get() { return m_Wrapper.m_Weapon; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(WeaponActions set) { return set.Get(); }
+        public void AddCallbacks(IWeaponActions instance)
+        {
+            if (instance == null || m_Wrapper.m_WeaponActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_WeaponActionsCallbackInterfaces.Add(instance);
+            @Reload.started += instance.OnReload;
+            @Reload.performed += instance.OnReload;
+            @Reload.canceled += instance.OnReload;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+            @ChangeFireMode.started += instance.OnChangeFireMode;
+            @ChangeFireMode.performed += instance.OnChangeFireMode;
+            @ChangeFireMode.canceled += instance.OnChangeFireMode;
+        }
+
+        private void UnregisterCallbacks(IWeaponActions instance)
+        {
+            @Reload.started -= instance.OnReload;
+            @Reload.performed -= instance.OnReload;
+            @Reload.canceled -= instance.OnReload;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+            @ChangeFireMode.started -= instance.OnChangeFireMode;
+            @ChangeFireMode.performed -= instance.OnChangeFireMode;
+            @ChangeFireMode.canceled -= instance.OnChangeFireMode;
+        }
+
+        public void RemoveCallbacks(IWeaponActions instance)
+        {
+            if (m_Wrapper.m_WeaponActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IWeaponActions instance)
+        {
+            foreach (var item in m_Wrapper.m_WeaponActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_WeaponActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public WeaponActions @Weapon => new WeaponActions(this);
     public interface IMouseActions
     {
         void OnMousePosition(InputAction.CallbackContext context);
@@ -304,5 +439,11 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     {
         void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+    }
+    public interface IWeaponActions
+    {
+        void OnReload(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
+        void OnChangeFireMode(InputAction.CallbackContext context);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Game.Player.Interfaces;
+using Game.Player.PlayerStateMashine;
 using Zenject;
 
 namespace Game.AsyncWorker
@@ -13,12 +14,13 @@ namespace Game.AsyncWorker
         private IStateDataWorker _dataWorkerStateMachine;
         private Queue<Action> _queueTask = new();
         private int _maxQueueSize;
+        private bool _isTaskComplite;
 
         [Inject]
         public async void Construct(IStateDataWorker dataWorker)
         {
             _dataWorkerStateMachine = dataWorker;
-            await _dataWorkerStateMachine.PlayerConfigs.AwaitLoadConfig();
+            await Await(_dataWorkerStateMachine.PlayerConfigs);
 
             _maxQueueSize = _dataWorkerStateMachine.PlayerConfigs.DashConfig.NumberChargesDash;
 
@@ -40,6 +42,8 @@ namespace Game.AsyncWorker
 
             if (_queueTask.Count > 0)
                 _queueTask.Dequeue()?.Invoke();
+            
+            _isTaskComplite = true;
         }
 
         private void DashOperationCount(int sign)
@@ -50,12 +54,26 @@ namespace Game.AsyncWorker
                 Mathf.Clamp(_dataWorkerStateMachine.StateMachineData.DashCount, 0, _dataWorkerStateMachine.PlayerConfigs.DashConfig.NumberChargesDash);
             Debug.Log(_dataWorkerStateMachine.StateMachineData.DashCount);
         }
+        
+        public async UniTask Await(PlayerConfigs configs)
+        {
+            while (!configs.IsLoadDashConfig)
+                await UniTask.Yield();
+        }
+
+        public async UniTask Await()
+        {
+            while (!_isTaskComplite)
+                await UniTask.Yield();
+        }
 
         public async UniTask Dash(int sign)
         {
             DashOperationCount(sign);
-            await UniTask.SwitchToThreadPool();
+            _isTaskComplite = false;
+            await UniTask.SwitchToThreadPool(); 
             await DequeueToQueue();
+            await Await();
             await UniTask.SwitchToMainThread();
             EnqueueToQueue(() => DashOperationCount(1));
         }

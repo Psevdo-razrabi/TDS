@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using Game.Player.PlayerStateMashine.Configs;
+﻿using Game.Player.PlayerStateMashine.Configs;
 using UnityEngine;
 using Zenject;
 
@@ -20,13 +19,7 @@ namespace Game.Player.PlayerStateMashine
         private const string NameBaseMoveConfig = "Move";
         private const string NameMoveWithAimConfig = "MoveStateAim";
         private const string NameDashConfig = "Dash";
-            
-        public async UniTask AwaitLoadConfig()
-        {
-            while (!IsLoadDashConfig)
-                await UniTask.Yield();
-        }
-        
+
         [Inject]
         private async void Construct(Loader loader)
         {
