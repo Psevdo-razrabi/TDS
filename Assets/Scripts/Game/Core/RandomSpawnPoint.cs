@@ -2,7 +2,7 @@
 
 namespace Game.Core
 {
-    public class RandomSpawnPoint : MonoBehaviour
+    /*public class RandomSpawnPoint : MonoBehaviour
     {
         public Vector3 GetRandomPoint(Transform min, Transform max)
         {
@@ -21,5 +21,5 @@ namespace Game.Core
             return point;
         }
         
-    }
+    }*/
 }
