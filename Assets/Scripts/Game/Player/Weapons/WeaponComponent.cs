@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Player.Weapons.InterfaseWeapon;
+using UnityEngine;
 
 namespace Game.Player.Weapons
 {
@@ -25,6 +26,7 @@ namespace Game.Player.Weapons
         public void ChangeFireMode(IFireStrategy fireMediator)
         {
             _fireStrategy = fireMediator ?? throw new ArgumentNullException($"{(IFireStrategy)null} is null");
+            Debug.LogWarning($"сменил стрельбу на {_fireStrategy.GetType()}");
         }
     }
 }
