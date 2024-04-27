@@ -1361,6 +1361,7 @@ GameObject:
   - component: {fileID: 1017338631}
   - component: {fileID: 1017338633}
   - component: {fileID: 1017338634}
+  - component: {fileID: 1017338635}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1397,6 +1398,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 1017338635}
   - {fileID: 1017338634}
   _installerPrefabs: []
   _autoRun: 1
@@ -1431,6 +1433,19 @@ MonoBehaviour:
   animatorController: {fileID: 281113073}
   playerAim: {fileID: 5341207945338412043}
   player: {fileID: 5341207945338412048}
+  fireMode: {fileID: 1193399310}
+--- !u!114 &1017338635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80fe4f7c7bef4ab7968e5321331763f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1031792355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1545,7 +1560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1193399309}
-  - component: {fileID: 1193399312}
+  - component: {fileID: 1193399310}
   m_Layer: 0
   m_Name: ChangeFireMode
   m_TagString: Untagged
@@ -1568,7 +1583,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 603346451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1193399312
+--- !u!114 &1193399310
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1580,6 +1595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc84454c2e984aa883e0d84c11df06b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireMode: AddSingleFire
 --- !u!1 &1247024015
 GameObject:
   m_ObjectHideFlags: 0

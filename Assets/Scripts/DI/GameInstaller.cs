@@ -6,8 +6,8 @@ using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Mediators;
+using Input;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace DI
@@ -17,11 +17,11 @@ namespace DI
         [SerializeField] private InputSystemPC inputSystemPC;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
-        [SerializeField] private Player player;
+        [SerializeField] private Player player; 
+        [SerializeField] private ChangeModeFire fireMode;
         
         public override void InstallBindings()
         {
-            BindMethodInfo();
             BindInput();
             BindAnimator();
             BindPlayerAim();
@@ -34,21 +34,15 @@ namespace DI
             BindAsyncWorker();
             BindWeaponComponents();
             BindMediator();
+            BindChangeFire();
+            BindMethodInfo();
         }
 
-        private void BindMediator()
-        {
-            BindNewInstance<MediatorFireStrategy>();
-        }
+        private void BindChangeFire() => BindInstance(fireMode);
 
-        private void BindWeaponComponents()
-        {
-            BindNewInstance<WeaponComponent>();
-        }
+        private void BindMediator() => BindNewInstance<MediatorFireStrategy>();
 
-        private void BindMethodInfo()
-        {
-        }
+        private void BindWeaponComponents() => BindNewInstance<WeaponComponent>();
 
         private void BindInput()
         {
@@ -80,6 +74,8 @@ namespace DI
             
             BindNewInstance<StateHandleChain>();
         }
+
+        private void BindMethodInfo() => BindNewInstance<MethodList>();
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();
 
