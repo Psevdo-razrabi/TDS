@@ -21,7 +21,7 @@ namespace Game.Player.States
             base.AddActionsCallbacks();
 
             Player.InputSystem.Move
-                .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y))
+                .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y).normalized)
                 .AddTo(Disposable);
             
             Player.InputSystem.OnSubscribeDash(() =>
@@ -55,7 +55,7 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            var speed = Movement.magnitude * Data.CurrentSpeed * Time.deltaTime;
+            var speed = Data.CurrentSpeed * Time.deltaTime;
 
             Player.CharacterController.Move(speed * Movement);
             
