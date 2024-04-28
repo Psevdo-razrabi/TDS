@@ -1,5 +1,7 @@
 ﻿using System;
 using Game.Player.Weapons.InterfaseWeapon;
+using Game.Player.Weapons.WeaponConfigs;
+using UnityEngine;
 
 namespace Game.Player.Weapons
 {
@@ -19,9 +21,9 @@ namespace Game.Player.Weapons
 
         public void FireBullet()
         {
-            //логика стрельбы конкретно спавн пули и дальнейшие действия
+            
         }
-
+        
         public void ChangeFireMode(IFireStrategy fireMediator)
         {
             _fireStrategy = fireMediator ?? throw new ArgumentNullException($"{(IFireStrategy)null} is null");

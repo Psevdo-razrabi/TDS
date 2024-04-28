@@ -1,27 +1,37 @@
+using System;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Bullet))]
 public class Bullet : MonoBehaviour
 {
-   private const float LifeTime = 2f;
-   
-   private Rigidbody _rigidbody;
+    [SerializeField] private Collider _collider;
+    private CompositeDisposable _disposable = new();
+    private float _damage;
+    
+    public void Init(float damage)
+    {
+        _damage = damage;
+        
+        _collider.OnCollisionEnterAsObservable()
+            .Subscribe(_ =>
+            {
+                Debug.Log("ЗАШЕЛ");
+                ApplyDamage();
+            })
+            .AddTo(_disposable);
+    }
+    
+    private void ApplyDamage()
+    {
+        Debug.Log($"Логика нанесения урона {_damage} ");
+        gameObject.SetActive(false);
+    }
 
-   private float _damage;
-   private float _speed;
-   private Transform _bulletPoint;
-
-   public void Init(BulletConfig bulletConfig, GunConfig gunConfig)
-   {
-      _damage = gunConfig.Damage;
-      _speed = bulletConfig.BulletSpeed;
-      _bulletPoint = gunConfig.BulletPoint;
-      BulletLaunch();
-   }
-
-   private void BulletLaunch()
-   {
-      Vector3 velocity = _bulletPoint.forward * _speed;
-      _rigidbody.velocity = velocity;
-   }
+    private void OnDisable()
+    {
+        _disposable.Clear();
+    }
 }
+

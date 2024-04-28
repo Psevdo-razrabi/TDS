@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ff70b185d70ed4785946d0ef0992a2, type: 3}
   m_Name: CameraShakeConfig
   m_EditorClassIdentifier: 
-  <ShakeDuration>k__BackingField: 3
-  <ShakeStrength>k__BackingField: 3
+  <ShakeDuration>k__BackingField: 0.1
+  <ShakeStrength>k__BackingField: 0.1

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58ff70b185d70ed4785946d0ef0992a2, type: 3}
-  m_Name: CameraShakeConfig
+  m_Script: {fileID: 11500000, guid: 1a0c90099ab427846bb2676ddf7b0eb7, type: 3}
+  m_Name: Bullet
   m_EditorClassIdentifier: 
-  <ShakeDuration>k__BackingField: 3
-  <ShakeStrength>k__BackingField: 3
+  <BulletPrefab>k__BackingField: {fileID: 1244451956820855493, guid: 6d9239bf5d560464da83002e18c01b48,
+    type: 3}
+  <BulletSpeed>k__BackingField: 30

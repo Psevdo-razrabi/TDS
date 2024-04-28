@@ -11,24 +11,16 @@ namespace Game.Player
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
+        [SerializeField] private Crosshair _crosshair;
 
         private Vector3 _lookPosition;
         private IMouse _mousePosition;
         private Vector3 _mouse;
         private readonly CompositeDisposable _compositeDisposable = new();
-
-        [Inject]
-        private void Construct(IMouse mouse)
-        {
-            _mousePosition = mouse;
-            _mousePosition.PositionMouse
-                .Subscribe(vector => _mouse = vector)
-                .AddTo(_compositeDisposable);
-        }
-
+        
         public (bool, Vector3) GetMousePosition()
         {
-            Ray ray = _camera.ScreenPointToRay(_mouse);
+            Ray ray = _camera.ScreenPointToRay(_crosshair.CrossHair.position);
             return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
         }
 
