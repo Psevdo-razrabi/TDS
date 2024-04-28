@@ -1433,7 +1433,7 @@ MonoBehaviour:
   animatorController: {fileID: 281113073}
   playerAim: {fileID: 5341207945338412043}
   player: {fileID: 5341207945338412048}
-  fireMode: {fileID: 0}
+  fireMode: {fileID: 1193399310}
 --- !u!114 &1017338635
 MonoBehaviour:
   m_ObjectHideFlags: 0

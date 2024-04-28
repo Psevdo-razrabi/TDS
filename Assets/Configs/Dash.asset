@@ -17,6 +17,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   <DashDelay>k__BackingField: 5
-  <DelayAfterEachDash>k__BackingField: 0.6
+  <DelayAfterEachDash>k__BackingField: 0.5
   <NumberChargesDash>k__BackingField: 3
   <DashDuration>k__BackingField: 0.2
