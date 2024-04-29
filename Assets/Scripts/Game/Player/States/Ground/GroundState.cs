@@ -20,13 +20,13 @@ namespace Game.Player.States
             base.AddActionsCallbacks();
             Player.InputSystem.OnSubscribeMouseClickUp(() =>
             {
-                OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameters);
+                OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });
             
             Player.InputSystem.OnSubscribeMouseClickDown(() =>
             {
-                OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameters);
+                OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });
         }

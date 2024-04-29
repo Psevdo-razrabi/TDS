@@ -26,7 +26,7 @@ namespace Game.Player.States.Dash
         {
             base.OnExit();
             Debug.Log("вышел из состояние Dash");
-            OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameters);
+            OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
         }
 
         protected async override void Move()
@@ -58,7 +58,6 @@ namespace Game.Player.States.Dash
             
             var elapsedTime = 0f;
             
-            
             while (elapsedTime < _dashConfig.DashDuration)
             {
                 var currentPosition = Vector3.Lerp(startPosition, endPosition, elapsedTime / _dashConfig.DashDuration);
@@ -69,7 +68,7 @@ namespace Game.Player.States.Dash
                 await UniTask.Yield();
             }
             
-            OnAnimatorStateSet(ref Data.IsDashing, false, Player.AnimatorController.NameDashParameters);
+            OnAnimatorStateSet(ref Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
 
             SwitchState();
             AwaitDash();
