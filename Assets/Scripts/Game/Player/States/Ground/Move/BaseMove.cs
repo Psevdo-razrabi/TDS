@@ -52,7 +52,6 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            Debug.Log(Data.CurrentSpeed);
             var speed = Data.CurrentSpeed * Time.deltaTime;
 
             Player.CharacterController.Move(speed * Movement);
