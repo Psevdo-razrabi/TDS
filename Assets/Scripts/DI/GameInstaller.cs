@@ -73,6 +73,7 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
+            
         }
 
         private void BindMethodInfo() => BindNewInstance<MethodList>();

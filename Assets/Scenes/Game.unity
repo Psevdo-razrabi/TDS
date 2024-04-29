@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -471,12 +471,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PlayerAnimator>k__BackingField: {fileID: 2248743502781993351}
-  <NameHorizontalParameters>k__BackingField: Horizontal
-  <NameVerticalParameters>k__BackingField: Vertical
-  <NameMoveParameters>k__BackingField: IsMove
-  <NameJumpParameters>k__BackingField: IsMove
-  <NameDashParameters>k__BackingField: Dash
-  <NameAimParameters>k__BackingField: IsAim
+  <NameHorizontalParameter>k__BackingField: Horizontal
+  <NameVerticalParameter>k__BackingField: Vertical
+  <NameMoveParameter>k__BackingField: IsMove
+  <NameJumpParameter>k__BackingField: 
+  <NameDashParameter>k__BackingField: Dash
+  <NameAimParameter>k__BackingField: IsAim
+  <NameMouseXParameter>k__BackingField: MouseX
+  <NameMouseYParameter>k__BackingField: MouseY
 --- !u!1 &325093230
 GameObject:
   m_ObjectHideFlags: 0
@@ -2381,7 +2383,6 @@ GameObject:
   - component: {fileID: 2248743502781993350}
   - component: {fileID: 2248743502781993349}
   - component: {fileID: 2248743502781993348}
-  - component: {fileID: 2248743502781993347}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2543,7 +2544,7 @@ Transform:
   m_GameObject: {fileID: 1476886977998064440}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.07, z: 3.5500002}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2551,29 +2552,6 @@ Transform:
   - {fileID: 5558824052843599408}
   m_Father: {fileID: 1741787262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2248743502781993347
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476886977998064440}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.96, z: 0}
 --- !u!114 &2248743502781993348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4139,22 +4117,6 @@ Transform:
   - {fileID: 1644456141353774126}
   m_Father: {fileID: 2777498420408948133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8103846130594397495
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8880383448451180429}
-  m_Layer: 0
-  m_Name: Player@Idle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &8137667460930118904
 Transform:
   m_ObjectHideFlags: 0
@@ -4314,21 +4276,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7836070706629815594}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &8880383448451180429
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8103846130594397495}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8977743194122112671
 GameObject:
   m_ObjectHideFlags: 0
@@ -4390,4 +4337,3 @@ SceneRoots:
   - {fileID: 253363766}
   - {fileID: 603346451}
   - {fileID: 179422137}
-  - {fileID: 8880383448451180429}

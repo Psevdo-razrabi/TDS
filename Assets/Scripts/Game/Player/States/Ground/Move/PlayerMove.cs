@@ -13,14 +13,14 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            OnAnimatorStateSet(ref Data.IsMove, true, Player.AnimatorController.NameMoveParameters);
+            OnAnimatorStateSet(ref Data.IsMove, true, Player.AnimatorController.NameMoveParameter);
             Debug.Log("Вход в move state");
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            OnAnimatorStateSet(ref Data.IsMove, false, Player.AnimatorController.NameMoveParameters);
+            OnAnimatorStateSet(ref Data.IsMove, false, Player.AnimatorController.NameMoveParameter);
             Debug.Log("Выход из move state");
         }
 

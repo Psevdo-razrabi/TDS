@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using Cysharp.Threading.Tasks;
-using Game.Player.AnimatorScripts;
+﻿using Game.Player.AnimatorScripts;
 using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
