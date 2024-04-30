@@ -1,8 +1,7 @@
 ﻿namespace Game.Player.Weapons.InterfaseWeapon
 {
-    public interface IWeapon
+    public interface IFire
     {
-        void Reload();
         void Fire();
     }
 }

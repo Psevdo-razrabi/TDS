@@ -4,7 +4,7 @@ namespace Game.Player.Weapons.StrategyFire
 {
     public class AutomaticFire : IFireStrategy
     {
-        public void Fire(WeaponComponent component)
+        public void Fire(FireComponent component)
         {
             component.FireBullet();
         }

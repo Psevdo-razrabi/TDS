@@ -39,8 +39,8 @@ namespace Game.Player.States
             Data.XInput = UnityEngine.Input.GetAxis("Horizontal");
             Data.YInput = UnityEngine.Input.GetAxis("Vertical");
             
-            //Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameHorizontalParameter, Data.XInput);
-            //Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameVerticalParameter, Data.YInput);
+            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameHorizontalParameter, Data.XInput);
+            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameVerticalParameter, Data.YInput);
         }
 
         private void UpdateAnimatorMouseInput()

@@ -8,17 +8,20 @@ using Game.Player.Weapons;
 using Game.Player.Weapons.Mediators;
 using Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace DI
 {
     public class GameInstaller : MonoInstaller
     {
-        [SerializeField] private InputSystemPC inputSystemPC;
+        [FormerlySerializedAs("inputSystemPC")] [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
         [SerializeField] private Player player; 
         [SerializeField] private ChangeModeFire fireMode;
+        [SerializeField] private InputSystemMouse inputSystemMouse;
+        [SerializeField] private InputSystemWeapon inputSystemWeapon;
         
         public override void InstallBindings()
         {
@@ -47,7 +50,9 @@ namespace DI
         private void BindInput()
         {
             BindNewInstance<InputSystem>();
-            BindInstance(inputSystemPC);
+            BindInstance(inputSystemMovement);
+            BindInstance(inputSystemMouse);
+            BindInstance(inputSystemWeapon);
         }
 
         private void BindAnimator() => BindInstance(animatorController);

@@ -4,29 +4,35 @@ using UnityEngine;
 
 namespace Game.Player.Weapons
 {
-    public class WeaponComponent : IWeapon, IFireMediator
+    public abstract class WeaponComponent : IFireMediator, IFire
     {
-        private IFireStrategy _fireStrategy;
-        
+        protected IFireStrategy FireStrategy;
+        protected IReloadStrategy ReloadStrategy;
+        protected ReloadComponent ReloadComponent;
+
+        public abstract void ReloadWeapon();
+        public abstract void FireBullet();
+
         public void Reload()
         {
-            throw new System.NotImplementedException();
+            ReloadStrategy.Reload(ReloadComponent);
         }
 
         public void Fire()
         {
-            _fireStrategy.Fire(this);
-        }
-
-        public void FireBullet()
-        {
-            //логика стрельбы конкретно спавн пули и дальнейшие действия
+            FireStrategy.Fire(this);
         }
 
         public void ChangeFireMode(IFireStrategy fireMediator)
         {
-            _fireStrategy = fireMediator ?? throw new ArgumentNullException($"{(IFireStrategy)null} is null");
-            Debug.LogWarning($"сменил стрельбу на {_fireStrategy.GetType()}");
+            FireStrategy = fireMediator ?? throw new ArgumentNullException($"{(IFireStrategy)null} is null");
+            Debug.LogWarning($"сменил стрельбу на {FireStrategy.GetType()}");
+        }
+
+        public void ChangeReloadStrategy(IReloadStrategy reloadStrategy)
+        {
+            ReloadStrategy = reloadStrategy ?? throw new ArgumentNullException($"{(IReloadStrategy)null} is null");
+            Debug.LogWarning($"сменил реализацию перезарядки на {ReloadComponent.GetType()}");
         }
     }
 }

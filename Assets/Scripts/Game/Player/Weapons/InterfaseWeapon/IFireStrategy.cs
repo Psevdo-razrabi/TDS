@@ -2,6 +2,6 @@
 {
     public interface IFireStrategy
     {
-        void Fire(WeaponComponent component);
+        void Fire(FireComponent component);
     }
 }
