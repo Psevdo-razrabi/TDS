@@ -18,8 +18,6 @@ public class Crosshair : MonoBehaviour
     {
         Vector2 inputMouse = new Vector2(UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y"));
         Vector2 limitedInput = _crosshair.anchoredPosition + inputMouse * _speed;
-        
-            //_crosshair.anchoredPosition = Vector2.Lerp(_crosshair.anchoredPosition, _recoilPosition, Time.deltaTime / 2);
         UpdateCrosshairPosition(limitedInput);
     }
 

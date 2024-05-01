@@ -21,7 +21,7 @@ namespace Game.Player.Weapons
 
         public void FireBullet()
         {
-            
+                
         }
         
         public void ChangeFireMode(IFireStrategy fireMediator)

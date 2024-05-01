@@ -3,12 +3,21 @@ using UnityEngine;
 
 public class TestGun : MonoBehaviour
 {
+    private float _time;
+    private float _between = 0.05f;
     public event Action ShotFired;
     private void Update()
     {
-        if (UnityEngine.Input.GetButtonDown("Fire1"))
+        if (UnityEngine.Input.GetButton("Fire1"))
         {
-            ShotFired?.Invoke();
+            if (_time > _between)
+            {
+                ShotFired?.Invoke();
+                _time = 0;
+            }
+
+            _time += Time.deltaTime;
+
         }
     }
 }

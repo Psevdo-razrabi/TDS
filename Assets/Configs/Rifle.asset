@@ -19,4 +19,5 @@ MonoBehaviour:
   <TimeBetweenShoots>k__BackingField: 0
   <MaxSpread>k__BackingField: 5
   <MaxSpreadBullet>k__BackingField: 25
+  <TimeToSpreadReduce>k__BackingField: 0.3
   <RecoilForce>k__BackingField: 30
