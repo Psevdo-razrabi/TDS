@@ -4,7 +4,7 @@ using UnityEngine;
 public class TestGun : MonoBehaviour
 {
     private float _time;
-    private float _between = 0.05f;
+    [SerializeField] float _between = 0.05f;
     public event Action ShotFired;
     private void Update()
     {
