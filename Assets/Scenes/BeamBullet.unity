@@ -790,6 +790,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 287232263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &702699470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702699471}
+  m_Layer: 7
+  m_Name: BulletPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702699471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702699470}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.098, z: 0.642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1118782729}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &724507190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,16 +1432,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crosshair: {fileID: 1265400051}
-  mainCamera: {fileID: 989629435}
-  canvas: {fileID: 1340289118}
-  player: {fileID: 1118782729}
-  crosshairParts:
+  _camera: {fileID: 989629435}
+  _player: {fileID: 1808418080}
+  _crosshairParts:
   - {fileID: 1303357973}
   - {fileID: 464167585}
   - {fileID: 435418830}
   - {fileID: 1218984542}
   _forceChanges: 500
-  maxExpandDistance: 1000
+  _maxExpandDistance: 1000
 --- !u!1 &1292167607
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,6 +2142,12 @@ Transform:
   - {fileID: 129204972}
   m_Father: {fileID: 1385322675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1808418080 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5070244698828661664, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+    type: 3}
+  m_PrefabInstance: {fileID: 2671748822317731923}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1832791153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2540,9 +2576,19 @@ PrefabInstance:
       propertyPath: <text>k__BackingField
       value: 
       objectReference: {fileID: 502635940}
+    - target: {fileID: 8320580855284033669, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.715
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4075732827585690553, guid: 2e4ff9cf87c34f245856d05e12dd5efc, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2058293140618352357, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 702699471}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e4ff9cf87c34f245856d05e12dd5efc, type: 3}
 --- !u!1660057539 &9223372036854775807

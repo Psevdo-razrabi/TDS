@@ -8,6 +8,7 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private RectTransform[] _crosshairParts;
     [SerializeField] private float _forceChanges;
     [SerializeField] private float _maxExpandDistance;
+    
     private Vector2[] _initialPositions;
     private float _expandMultiplier;
     private float _additionalExpansion;
@@ -47,7 +48,7 @@ public class ChangeCrosshair : MonoBehaviour
     {
         _additionalExpansion += additionalExpansion;
         _stepValue = _additionalExpansion / stepToReduce;
-    }
+    }                                                                 
 
     public void DecreaseFiredSize()
     {
