@@ -11,7 +11,7 @@ public class ChangeCrosshair : MonoBehaviour
     private Vector2[] _initialPositions;
     private float _expandMultiplier;
     private float _additionalExpansion;
-    private float _recoverySpeed;
+    private float _stepValue;
     
     void Start()
     {
@@ -30,8 +30,6 @@ public class ChangeCrosshair : MonoBehaviour
         Vector2 crosshairScreenPosition = _crosshair.CrossHair.position;
         float distance = Vector2.Distance(playerScreenPosition, crosshairScreenPosition);
         _expandMultiplier = Mathf.Clamp(distance / _maxExpandDistance, 0, 1);
-        _additionalExpansion = Mathf.Max(0, _additionalExpansion - _recoverySpeed * 2);
-        Debug.Log(_additionalExpansion);
         ChangeSize();
     }
 
@@ -40,15 +38,19 @@ public class ChangeCrosshair : MonoBehaviour
         for (int i = 0; i < _crosshairParts.Length; i++)
         {
             Vector2 direction = _initialPositions[i].normalized;
-            float totalExpansion =_expandMultiplier * _forceChanges + _additionalExpansion;
+            float totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
             _crosshairParts[i].anchoredPosition = _initialPositions[i] + direction * totalExpansion;
         }
     }
 
-    public void IncreaseFiredSize(float additionalExpansion,float recoverySpeed)
+    public void IncreaseFiredSize(float additionalExpansion,float stepToReduce)
     {
         _additionalExpansion += additionalExpansion;
-        _recoverySpeed = recoverySpeed;
-        //Debug.Log("Дополнительный курсор "+_recoverySpeed);
+        _stepValue = _additionalExpansion / stepToReduce;
+    }
+
+    public void DecreaseFiredSize()
+    {
+        _additionalExpansion = Mathf.Max(0, _additionalExpansion - _stepValue);
     }
 }

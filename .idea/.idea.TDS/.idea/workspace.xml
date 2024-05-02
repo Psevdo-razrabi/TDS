@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/Rifle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Rifle.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BeamBullet.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/BeamBullet.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChangeCrosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ChangeCrosshair.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Shooting/ShootController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Shooting/ShootController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/PackageManagerSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,7 +134,7 @@
       <workItem from="1714334481589" duration="3175000" />
       <workItem from="1714397782679" duration="9554000" />
       <workItem from="1714645107290" duration="1126000" />
-      <workItem from="1714652054508" duration="2719000" />
+      <workItem from="1714652054508" duration="4892000" />
     </task>
     <servers />
   </component>
