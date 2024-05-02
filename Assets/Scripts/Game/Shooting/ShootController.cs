@@ -112,12 +112,11 @@ public class ShootController : MonoBehaviour, IDisposable
         Vector2 recoil = new Vector2(forward.x + sideRecoil.x, forward.z + sideRecoil.z) * _gunConfig.RecoilForce;
 
         _crosshair.RecoilPlus(recoil);
-        _changeCrosshair.AdditionalCoeficent = 50f;
+        _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, _gunConfig.TimeToSpreadReduce);
     }
 
     private void SpreadReduce()
     {
-        Debug.Log("Уменяшаем разброс " + _currentSpread);
         _currentSpread -= _stepSpread;
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
         Debug.Log("Теперь разборос = " + _currentSpread);

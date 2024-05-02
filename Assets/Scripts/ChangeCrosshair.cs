@@ -3,49 +3,52 @@ using UnityEngine;
 public class ChangeCrosshair : MonoBehaviour
 {
     [SerializeField] private Crosshair _crosshair;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private Transform player;
-    [SerializeField] private RectTransform[] crosshairParts;
+    [SerializeField] private Camera _camera;
+    [SerializeField] private Transform _player;
+    [SerializeField] private RectTransform[] _crosshairParts;
     [SerializeField] private float _forceChanges;
-    [SerializeField] private float maxExpandDistance = 100.0f;
-    private Vector2[] initialPositions;
-    private float expandMultiplier;
-    private float _additionalCoeficent;
-
-    public float AdditionalCoeficent
-    {
-        get { return _additionalCoeficent; }
-        set { _additionalCoeficent = value; }
-    }
+    [SerializeField] private float _maxExpandDistance;
+    private Vector2[] _initialPositions;
+    private float _expandMultiplier;
+    private float _additionalExpansion;
+    private float _recoverySpeed;
+    
     void Start()
     {
-        initialPositions = new Vector2[crosshairParts.Length];
-        for (int i = 0; i < crosshairParts.Length; i++)
+        _initialPositions = new Vector2[_crosshairParts.Length];
+        for (int i = 0; i < _crosshairParts.Length; i++)
         {
-            initialPositions[i] = crosshairParts[i].anchoredPosition;
+            _initialPositions[i] = _crosshairParts[i].anchoredPosition;
         }
+
+        _additionalExpansion = 0f;
     }
 
     void Update()
     {
-        Vector2 playerScreenPosition = RectTransformUtility.WorldToScreenPoint(mainCamera, player.position);
+        Vector2 playerScreenPosition = RectTransformUtility.WorldToScreenPoint(_camera, _player.position);
         Vector2 crosshairScreenPosition = _crosshair.CrossHair.position;
         float distance = Vector2.Distance(playerScreenPosition, crosshairScreenPosition);
-        expandMultiplier = Mathf.Clamp(distance / maxExpandDistance, 0, 1);
-
+        _expandMultiplier = Mathf.Clamp(distance / _maxExpandDistance, 0, 1);
+        _additionalExpansion = Mathf.Max(0, _additionalExpansion - _recoverySpeed * 2);
+        Debug.Log(_additionalExpansion);
         ChangeSize();
     }
 
-    public void ChangeSize()
+    private void ChangeSize()
     {
-        for (int i = 0; i < crosshairParts.Length; i++)
+        for (int i = 0; i < _crosshairParts.Length; i++)
         {
-            Vector2 direction = initialPositions[i].normalized;
-            
-            crosshairParts[i].anchoredPosition = initialPositions[i] + direction * expandMultiplier * _forceChanges * _additionalCoeficent;
+            Vector2 direction = _initialPositions[i].normalized;
+            float totalExpansion =_expandMultiplier * _forceChanges + _additionalExpansion;
+            _crosshairParts[i].anchoredPosition = _initialPositions[i] + direction * totalExpansion;
         }
+    }
 
-        _additionalCoeficent = 1;
+    public void IncreaseFiredSize(float additionalExpansion,float recoverySpeed)
+    {
+        _additionalExpansion += additionalExpansion;
+        _recoverySpeed = recoverySpeed;
+        //Debug.Log("Дополнительный курсор "+_recoverySpeed);
     }
 }
