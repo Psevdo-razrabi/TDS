@@ -1,32 +1,11 @@
-﻿using System;
 using Game.Player.Weapons.InterfaseWeapon;
 using UnityEngine;
 
 namespace Game.Player.Weapons
 {
-    public class WeaponComponent : IWeapon, IFireMediator
+    public abstract class WeaponComponent : MonoBehaviour
     {
-        private IFireStrategy _fireStrategy;
-        
-        public void Reload()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Fire()
-        {
-            _fireStrategy.Fire(this);
-        }
-
-        public void FireBullet()
-        {
-            //логика стрельбы конкретно спавн пули и дальнейшие действия
-        }
-
-        public void ChangeFireMode(IFireStrategy fireMediator)
-        {
-            _fireStrategy = fireMediator ?? throw new ArgumentNullException($"{(IFireStrategy)null} is null");
-            Debug.LogWarning($"сменил стрельбу на {_fireStrategy.GetType()}");
-        }
+        public ReloadComponent reloadComponent { get; protected set; }
+        public FireComponent fireComponent { get; protected set; }
     }
 }

@@ -2,6 +2,7 @@
 using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
+using Input;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -18,7 +19,8 @@ namespace Game.Player
 
         private CompositeDisposable _disposable = new();
         
-        public InputSystemPC InputSystem { get; private set; }
+        public InputSystemMovement InputSystem { get; private set; }
+        public InputSystemMouse InputSystemMouse { get; private set; }
         public IPlayerAim PlayerAim { get; private set; }
         public AnimatorController AnimatorController { get; private set; }
         public CharacterController CharacterController { get; private set; }
@@ -30,10 +32,13 @@ namespace Game.Player
         private InitializationStateMachine _initializationStateMachine;
 
         [Inject]
-        private async void Construct(IPlayerAim playerAim, InputSystemPC inputSystemPC, AnimatorController animatorController, InitializationStateMachine stateMachine)
+        private async void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
+            InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
+            InitializationStateMachine stateMachine)
         {
             PlayerAim = playerAim;
-            InputSystem = inputSystemPC;
+            InputSystem = inputSystemMovement;
+            InputSystemMouse = inputSystemMouse;
             AnimatorController = animatorController;
 
             CharacterController = GetComponent<CharacterController>();

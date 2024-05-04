@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.StrategyFire;
 using Input.Interface;
-using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -15,39 +14,28 @@ namespace Input
     public class ChangeModeFire : MonoBehaviour, ISetFireModes
     {
         public string fireMode;
-        private InputSystem _inputSystem;
         private readonly Queue<MethodInfo> _queueStates = new();
-        private readonly Subject<Unit> _dashClick = new();
-        private readonly CompositeDisposable _compositeDisposable = new();
         private MethodInfo _modeFire;
         private MediatorFireStrategy _fireStrategy;
-        
-        private void OnEnable()
-        {
-            _inputSystem.Enable();
-            _inputSystem.Weapon.ChangeFireMode.performed +=_ => _dashClick.OnNext(Unit.Default);
-
-            _dashClick.ThrottleFirst(TimeSpan.FromSeconds(0.6f))
-                .Subscribe(async _ => await ChangeMode())
-                .AddTo(_compositeDisposable);   //условно задержка без переменной
-        }
+        private InputSystemWeapon _inputSystemWeapon;
+        private MouseInputObserver _mouseInputObserver;
         
         [ContextMenuAttribute("single fire")]
         private void AddSingleFire()
         {
-            _fireStrategy.ChangeFireMode(new SingleFire());
+            _fireStrategy.ChangeFireMode(new SingleFire(_inputSystemWeapon, _mouseInputObserver));
         }
         
         [ContextMenuAttribute("burst fire")]
         private void AddBurstFire()
         {
-            _fireStrategy.ChangeFireMode(new BurstFire());
+            _fireStrategy.ChangeFireMode(new BurstFire(_inputSystemWeapon, _mouseInputObserver));
         }
         
         [ContextMenuAttribute("automatic fire")]
         private void AddAutomaticFire()
         {
-            _fireStrategy.ChangeFireMode(new AutomaticFire());
+            _fireStrategy.ChangeFireMode(new AutomaticFire(_inputSystemWeapon, _mouseInputObserver));
         }
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
@@ -55,7 +43,7 @@ namespace Input
             methodFireStates.ForEach(x => _queueStates.Enqueue(x));
         }
 
-        private async UniTask ChangeMode()
+        public async UniTask ChangeMode()
         {
             if (_queueStates.Count == 0)
             {
@@ -72,18 +60,11 @@ namespace Input
         }
         
         [Inject]
-        private void Construct(InputSystem inputSystem, MediatorFireStrategy fireStrategy)
+        private void Construct(MediatorFireStrategy fireStrategy, InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver)
         {
-            _inputSystem = inputSystem;
             _fireStrategy = fireStrategy;
-        }
-        
-        private void OnDisable()
-        {
-            _inputSystem.Disable();
-            _inputSystem.Dispose();
-            _compositeDisposable.Clear();
-            _compositeDisposable.Dispose();
+            _inputSystemWeapon = inputSystemWeapon;
+            _mouseInputObserver = mouseInputObserver;
         }
     }
 }

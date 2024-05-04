@@ -31,11 +31,6 @@ namespace Game.Player
 
         public (bool, Vector3) GetMousePosition()
         {
-            //var directionToMouseX = (_mouse.x - transform.position.x) / Screen.width * 2 - 1;
-            //var directionToMouseY = (_mouse.y - transform.position.y) / Screen.height * 2 - 1;
-            
-            //Debug.Log(new Vector2(directionToMouseX, directionToMouseY));
-            
             var directionMouse = new Vector2((_mouse.x - transform.position.x) / Screen.width * 2 - 1, (_mouse.y - transform.position.y) / Screen.height * 2 - 1);
 
             _stateMachineData.MouseDirection =

@@ -5,7 +5,7 @@ using Zenject;
 
 namespace DI
 {
-    public class DataInstaller : MonoInstaller
+    public class DataInstaller : BaseBindings
     {
         public override void InstallBindings()
         {
@@ -28,17 +28,5 @@ namespace DI
             Container.Bind<Repository<MethodName>>().To<MethodNamesRepository>().AsSingle().NonLazy();
             Container.Bind<Repository<MethodLabelName>>().To<MethodLabelsRepository>().AsSingle().NonLazy();
         }
-        
-        private void BindNewInstance<T>() => Container
-            .BindInterfacesAndSelfTo<T>()
-            .AsSingle()
-            .NonLazy();
-
-        private void BindInstance<T>(T instance) =>
-            Container
-                .BindInterfacesAndSelfTo<T>()
-                .FromInstance(instance)
-                .AsSingle()
-                .NonLazy();
     }
 }
