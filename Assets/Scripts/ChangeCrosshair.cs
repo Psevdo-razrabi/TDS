@@ -40,7 +40,8 @@ public class ChangeCrosshair : MonoBehaviour
         {
             Vector2 direction = _initialPositions[i].normalized;
             float totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
-            _crosshairParts[i].anchoredPosition = _initialPositions[i] + direction * totalExpansion;
+            Vector2 targetPosition = _initialPositions[i] + direction * totalExpansion;
+            _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, 10 * Time.deltaTime);
         }
     }
 
