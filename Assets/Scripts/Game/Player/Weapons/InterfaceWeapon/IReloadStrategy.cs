@@ -2,6 +2,6 @@
 {
     public interface IReloadStrategy
     {
-        void Reload(ReloadComponent component);
+        void Reload();
     }
 }

@@ -1,24 +1,23 @@
 ﻿using System;
 using Game.Player.Weapons.InterfaseWeapon;
+using Game.Player.Weapons.ReloadStrategy;
 using UnityEngine;
 
 namespace Game.Player.Weapons
 {
-    public abstract class ReloadComponent 
+    public class ReloadComponent : IReload
     {
-        protected IReloadStrategy ReloadStrategy;
-
-        public abstract void ReloadWeapon();
-
+        private IReloadStrategy _reloadStrategy = new ReloadImage();
+        
         public void Reload()
         {
-            ReloadStrategy.Reload(this);
+            _reloadStrategy.Reload();
         }
 
         public void ChangeReloadStrategy(IReloadStrategy reloadStrategy)
         {
-            ReloadStrategy = reloadStrategy ?? throw new ArgumentNullException($"{(IReloadStrategy)null} is null");
-            Debug.LogWarning($"сменил реализацию перезарядки на {ReloadComponent.GetType()}");
+            _reloadStrategy = reloadStrategy ?? throw new ArgumentNullException($"{(IReloadStrategy)null} is null");
+            Debug.LogWarning($"сменил реализацию перезарядки на {_reloadStrategy.GetType()}");
         }
     }
 }

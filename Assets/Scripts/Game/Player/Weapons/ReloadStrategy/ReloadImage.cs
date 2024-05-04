@@ -1,12 +1,14 @@
 ﻿using Game.Player.Weapons.InterfaseWeapon;
+using UnityEngine;
 
 namespace Game.Player.Weapons.ReloadStrategy
 {
     public class ReloadImage : IReloadStrategy
     {
-        public void Reload(ReloadComponent component)
+        public void Reload()
         {
-            throw new System.NotImplementedException();
+            //реализация перезарядки с помощю картинки
+            Debug.LogWarning("Relooooooooooooooooooooad");
         }
     }
 }

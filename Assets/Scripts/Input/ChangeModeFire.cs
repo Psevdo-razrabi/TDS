@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.StrategyFire;
 using Input.Interface;
-using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -18,23 +17,25 @@ namespace Input
         private readonly Queue<MethodInfo> _queueStates = new();
         private MethodInfo _modeFire;
         private MediatorFireStrategy _fireStrategy;
+        private InputSystemWeapon _inputSystemWeapon;
+        private MouseInputObserver _mouseInputObserver;
         
         [ContextMenuAttribute("single fire")]
         private void AddSingleFire()
         {
-            _fireStrategy.ChangeFireMode(new SingleFire());
+            _fireStrategy.ChangeFireMode(new SingleFire(_inputSystemWeapon, _mouseInputObserver));
         }
         
         [ContextMenuAttribute("burst fire")]
         private void AddBurstFire()
         {
-            _fireStrategy.ChangeFireMode(new BurstFire());
+            _fireStrategy.ChangeFireMode(new BurstFire(_inputSystemWeapon, _mouseInputObserver));
         }
         
         [ContextMenuAttribute("automatic fire")]
         private void AddAutomaticFire()
         {
-            _fireStrategy.ChangeFireMode(new AutomaticFire());
+            _fireStrategy.ChangeFireMode(new AutomaticFire(_inputSystemWeapon, _mouseInputObserver));
         }
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
@@ -59,9 +60,11 @@ namespace Input
         }
         
         [Inject]
-        private void Construct(MediatorFireStrategy fireStrategy)
+        private void Construct(MediatorFireStrategy fireStrategy, InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver)
         {
             _fireStrategy = fireStrategy;
+            _inputSystemWeapon = inputSystemWeapon;
+            _mouseInputObserver = mouseInputObserver;
         }
     }
 }

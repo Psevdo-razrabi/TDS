@@ -8,4 +8,4 @@ namespace Game.Player.Weapons.WeaponConfigs
         [field: SerializeField] public int TotalAmmo { get; protected set; }
         [field: SerializeField] public float ReloadTime { get; protected set; }
     }
-}
+} 

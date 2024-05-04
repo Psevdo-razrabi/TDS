@@ -1,15 +1,14 @@
-﻿namespace Game.Player.Weapons.WeaponClass
-{
-    public class Pistol : WeaponComponent
-    {
-        public override void ReloadWeapon()
-        {
-            Reload();
-        }
+﻿using Zenject;
 
-        public override void FireBullet()
+namespace Game.Player.Weapons.WeaponClass
+{
+    public sealed class Pistol : WeaponComponent
+    {
+        [Inject]
+        public void Construct(ReloadComponent reloadComponent, FireComponent fireComponent)
         {
-            Fire();
+            this.reloadComponent = reloadComponent;
+            this.fireComponent = fireComponent;
         }
     }
 }

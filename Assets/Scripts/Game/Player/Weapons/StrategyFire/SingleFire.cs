@@ -1,10 +1,18 @@
-﻿using Game.Player.Weapons.InterfaseWeapon;
+﻿using System;
+using Game.Player.Weapons.InterfaceWeapon;
+using Input;
 
 namespace Game.Player.Weapons.StrategyFire
 {
-    public class SingleFire : IFireStrategy
+    public class SingleFire : FireStrategy
     {
-        public void Fire(FireComponent component)
+        public SingleFire(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver) : base(inputSystemWeapon, mouseInputObserver)
+        {
+            
+        }
+        
+
+        public override void Fire(FireComponent component)
         {
             component.FireBullet();
         }

@@ -2,6 +2,7 @@
 {
     public interface IWeapon
     {
-        
+        ReloadComponent reloadComponent { get; }
+        FireComponent fireComponent { get; }
     }
 }
