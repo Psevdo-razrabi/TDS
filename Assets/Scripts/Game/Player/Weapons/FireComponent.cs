@@ -10,12 +10,16 @@ namespace Game.Player.Weapons
     public class FireComponent : IFireMediator, IFire
     {
         private FireStrategy _fireStrategy;
-        private InputSystemWeapon _inputSystemWeapon;
+        public InputSystemWeapon InputSystemWeapon { get; private set; }
+        public MouseInputObserver MouseInputObserver { get; private set; }
+        public ActionsCleaner ActionsCleaner { get; private set; }
 
-        public FireComponent(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver)
+        public FireComponent(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner)
         {
-            _inputSystemWeapon = inputSystemWeapon;
-            _fireStrategy = new SingleFire(_inputSystemWeapon, mouseInputObserver);
+            MouseInputObserver = mouseInputObserver;
+            ActionsCleaner = actionsCleaner;
+            InputSystemWeapon = inputSystemWeapon;
+            _fireStrategy = new SingleFire(this);
         }
 
         public void FireBullet()

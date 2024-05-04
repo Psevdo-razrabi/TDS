@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1614,6 +1614,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pistol: {fileID: 130963335}
   fireMode: {fileID: 1193399310}
+  _rifle: {fileID: 11400000, guid: 1229fd484e115184faeef3710843f514, type: 2}
+  _cameraShake: {fileID: 11400000, guid: 74c0b01ccb5ff284482b61ec83f27f05, type: 2}
+  _bulletCFG: {fileID: 11400000, guid: bd4efcbc34f77e1468c63106abfb46ce, type: 2}
 --- !u!1 &1031792355
 GameObject:
   m_ObjectHideFlags: 0
@@ -3074,6 +3077,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _camera: {fileID: 330585545}
+  _crosshair: {fileID: 329907086}
 --- !u!95 &2248743502781993351
 Animator:
   serializedVersion: 5
