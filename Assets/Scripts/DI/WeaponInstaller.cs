@@ -3,6 +3,7 @@ using Game.Player.Weapons.ChangeWeapon;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.StrategyFire;
 using Game.Player.Weapons.WeaponClass;
+using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,9 +14,13 @@ namespace DI
     {
         [SerializeField] private Pistol pistol;
         [SerializeField] private ChangeModeFire fireMode;
-        
+        [SerializeField] private RifleConfig _rifle;
+        [SerializeField] private CameraShakeConfig _cameraShake;
+        [SerializeField] private BulletConfig _bulletCFG;
+
         public override void InstallBindings()
         {
+            BindWeapons();
             BindActionCleaner();
             BindWeaponComponent();
             BindMediator();
@@ -24,6 +29,13 @@ namespace DI
             BindWeaponChange();
         }
 
+        private void BindWeapons()
+        {
+            Container.Bind<RifleConfig>().FromInstance(_rifle).AsSingle();
+            Container.Bind<CameraShakeConfig>().FromInstance(_cameraShake).AsSingle();
+            Container.Bind<BulletConfig>().FromInstance(_bulletCFG).AsSingle();
+            Container.BindInterfacesAndSelfTo<PoolObject<Bullet>>().AsSingle();
+        }
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 
         private void BindWeaponChange() => BindNewInstance<WeaponChange>();
