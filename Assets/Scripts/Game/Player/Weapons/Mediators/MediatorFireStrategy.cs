@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Player.Weapons.InterfaceWeapon;
 using Game.Player.Weapons.InterfaseWeapon;
 
 namespace Game.Player.Weapons.Mediators
@@ -12,7 +13,7 @@ namespace Game.Player.Weapons.Mediators
             _fireMediator = fireMediator ?? throw new ArgumentNullException($"{(IFireMediator)null} is null");
         }
         
-        public void ChangeFireMode(IFireStrategy strategy)
+        public void ChangeFireMode(FireStrategy strategy)
         {
             _fireMediator.ChangeFireMode(strategy);
         }

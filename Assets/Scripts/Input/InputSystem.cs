@@ -44,6 +44,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c86df98-aca3-4c62-97d2-ed09367b6eb9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""94a12ead-9968-4574-9afc-888559e49893"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -149,6 +169,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""9122eff0-153b-48a1-8ff4-2de888826569"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -184,6 +213,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""ChangeFireMode"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef03e304-d9b3-406f-87c7-d545ca79e188"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -194,6 +234,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Mouse = asset.FindActionMap("Mouse", throwIfNotFound: true);
         m_Mouse_MousePosition = m_Mouse.FindAction("MousePosition", throwIfNotFound: true);
         m_Mouse_Aim = m_Mouse.FindAction("Aim", throwIfNotFound: true);
+        m_Mouse_Shoot = m_Mouse.FindAction("Shoot", throwIfNotFound: true);
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
@@ -203,6 +244,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
         m_Weapon_Fire = m_Weapon.FindAction("Fire", throwIfNotFound: true);
         m_Weapon_ChangeFireMode = m_Weapon.FindAction("ChangeFireMode", throwIfNotFound: true);
+        m_Weapon_ChangeWeapon = m_Weapon.FindAction("ChangeWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -266,12 +308,14 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private List<IMouseActions> m_MouseActionsCallbackInterfaces = new List<IMouseActions>();
     private readonly InputAction m_Mouse_MousePosition;
     private readonly InputAction m_Mouse_Aim;
+    private readonly InputAction m_Mouse_Shoot;
     public struct MouseActions
     {
         private @InputSystem m_Wrapper;
         public MouseActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePosition => m_Wrapper.m_Mouse_MousePosition;
         public InputAction @Aim => m_Wrapper.m_Mouse_Aim;
+        public InputAction @Shoot => m_Wrapper.m_Mouse_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_Mouse; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -287,6 +331,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IMouseActions instance)
@@ -297,6 +344,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IMouseActions instance)
@@ -375,6 +425,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Weapon_Reload;
     private readonly InputAction m_Weapon_Fire;
     private readonly InputAction m_Weapon_ChangeFireMode;
+    private readonly InputAction m_Weapon_ChangeWeapon;
     public struct WeaponActions
     {
         private @InputSystem m_Wrapper;
@@ -382,6 +433,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @Reload => m_Wrapper.m_Weapon_Reload;
         public InputAction @Fire => m_Wrapper.m_Weapon_Fire;
         public InputAction @ChangeFireMode => m_Wrapper.m_Weapon_ChangeFireMode;
+        public InputAction @ChangeWeapon => m_Wrapper.m_Weapon_ChangeWeapon;
         public InputActionMap Get() { return m_Wrapper.m_Weapon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,6 +452,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @ChangeFireMode.started += instance.OnChangeFireMode;
             @ChangeFireMode.performed += instance.OnChangeFireMode;
             @ChangeFireMode.canceled += instance.OnChangeFireMode;
+            @ChangeWeapon.started += instance.OnChangeWeapon;
+            @ChangeWeapon.performed += instance.OnChangeWeapon;
+            @ChangeWeapon.canceled += instance.OnChangeWeapon;
         }
 
         private void UnregisterCallbacks(IWeaponActions instance)
@@ -413,6 +468,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @ChangeFireMode.started -= instance.OnChangeFireMode;
             @ChangeFireMode.performed -= instance.OnChangeFireMode;
             @ChangeFireMode.canceled -= instance.OnChangeFireMode;
+            @ChangeWeapon.started -= instance.OnChangeWeapon;
+            @ChangeWeapon.performed -= instance.OnChangeWeapon;
+            @ChangeWeapon.canceled -= instance.OnChangeWeapon;
         }
 
         public void RemoveCallbacks(IWeaponActions instance)
@@ -434,6 +492,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
     public interface IMovementActions
     {
@@ -445,5 +504,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnReload(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnChangeFireMode(InputAction.CallbackContext context);
+        void OnChangeWeapon(InputAction.CallbackContext context);
     }
 }

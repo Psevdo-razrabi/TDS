@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Game.Player.PlayerStateMashine
 {
@@ -19,7 +20,21 @@ namespace Game.Player.PlayerStateMashine
         private float _yInput;
         private float _currentSpeed;
         private int _dashCount;
+        private Vector2 _mouseDirection;
 
+        public Vector2 MouseDirection
+        {
+            get => _mouseDirection;
+            set
+            {
+                if (value.x + float.Epsilon < -1 || value.x + float.Epsilon > 1 || value.y + float.Epsilon < -1 || value.y + float.Epsilon > 1)
+                    throw new ArgumentOutOfRangeException();
+
+                _mouseDirection = value;
+            }
+        }
+        
+        
         public float XInput
         {
             get => _xInput;

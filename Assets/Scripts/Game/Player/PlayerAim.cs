@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Player.Interfaces;
+using Game.Player.PlayerStateMashine;
 using Input.Interface;
 using UniRx;
 using UnityEngine;
@@ -11,16 +12,31 @@ namespace Game.Player
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
-        [SerializeField] private Crosshair _crosshair;
 
         private Vector3 _lookPosition;
         private IMouse _mousePosition;
         private Vector3 _mouse;
         private readonly CompositeDisposable _compositeDisposable = new();
-        
+        private StateMachineData _stateMachineData;
+
+        [Inject]
+        private void Construct(IMouse mouse, StateMachineData stateMachineData)
+        {
+            _mousePosition = mouse;
+            _mousePosition.PositionMouse
+                .Subscribe(vector => _mouse = vector)
+                .AddTo(_compositeDisposable);
+            _stateMachineData = stateMachineData;
+        }
+
         public (bool, Vector3) GetMousePosition()
         {
-            Ray ray = _camera.ScreenPointToRay(_crosshair.CrossHair.position);
+            var directionMouse = new Vector2((_mouse.x - transform.position.x) / Screen.width * 2 - 1, (_mouse.y - transform.position.y) / Screen.height * 2 - 1);
+
+            _stateMachineData.MouseDirection =
+                new Vector2(Mathf.Clamp(directionMouse.x, -1, 1), Mathf.Clamp(directionMouse.y, -1, 1));
+            
+            Ray ray = _camera.ScreenPointToRay(_mouse);
             return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
         }
 
@@ -33,6 +49,7 @@ namespace Game.Player
                 direction.y = 0f;
                 var rotation = Quaternion.LookRotation(direction);
                 transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
+                transform.rotation = rotation;
             }
         }
 

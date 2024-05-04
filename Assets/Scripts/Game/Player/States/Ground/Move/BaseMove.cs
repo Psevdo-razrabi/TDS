@@ -1,8 +1,5 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using Game.Player.PlayerStateMashine;
+﻿using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
-using Game.Player.States.Dash;
 using UniRx;
 using UnityEngine;
 
@@ -21,14 +18,14 @@ namespace Game.Player.States
             base.AddActionsCallbacks();
 
             Player.InputSystem.Move
-                .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y))
+                .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y).normalized)
                 .AddTo(Disposable);
             
             Player.InputSystem.OnSubscribeDash(() =>
             {
                 if(Data.DashCount == 0) return;
                 
-                OnAnimatorStateSet(ref Data.IsDashing, true, Player.AnimatorController.NameDashParameters);
+                OnAnimatorStateSet(ref Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
                 Player.StateChain.HandleState();
             });
         }
@@ -46,20 +43,18 @@ namespace Game.Player.States
         {
             Data.CurrentSpeed = Data.CurrentSpeed switch
             {
-                _ when Data.XInput != 0 => configs.SpeedStrafe,
-                _ when Data.YInput < 0 => configs.SpeedBackwards,
-                _ when Data.YInput > 0 => configs.Speed,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) => configs.SpeedStrafe,
+                _ when Data.MouseDirection.y < 0 => configs.SpeedBackwards,
+                _ when Data.MouseDirection.y > 0 => configs.Speed,
                 _ => Data.CurrentSpeed
             };
         }
 
         protected virtual void Move()
         {
-            var speed = Movement.magnitude * Data.CurrentSpeed * Time.deltaTime;
+            var speed = Data.CurrentSpeed * Time.deltaTime;
 
             Player.CharacterController.Move(speed * Movement);
-            
-            Debug.Log("я выполняюсь");
         }
     }
 }

@@ -5,18 +5,19 @@ namespace Game.Player.AnimatorScripts
     public class AnimatorController : MonoBehaviour
     {
         [field: SerializeField] public Animator PlayerAnimator { get; private set; }
-        [field: SerializeField] public string NameHorizontalParameters { get; private set; }
-        [field: SerializeField] public string NameVerticalParameters { get; private set; }
-        [field: SerializeField] public string NameMoveParameters { get; private set; }
-        [field: SerializeField] public string NameJumpParameters { get; private set; }
-        [field: SerializeField] public string NameDashParameters { get; private set; }
-        [field: SerializeField] public string NameAimParameters { get; private set; }
+        [field: SerializeField] public string NameHorizontalParameter { get; private set; }
+        [field: SerializeField] public string NameVerticalParameter { get; private set; }
+        [field: SerializeField] public string NameMoveParameter { get; private set; }
+        [field: SerializeField] public string NameJumpParameter { get; private set; }
+        [field: SerializeField] public string NameDashParameter { get; private set; }
+        [field: SerializeField] public string NameAimParameter { get; private set; }
+        [field: SerializeField] public string NameMouseXParameter { get; private set; }
+        [field: SerializeField] public string NameMouseYParameter { get; private set; }
 
 
-        public void SetInputParameters(float horizontal, float vertical)
+        public void SetFloatParameters(string nameParameters, float value)
         {
-            PlayerAnimator.SetFloat(NameHorizontalParameters, horizontal);
-            PlayerAnimator.SetFloat(NameVerticalParameters, vertical);
+            PlayerAnimator.SetFloat(nameParameters, value);
         }
 
         public void SetBoolParameters(string nameParameters , bool isBool) => PlayerAnimator.SetBool(nameParameters, isBool);
