@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/BeamBullet.unity
+    guid: 2f4b834feacf3a348abb7d381e55e233
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 2c10a72f96229c545bad7114c4aa4c1c,
       type: 2}

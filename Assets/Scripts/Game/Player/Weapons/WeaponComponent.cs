@@ -1,4 +1,4 @@
-﻿using Game.Player.Weapons.InterfaseWeapon;
+using Game.Player.Weapons.InterfaseWeapon;
 using UnityEngine;
 
 namespace Game.Player.Weapons
