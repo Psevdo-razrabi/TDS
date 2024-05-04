@@ -13,12 +13,10 @@ public class Crosshair : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        _recoilPosition = Vector2.zero;
     }
 
     void Update()
     {
-        CalculateRecoil();
         ReadPosition();
     }
     
@@ -26,22 +24,19 @@ public class Crosshair : MonoBehaviour
     {
         Vector2 inputMouse = new Vector2(UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y"));
         _crosshairPos = _crosshair.anchoredPosition + inputMouse * _speed;
-    }
-
-    private void CalculateRecoil()
-    {
-        _crosshairPos -= _recoilPosition;
         UpdateCrosshairPosition(_crosshairPos);
     }
+
     public void RecoilPlus(Vector2 recoil)
     {
-        _recoilPosition += recoil;
+        _crosshair.anchoredPosition += recoil;
+        UpdateCrosshairPosition(_crosshair.anchoredPosition);
     }
     public void UpdateCrosshairPosition(Vector2 limitedInput)
     {
         limitedInput.x = Mathf.Clamp(limitedInput.x, -Screen.width / 2, Screen.width / 2);
         limitedInput.y = Mathf.Clamp(limitedInput.y, -Screen.height / 2, Screen.height / 2);
-        
-        _crosshair.anchoredPosition = Vector2.Lerp(_crosshair.anchoredPosition, limitedInput , 5 * Time.deltaTime);
+
+        _crosshair.anchoredPosition = limitedInput;
     }
 }
