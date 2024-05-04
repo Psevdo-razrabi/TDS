@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crosshair: {fileID: 1265400052}
-  _speed: 150
+  _speed: 10
 --- !u!224 &1265400052
 RectTransform:
   m_ObjectHideFlags: 0
