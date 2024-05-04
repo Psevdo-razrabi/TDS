@@ -2193,12 +2193,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PlayerAnimator>k__BackingField: {fileID: 1118782734}
-  <NameHorizontalParameters>k__BackingField: 
-  <NameVerticalParameters>k__BackingField: 
-  <NameMoveParameters>k__BackingField: 
-  <NameJumpParameters>k__BackingField: 
-  <NameDashParameters>k__BackingField: 
-  <NameAimParameters>k__BackingField: 
+  <NameHorizontalParameter>k__BackingField: 
+  <NameVerticalParameter>k__BackingField: 
+  <NameMoveParameter>k__BackingField: 
+  <NameJumpParameter>k__BackingField: 
+  <NameDashParameter>k__BackingField: 
+  <NameAimParameter>k__BackingField: 
+  <NameMouseXParameter>k__BackingField: 
+  <NameMouseYParameter>k__BackingField: 
 --- !u!1 &1948277763
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,10 +2447,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818c61e0e7944e5f830c4d7fee1f1f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputSystemPC: {fileID: 698538623}
+  inputSystemMovement: {fileID: 0}
   animatorController: {fileID: 1832791155}
   playerAim: {fileID: 1118782733}
   player: {fileID: 1118782732}
+  fireMode: {fileID: 0}
+  inputSystemMouse: {fileID: 0}
+  inputSystemWeapon: {fileID: 0}
 --- !u!114 &2132106290
 MonoBehaviour:
   m_ObjectHideFlags: 0
