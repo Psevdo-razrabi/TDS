@@ -12,9 +12,4 @@ public class CameraShake
       _cameraTransform = camera;
    }
 
-   public void ShakeCamera(CameraShakeConfig cameraShakeConfig)
-   {
-      _cameraTransform.DOShakePosition(cameraShakeConfig.ShakeDuration, cameraShakeConfig.ShakeStrength, 1, 90f, false, true, ShakeRandomnessMode.Harmonic)
-         .SetEase(Ease.InOutBounce).SetLink(_cameraTransform.gameObject);
-   }
 }
