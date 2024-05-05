@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 
 public class ChangeCrosshair : MonoBehaviour
@@ -8,14 +9,18 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private RectTransform[] _crosshairParts;
     [SerializeField] private float _forceChanges;
     [SerializeField] private float _maxExpandDistance;
-    
+
+    private CompositeDisposable _compositeDisposable = new();
     private Vector2[] _initialPositions;
     private float _expandMultiplier;
     private float _additionalExpansion;
     private float _stepValue;
+    private bool _canMove;
     
     void Start()
     {
+        _canMove = true; 
+        
         _initialPositions = new Vector2[_crosshairParts.Length];
         for (int i = 0; i < _crosshairParts.Length; i++)
         {
@@ -23,9 +28,19 @@ public class ChangeCrosshair : MonoBehaviour
         }
 
         _additionalExpansion = 0f;
+        SubscribeUpdate();
+    }
+    
+    private void SubscribeUpdate()
+    {
+        Observable
+            .EveryUpdate()
+            .Where(_ => _canMove = true)
+            .Subscribe(_ => CalculatePosition())
+            .AddTo(_compositeDisposable);
     }
 
-    void Update()
+    private void CalculatePosition()
     {
         Vector2 playerScreenPosition = RectTransformUtility.WorldToScreenPoint(_camera, _player.position);
         Vector2 crosshairScreenPosition = _crosshair.CrossHair.position;

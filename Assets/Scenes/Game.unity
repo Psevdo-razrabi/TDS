@@ -401,6 +401,8 @@ GameObject:
   m_Component:
   - component: {fileID: 130963334}
   - component: {fileID: 130963335}
+  - component: {fileID: 130963336}
+  - component: {fileID: 130963337}
   m_Layer: 7
   m_Name: PistolPlace
   m_TagString: Untagged
@@ -417,7 +419,7 @@ Transform:
   m_GameObject: {fileID: 130963333}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -435,6 +437,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40edcdf5b5a144bfa41eb02f22291c3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &130963336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130963333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be2e38eae191e1d49b965650673226eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _between: 0.05
+--- !u!114 &130963337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130963333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24156e071183f6545b0578371140ee4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gun: {fileID: 130963336}
+  _bullet: {fileID: 6704100415736727948, guid: 6d9239bf5d560464da83002e18c01b48, type: 3}
+  _camera: {fileID: 330585545}
+  _crosshair: {fileID: 329907086}
+  _changeCrosshair: {fileID: 329907085}
 --- !u!1 &179422133
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,6 +1646,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pistol: {fileID: 130963335}
   fireMode: {fileID: 1193399310}
+  _rifle: {fileID: 11400000, guid: d0218e763c4e1094694d8bcc94629f06, type: 2}
+  _cameraShake: {fileID: 11400000, guid: 74c0b01ccb5ff284482b61ec83f27f05, type: 2}
+  _bulletCFG: {fileID: 11400000, guid: 80c367524dbe0524ebe4b0177303933f, type: 2}
 --- !u!1 &1031792355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2004,13 +2039,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261959842}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.452}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 130963334}
-  m_Father: {fileID: 1741787262}
+  m_Father: {fileID: 2248743502781993346}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1319845459
 GameObject:
@@ -2315,7 +2350,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2248743502781993346}
-  - {fileID: 1261959843}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1808673237
@@ -3017,6 +3051,7 @@ Transform:
   m_Children:
   - {fileID: 3993891868982019865}
   - {fileID: 5558824052843599408}
+  - {fileID: 1261959843}
   m_Father: {fileID: 1741787262}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2248743502781993348
@@ -3074,6 +3109,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _camera: {fileID: 330585545}
+  _crosshair: {fileID: 329907086}
 --- !u!95 &2248743502781993351
 Animator:
   serializedVersion: 5
