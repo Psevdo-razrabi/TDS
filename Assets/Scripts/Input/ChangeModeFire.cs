@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Customs;
 using Cysharp.Threading.Tasks;
+using Game.Player.Weapons;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.StrategyFire;
 using Input.Interface;
@@ -17,25 +18,24 @@ namespace Input
         private readonly Queue<MethodInfo> _queueStates = new();
         private MethodInfo _modeFire;
         private MediatorFireStrategy _fireStrategy;
-        private InputSystemWeapon _inputSystemWeapon;
-        private MouseInputObserver _mouseInputObserver;
+        private FireComponent _fireComponent;
         
         [ContextMenuAttribute("single fire")]
         private void AddSingleFire()
         {
-            _fireStrategy.ChangeFireMode(new SingleFire(_inputSystemWeapon, _mouseInputObserver));
+            _fireStrategy.ChangeFireMode(new SingleFire(_fireComponent));
         }
         
         [ContextMenuAttribute("burst fire")]
         private void AddBurstFire()
         {
-            _fireStrategy.ChangeFireMode(new BurstFire(_inputSystemWeapon, _mouseInputObserver));
+            _fireStrategy.ChangeFireMode(new BurstFire(_fireComponent));
         }
         
         [ContextMenuAttribute("automatic fire")]
         private void AddAutomaticFire()
         {
-            _fireStrategy.ChangeFireMode(new AutomaticFire(_inputSystemWeapon, _mouseInputObserver));
+            _fireStrategy.ChangeFireMode(new AutomaticFire(_fireComponent));
         }
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
@@ -60,11 +60,10 @@ namespace Input
         }
         
         [Inject]
-        private void Construct(MediatorFireStrategy fireStrategy, InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver)
+        private void Construct(MediatorFireStrategy fireStrategy, FireComponent fireComponent)
         {
             _fireStrategy = fireStrategy;
-            _inputSystemWeapon = inputSystemWeapon;
-            _mouseInputObserver = mouseInputObserver;
+            _fireComponent = fireComponent;
         }
     }
 }

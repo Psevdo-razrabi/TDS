@@ -6,14 +6,11 @@ namespace Game.Player.Weapons.InterfaceWeapon
 {
     public abstract class FireStrategy : IDisposable
     {
-        //protected List<IDisposable> Subscriptions;
-        protected InputSystemWeapon InputSystemWeapon;
-        protected MouseInputObserver MouseInputObserver;
+        protected FireComponent FireComponent;
         
-        protected FireStrategy(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver)
+        protected FireStrategy(FireComponent fireComponent)
         {
-            InputSystemWeapon = inputSystemWeapon;
-            MouseInputObserver = mouseInputObserver;
+            FireComponent = fireComponent;
         }
 
         public abstract void Fire(FireComponent component);

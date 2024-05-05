@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Game.Player.Weapons.StrategyFire
 {
     public class ActionsCleaner
     {
-        private Queue<IDisposable> _disposables;
+        private Queue<IDisposable> _disposables = new();
         
         public void RemoveAction()
         {

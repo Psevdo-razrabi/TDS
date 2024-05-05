@@ -7,9 +7,10 @@ namespace Game.Player.Weapons.StrategyFire
 {
     public class BurstFire : FireStrategy
     {
-        public BurstFire(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver) : base(inputSystemWeapon, mouseInputObserver)
+        public BurstFire(FireComponent fireComponent) : base(fireComponent)
         {
-            
+            FireComponent.ActionsCleaner.RemoveAction();
+            FireComponent.ActionsCleaner.AddAction(this);
         }
 
         public override async void Fire(FireComponent component)

@@ -6,12 +6,12 @@ namespace Game.Player.Weapons.StrategyFire
 {
     public class SingleFire : FireStrategy
     {
-        public SingleFire(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver) : base(inputSystemWeapon, mouseInputObserver)
+        public SingleFire(FireComponent fireComponent) : base(fireComponent)
         {
-            
+            FireComponent.ActionsCleaner.RemoveAction();
+            FireComponent.ActionsCleaner.AddAction(this);
         }
         
-
         public override void Fire(FireComponent component)
         {
             component.FireBullet();

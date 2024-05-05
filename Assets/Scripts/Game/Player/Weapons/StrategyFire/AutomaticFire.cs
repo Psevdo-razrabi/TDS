@@ -1,5 +1,4 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Game.Player.Weapons.InterfaceWeapon;
 using Input;
 using UniRx;
@@ -12,29 +11,28 @@ namespace Game.Player.Weapons.StrategyFire
         private float _fireRate = 0.2f; // в конфиг
         private DateTimeOffset _lastFired;
         private CompositeDisposable _compositeDisposable = new();
-        private FireComponent _fireComponent;
         private IDisposable _mouseDown;
         private IDisposable _mouseUp;
         
-        public AutomaticFire(InputSystemWeapon inputSystemWeapon, MouseInputObserver mouseInputObserver) : base(inputSystemWeapon, mouseInputObserver)
+        public AutomaticFire(FireComponent fireComponent) : base(fireComponent)
         {
-            //RemoveActions();
-            //Subscriptions.Add(this);
+            FireComponent.ActionsCleaner.RemoveAction();
+            FireComponent.ActionsCleaner.AddAction(this);
             AddActionsCallbacks();
         }
         
         public override void Fire(FireComponent component)
         {
-            _fireComponent = component;
+            FireComponent = component;
         }
 
         protected override void AddActionsCallbacks()
         {
-            _mouseUp = MouseInputObserver
+            _mouseUp = FireComponent.MouseInputObserver
                 .SubscribeMouseUp()
                 .Subscribe(OnMouseLeftClickUp)
                 .AddTo(_compositeDisposable);
-            _mouseDown = MouseInputObserver
+            _mouseDown = FireComponent.MouseInputObserver
                 .SubscribeMouseDown()
                 .Subscribe(OnMouseLeftClickDown)
                 .AddTo(_compositeDisposable);
@@ -71,7 +69,7 @@ namespace Game.Player.Weapons.StrategyFire
                 .Where(x => x.Timestamp > _lastFired.AddSeconds(_fireRate))
                 .Subscribe(x =>
                 {
-                    _fireComponent.FireBullet();
+                    FireComponent.FireBullet();
                     _lastFired = x.Timestamp;
                 })
                 .AddTo(_compositeDisposable);
