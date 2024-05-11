@@ -5,7 +5,7 @@ using Zenject;
 
 namespace DI
 {
-    public class DataInstaller : BaseBindings
+    public sealed class DataInstaller : BaseBindings
     {
         public override void InstallBindings()
         {

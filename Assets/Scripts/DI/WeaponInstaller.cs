@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 
 namespace DI
 {
-    public class WeaponInstaller : BaseBindings
+    public sealed class WeaponInstaller : BaseBindings
     {
         [SerializeField] private Pistol pistol;
         [SerializeField] private ChangeModeFire fireMode;
@@ -21,12 +21,18 @@ namespace DI
         public override void InstallBindings()
         {
             BindWeapons();
+            BindWeaponData();
             BindActionCleaner();
             BindWeaponComponent();
             BindMediator();
             BindChangeFire();
-            BindWeapon();
             BindWeaponChange();
+        }
+
+        private void BindWeaponData()
+        {
+            BindNewInstance<WeaponConfigs>();
+            BindNewInstance<WeaponData>();
         }
 
         private void BindWeapons()
@@ -35,6 +41,7 @@ namespace DI
             Container.Bind<CameraShakeConfig>().FromInstance(_cameraShake).AsSingle();
             Container.Bind<BulletConfig>().FromInstance(_bulletCFG).AsSingle();
             Container.BindInterfacesAndSelfTo<PoolObject<Bullet>>().AsSingle();
+            Container.Bind<WeaponComponent>().To<Pistol>().FromInstance(pistol).AsSingle().NonLazy();
         }
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 
@@ -48,10 +55,5 @@ namespace DI
         private void BindChangeFire() => BindInstance(fireMode);
 
         private void BindMediator() => BindNewInstance<MediatorFireStrategy>();
-
-        private void BindWeapon()
-        {
-            Container.Bind<WeaponComponent>().To<Pistol>().FromInstance(pistol).AsSingle().NonLazy();
-        }
     }
 }

@@ -105,7 +105,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dash"",
+                    ""name"": ""FillImage"",
                     ""type"": ""Button"",
                     ""id"": ""db2ac6d7-8bb1-4d36-a08d-c9b6c19654e1"",
                     ""expectedControlType"": ""Button"",
@@ -133,7 +133,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Dash"",
+                    ""action"": ""FillImage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -238,7 +238,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
-        m_Movement_Dash = m_Movement.FindAction("Dash", throwIfNotFound: true);
+        m_Movement_Dash = m_Movement.FindAction("FillImage", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);

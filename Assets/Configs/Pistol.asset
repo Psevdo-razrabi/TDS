@@ -15,3 +15,4 @@ MonoBehaviour:
   <AmmoInMagazine>k__BackingField: 18
   <TotalAmmo>k__BackingField: 180
   <ReloadTime>k__BackingField: 5
+  <BulletPoint>k__BackingField: {fileID: 0}

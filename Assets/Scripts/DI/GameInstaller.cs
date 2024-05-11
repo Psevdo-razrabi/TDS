@@ -4,16 +4,12 @@ using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
-using Game.Player.Weapons;
-using Game.Player.Weapons.Mediators;
 using Input;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Zenject;
 
 namespace DI
 {
-    public class GameInstaller : BaseBindings
+    public sealed class GameInstaller : BaseBindings
     {
         [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
@@ -25,6 +21,7 @@ namespace DI
         
         public override void InstallBindings()
         {
+            BindEventController();
             BindInput();
             BindAnimator();
             BindPlayerAim();
@@ -37,6 +34,8 @@ namespace DI
             BindAsyncWorker();
             BindMethodInfo();
         }
+
+        private void BindEventController() => BindNewInstance<EventController>();
 
         private void BindInput()
         {
