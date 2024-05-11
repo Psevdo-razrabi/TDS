@@ -18,14 +18,14 @@ namespace Game.Player.States.Dash
         {
             base.OnEnter();
             _dashConfig = Player.PlayerConfigs.DashConfig;
-            Debug.Log("вошел в состояние Dash");
+            Debug.Log("вошел в состояние FillImage");
             Move();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("вышел из состояние Dash");
+            Debug.Log("вышел из состояние FillImage");
             OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
         }
 

@@ -1,12 +1,18 @@
-using System;
-using UniRx;
-using UniRx.Triggers;
+using Customs;
+using Game.Core.Health;
 using UnityEngine;
+using Zenject;
 
 public class Bullet : MonoBehaviour
 {
-    private CompositeDisposable _disposable = new();
+    private EventController _eventController;
     private float _damage;
+
+    [Inject]
+    public void Construct(EventController eventController)
+    {
+        _eventController = eventController;
+    }
     
     public void Initialize(float damage)
     {
@@ -14,13 +20,18 @@ public class Bullet : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision other)
-    {
-        ApplyDamage(); 
+    {  
+        if (other.collider.TryGetComponent(out IHealth health))
+        {
+            ApplyDamage(health);
+        }
         gameObject.SetActive(false);
     }
 
-    private void ApplyDamage()
+    private void ApplyDamage(IHealth healthObject)
     {
+        _eventController.ShootHitEventInvoke();
+        healthObject.HealthStats.SetDamage(_damage);
         Debug.Log($"Логика нанесения урона {_damage} ");
     }
 }

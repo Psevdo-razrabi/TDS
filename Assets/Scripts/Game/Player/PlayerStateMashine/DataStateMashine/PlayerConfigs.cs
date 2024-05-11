@@ -1,4 +1,5 @@
-﻿using Game.Player.PlayerStateMashine.Configs;
+﻿using Game.Core.Health;
+using Game.Player.PlayerStateMashine.Configs;
 using UnityEngine;
 using Zenject;
 
@@ -11,14 +12,19 @@ namespace Game.Player.PlayerStateMashine
         public PlayerMoveConfig BaseMove { get; private set; }
         public PlayerMoveConfig MoveWithAim { get; private set; }
         public PlayerDashConfig DashConfig { get; private set; }
-        
-        public bool IsLoadMoveConfig { get; private set; }
-        public bool IsLoadMoveAimConfig { get; private set; }
-        public bool IsLoadDashConfig { get; private set; }
+        public PlayerHealthConfig HealthConfig { get; private set; }
+
+        public bool IsLoadMoveConfig { get; private set; } = false;
+        public bool IsLoadMoveAimConfig { get; private set; } = false;
+        public bool IsLoadDashConfig { get; private set; } = false;
+        public bool IsLoadHealthConfig { get; private set; } = false;
+
+        public bool IsLoadAllConfig { get; private set; } = false;
 
         private const string NameBaseMoveConfig = "Move";
         private const string NameMoveWithAimConfig = "MoveStateAim";
         private const string NameDashConfig = "Dash";
+        private const string NameHealthConfig = "HealthPlayer";
 
         [Inject]
         private async void Construct(Loader loader)
@@ -31,6 +37,9 @@ namespace Game.Player.PlayerStateMashine
             IsLoadMoveAimConfig = true;
             DashConfig = await _loader.LoadResources<ScriptableObject>(NameDashConfig) as PlayerDashConfig;
             IsLoadDashConfig = true;
+            HealthConfig = await _loader.LoadResources<ScriptableObject>(NameHealthConfig) as PlayerHealthConfig;
+            IsLoadHealthConfig = true;
+            IsLoadAllConfig = true;
         }
     }
 }
