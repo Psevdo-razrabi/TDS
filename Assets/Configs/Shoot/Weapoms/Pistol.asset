@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5673af232f64f429459ffe427611e64, type: 3}
-  m_Name: Rifle
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  <AmmoInMagazine>k__BackingField: 0
-  <TotalAmmo>k__BackingField: 30
-  <ReloadTime>k__BackingField: 0
+  <TotalAmmo>k__BackingField: 0
+  <ReloadTime>k__BackingField: 1
   <BulletPoint>k__BackingField: {fileID: 0}
-  <TimeBetweenShoots>k__BackingField: 0
-  <MaxSpread>k__BackingField: 30
-  <MaxSpreadBullet>k__BackingField: 25
-  <TimeToSpreadReduce>k__BackingField: 0.5
-  <RecoilForce>k__BackingField: 30
+  <TimeBetweenShoots>k__BackingField: 0.05
+  <MaxSpread>k__BackingField: 50
+  <MaxSpreadBullet>k__BackingField: 45
+  <TimeToSpreadReduce>k__BackingField: 0.1
+  <RecoilForce>k__BackingField: 5

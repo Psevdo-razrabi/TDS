@@ -13,7 +13,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using Zenject;
 
-[CustomEditor(typeof(ChangeModeFire))]
+//[CustomEditor(typeof(ChangeModeFire))]
 public class MethodListEditor : Editor
 {
     private ReorderableList _list;
@@ -145,7 +145,6 @@ public class MethodListEditor : Editor
         PlayerPrefs.SetString(PlayerPrefsKeyLabels, jsonLabels);
         PlayerPrefs.SetString(PlayerPrefsKey, jsonNames);
     }
-
     private void Load()
     {
         var jsonLabel = PlayerPrefs.GetString(PlayerPrefsKeyLabels);
@@ -162,3 +161,4 @@ public class MethodListEditor : Editor
         _list.index = selectIndex + sign;
     }
 }
+

@@ -1,4 +1,6 @@
 using UnityEngine;
+using Zenject;
+
 public class Crosshair : MonoBehaviour
 {
     [SerializeField] private RectTransform _crosshair;
@@ -6,7 +8,15 @@ public class Crosshair : MonoBehaviour
     
     private Vector2 _crosshairPos;
     private Vector2 _recoilPosition;
+    private Recoil _recoil;
     
+    [Inject]
+    public Crosshair(Recoil recoil)
+    {
+        Debug.Log("рекоиль");
+        _recoil = recoil;
+    }
+
     public RectTransform CrossHair => _crosshair;
     
     private void Awake()

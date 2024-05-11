@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Game.Player
 {
-    public class PlayerAim : MonoBehaviour, IPlayerAim
+    public class PlayerAim : MonoBehaviour, ICameraProvider, IPlayerAim
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
@@ -16,6 +16,8 @@ namespace Game.Player
         
         private StateMachineData _stateMachineData;
 
+        public Transform CameraTransform => _camera.transform;
+        
         [Inject]
         private void Construct(StateMachineData stateMachineData)
         {

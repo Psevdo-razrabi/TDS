@@ -1,5 +1,7 @@
+using System;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 public class ChangeCrosshair : MonoBehaviour
 {
@@ -10,12 +12,19 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private float _forceChanges;
     [SerializeField] private float _maxExpandDistance;
 
+    private EventController _eventController;
     private CompositeDisposable _compositeDisposable = new();
     private Vector2[] _initialPositions;
     private float _expandMultiplier;
     private float _additionalExpansion;
     private float _stepValue;
     private bool _canMove;
+    
+    [Inject]
+    public void Constructor(EventController eventController)
+    {
+        eventController.SpreadReducing += DecreaseFiredSize;
+    }
     
     void Start()
     {
@@ -26,7 +35,7 @@ public class ChangeCrosshair : MonoBehaviour
         {
             _initialPositions[i] = _crosshairParts[i].anchoredPosition;
         }
-
+        
         _additionalExpansion = 0f;
         SubscribeUpdate();
     }
@@ -56,14 +65,18 @@ public class ChangeCrosshair : MonoBehaviour
             Vector2 direction = _initialPositions[i].normalized;
             float totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
             Vector2 targetPosition = _initialPositions[i] + direction * totalExpansion;
+
             _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, 10 * Time.deltaTime);
         }
     }
-
+    
     public void IncreaseFiredSize(float additionalExpansion,float stepToReduce)
     {
+        Debug.Log(additionalExpansion);
+        Debug.Log(stepToReduce);
         _additionalExpansion += additionalExpansion;
         _stepValue = _additionalExpansion / stepToReduce;
+
     }                                                                 
 
     public void DecreaseFiredSize()

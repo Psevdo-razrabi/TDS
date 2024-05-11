@@ -25,6 +25,7 @@ namespace DI
         
         public override void InstallBindings()
         {
+            BindEventContoller();
             BindInput();
             BindAnimator();
             BindPlayerAim();
@@ -32,6 +33,7 @@ namespace DI
             BindLoader();
             BindPlayerConfig();
             BindInitStateMachine();
+            BindConfigsLoader();
             BindHandlesState();
             BindStateMachineData();
             BindAsyncWorker();
@@ -46,7 +48,7 @@ namespace DI
             BindInstance(inputSystemWeapon);
             BindNewInstance<MouseInputObserver>();
         }
-
+        
         private void BindAnimator() => BindInstance(animatorController);
 
         private void BindPlayerAim() => BindInstance(playerAim);
@@ -54,7 +56,10 @@ namespace DI
         private void BindPlayer() => BindInstance(player);
 
         private void BindLoader() => BindNewInstance<Loader>();
+        private void BindEventContoller() => BindNewInstance<EventController>();
 
+        private void BindConfigsLoader() => BindNewInstance<ConfigsLoader>();
+        
         private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
 
         private void BindPlayerConfig() => BindNewInstance<PlayerConfigs>();
