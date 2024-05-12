@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Game.Player
 {
-    public class PlayerAim : MonoBehaviour, IPlayerAim
+    public class PlayerAim : MonoBehaviour, ICameraProvider, IPlayerAim
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
@@ -16,6 +16,8 @@ namespace Game.Player
         
         private StateMachineData _stateMachineData;
 
+        public Transform CameraTransform => _camera.transform;
+        
         [Inject]
         private void Construct(StateMachineData stateMachineData)
         {
@@ -24,7 +26,7 @@ namespace Game.Player
 
         public (bool, Vector3) GetMousePosition()
         {
-            var directionCrosshair = new Vector2((_crosshair.transform.position.x - transform.position.x) / Screen.width * 2 - 1, (_crosshair.transform.position.x - transform.position.y) / Screen.height * 2 - 1);
+            var directionCrosshair = new Vector2((_crosshair.transform.position.x - transform.position.x) / Screen.width * 2 - 1, (_crosshair.transform.position.y - transform.position.y) / Screen.height * 2 - 1);
 
             _stateMachineData.MouseDirection =
                 new Vector2(Mathf.Clamp(directionCrosshair.x, -1, 1), Mathf.Clamp(directionCrosshair.y, -1, 1));

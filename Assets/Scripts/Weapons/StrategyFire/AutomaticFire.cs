@@ -8,7 +8,7 @@ namespace Game.Player.Weapons.StrategyFire
 {
     public class AutomaticFire : FireStrategy
     {
-        private float _fireRate = 0.2f; // в конфиг
+        private float _fireRate = 0.05f; // в конфиг
         private DateTimeOffset _lastFired;
         private CompositeDisposable _compositeDisposable = new();
         private IDisposable _mouseDown;
@@ -40,13 +40,11 @@ namespace Game.Player.Weapons.StrategyFire
 
         private void OnMouseLeftClickUp(Unit _)
         {
-            Debug.LogWarning("ну епта я все подписал брат");
             SubscribeUpdate();
         }
 
         private void OnMouseLeftClickDown(Unit _)
         {
-            Debug.LogWarning("ну епта я все отписал брат");
             RemoveActionCallbacks();
             _compositeDisposable = new CompositeDisposable();
             AddActionsCallbacks();

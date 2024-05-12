@@ -10,43 +10,54 @@ using UnityEngine.Serialization;
 
 namespace DI
 {
-    public sealed class WeaponInstaller : BaseBindings
+    public class WeaponInstaller : BaseBindings
     {
         [SerializeField] private Pistol pistol;
         [SerializeField] private ChangeModeFire fireMode;
-        [SerializeField] private RifleConfig _rifle;
-        [SerializeField] private CameraShakeConfig _cameraShake;
-        [SerializeField] private BulletConfig _bulletCFG;
-
+        [SerializeField] private Crosshair _crosshair;
+        [SerializeField] private ChangeCrosshair _changeCrosshair;
+        
         public override void InstallBindings()
         {
-            BindWeapons();
-            BindWeaponData();
+            BindCursor();
+            BindPool();
+            BindShootComponent();
             BindActionCleaner();
             BindWeaponComponent();
             BindMediator();
             BindChangeFire();
+            BindWeapon();
             BindWeaponChange();
+            BindConfigs();
         }
 
-        private void BindWeaponData()
+        private void BindShootComponent()
         {
-            BindNewInstance<WeaponConfigs>();
+            BindNewInstance<BulletLifeCycle>();;
+            BindNewInstance<CameraShake>();
+            BindNewInstance<Recoil>();
+            BindNewInstance<Spread>();
+            BindNewInstance<ShootComponent>();
             BindNewInstance<WeaponData>();
         }
 
-        private void BindWeapons()
+        private void BindCursor()
         {
-            Container.Bind<RifleConfig>().FromInstance(_rifle).AsSingle();
-            Container.Bind<CameraShakeConfig>().FromInstance(_cameraShake).AsSingle();
-            Container.Bind<BulletConfig>().FromInstance(_bulletCFG).AsSingle();
-            Container.BindInterfacesAndSelfTo<PoolObject<Bullet>>().AsSingle();
-            Container.Bind<WeaponComponent>().To<Pistol>().FromInstance(pistol).AsSingle().NonLazy();
+            BindInstance(_crosshair);
+            BindInstance(_changeCrosshair);
         }
+        private void BindConfigs()
+        {
+            BindNewInstance<WeaponConfigs>();
+            BindNewInstance<CameraShakeConfigs>();
+            BindNewInstance<CrosshairConfigs>();
+        }
+        private void BindPool() => BindNewInstance<PoolObject<Bullet>>();
+
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 
         private void BindWeaponChange() => BindNewInstance<WeaponChange>();
-
+        
         private void BindWeaponComponent()
         {
             BindNewInstance<FireComponent>();
@@ -55,5 +66,10 @@ namespace DI
         private void BindChangeFire() => BindInstance(fireMode);
 
         private void BindMediator() => BindNewInstance<MediatorFireStrategy>();
+        
+        private void BindWeapon()
+        {
+            Container.Bind<WeaponComponent>().To<Pistol>().FromInstance(pistol).AsSingle().NonLazy();
+        }
     }
 }

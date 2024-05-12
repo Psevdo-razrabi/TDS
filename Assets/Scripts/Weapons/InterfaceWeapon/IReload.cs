@@ -1,6 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-
-namespace Game.Player.Weapons.InterfaseWeapon
+﻿namespace Game.Player.Weapons.InterfaseWeapon
 {
     public interface IReload
     {

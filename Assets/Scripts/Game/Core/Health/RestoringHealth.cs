@@ -27,7 +27,7 @@ namespace Game.Core.Health
             _playerHealthConfig = playerHealthConfig;
             _eventController = eventController;
 
-            _eventController.ShootHit += AddHealth;
+            _eventController.ShootHited += AddHealth;
         }
 
         public void SetDamage(float value) => _healthStats.SetDamage(value);
@@ -51,7 +51,7 @@ namespace Game.Core.Health
 
         public void Dispose()
         {
-            _eventController.ShootHit -= AddHealth;
+            _eventController.ShootHited -= AddHealth;
         }
     }
 }

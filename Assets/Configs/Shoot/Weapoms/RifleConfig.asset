@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5673af232f64f429459ffe427611e64, type: 3}
+  m_Name: RifleConfig
+  m_EditorClassIdentifier: 
+  <TotalAmmo>k__BackingField: 30
+  <ReloadTime>k__BackingField: 2
+  <BulletPoint>k__BackingField: {fileID: 0}
+  <TimeBetweenShoots>k__BackingField: 0.1
+  <MaxSpread>k__BackingField: 25
+  <MaxSpreadBullet>k__BackingField: 25
+  <TimeToSpreadReduce>k__BackingField: 0.1
+  <RecoilForce>k__BackingField: 5

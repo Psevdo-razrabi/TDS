@@ -16,7 +16,47 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: e53251534fc56144bb4f2a195db21c05
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 74c0b01ccb5ff284482b61ec83f27f05
+    m_Address: Assets/Configs/beam/CameraShakeConfig.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0218e763c4e1094694d8bcc94629f06
+    m_Address: Rifle1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80c367524dbe0524ebe4b0177303933f
+    m_Address: Bullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 06f7e95cbbdbbd04a975be5d4f182800
+    m_Address: ShotgunShake
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50afe1633928a494bb1e8116a0962955
+    m_Address: PistolShake
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cb4d5042d5b1d64ebffd94ae9d738ab
+    m_Address: RifleShake
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40ce6a8f7ede3f44dbd2dd23c47669c3
+    m_Address: Rifle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a27b9a36220c14046811791c58b5b30f
+    m_Address: Pistol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 94ab1d46eaa81f643983f05adece687f, type: 2}
   m_SchemaSet:

@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
 
     private void ApplyDamage(IHealth healthObject)
     {
-        _eventController.ShootHitEventInvoke();
+        _eventController.ShootHit();
         healthObject.HealthStats.SetDamage(_damage);
         Debug.Log($"Логика нанесения урона {_damage} ");
     }

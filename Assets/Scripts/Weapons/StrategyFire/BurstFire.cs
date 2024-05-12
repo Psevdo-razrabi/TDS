@@ -26,7 +26,7 @@ namespace Game.Player.Weapons.StrategyFire
                 await UniTask.DelayFrame(100); //кол-во кадров между выстрелами
             }
 
-            await UniTask.Delay(TimeSpan.FromSeconds(0.5f)); //время между burstami
+            await UniTask.Delay(TimeSpan.FromSeconds(2.0f)); //время между burstami
         }
     }
 }
