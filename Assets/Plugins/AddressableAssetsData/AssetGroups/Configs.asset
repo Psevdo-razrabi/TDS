@@ -37,6 +37,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e388e097296248d4d8680a9e2d123eb8
+    m_Address: HealthPlayer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 94ab1d46eaa81f643983f05adece687f, type: 2}
   m_SchemaSet:

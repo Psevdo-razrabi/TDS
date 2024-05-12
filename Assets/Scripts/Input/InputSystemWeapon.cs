@@ -4,22 +4,24 @@ using Game.Player.Weapons.ChangeWeapon;
 using Game.Player.Weapons.WeaponClass;
 using Input.Interface;
 using UniRx;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Input
 {
     public class InputSystemWeapon : InputSystemBase, IChangeWeapon
     {
+        [field: SerializeField] private WeaponComponent weaponComponent;
         private Subject<Unit> _delayedClickChangeMode = new();
         private Subject<Unit> _delayedClickShoot = new();
         private ChangeModeFire _changeModeFire;
-        private WeaponComponent _weaponComponent;
         private WeaponChange _weaponChange;
 
         public void ChangeWeapon(WeaponComponent weaponComponent)
         {
-            _weaponComponent = weaponComponent;
+            this.weaponComponent = weaponComponent;
         }
 
         [Inject]
@@ -28,7 +30,7 @@ namespace Input
             _changeModeFire = changeModeFire;
             _weaponChange = weaponChange;
         }
-        
+
         private void OnEnable()
         {
             InputSystemNew.Weapon.ChangeFireMode.performed += _ => _delayedClickChangeMode.OnNext(Unit.Default);
@@ -44,7 +46,7 @@ namespace Input
             
             _delayedClickShoot
                 .ThrottleFirst(TimeSpan.FromSeconds(0.1f))
-                .Subscribe(_ => _weaponComponent.fireComponent.Fire()) //задержка между выстрелами
+                .Subscribe(_ => weaponComponent.fireComponent.Fire()) //задержка между выстрелами
                 .AddTo(CompositeDisposable);
         }
 
@@ -55,7 +57,7 @@ namespace Input
 
         private void WeaponReload(InputAction.CallbackContext obj)
         {
-            _weaponComponent.reloadComponent.Reload();
+            weaponComponent.reloadComponent.Reload();
         }
         
         private void OnDisable()
@@ -67,6 +69,6 @@ namespace Input
             InputSystemNew.Dispose();
             CompositeDisposable.Clear();
             CompositeDisposable.Dispose();
-        } 
+        }
     }
 }
