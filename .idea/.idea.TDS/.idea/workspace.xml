@@ -5,12 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Configs/Pistol.asset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Configs/Pistol.asset.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Configs/beam/Rifle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/beam/Rifle.asset" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/Assets/Configs/Shoot.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/RifleConfig.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/RifleConfig.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/CameraShakeConfigs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/ConfigsLoader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/CrosshairConfigs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/CrosshairConfigs.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EventController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Interfaces/ICameraProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/IHealth.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/BulletLifeCycle.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/BulletLifeCycle.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Recoil.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Recoil.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootComponent.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootComponent.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/ProfileDataSourceSettings.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Pistol.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/Pistol.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Pistol.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/Pistol.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraRifleShake.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraRifleShake.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraRifleShake.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraRifleShake.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraShotgunShakeConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraShotgunShakeConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/beam/Bullet.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/beam/Bullet.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/beam/Rifle.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/beam/Rifle.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/riffle.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/KriptoFX/MuzzleFlashes/HDRP and URP patches/HDRP Patch.unitypackage.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KriptoFX/MuzzleFlashes/HDRP and URP patches/HDRP Patch.unitypackage.unitypackage.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/KriptoFX/MuzzleFlashes/HDRP and URP patches/URP Patch.unitypackage.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/KriptoFX/MuzzleFlashes/HDRP and URP patches/URP Patch.unitypackage.unitypackage.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Prefabs/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Prefabs/Bullet.prefab" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/Assets/Prefab/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefab/Bullet.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs" afterDir="false" />
@@ -112,6 +151,74 @@
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponConfigs/WeaponConfigs.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponConfigs/WeaponConfigs.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/ChangeModeFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/ChangeModeFire.cs" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/DefaultObject.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/DefaultObject.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/Windows/addressables_content_state.bin.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/Windows/addressables_content_state.bin.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Borodar/RainbowFolders/Editor/Source/RainbowFolders.src.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/Borodar/RainbowFolders/Editor/Source/RainbowFolders.src.unitypackage.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sirenix/Demos/Custom Attribute Processors.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Crosshair.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sirenix/Demos/Custom Drawers.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sirenix/Demos/Editor Windows.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera/CameraShotgunShakeConfig.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Sirenix/Demos/Sample - RPG Editor.unitypackage.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Shoot/Camera.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BeamBullet.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/BeamBullet.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair/Crosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair/Crosshair.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair/Crosshair.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair/Crosshair.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DI/WeaponInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DI/WeaponInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Core/Health/RestoringHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Core/Health/RestoringHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Loader/Loader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Loader/Loader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Interfaces/ICameraProvider.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Interfaces/ICameraProvider.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerAim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerAim.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/BulletConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/BulletConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/BulletConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/BulletConfig.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/CameraShakeConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/CameraShakeConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/ChangeCrosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/ChangeCrosshair.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/ChangeCrosshair.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/ChangeCrosshair.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/Crosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/Crosshair.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/Crosshair.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Crosshair/Crosshair.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/ShootController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/ShootController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Spread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/Spread.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/TestGun.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/Shooting/TestGun.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponConfigs/WeaponConfigs.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/WeaponConfigs/WeaponConfigs.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/IHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/IHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/InterfaceWeapon/IReload.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/InterfaceWeapon/IReload.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/ReloadComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/ReloadComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Bullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Bullet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/CameraShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/CameraShake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Crosshair.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Crosshair/ChangeCrosshair.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Crosshair/ChangeCrosshair.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/CameraShakeConfigs.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Crosshair/Crosshair.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Crosshair/Crosshair.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/ConfigsLoader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootController.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootController.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/TestGun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/TestGun.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/TestGun.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/TestGun.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/AutomaticFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/AutomaticFire.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/BurstFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/BurstFire.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/BaseWeaponConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/BaseWeaponConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/PistolConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/PistolConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/WeaponConfigs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/WeaponConfigs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +229,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+<<<<<<< Updated upstream
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17d9ce77f27a4bd2afb5ba32c9bea97646ac00/7a/9e95dc03/RuntimeConstructorInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5675beb25788478c930377bea67fb8933e000/3a/340794a0/Graph.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5675beb25788478c930377bea67fb8933e000/3a/c8fe840a/Edge.cs" root0="SKIP_HIGHLIGHTING" />
@@ -129,6 +237,22 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/CameraShakeConfigs.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/ConfigsLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/CrosshairConfigs.cs" root0="FORCE_HIGHLIGHTING" />
+=======
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17d9ce77f27a4bd2afb5ba32c9bea97646ac00/fd/1081baf3/MethodInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/38/09b67314/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/ff/9d491b3d/IObserver`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/78fe3e0b66cf40fc8dbec96aa3584483952400/73/bb36e44a/SerializedObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/78fe3e0b66cf40fc8dbec96aa3584483952400/b7/9907d9a9/ReorderableList.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5b293c74049457cabc28437c5a763925a00/44/d5a4aeb2/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/3c/6c33c507/Debug.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/9d/da5d6418/MeansImplicitUseAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/da6a1787df247a0274ec8fc4840f41df092ee13874f55f87a9db568acab1bd2/System.Reflection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../GitHub/Hunt-Dev/Assets/Scripts/ScriptsHumanoid/StateMachine/WeaponMachine/PlayerReload.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot.meta" root0="SKIP_HIGHLIGHTING" />
+>>>>>>> Stashed changes
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/EventController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/IHealth.cs" root0="FORCE_HIGHLIGHTING" />
@@ -250,12 +374,22 @@
       <workItem from="1714821888027" duration="1873000" />
       <workItem from="1714828185368" duration="601000" />
       <workItem from="1714830910635" duration="1498000" />
+<<<<<<< Updated upstream
       <workItem from="1714832722090" duration="6254000" />
       <workItem from="1715091088729" duration="730000" />
       <workItem from="1715244007050" duration="25301000" />
       <workItem from="1715321095197" duration="7714000" />
       <workItem from="1715331700581" duration="17344000" />
       <workItem from="1715418074377" duration="9561000" />
+=======
+      <workItem from="1714832722090" duration="55631000" />
+      <workItem from="1715080824129" duration="23258000" />
+      <workItem from="1715274965722" duration="15557000" />
+      <workItem from="1715358234156" duration="6618000" />
+      <workItem from="1715430131937" duration="19179000" />
+      <workItem from="1715509908283" duration="54000" />
+      <workItem from="1715511499709" duration="91000" />
+>>>>>>> Stashed changes
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
@@ -297,10 +431,30 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
+<<<<<<< Updated upstream
           <url>file://$PROJECT_DIR$/Assets/Scripts/Game/Player/Weapons/StrategyFire/SingleFire.cs</url>
           <line>10</line>
           <properties documentPath="Z:\TDS\Assets\Scripts\Game\Player\Weapons\StrategyFire\SingleFire.cs" containingFunctionPresentation="Constructor 'SingleFire'" />
           <option name="timeStamp" value="2" />
+=======
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/AutomaticFire.cs</url>
+          <line>18</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\Game\Player\Weapons\StrategyFire\AutomaticFire.cs" containingFunctionPresentation="Constructor 'AutomaticFire'" />
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Game/Player/Player.cs</url>
+          <line>85</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\Game\Player\Player.cs" containingFunctionPresentation="Method 'TestHealth'">
+            <startOffsets>
+              <option value="3363" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3398" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="31" />
+>>>>>>> Stashed changes
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

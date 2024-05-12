@@ -32,6 +32,7 @@ namespace DI
         }
 
         private void BindShootComponent()
+<<<<<<< Updated upstream
         {
             BindNewInstance<BulletLifeCycle>();;
             BindNewInstance<CameraShake>();
@@ -50,9 +51,34 @@ namespace DI
             BindNewInstance<WeaponConfigs>();
             BindNewInstance<CameraShakeConfigs>();
             BindNewInstance<CrosshairConfigs>();
+=======
+        {
+            BindNewInstance<BulletLifeCycle>();;
+            BindNewInstance<CameraShake>();
+            BindNewInstance<Recoil>();
+            BindNewInstance<Spread>();
+            BindNewInstance<ShootComponent>();
+            BindNewInstance<WeaponData>();
+>>>>>>> Stashed changes
         }
         private void BindPool() => BindNewInstance<PoolObject<Bullet>>();
 
+<<<<<<< Updated upstream
+=======
+        private void BindCursor()
+        {
+            BindInstance(_crosshair);
+            BindInstance(_changeCrosshair);
+        }
+        private void BindConfigs()
+        {
+            BindNewInstance<WeaponConfigs>();
+            BindNewInstance<CameraShakeConfigs>();
+            BindNewInstance<CrosshairConfigs>();
+        }
+        private void BindPool() => BindNewInstance<PoolObject<Bullet>>();
+
+>>>>>>> Stashed changes
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 
         private void BindWeaponChange() => BindNewInstance<WeaponChange>();

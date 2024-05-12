@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Configs/Shoot/Camera.meta
 guid: 8203ddd48260be240abf997d2ed503a1
+========
+guid: cfffdc30dfaaeec42a764fa0be3c2fa7
+guid: 358c5ba8139a6114c8cea009d5519811
+>>>>>>>> Stashed changes:Assets/Plugins/AddressableAssetsData/Windows/addressables_content_state.bin.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

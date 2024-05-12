@@ -1,5 +1,8 @@
 using UnityEngine;
+<<<<<<< Updated upstream
 using Zenject;
+=======
+>>>>>>> Stashed changes
 
 public class Crosshair : MonoBehaviour
 {
@@ -8,6 +11,7 @@ public class Crosshair : MonoBehaviour
     
     private Vector2 _crosshairPos;
     private Vector2 _recoilPosition;
+<<<<<<< Updated upstream
     private Recoil _recoil;
     
     [Inject]
@@ -16,6 +20,8 @@ public class Crosshair : MonoBehaviour
         Debug.Log("рекоиль");
         _recoil = recoil;
     }
+=======
+>>>>>>> Stashed changes
 
     public RectTransform CrossHair => _crosshair;
     

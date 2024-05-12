@@ -7,7 +7,10 @@ using Zenject;
 
 public class CrosshairConfigs
 {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     public bool IsLoadPistolConfig { get; private set; }
 
     private const string NameLoadPistolConfig = "Pistol";

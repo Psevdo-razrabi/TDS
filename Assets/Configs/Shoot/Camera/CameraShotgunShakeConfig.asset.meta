@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Configs/Shoot/Camera/CameraShotgunShakeConfig.asset.meta
 guid: 06f7e95cbbdbbd04a975be5d4f182800
+========
+guid: b6948d4f017bce2428d5f5d5c4c02df8
+>>>>>>>> Stashed changes:Assets/AnyAssets/AddressableAssetsData/ProfileDataSourceSettings.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

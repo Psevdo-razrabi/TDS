@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Configs/Shoot/Camera/CameraRifleShake.asset.meta
 guid: 2cb4d5042d5b1d64ebffd94ae9d738ab
+========
+guid: 50c86cb9337a16f409c8c6ecc317e646
+>>>>>>>> Stashed changes:Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

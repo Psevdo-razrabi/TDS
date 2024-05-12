@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1396,6 +1396,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crosshair: {fileID: 1265400052}
   _speed: 10
+  _crosshairPos: {x: 0, y: 0}
+  _recoilPosition: {x: 0, y: 0}
 --- !u!224 &1265400052
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1441,6 +1443,10 @@ MonoBehaviour:
   - {fileID: 1218984542}
   _forceChanges: 500
   _maxExpandDistance: 1000
+  _initialPositions: []
+  _expandMultiplier: 0
+  _additionalExpansion: 0
+  _stepValue: 0
 --- !u!1 &1292167607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1939,11 +1945,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24156e071183f6545b0578371140ee4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 1489597434}
-  _bullet: {fileID: 6704100415736727948, guid: 6d9239bf5d560464da83002e18c01b48, type: 3}
-  _camera: {fileID: 989629435}
-  _crosshair: {fileID: 1265400051}
-  _changeCrosshair: {fileID: 1265400053}
 --- !u!4 &1457301744
 Transform:
   m_ObjectHideFlags: 0
@@ -1959,18 +1960,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1489597434 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3813282390899581256, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
-    type: 3}
-  m_PrefabInstance: {fileID: 2671748822317731923}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be2e38eae191e1d49b965650673226eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1694014941
 GameObject:
   m_ObjectHideFlags: 0
@@ -2412,7 +2401,6 @@ GameObject:
   - component: {fileID: 2132106288}
   - component: {fileID: 2132106290}
   - component: {fileID: 2132106289}
-  - component: {fileID: 2132106291}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -2469,7 +2457,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 2132106289}
-  - {fileID: 2132106291}
+  - {fileID: 0}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -2487,22 +2475,6 @@ MonoBehaviour:
   _parentNewObjectsUnderSceneContext: 0
   _contractNames: []
   _parentContractNames: []
---- !u!114 &2132106291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132106287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32d1e69b4cd094d47890c87fe845e986, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
-  _rifle: {fileID: 11400000, guid: d0218e763c4e1094694d8bcc94629f06, type: 2}
-  _cameraShake: {fileID: 11400000, guid: 74c0b01ccb5ff284482b61ec83f27f05, type: 2}
-  _bulletCFG: {fileID: 11400000, guid: 80c367524dbe0524ebe4b0177303933f, type: 2}
 --- !u!1001 &2671748822317731923
 PrefabInstance:
   m_ObjectHideFlags: 0

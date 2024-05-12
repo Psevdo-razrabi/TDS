@@ -1,5 +1,14 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
+<<<<<<<< Updated upstream:Assets/Configs/Shoot.meta
 guid: 358c5ba8139a6114c8cea009d5519811
+========
+guid: 878cf85caedac93409f2b48dff81aa91
+>>>>>>>> Stashed changes:Assets/AnyAssets/AddressableAssetsData.meta
+=======
+guid: 5ec8a49ad7109f04aa15e9e4f395f236
+guid: 358c5ba8139a6114c8cea009d5519811
+>>>>>>> Stashed changes
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

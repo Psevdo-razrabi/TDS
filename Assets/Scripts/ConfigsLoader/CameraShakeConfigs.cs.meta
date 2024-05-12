@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scripts/ConfigsLoader/CameraShakeConfigs.cs.meta
 guid: 280d2e48ebbe47645b915de710bd9cb5
+========
+guid: 99f4b71ffe260d74187a0d2123921115
+>>>>>>>> Stashed changes:Assets/Scripts/ConfigsLoader/ConfigsLoader.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

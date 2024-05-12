@@ -26,8 +26,13 @@ public class Bullet : MonoBehaviour
 
     private void ApplyDamage(IHealth healthObject)
     {
+<<<<<<< Updated upstream
         _eventController.ShotHit();
         healthObject.TakeDamage(_damage);
+=======
+        _eventController.ShootHit();
+        healthObject.HealthStats.SetDamage(_damage);
+>>>>>>> Stashed changes
         Debug.Log($"Логика нанесения урона {_damage} ");
     }
 }

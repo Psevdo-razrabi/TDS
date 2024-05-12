@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset.meta
 guid: 50afe1633928a494bb1e8116a0962955
+========
+guid: 129b893f2847fab4c9712f5ddf757a4e
+>>>>>>>> Stashed changes:Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

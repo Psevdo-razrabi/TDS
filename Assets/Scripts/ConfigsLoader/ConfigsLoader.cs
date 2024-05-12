@@ -8,6 +8,9 @@ public class ConfigsLoader
     private CameraShakeConfigs _cameraShakeConfigs;
     private WeaponConfigs _weaponConfigs;
     private CrosshairConfigs _crosshairConfigs;
+<<<<<<< Updated upstream
     
     
+=======
+>>>>>>> Stashed changes
 }

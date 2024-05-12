@@ -1647,6 +1647,58 @@ MonoBehaviour:
   fireMode: {fileID: 1193399310}
   _crosshair: {fileID: 329907086}
   _changeCrosshair: {fileID: 329907085}
+<<<<<<< Updated upstream:Assets/Scenes/Game.unity
+=======
+--- !u!114 &1017338637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc7268ac8d5540bfb169fcd184fcc2b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1017338638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49cef42a02304d8b81633a6216ba7016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1017338639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38c0670679ca40e08b304f301c8d634a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1017338640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299fe8e1256e4a18848ef33082553eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectView: {fileID: 835346493}
+>>>>>>> Stashed changes:Assets/Scenes/Game 1.unity
 --- !u!1 &1031792355
 GameObject:
   m_ObjectHideFlags: 0
