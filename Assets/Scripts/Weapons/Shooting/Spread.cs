@@ -32,7 +32,7 @@ public class Spread
         while (_weaponConfigs.IsLoadConfigs == false)
             await UniTask.Yield();
         
-        _gunConfig = _weaponConfigs.PistolConfig;
+        _gunConfig = _weaponConfigs.RifleConfig;
         CalculateStepSpread();
     }
     
