@@ -54,11 +54,34 @@ namespace Game.Player.States
         
         protected void UpdateDesiredTargetSpeed(PlayerMoveConfig configs)
         {
-            Data.CurrentSpeed = _dictionarySpeed[Movement].CalculatedSpeed(Data.MouseDirection, Movement, configs);
+           Data.CurrentSpeed = Data.CurrentSpeed switch
+            {
+                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y > 0 && Movement == Vector3.forward => configs.Speed,
+                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y < 0 && Movement == Vector3.back => configs.Speed,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x > 0 && Movement == Vector3.right => configs.Speed,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x < 0 && Movement == Vector3.left => configs.Speed,
+                _ => configs.SpeedBackwards
+            };
 
-            x = Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) ? (Data.MouseDirection.y > 0 ? -1 : 1) : (Data.MouseDirection.x > 0 ? 1 : -1);
+            x = x switch
+            {
+                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y > 0 && Movement == Vector3.left => x=-1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y < 0 && Movement == Vector3.right => x=-1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x > 0 && Movement == Vector3.forward => x=-1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x < 0 && Movement == Vector3.back => x=-1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y > 0 && Movement == Vector3.right => x = 1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y < 0 && Movement == Vector3.left => x = 1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x > 0 && Movement == Vector3.back => x = 1f,
+                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x < 0 && Movement == Vector3.forward => x = 1f,
+                _ => x=0
+            };
 
-            y = Mathf.Approximately(Data.CurrentSpeed, configs.Speed) || Mathf.Approximately(Data.CurrentSpeed, configs.SpeedStrafe) ? 1 : -1;
+            y = y switch
+            {
+                _ when Data.CurrentSpeed == configs.Speed => y = 1,
+                _ when Data.CurrentSpeed == configs.SpeedBackwards => y = -1,
+                _ => y = 0
+            };
 
             Player.AnimatorController.SetFloatParameters("MouseX", x);
             Player.AnimatorController.SetFloatParameters("MouseY", y);

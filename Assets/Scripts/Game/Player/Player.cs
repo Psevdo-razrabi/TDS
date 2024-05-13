@@ -16,6 +16,7 @@ namespace Game.Player
     [RequireComponent(typeof(CharacterController))]
     public class Player : MonoBehaviour, IStateDataWorker, IHealth
     {
+        [SerializeField] private RagdollHelper ragdollHelper;
         public InputSystemMovement InputSystem { get; private set; }
         public InputSystemMouse InputSystemMouse { get; private set; }
         public IPlayerAim PlayerAim { get; private set; }
@@ -53,49 +54,15 @@ namespace Game.Player
             HealthStats =
                 new RestoringHealth(
                     new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
-                        new Die<Player>(gameObject, EventController)),
+                        new Die<Player>(gameObject, EventController, ragdollHelper)),
                     PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
         }
 
         private void Update()
         {
-            TestHealth();
             if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
             
             _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
-        }
-
-
-        private void TestHealth()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.D))
-            {
-                HealthStats.SetDamage(10f);
-            }
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.H))
-            {
-                if (HealthStats is IHealthRestoring healthStats)
-                {
-                    switch (healthStats.IsHealthRestoringAfterHitEnemy)
-                    {
-                        case true:
-                            HealthStats.CancellationTokenSource.Cancel();
-                            break;
-                        case false:
-                            HealthStats.AddHealth(0f);
-                            break;
-                    }
-                }
-            }
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.E))
-            {
-                var b = HealthStats as IHealthRestoring;
-                b.IsHealthRestoringAfterDieEnemy = true;
-
-                HealthStats.AddHealth(0f);
-            }
         }
 
         private void OnDisable()

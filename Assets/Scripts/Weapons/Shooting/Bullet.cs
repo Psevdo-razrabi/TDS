@@ -21,7 +21,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {  
-        Debug.Log("попал");
         if (other.collider.TryGetComponent(out IHealth health))
         {
             ApplyDamage(health);
@@ -37,7 +36,6 @@ public class Bullet : MonoBehaviour
 
     private void ApplyDamage(IHealth healthObject)
     {
-        _eventController.ShootHit();
         healthObject.HealthStats.SetDamage(_damage);
         Debug.Log($"Логика нанесения урона {_damage} ");
     }
