@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Enemy.interfaces
 {
     public interface IDie<T>
     {
-        void Died();
+        UniTask Died();
     }
 }

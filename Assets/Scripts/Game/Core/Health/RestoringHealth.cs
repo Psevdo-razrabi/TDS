@@ -30,8 +30,7 @@ namespace Game.Core.Health
             _playerHealthConfig = playerHealthConfig;
             _eventController = eventController;
             _healthValue = healthValue;
-
-            _eventController.ShootHited += AddHealth;
+            
             _eventController.EnemyDie += EnemyDie;
             _eventController.EnemyHitBullet += EnemyHitBullet;
         }
@@ -73,7 +72,6 @@ namespace Game.Core.Health
 
         public void Dispose()
         {
-            _eventController.ShootHited -= AddHealth;
             _eventController.EnemyDie -= EnemyDie;
             _eventController.EnemyHitBullet -= EnemyHitBullet;
 
