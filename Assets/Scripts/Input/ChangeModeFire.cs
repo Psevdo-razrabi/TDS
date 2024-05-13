@@ -3,60 +3,56 @@ using System.Collections.Generic;
 using System.Reflection;
 using Customs;
 using Cysharp.Threading.Tasks;
+using Game.Player.Weapons;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.StrategyFire;
 using Input.Interface;
-using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace Input
 {
-    public class ChangeModeFire : MonoBehaviour, ISetFireModes
+    public class ChangeModeFire : MonoBehaviour, ISetFireModes, IInitializable
     {
         public string fireMode;
-        private InputSystem _inputSystem;
-        private readonly Queue<MethodInfo> _queueStates = new();
-        private readonly Subject<Unit> _dashClick = new();
-        private readonly CompositeDisposable _compositeDisposable = new();
-        private MethodInfo _modeFire;
+        private readonly Queue<Action> _queueStates = new();
+        private Action _modeFire;
         private MediatorFireStrategy _fireStrategy;
-        
-        private void OnEnable()
-        {
-            _inputSystem.Enable();
-            _inputSystem.Weapon.ChangeFireMode.performed +=_ => _dashClick.OnNext(Unit.Default);
-
-            _dashClick.ThrottleFirst(TimeSpan.FromSeconds(0.6f))
-                .Subscribe(async _ => await ChangeMode())
-                .AddTo(_compositeDisposable);   //условно задержка без переменной
-        }
+        private FireComponent _fireComponent;
         
         [ContextMenuAttribute("single fire")]
         private void AddSingleFire()
         {
-            _fireStrategy.ChangeFireMode(new SingleFire());
+            _fireStrategy.ChangeFireMode(new SingleFire(_fireComponent));
         }
         
         [ContextMenuAttribute("burst fire")]
         private void AddBurstFire()
         {
-            _fireStrategy.ChangeFireMode(new BurstFire());
+            _fireStrategy.ChangeFireMode(new BurstFire(_fireComponent));
         }
         
         [ContextMenuAttribute("automatic fire")]
         private void AddAutomaticFire()
         {
-            _fireStrategy.ChangeFireMode(new AutomaticFire());
+            _fireStrategy.ChangeFireMode(new AutomaticFire(_fireComponent));
         }
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
         {
-            methodFireStates.ForEach(x => _queueStates.Enqueue(x));
+            //methodFireStates.ForEach(x => _queueStates.Enqueue(x)); - на неопределенный срок
+        }
+        
+        public async void Initialize()
+        {
+            _queueStates.Enqueue(AddSingleFire);
+            _queueStates.Enqueue(AddBurstFire);
+            _queueStates.Enqueue(AddAutomaticFire);
+
+            await ChangeMode();
         }
 
-        private async UniTask ChangeMode()
-        {
+        public async UniTask ChangeMode() {
             if (_queueStates.Count == 0)
             {
                 Debug.Log("очередь пуста, что то не так");
@@ -66,24 +62,16 @@ namespace Input
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
             _modeFire = _queueStates.Dequeue();
             _queueStates.Enqueue(_modeFire);
-            _modeFire.Invoke(this, null);
+            _modeFire();
             _modeFire = null;
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
         }
         
         [Inject]
-        private void Construct(InputSystem inputSystem, MediatorFireStrategy fireStrategy)
+        private void Construct(MediatorFireStrategy fireStrategy, FireComponent fireComponent)
         {
-            _inputSystem = inputSystem;
             _fireStrategy = fireStrategy;
-        }
-        
-        private void OnDisable()
-        {
-            _inputSystem.Disable();
-            _inputSystem.Dispose();
-            _compositeDisposable.Clear();
-            _compositeDisposable.Dispose();
+            _fireComponent = fireComponent;
         }
     }
 }

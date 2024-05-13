@@ -1,8 +1,12 @@
-﻿using Game.Player.AnimatorScripts;
+﻿using Customs;
+using Enemy;
+using Game.Core.Health;
+using Game.Player.AnimatorScripts;
 using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
-using TMPro;
+using Input;
+using UI.Storage;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -10,42 +14,48 @@ using Zenject;
 namespace Game.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class Player : MonoBehaviour, IStateDataWorker
+    public class Player : MonoBehaviour, IStateDataWorker, IHealth
     {
-        public ReactiveProperty<int> Text1 { get; } = new();
-        
-        [field: SerializeField] public TextMeshProUGUI text { get; private set; }
-
-        private CompositeDisposable _disposable = new();
-        
-        public InputSystemPC InputSystem { get; private set; }
+        [SerializeField] private RagdollHelper ragdollHelper;
+        public InputSystemMovement InputSystem { get; private set; }
+        public InputSystemMouse InputSystemMouse { get; private set; }
         public IPlayerAim PlayerAim { get; private set; }
         public AnimatorController AnimatorController { get; private set; }
         public CharacterController CharacterController { get; private set; }
+        public IHealthStats HealthStats { get; private set; }
         [Inject] public PlayerConfigs PlayerConfigs { get; private set; }
         [Inject] public StateHandleChain StateChain { get; private set; }
         [Inject] public StateMachineData StateMachineData { get; private set; }
         [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
+        [Inject] public ValueCountStorage<float> ValueModelHealth { get; private set; }
+        [Inject] public EventController EventController { get; private set; }
 
         private InitializationStateMachine _initializationStateMachine;
+        private CompositeDisposable _disposable = new();
 
         [Inject]
-        private async void Construct(IPlayerAim playerAim, InputSystemPC inputSystemPC, AnimatorController animatorController, InitializationStateMachine stateMachine)
+        private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
+            InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
+            InitializationStateMachine stateMachine)
         {
             PlayerAim = playerAim;
-            InputSystem = inputSystemPC;
+            InputSystem = inputSystemMovement;
+            InputSystemMouse = inputSystemMouse;
             AnimatorController = animatorController;
-
-            CharacterController = GetComponent<CharacterController>();
-
             _initializationStateMachine = stateMachine;
+        }
 
-            Text1
-                .Subscribe(_ => text.text = $"Dash Count : {Text1.Value}")
-                .AddTo(_disposable);
-
+        private async void Start()
+        {
+            CharacterController = GetComponent<CharacterController>();
             await AsyncWorker.Await(PlayerConfigs);
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
+            
+            HealthStats =
+                new RestoringHealth(
+                    new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
+                        new Die<Player>(gameObject, EventController, ragdollHelper)),
+                    PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
         }
 
         private void Update()

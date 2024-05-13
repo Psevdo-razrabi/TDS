@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/RagdollHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/RagdollHelper.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Player.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Player.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Die.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Die.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/interfaces/IDie.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/interfaces/IDie.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Core/Health/RestoringHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Core/Health/RestoringHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Bullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Bullet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Temp/Rar$DIa33200.23659/FireBulletAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17d9ce77f27a4bd2afb5ba32c9bea97646ac00/fd/1081baf3/MethodInfo.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/38/09b67314/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/ff/9d491b3d/IObserver`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/78fe3e0b66cf40fc8dbec96aa3584483952400/73/bb36e44a/SerializedObject.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/78fe3e0b66cf40fc8dbec96aa3584483952400/b7/9907d9a9/ReorderableList.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5b293c74049457cabc28437c5a763925a00/44/d5a4aeb2/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/3c/6c33c507/Debug.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/9d/da5d6418/MeansImplicitUseAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3ea01e77be99618395f448b16bd7cc2bd4248bd9e5d8474964b2d97f39c5d74/System.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/da6a1787df247a0274ec8fc4840f41df092ee13874f55f87a9db568acab1bd2/System.Reflection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../GitHub/Hunt-Dev/Assets/Scripts/ScriptsHumanoid/StateMachine/WeaponMachine/PlayerReload.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraPistolShakeConfig.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraRifleShake.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraRifleShake.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraRifleShake.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraRifleShake.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraShotgunShakeConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Configs/Shoot/Camera/CameraShotgunShakeConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Plugins/AddressableAssetsData/AssetGroups/Configs.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Plugins/AddressableAssetsData/AssetGroups/Configs.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Plugins/AddressableAssetsData/Windows/addressables_content_state.bin.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Plugins/AddressableAssetsData/Windows/addressables_content_state.bin.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Plugins/Borodar/RainbowFolders/Editor/Source/RainbowFolders.src.unitypackage.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Plugins/Borodar/RainbowFolders/Editor/Source/RainbowFolders.src.unitypackage.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/ConfigsLoader.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/ConfigsLoader.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/ChangeCrosshair.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/ChangeCrosshair.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/ChangeCrosshair.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/ChangeCrosshair.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/Crosshair.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/Crosshair.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/Crosshair.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Crosshair/Crosshair.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/EventController.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/EventController.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Game/Player/Interfaces/ICameraProvider.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Game/Player/Interfaces/ICameraProvider.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/IHealth.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/IHealth.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ViewModel/ReloadViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/FireBulletAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/FireBulletAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/FireBulletAction.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/FireBulletAction.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/HandlerDecoratorActions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/HandlerDecoratorActions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/HandlerDecoratorActions.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/HandlerDecoratorActions.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/ReloadAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/ReloadAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/ReloadAction.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Decorator/ReloadAction.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/InterfaceWeapon/IAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/InterfaceWeapon/IAction.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/InterfaceWeapon/IAction.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/InterfaceWeapon/IAction.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/BulletConfig.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/Configs/CameraShakeConfig.asset.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/ShootController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/ShootController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/ShootController.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/Shooting/ShootController.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/WeaponConfigs/WeaponData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/WeaponConfigs/WeaponData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/WeaponConfigs/WeaponData.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://Z:/TDS/Assets/Scripts/Weapons/WeaponConfigs/WeaponData.cs.meta" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.21.20/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.21.20/Runtime/ResourceManager/Util/MonoBehaviourCallbackHooks.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@3.0.28/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.22/Editor/SimpleJSON.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Volume/Volume.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Volume/VolumeComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Core/Utilities/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2fDnmB73kQph8hWGOvIVtmzQre2" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "XThreadsFramesViewSplitterKey": "0.2008547",
+    "git-widget-placeholder": "BeamProger",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CodeLensConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\KOBAN13\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\KOBAN13\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\KOBAN13\\AppData\\Local\\Symbols\\src"
+    ]
+  }
+}]]></component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/builds/TSD/7\MegaKurs.exe" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\artio\Desktop\builds\TSD\1" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="Z:\Новая папка\2022.3.16f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath D:\UnityProjects\TDS -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="D:\UnityProjects\TDS" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="Z:\Новая папка\2022.3.16f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath D:\UnityProjects\TDS -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="D:\UnityProjects\TDS" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="28684">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" value="28684" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="" />
+      <created>1713344672444</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713344672444</updated>
+      <workItem from="1713344673505" duration="1782000" />
+      <workItem from="1713461005652" duration="8092000" />
+      <workItem from="1713624951373" duration="597000" />
+      <workItem from="1713645859985" duration="879000" />
+      <workItem from="1713680561625" duration="1217000" />
+      <workItem from="1713725479968" duration="6682000" />
+      <workItem from="1713734024202" duration="73000" />
+      <workItem from="1713771513035" duration="20032000" />
+      <workItem from="1713961653759" duration="2353000" />
+      <workItem from="1714130426648" duration="155000" />
+      <workItem from="1714132854534" duration="20909000" />
+      <workItem from="1714166670012" duration="1916000" />
+      <workItem from="1714218960585" duration="20224000" />
+      <workItem from="1714298226140" duration="1102000" />
+      <workItem from="1714334481589" duration="3175000" />
+      <workItem from="1714397782679" duration="9554000" />
+      <workItem from="1714645107290" duration="1126000" />
+      <workItem from="1714652054508" duration="6739000" />
+      <workItem from="1714821888027" duration="1873000" />
+      <workItem from="1714828185368" duration="601000" />
+      <workItem from="1714830910635" duration="1498000" />
+      <workItem from="1714832722090" duration="55631000" />
+      <workItem from="1715080824129" duration="23258000" />
+      <workItem from="1715274965722" duration="15557000" />
+      <workItem from="1715358234156" duration="6618000" />
+      <workItem from="1715430131937" duration="19179000" />
+      <workItem from="1715509908283" duration="54000" />
+      <workItem from="1715524180954" duration="377000" />
+      <workItem from="1715530463844" duration="38322000" />
+    </task>
+    <task id="LOCAL-00001" summary="починка конфликов">
+      <option name="closed" value="true" />
+      <created>1714830208317</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714830208317</updated>
+    </task>
+    <task id="LOCAL-00002" summary="?">
+      <option name="closed" value="true" />
+      <created>1714830403860</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714830403860</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="починка конфликов" />
+    <MESSAGE value="?" />
+    <option name="LAST_COMMIT_MESSAGE" value="?" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/UI/ViewModel/HealthPlayerViewModel.cs</url>
+          <line>22</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\UI\ViewModel\HealthViewModel.cs" containingFunctionPresentation="Method 'Initialize'">
+            <startOffsets>
+              <option value="551" />
+            </startOffsets>
+            <endOffsets>
+              <option value="596" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Bullet.cs</url>
+          <line>23</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\Weapons\Shooting\Bullet.cs" containingFunctionPresentation="Method 'OnCollisionEnter'">
+            <startOffsets>
+              <option value="466" />
+            </startOffsets>
+            <endOffsets>
+              <option value="521" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#Game.Player.Weapons.WeaponConfigs.BaseWeaponConfig" memberName="BulletPoint" />
+        <PinnedItemInfo parentTag="Type#Customs.MethodList" memberName="methods" />
+        <PinnedItemInfo parentTag="Type#SaveSystem.GameData" memberName="MethodName" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+</project>

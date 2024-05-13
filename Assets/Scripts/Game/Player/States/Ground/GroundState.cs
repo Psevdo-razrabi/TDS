@@ -18,13 +18,13 @@ namespace Game.Player.States
         protected override void AddActionsCallbacks()
         {
             base.AddActionsCallbacks();
-            Player.InputSystem.OnSubscribeMouseClickUp(() =>
+            Player.InputSystemMouse.OnSubscribeRightMouseClickUp(() =>
             {
                 OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });
             
-            Player.InputSystem.OnSubscribeMouseClickDown(() =>
+            Player.InputSystemMouse.OnSubscribeRightMouseClickDown(() =>
             {
                 OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
@@ -35,9 +35,9 @@ namespace Game.Player.States
         {
             base.RemoveActionCallbacks();
             
-            Player.InputSystem.OnUnsubscribeMouseClickUp();
+            Player.InputSystemMouse.OnUnsubscribeRightMouseClickUp();
             
-            Player.InputSystem.OnUnsubscribeMouseClickDown();
+            Player.InputSystemMouse.OnUnsubscribeRightMouseClickDown();
         }
 
         //private void OnJumpPressedKey() => StateMachine.PlayerStateMachine.SwitchStates<>(); //Jump

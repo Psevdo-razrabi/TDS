@@ -4,24 +4,24 @@ using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
-using Game.Player.Weapons;
-using Game.Player.Weapons.Mediators;
 using Input;
 using UnityEngine;
-using Zenject;
 
 namespace DI
 {
-    public class GameInstaller : MonoInstaller
+    public sealed class GameInstaller : BaseBindings
     {
-        [SerializeField] private InputSystemPC inputSystemPC;
+        [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
         [SerializeField] private Player player; 
         [SerializeField] private ChangeModeFire fireMode;
+        [SerializeField] private InputSystemMouse inputSystemMouse;
+        [SerializeField] private InputSystemWeapon inputSystemWeapon;
         
         public override void InstallBindings()
         {
+            BindEventController();
             BindInput();
             BindAnimator();
             BindPlayerAim();
@@ -32,22 +32,18 @@ namespace DI
             BindHandlesState();
             BindStateMachineData();
             BindAsyncWorker();
-            BindWeaponComponents();
-            BindMediator();
-            BindChangeFire();
             BindMethodInfo();
         }
 
-        private void BindChangeFire() => BindInstance(fireMode);
-
-        private void BindMediator() => BindNewInstance<MediatorFireStrategy>();
-
-        private void BindWeaponComponents() => BindNewInstance<WeaponComponent>();
+        private void BindEventController() => BindNewInstance<EventController>();
 
         private void BindInput()
         {
             BindNewInstance<InputSystem>();
-            BindInstance(inputSystemPC);
+            BindInstance(inputSystemMovement);
+            BindInstance(inputSystemMouse);
+            BindInstance(inputSystemWeapon);
+            BindNewInstance<MouseInputObserver>();
         }
 
         private void BindAnimator() => BindInstance(animatorController);
@@ -79,17 +75,5 @@ namespace DI
         private void BindMethodInfo() => BindNewInstance<MethodList>();
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();
-
-        private void BindNewInstance<T>() => Container
-            .BindInterfacesAndSelfTo<T>()
-            .AsSingle()
-            .NonLazy();
-
-        private void BindInstance<T>(T instance) =>
-            Container
-                .BindInterfacesAndSelfTo<T>()
-                .FromInstance(instance)
-                .AsSingle()
-                .NonLazy();
     }
 }

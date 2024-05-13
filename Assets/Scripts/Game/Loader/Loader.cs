@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -7,9 +8,9 @@ public class Loader
 {
     public bool IsLoad { get; private set; } = false;
     public async UniTask<T> LoadResources<T>(string nameResources)
-    {
+    {   
         UniTaskCompletionSource<T> isTaskCompletion = new ();
-
+        
         try
         {
             AsyncOperationHandle<T> operationHandle = Addressables.LoadAssetAsync<T>(nameResources);
