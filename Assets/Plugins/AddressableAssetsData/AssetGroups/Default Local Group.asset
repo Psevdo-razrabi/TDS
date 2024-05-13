@@ -17,16 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: e53251534fc56144bb4f2a195db21c05
   m_SerializeEntries:
-  - m_GUID: 74c0b01ccb5ff284482b61ec83f27f05
-    m_Address: Assets/Configs/beam/CameraShakeConfig.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d0218e763c4e1094694d8bcc94629f06
-    m_Address: Rifle1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 80c367524dbe0524ebe4b0177303933f
     m_Address: Bullet
     m_ReadOnly: 0
@@ -58,7 +48,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
-  m_Settings: {fileID: 11400000, guid: 94ab1d46eaa81f643983f05adece687f, type: 2}
+  m_Settings: {fileID: 11400000, guid: a32baf0e5cd480a4ba13a93650c972e4, type: 2}
   m_SchemaSet:
     m_Schemas:
     - {fileID: 11400000, guid: 5a73c49f13467bb4b8382e7f8e45c6de, type: 2}

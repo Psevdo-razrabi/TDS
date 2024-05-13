@@ -29,10 +29,9 @@ namespace Game.Player.Weapons
         
         public void FireBullet()
         {
-            var fireAction = new FireBulletAction(WeaponData, _fireStrategy);
+            var fireAction = new FireBulletAction(WeaponData, _fireStrategy,() => _eventController.ShotFire());
             var handler = new HandlerDecoratorActions(() => !WeaponData.IsReloading, fireAction);
             handler.Execute();
-            _eventController.ShotFire();
         }
         
         public void Fire()

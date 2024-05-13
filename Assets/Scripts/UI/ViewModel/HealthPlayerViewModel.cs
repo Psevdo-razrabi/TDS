@@ -2,21 +2,18 @@
 using MVVM;
 using UI.Storage;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace UI.ViewModel
 {
-    public class HealthViewModel : IDisposable, IInitializable
+    public class HealthPlayerViewModel : IDisposable, IInitializable
     {
         [Data("Image")] 
         public readonly ReactiveProperty<float> HealthFillImage = new();
-        [Data("GameObject")]
-        public readonly ReactiveProperty<GameObject> GameObject = new();
         
         private ValueCountStorage<float> _valueCountStorage;
 
-        public HealthViewModel(ValueCountStorage<float> valueCountStorage)
+        public HealthPlayerViewModel(ValueCountStorage<float> valueCountStorage)
         {
             _valueCountStorage = valueCountStorage;
         }
