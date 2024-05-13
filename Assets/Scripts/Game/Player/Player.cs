@@ -26,7 +26,6 @@ namespace Game.Player
         [Inject] public StateHandleChain StateChain { get; private set; }
         [Inject] public StateMachineData StateMachineData { get; private set; }
         [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
-        [Inject] public ValueCountStorage<int> ValueModelDash { get; private set; }
         [Inject] public ValueCountStorage<float> ValueModelHealth { get; private set; }
         [Inject] public EventController EventController { get; private set; }
 
@@ -52,8 +51,10 @@ namespace Game.Player
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
             
             HealthStats =
-                new RestoringHealth(new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, new Die<Player>(gameObject)),
-                    PlayerConfigs.HealthConfig, EventController);
+                new RestoringHealth(
+                    new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
+                        new Die<Player>(gameObject, EventController)),
+                    PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
         }
 
         private void Update()
@@ -74,17 +75,24 @@ namespace Game.Player
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.H))
             {
-                if (HealthStats is IEnemyState healthStats)
+                if (HealthStats is IHealthRestoring healthStats)
                 {
-                    if (!healthStats.IsHealthRestoring)
-                        HealthStats.AddHealth(0f);
+                    switch (healthStats.IsHealthRestoringAfterHitEnemy)
+                    {
+                        case true:
+                            HealthStats.CancellationTokenSource.Cancel();
+                            break;
+                        case false:
+                            HealthStats.AddHealth(0f);
+                            break;
+                    }
                 }
             }
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.E))
             {
-                var b = HealthStats as IEnemyState;
-                b.IsEnemyDie = true;
+                var b = HealthStats as IHealthRestoring;
+                b.IsHealthRestoringAfterDieEnemy = true;
 
                 HealthStats.AddHealth(0f);
             }

@@ -1,6 +1,7 @@
 ﻿using Game.Core.Health;
 using UI.Storage;
 using UnityEngine;
+using Zenject;
 
 namespace Enemy
 {
@@ -8,10 +9,19 @@ namespace Enemy
     {
         [SerializeField] private EnemyHealthConfig healthConfigConfig;
         public IHealthStats HealthStats { get; private set; }
-
+        private ValueCountStorage<float> _valueCountStorage;
+        private EventController _eventController;
+        
+        [Inject]
+        private void Construct(ValueCountStorage<float> valueCountStorage, EventController eventController)
+        {
+            _valueCountStorage = valueCountStorage;
+            _eventController = eventController;
+        }
+        
         private void Start()
         {
-            HealthStats = new Health<Enemy>(healthConfigConfig.MaxHealth, new ValueCountStorage<float>(), new Die<Enemy>(gameObject));
+            HealthStats = new Health<Enemy>(healthConfigConfig.MaxHealth, _valueCountStorage, new Die<Enemy>(gameObject, _eventController));
         }
     }
 }

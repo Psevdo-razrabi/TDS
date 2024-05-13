@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CameraRifleShake
   m_EditorClassIdentifier: 
   <ShakeDuration>k__BackingField: 0.1
-  <ShakeStrength>k__BackingField: 3
+  <ShakeStrength>k__BackingField: 0.1

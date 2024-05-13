@@ -21,10 +21,17 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {  
+        Debug.Log("попал");
         if (other.collider.TryGetComponent(out IHealth health))
         {
             ApplyDamage(health);
         }
+
+        if (other.collider.TryGetComponent(out Enemy.Enemy enemy))
+        {
+            _eventController.OnEnemyHitBullet();
+        }
+        
         gameObject.SetActive(false);
     }
 

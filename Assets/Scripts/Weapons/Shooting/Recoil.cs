@@ -31,7 +31,7 @@ public class Recoil
         while (_weaponConfigs.IsLoadConfigs == false)
             await UniTask.Yield();
         
-        _gunConfig = _weaponConfigs.PistolConfig;
+        _gunConfig = _weaponConfigs.RifleConfig;
     }
     public void RecoilCursor()
     {

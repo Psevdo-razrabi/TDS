@@ -29,5 +29,7 @@ namespace UI.Storage
         {
             Value = value;
         }
+
+        public T GetValue() => Value;
     }
 }

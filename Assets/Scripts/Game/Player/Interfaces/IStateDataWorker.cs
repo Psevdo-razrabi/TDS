@@ -8,6 +8,5 @@ namespace Game.Player.Interfaces
     {
         PlayerConfigs PlayerConfigs { get;  }
         StateMachineData StateMachineData { get; }
-        ValueCountStorage<int> ValueModelDash { get; }
     }
 }

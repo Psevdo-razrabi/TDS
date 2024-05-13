@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Customs;
 using Cysharp.Threading.Tasks;
 using Enemy.interfaces;
@@ -15,6 +16,7 @@ namespace Game.Core.Health
         private readonly IDie<T> _objectHealth;
         private readonly EventController _eventController;
         private float _amountHealthPercentage = 1f;
+        public CancellationTokenSource CancellationTokenSource { get; private set; }
 
         public Health(float health, ValueCountStorage<float> healthValue, IDie<T> objectHealth)
         {
@@ -33,6 +35,8 @@ namespace Game.Core.Health
 
             _amountHealthPercentage -= value / MaxHealth;
             
+            Debug.LogWarning(_amountHealthPercentage);
+            
             _healthValue.ChangeValue(_amountHealthPercentage);
             
             if (CurrentHealth != 0f) return;
@@ -44,11 +48,12 @@ namespace Game.Core.Health
         {
             if (value < 0) throw new ArgumentException($"The Argument {nameof(value)} cannot be < 0");
 
-            CurrentHealth = CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0f, MaxHealth);
+            CurrentHealth = CurrentHealth = Mathf.Clamp(CurrentHealth + value * 100f, 0f, MaxHealth);
+
+            _amountHealthPercentage += value;
             
-            _amountHealthPercentage += value - _amountHealthPercentage;
-            
-            _healthValue.ChangeValue(_amountHealthPercentage);
+            Debug.LogWarning(CurrentHealth);
+            Debug.LogWarning(_amountHealthPercentage);
             
             await UniTask.Yield();
         }
