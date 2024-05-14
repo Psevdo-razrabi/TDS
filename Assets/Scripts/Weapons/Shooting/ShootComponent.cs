@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Game.Player.Weapons;
+using Game.Player.Weapons.InterfaseWeapon;
+using Game.Player.Weapons.ReloadStrategy;
 using Game.Player.Weapons.WeaponConfigs;
 using UniRx;
 using UnityEngine;
@@ -17,10 +19,10 @@ public class ShootComponent
     private EventController _eventController;
     
     private CompositeDisposable _compositeDisposable = new();
-    
+    private ReloadImage _reloadImage;
     public ReactiveProperty<int> AmmoInMagazine { get; private set; } 
     
-    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, EventController eventController , WeaponConfigs weaponConfigs)
+    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, EventController eventController , WeaponConfigs weaponConfigs, ReloadImage reloadImage)
     {
         _cameraShake = cameraShake;
         _bulletLifeCycle = bulletLifeCycle;
@@ -28,8 +30,13 @@ public class ShootComponent
         _spread = spread;
         _weaponConfigs = weaponConfigs;
         _eventController = eventController;
+        _reloadImage = reloadImage;
         
-        LoadConfigs();
+        _reloadImage.ReloadCompletedSubject
+            .Subscribe(_ => Debug.Log("перезарядка не отрыгнула"))
+            .AddTo(_compositeDisposable);
+        
+        LoadConfigs();  
     }
     private async void LoadConfigs()
     {

@@ -38,6 +38,7 @@ public class BulletLifeCycle
         Bullet bullet = _pool.GetElementInPool("bullet");
         bullet.Initialize(_gunConfig.TotalAmmo);
         bullet.transform.position = _gunConfig.BulletPoint.transform.position;
+        bullet.transform.rotation = Quaternion.Euler(_gunConfig.BulletPoint.transform.forward);
         await BulletLaunch(bullet);
     }
 

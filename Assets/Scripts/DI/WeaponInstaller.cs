@@ -1,6 +1,7 @@
 ﻿using Game.Player.Weapons;
 using Game.Player.Weapons.ChangeWeapon;
 using Game.Player.Weapons.Mediators;
+using Game.Player.Weapons.ReloadStrategy;
 using Game.Player.Weapons.StrategyFire;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
@@ -62,6 +63,7 @@ namespace DI
         {
             BindNewInstance<FireComponent>();
             BindNewInstance<ReloadComponent>();
+            BindNewInstance<ReloadImage>();
         }
         private void BindChangeFire() => BindInstance(fireMode);
 
