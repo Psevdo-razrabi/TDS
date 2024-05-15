@@ -10,16 +10,20 @@ public class BulletLifeCycle
         
     private PoolObject<Bullet> _pool;
     private readonly WeaponConfigs _weaponConfigs;
+    private EventController _eventController;
     
     private BulletConfig _bulletConfig;
     private RifleConfig _gunConfig;
     private Spread _spread;
+    private Rigidbody _bulletRigidbody;
     
-    public BulletLifeCycle(PoolObject<Bullet> pool,WeaponConfigs weaponConfigs, Spread spread)
+    public BulletLifeCycle(PoolObject<Bullet> pool,WeaponConfigs weaponConfigs, Spread spread, EventController eventController)
     {
         _pool = pool;
         _weaponConfigs = weaponConfigs;
         _spread = spread;
+        _eventController = eventController;
+        _eventController.BulletStoped += StopBullet;
         LoadConfigs();
     }
 
@@ -38,16 +42,21 @@ public class BulletLifeCycle
         Bullet bullet = _pool.GetElementInPool("bullet");
         bullet.Initialize(_gunConfig.TotalAmmo);
         bullet.transform.position = _gunConfig.BulletPoint.transform.position;
-        bullet.transform.rotation = Quaternion.Euler(_gunConfig.BulletPoint.transform.forward);
+        bullet.transform.rotation = Quaternion.LookRotation(_gunConfig.BulletPoint.transform.forward);
         await BulletLaunch(bullet);
     }
 
     private async UniTask BulletLaunch(Bullet bullet)
     {
-        Rigidbody bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        _bulletRigidbody = bullet.GetComponent<Rigidbody>();
         Vector3 velocity = _gunConfig.BulletPoint.transform.forward * _bulletConfig.BulletSpeed;
-        bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity);
+        _bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity);
         await ReturnBullet(bullet);
+    }
+    
+    private void StopBullet()
+    {
+        _bulletRigidbody.velocity = Vector3.zero;
     }
     
     private async UniTask ReturnBullet(Bullet bullet)

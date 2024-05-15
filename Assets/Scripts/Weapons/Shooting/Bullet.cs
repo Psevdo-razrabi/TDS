@@ -14,11 +14,13 @@ public class Bullet : MonoBehaviour
     private float _damage;
     private ParticleSystem _particleSystem;
     private IDisposable particleCompletionSubscription;
+    private BulletEffectSystem _bulletEffectSystem;
 
     [Inject]
-    public void Construct(EventController eventController)
+    public void Construct(EventController eventController, BulletEffectSystem bulletEffectSystem)
     {
         _eventController = eventController;
+        _bulletEffectSystem = bulletEffectSystem;
     }
 
     public void Initialize(float damage)
@@ -34,10 +36,8 @@ public class Bullet : MonoBehaviour
         {
             ApplyDamage(healthObject);
         }
-        Debug.Log("система частиц должна");
-        _particleSystem.Play();
+        _bulletEffectSystem.StartParticleSystem(_particleSystem,transform.position,true);
         _bullet.SetActive(false);
-        SubscribeParticle();
     }
 
     private void ApplyDamage(IHealth healthObject)
@@ -45,16 +45,5 @@ public class Bullet : MonoBehaviour
         _eventController.ShootHit();
     }
 
-    private void SubscribeParticle()
-    {
-        particleCompletionSubscription?.Dispose();
-        particleCompletionSubscription = Observable.EveryUpdate()
-            .Where(_ => !_particleSystem.isEmitting)
-            .First()
-            .Subscribe(_ =>
-            {
-                gameObject.SetActive(false);
-            });
-    }
 }
 

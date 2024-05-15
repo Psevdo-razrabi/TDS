@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3342620330760880277}
   - component: {fileID: 5967069050413876192}
   - component: {fileID: 615176311489787636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 941242473055532399}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.784, z: -3.659}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.784, z: -3.6558}
+  m_LocalScale: {x: 0.43859, y: 0.72357, z: 1.851}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7783595496280234879}
@@ -75,7 +75,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &615176311489787636
 CapsuleCollider:
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 1080914834238710865}
   - component: {fileID: 904663748621708678}
   - component: {fileID: 8050726670280081866}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,7 +232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4498964594828477371}
   - component: {fileID: 726008990047392160}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 1241244970368273093}
   - component: {fileID: 4708156368298965451}
   - component: {fileID: 8671848886038591985}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,13 +384,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8767200621276881197}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25274372, y: 0.25274372, z: 0.25274372}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3291204951961125954}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &4708156368298965451
 ParticleSystem:
   m_ObjectHideFlags: 0

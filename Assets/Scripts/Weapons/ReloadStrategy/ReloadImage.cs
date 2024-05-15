@@ -10,16 +10,17 @@ namespace Game.Player.Weapons.ReloadStrategy
 {
     public class ReloadImage : IReloadStrategy
     {
-        public readonly Subject<Unit> ReloadCompletedSubject = new();
-        private const float duration = 5f; //в конфиг
+        private const float duration = 1f;
+        private readonly Subject<Unit> _reloadCompletedSubject = new();
+        public IObservable<Unit> ReloadCompleted => _reloadCompletedSubject;
         
-        public async void Reload(ReloadComponent reloadComponent, BoolStorage boolStorage)  //реализация перезарядки с помощю картинки
+        public async void Reload(ReloadComponent reloadComponent, BoolStorage boolStorage)
         {
             boolStorage.ChangeBoolValue(true);
             reloadComponent.WeaponData.IsReloading = true;
             await ReloadWithImage(reloadComponent);
-            Debug.LogWarning("Relooooooooooooooooooooad");
-            ReloadCompletedSubject.OnNext(Unit.Default);
+
+            _reloadCompletedSubject.OnNext(Unit.Default);
             boolStorage.ChangeBoolValue(false);
         }
         
