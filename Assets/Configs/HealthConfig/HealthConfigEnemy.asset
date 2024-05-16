@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577cfdefc1ba41d8a69db31ccc2c436e, type: 3}
   m_Name: HealthConfigEnemy
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
+  <MaxHealth>k__BackingField: 300

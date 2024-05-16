@@ -43,7 +43,6 @@ namespace Input
                 .Subscribe(async _ => await _changeModeFire.ChangeMode())  //условно задержка без переменной
                 .AddTo(CompositeDisposable);
             
-            
             _delayedClickShoot
                 .ThrottleFirst(TimeSpan.FromSeconds(0.1f))
                 .Subscribe(_ => weaponComponent.fireComponent.Fire()) //задержка между выстрелами
