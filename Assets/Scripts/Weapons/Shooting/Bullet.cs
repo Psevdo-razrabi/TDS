@@ -29,7 +29,8 @@ public class Bullet : MonoBehaviour
         {
             _eventController.OnEnemyHitBullet();
         }
-        
+
+        _eventController.BulletHit();
         gameObject.SetActive(false);
     }
 

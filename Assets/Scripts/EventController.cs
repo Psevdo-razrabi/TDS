@@ -7,6 +7,7 @@ public class EventController
     public event Action SpreadReducing;
     public event Action EnemyDie;
     public event Action EnemyHitBullet;
+    public event Action BulletStoped;
 
     public void ShotFire()
     {
@@ -26,5 +27,10 @@ public class EventController
     public void OnEnemyHitBullet()
     {
         EnemyHitBullet?.Invoke();
+    }
+
+    public void BulletHit()
+    {
+        BulletStoped?.Invoke();
     }
 }

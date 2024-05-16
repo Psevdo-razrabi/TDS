@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 public class Spread 
 {
-    private WeaponConfigs _weaponConfigs;
+     private WeaponConfigs _weaponConfigs;
     private RifleConfig _gunConfig;
     private CompositeDisposable _compositeDisposable = new CompositeDisposable();
     private IDisposable _reductionSubscription;
@@ -19,9 +19,8 @@ public class Spread
     
     private float _currentSpread;
     private float _baseStepSpread;
+    private float _currentCoefficient;
     private int _currentBulletCount;
-
-    private int _initialBulletsCount;
 
     public Spread(WeaponConfigs weaponConfigs, EventController eventController, ChangeCrosshair changeCrosshair, Recoil recoil)
     {
@@ -38,7 +37,6 @@ public class Spread
             await UniTask.Yield();
 
         _gunConfig = _weaponConfigs.RifleConfig;
-        _initialBulletsCount = _gunConfig.InitialBulletsCount;
         CalculateStepSpread();
     }
     
@@ -46,6 +44,7 @@ public class Spread
     {
         _baseStepSpread = _gunConfig.MaxSpread / _gunConfig.MaxSpreadBullet;
         _currentSpread = _baseStepSpread;
+        _currentCoefficient = _gunConfig.BaseSpreadCoefficient;
         _currentBulletCount = 0;
     }
     
@@ -75,18 +74,9 @@ public class Spread
         float spreadX = Random.Range(-_currentSpread, _currentSpread);
         Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
         
-        float spreadAcceleration;
+        float spreadAcceleration = _baseStepSpread * _currentCoefficient;
+        _currentCoefficient = Mathf.Min(_currentCoefficient * _gunConfig.SpreadMultiplierCoefficient, _gunConfig.MaxSpreadCoefficient);
         
-        if (_currentBulletCount <= _initialBulletsCount)
-        {
-            spreadAcceleration = _baseStepSpread * (_currentBulletCount / (float)_initialBulletsCount);
-        }
-        else
-        {
-            int excessBullets = _currentBulletCount - _initialBulletsCount;
-            spreadAcceleration = _baseStepSpread + Mathf.Pow(excessBullets, _gunConfig.SpreadIncreaseCoefficient);
-        }
-
         _currentSpread += spreadAcceleration;
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
         Debug.Log(_currentSpread);
@@ -101,6 +91,7 @@ public class Spread
         _currentSpread -= _baseStepSpread;
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
         
+        _currentCoefficient = _gunConfig.BaseSpreadCoefficient;
         _currentBulletCount = 0;
 
         _eventController.SpreadReduce();
