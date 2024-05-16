@@ -7,8 +7,8 @@ public class CameraShake
     private CameraShakeConfigs _cameraShakeConfigs;
     private CameraShakeConfig _shakeConfig;
     private ICameraProvider _cameraProvider;
-    
-    private Vector3 _originalPosition;
+
+    private Vector3 _shakeOffset = Vector3.zero;
     private bool _isShaking = false;
 
     public CameraShake(CameraShakeConfigs shakeConfigs, ICameraProvider cameraProvider)
@@ -26,24 +26,28 @@ public class CameraShake
 
         _shakeConfig = _cameraShakeConfigs.RifleShakeConfig;
     }
-    
+
     public void ShakeCamera()
     {
-        if (!_isShaking) {
-            _originalPosition = _cameraProvider.CameraTransform.position;
-        }
+        if (_isShaking) return;
         
+        _isShaking = true;
+
         _cameraProvider.CameraTransform.DOKill(complete: true);
 
-        _isShaking = true;
         _cameraProvider.CameraTransform
-            .DOShakePosition(_shakeConfig.ShakeDuration, _shakeConfig.ShakeStrength, 1, 90f, false, true, ShakeRandomnessMode.Harmonic)
+            .DOShakePosition(_shakeConfig.ShakeDuration, _shakeConfig.ShakeStrength, 5, 90f, false, true, ShakeRandomnessMode.Harmonic)
             .SetEase(Ease.InOutBounce)
-            .SetLink(_cameraProvider.CameraTransform.gameObject)
-            .OnComplete(() => {
-                _cameraProvider.CameraTransform.position = _originalPosition;
+            .OnUpdate(() =>
+            {
+                Vector3 currentNoShakePosition = _cameraProvider.CameraTransform.position - _shakeOffset;
+                _shakeOffset = _cameraProvider.CameraTransform.position - currentNoShakePosition;
+                _cameraProvider.CameraTransform.position = currentNoShakePosition;
+            })
+            .OnComplete(() =>
+            {
+                _shakeOffset = Vector3.zero;
                 _isShaking = false;
             });
     }
-   
 }

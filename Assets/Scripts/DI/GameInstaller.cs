@@ -33,6 +33,7 @@ namespace DI
             BindStateMachineData();
             BindAsyncWorker();
             BindMethodInfo();
+            BindEffect();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();
@@ -46,12 +47,17 @@ namespace DI
             BindNewInstance<MouseInputObserver>();
         }
 
+        private void BindEffect()
+        {
+            BindNewInstance<BulletEffectSystem>();
+        }
+        
         private void BindAnimator() => BindInstance(animatorController);
 
         private void BindPlayerAim() => BindInstance(playerAim);
-
+        
         private void BindPlayer() => BindInstance(player);
-
+        
         private void BindLoader() => BindNewInstance<Loader>();
 
         private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
