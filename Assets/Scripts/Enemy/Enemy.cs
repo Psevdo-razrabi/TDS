@@ -1,23 +1,28 @@
 ﻿using Customs;
 using Game.Core.Health;
+using Game.Player.Interfaces;
 using UI.Storage;
 using UnityEngine;
 using Zenject;
 
 namespace Enemy
 {
-    public class Enemy: MonoBehaviour, IHealth
+    public class Enemy: MonoBehaviour, IHealth, IInitialaize
     {
         [SerializeField] private EnemyHealthConfig healthConfigConfig;
         [SerializeField] private RagdollHelper ragdollHelper;
         public IHealthStats HealthStats { get; private set; }
         private ValueCountStorage<float> _valueCountStorage;
         private EventController _eventController;
-        
-        [Inject]
-        private void Construct(ValueCountStorage<float> valueCountStorage, EventController eventController)
+
+        public void InitModel(ValueCountStorage<float> valueCountStorage)
         {
             _valueCountStorage = valueCountStorage;
+        }
+        
+        [Inject]
+        private void Construct(EventController eventController)
+        {
             _eventController = eventController;
         }
         

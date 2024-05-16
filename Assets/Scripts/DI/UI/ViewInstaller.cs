@@ -1,5 +1,6 @@
 ﻿using UI.View;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -12,5 +13,6 @@ namespace DI
         }
 
         private void BindView() => BindInstance(gameObjectView);
+        
     }
 }
