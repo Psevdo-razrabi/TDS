@@ -47,6 +47,7 @@ namespace DI
             BindInstance(_crosshair);
             BindInstance(_changeCrosshair);
         }
+        
         private void BindConfigs()
         {
             BindNewInstance<WeaponConfigs>();

@@ -1,49 +1,42 @@
-using System;
-using Customs;
 using Game.Core.Health;
-using UniRx;
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private GameObject _bullet;
-    
     private EventController _eventController;
     private float _damage;
-    private ParticleSystem _particleSystem;
-    private IDisposable particleCompletionSubscription;
-    private BulletEffectSystem _bulletEffectSystem;
 
     [Inject]
-    public void Construct(EventController eventController, BulletEffectSystem bulletEffectSystem)
+    public void Construct(EventController eventController)
     {
         _eventController = eventController;
-        _bulletEffectSystem = bulletEffectSystem;
     }
-
+    
     public void Initialize(float damage)
     {
         _damage = damage;
-        _bullet.SetActive(true);
-        _particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnCollisionEnter(Collision other)
     {  
-        if (other.collider.TryGetComponent(out IHealth healthObject))
+        if (other.collider.TryGetComponent(out IHealth health))
         {
-            ApplyDamage(healthObject);
+            ApplyDamage(health);
         }
-        _bulletEffectSystem.StartParticleSystem(_particleSystem,transform.position,true);
-        _bullet.SetActive(false);
+
+        if (other.collider.TryGetComponent(out Enemy.Enemy enemy))
+        {
+            _eventController.OnEnemyHitBullet();
+        }
+        
+        gameObject.SetActive(false);
     }
 
     private void ApplyDamage(IHealth healthObject)
     {
-        _eventController.ShootHit();
+        healthObject.HealthStats.SetDamage(_damage);
+        Debug.Log($"Логика нанесения урона {_damage} ");
     }
-
 }
 

@@ -1,4 +1,6 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Game.Core.Health
 {
@@ -8,5 +10,7 @@ namespace Game.Core.Health
         float CurrentHealth { get; }
         void SetDamage(float value);
         UniTaskVoid AddHealth(float value);
+        void Unsubscribe();
+        void Subscribe();
     }
 }

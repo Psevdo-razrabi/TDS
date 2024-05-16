@@ -14,8 +14,9 @@ using Zenject;
 namespace Game.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class Player : MonoBehaviour, IStateDataWorker, IHealth
+    public class Player : MonoBehaviour, IStateDataWorker, IHealth, IInitialaize
     {
+        [SerializeField] private RagdollHelper ragdollHelper;
         public InputSystemMovement InputSystem { get; private set; }
         public InputSystemMouse InputSystemMouse { get; private set; }
         public IPlayerAim PlayerAim { get; private set; }
@@ -26,8 +27,7 @@ namespace Game.Player
         [Inject] public StateHandleChain StateChain { get; private set; }
         [Inject] public StateMachineData StateMachineData { get; private set; }
         [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
-        [Inject] public ValueCountStorage<int> ValueModelDash { get; private set; }
-        [Inject] public ValueCountStorage<float> ValueModelHealth { get; private set; }
+         public ValueCountStorage<float> ValueModelHealth { get; private set; }
         [Inject] public EventController EventController { get; private set; }
 
         private InitializationStateMachine _initializationStateMachine;
@@ -52,48 +52,36 @@ namespace Game.Player
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
             
             HealthStats =
-                new RestoringHealth(new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, new Die<Player>(gameObject)),
-                    PlayerConfigs.HealthConfig, EventController);
+                new RestoringHealth(
+                    new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
+                        new Die<Player>(gameObject, EventController, ragdollHelper)),
+                    PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
+            
+            HealthStats.Subscribe();
         }
 
         private void Update()
         {
-            TestHealth();
+            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
+            {
+                HealthStats.SetDamage(10f);
+            }
+            
             if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
             
             _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
         }
 
-
-        private void TestHealth()
-        {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.D))
-            {
-                HealthStats.SetDamage(10f);
-            }
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.H))
-            {
-                if (HealthStats is IEnemyState healthStats)
-                {
-                    if (!healthStats.IsHealthRestoring)
-                        HealthStats.AddHealth(0f);
-                }
-            }
-
-            if (UnityEngine.Input.GetKeyDown(KeyCode.E))
-            {
-                var b = HealthStats as IEnemyState;
-                b.IsEnemyDie = true;
-
-                HealthStats.AddHealth(0f);
-            }
-        }
-
         private void OnDisable()
         {
+            HealthStats.Unsubscribe();
             _disposable.Clear();
             _disposable.Dispose();
+        }
+        
+        public void InitModel(ValueCountStorage<float> valueCountStorage)
+        {
+            ValueModelHealth = valueCountStorage;
         }
     }
 }

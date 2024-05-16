@@ -1,24 +1,17 @@
-﻿using System;
-using MVVM;
-using UI.Storage;
-using UniRx;
-using UnityEngine;
-using Zenject;
+﻿using UI.Storage;
+using UI.View;
 
 namespace UI.ViewModel
 {
-    public class HealthViewModel : IDisposable, IInitializable
+    public class HealthBarPresenter
     {
-        [Data("Image")] 
-        public readonly ReactiveProperty<float> HealthFillImage = new();
-        [Data("GameObject")]
-        public readonly ReactiveProperty<GameObject> GameObject = new();
-        
+        private readonly HealthBarView _imageView;
         private ValueCountStorage<float> _valueCountStorage;
 
-        public HealthViewModel(ValueCountStorage<float> valueCountStorage)
+        public HealthBarPresenter(ValueCountStorage<float> valueCountStorage, HealthBarView imageView)
         {
             _valueCountStorage = valueCountStorage;
+            _imageView = imageView;
         }
 
         public void Initialize()
@@ -34,7 +27,7 @@ namespace UI.ViewModel
         
         private void OnValueCountChange(float count)
         {
-            HealthFillImage.Value = count;
+            _imageView.ImageFillAmount.Value = count;
         }
     }
 }

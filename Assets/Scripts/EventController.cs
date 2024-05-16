@@ -5,9 +5,9 @@ public class EventController
 {
     public event Action ShotFired;
     public event Action SpreadReducing;
-    public event Func<float, UniTaskVoid> ShootHited;
-    public event Action BulletStoped;
-    
+    public event Action EnemyDie;
+    public event Action EnemyHitBullet;
+
     public void ShotFire()
     {
         ShotFired?.Invoke();
@@ -18,10 +18,13 @@ public class EventController
         SpreadReducing?.Invoke();
     }
 
-    public void ShootHit()
+    public void OnEnemyDie()
     {
-        ShootHited?.Invoke(0f);
-        BulletStoped?.Invoke();
+        EnemyDie?.Invoke();
     }
-        
+
+    public void OnEnemyHitBullet()
+    {
+        EnemyHitBullet?.Invoke();
+    }
 }
