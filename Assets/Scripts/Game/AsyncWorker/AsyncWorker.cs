@@ -1,5 +1,7 @@
-﻿using Game.Player.Interfaces;
+﻿using Game.AsyncWorker.Interfaces;
+using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
+using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponConfigs;
 using UI.Storage;
 using Zenject;
@@ -11,7 +13,7 @@ namespace Game.AsyncWorker
     using Cysharp.Threading.Tasks;
     using UnityEngine;
 
-    public class AsyncWorker : IInitializable
+    public class AsyncWorker : IInitializable, IAwaiter
     {
         private IStateDataWorker _dataWorkerStateMachine;
         private Queue<Action> _queueTask = new();
@@ -21,7 +23,7 @@ namespace Game.AsyncWorker
         
         public async void Initialize()
         {
-            await Await(_dataWorkerStateMachine.PlayerConfigs);
+            await AwaitLoadPlayerConfig(_dataWorkerStateMachine.PlayerConfigs);
 
             _maxQueueSize = _dataWorkerStateMachine.PlayerConfigs.DashConfig.NumberChargesDash;
 
@@ -29,6 +31,43 @@ namespace Game.AsyncWorker
                 EnqueueToQueue(() => DashOperationCount(1));
             
             _valueModelDash.SetValue(_maxQueueSize);
+        }
+        
+        public async UniTask AwaitLoadPlayerConfig(PlayerConfigs configs)
+        {
+            while (configs.IsLoadAllConfig == false)
+                await UniTask.Yield();
+        }
+        
+        public async UniTask AwaitLoadWeaponConfigs(WeaponConfigs configs)
+        {
+            while (configs.IsLoadConfigs == false)
+                await UniTask.Yield();
+        }
+
+        public async UniTask AwaitLoadShakeCameraConfigs(CameraShakeConfigs cameraShakeConfigs)
+        {
+            while (cameraShakeConfigs.IsLoadShakeConfigs == false)
+            {
+                await UniTask.Yield();
+            }
+        }
+
+        public async UniTask AwaitLoadPrefabConfigs(WeaponPrefabs weaponPrefabs)
+        {
+            while (weaponPrefabs.IsLoadConfigs == false)
+                await UniTask.Yield();
+        }
+
+        public async UniTask Dash(int sign)
+        {
+            DashOperationCount(sign);
+            _isTaskComplite = false;
+            await UniTask.SwitchToThreadPool(); 
+            await DequeueToQueue();
+            await AwaitLoadPlayerConfig();
+            await UniTask.SwitchToMainThread();
+            EnqueueToQueue(() => DashOperationCount(1));
         }
 
         private void EnqueueToQueue(Action delegateToQueue)
@@ -58,7 +97,7 @@ namespace Game.AsyncWorker
             Debug.Log(_dataWorkerStateMachine.StateMachineData.DashCount);
         }
         
-        private async UniTask Await()
+        private async UniTask AwaitLoadPlayerConfig()
         {
             while (!_isTaskComplite)
                 await UniTask.Yield();
@@ -69,23 +108,6 @@ namespace Game.AsyncWorker
         {
             _dataWorkerStateMachine = dataWorker;
             _valueModelDash = valueModelDash;
-        }
-        
-        public async UniTask Await(PlayerConfigs configs)
-        {
-            while (!configs.IsLoadAllConfig)
-                await UniTask.Yield();
-        }
-
-        public async UniTask Dash(int sign)
-        {
-            DashOperationCount(sign);
-            _isTaskComplite = false;
-            await UniTask.SwitchToThreadPool(); 
-            await DequeueToQueue();
-            await Await();
-            await UniTask.SwitchToMainThread();
-            EnqueueToQueue(() => DashOperationCount(1));
         }
     }
 }

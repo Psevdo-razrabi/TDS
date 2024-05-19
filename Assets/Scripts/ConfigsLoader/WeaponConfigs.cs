@@ -6,13 +6,15 @@ namespace Game.Player.Weapons.WeaponConfigs
 {
     public class WeaponConfigs
     {
-        public RifleConfig PistolConfig { get; private set; }
+        public PistolConfig PistolConfig { get; private set; }
         public RifleConfig RifleConfig { get; private set; }
+        public ShotgunConfig ShotgunConfig { get; private set; }
         public BulletConfig BulletConfig { get; private set; }
         public bool IsLoadConfigs { get; private set; }
 
         private const string NameLoadPistolConfig = "Pistol";
         private const string NameLoadRifleConfig = "Rifle";
+        private const string NameLoadShotgunConfig = "Shotgun";
         private const string NameLoadBulletConfig = "Bullet";
         
         private Loader _loader;
@@ -27,8 +29,9 @@ namespace Game.Player.Weapons.WeaponConfigs
         private async UniTask LoadConfigs()
         {
             BulletConfig = await _loader.LoadResources<ScriptableObject>(NameLoadBulletConfig) as BulletConfig;
-            PistolConfig = await _loader.LoadResources<ScriptableObject>(NameLoadPistolConfig) as RifleConfig;
+            PistolConfig = await _loader.LoadResources<ScriptableObject>(NameLoadPistolConfig) as PistolConfig;
             RifleConfig = await _loader.LoadResources<ScriptableObject>(NameLoadRifleConfig) as RifleConfig;
+            ShotgunConfig = await _loader.LoadResources<ScriptableObject>(NameLoadShotgunConfig) as ShotgunConfig;
             
             IsLoadConfigs = true;
         }

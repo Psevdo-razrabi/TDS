@@ -23,7 +23,7 @@ public class MethodListEditor : Editor
     private List<string> _methodLabels = new();
     private UnitOfWorks _unitOfWorks;
     private IdGenerator _idGenerator;
-    private const string PlayerPrefsKey = "MethodList";
+    private const string PlayerPrefsKey = "SetFireMode";
     private const string PlayerPrefsKeyLabels = "MethodLabels";
     
     [Inject]

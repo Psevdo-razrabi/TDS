@@ -13,6 +13,7 @@ namespace DI
         {
             BindNewInstance<DashViewModel>();
             BindNewInstance<ReloadViewModel>();
+            BindNewInstance<StorageViewModel>();
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Customs;
-using Game.AsyncWorker;
+﻿using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
@@ -18,6 +17,7 @@ namespace DI
         [SerializeField] private ChangeModeFire fireMode;
         [SerializeField] private InputSystemMouse inputSystemMouse;
         [SerializeField] private InputSystemWeapon inputSystemWeapon;
+        [SerializeField] private InputSystemUi inputSystemUi;
         
         public override void InstallBindings()
         {
@@ -32,7 +32,6 @@ namespace DI
             BindHandlesState();
             BindStateMachineData();
             BindAsyncWorker();
-            BindMethodInfo();
             BindEffect();
         }
 
@@ -44,7 +43,9 @@ namespace DI
             BindInstance(inputSystemMovement);
             BindInstance(inputSystemMouse);
             BindInstance(inputSystemWeapon);
+            BindInstance(inputSystemUi);
             BindNewInstance<MouseInputObserver>();
+            
         }
 
         private void BindEffect()
@@ -77,8 +78,6 @@ namespace DI
             BindNewInstance<StateHandleChain>();
             
         }
-
-        private void BindMethodInfo() => BindNewInstance<MethodList>();
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();
     }

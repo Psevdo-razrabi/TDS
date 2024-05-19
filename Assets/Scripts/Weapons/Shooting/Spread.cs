@@ -1,57 +1,87 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Game.Player.Weapons;
+using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UniRx;
 using UnityEngine;
+using Weapons.InterfaceWeapon;
+using Zenject;
 using Random = UnityEngine.Random;
 
-public class Spread 
+public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
 {
-    private WeaponConfigs _weaponConfigs;
-    private RifleConfig _gunConfig;
-    private CompositeDisposable _compositeDisposable = new();
+    private readonly WeaponConfigs _weaponConfigs;
+    private BaseWeaponConfig _gunConfig;
+    private readonly CompositeDisposable _compositeDisposable = new ();
     private IDisposable _reductionSubscription;
-    private EventController _eventController;
-    private ChangeCrosshair _changeCrosshair;
+    private readonly EventController _eventController;
+    private readonly ChangeCrosshair _changeCrosshair;
+    private readonly Recoil _recoil;
+    private DistributionConfigs _distributionConfigs;
     
     private float _currentSpread;
-    private float _stepSpread;
-    private int _bulletsFired = 0;
-    private float _maxSpread;
-    private float _baseSpread;
-    private float _growthFactor;
-    public Spread(WeaponConfigs weaponConfigs, EventController eventController,ChangeCrosshair changeCrosshair)
+    private float _baseStepSpread;
+    private int _currentBulletCount;
+
+    private int _initialBulletsCount;
+
+    public Spread(WeaponConfigs weaponConfigs, EventController eventController, 
+        ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs)
     {
         _weaponConfigs = weaponConfigs;
         _eventController = eventController;
         _changeCrosshair = changeCrosshair;
-        LoadConfigs();
+        _recoil = recoil;
+        _distributionConfigs = distributionConfigs;
     }
     
-    private async void LoadConfigs()
+    public void Initialize()
     {
-        while (_weaponConfigs.IsLoadConfigs == false)
-            await UniTask.Yield();
-        
-        _gunConfig = _weaponConfigs.RifleConfig;
-        CalculateMaxSpread();
+        _distributionConfigs.ClassesWantConfig.Add(this);
     }
     
-    private void CalculateMaxSpread()
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
-        _maxSpread = _gunConfig.MaxSpread;
-        _baseSpread = _gunConfig.BaseSpread;
-        _growthFactor = _gunConfig.GrowthFactor;
-        _currentSpread = 0;
-        _bulletsFired = 0;
+        VisitWeapon(weaponComponent);
+        _initialBulletsCount = _gunConfig.InitialBulletsCount;
+        CalculateStepSpread();
     }
 
+    public void Visit(Pistol pistol)
+    {
+        _gunConfig = _weaponConfigs.PistolConfig;
+    }
+
+    public void Visit(Rifle rifle)
+    {
+        _gunConfig = _weaponConfigs.RifleConfig;
+    }
+
+    public void Visit(Shotgun shotgun)
+    {
+        _gunConfig = _weaponConfigs.ShotgunConfig;
+    }
+
+    public void VisitWeapon(WeaponComponent component)
+    {
+        Visit((dynamic)component);
+    }
+    
+    private void CalculateStepSpread()
+    {
+        _baseStepSpread = _gunConfig.MaxSpread / _gunConfig.MaxSpreadBullet;
+        _currentSpread = _baseStepSpread;
+        _currentBulletCount = 0;
+    }
+    
     public void StartSpreadReduction()
     {
-        _reductionSubscription?.Dispose();
-
+        if (_reductionSubscription != null)
+        {
+            _reductionSubscription.Dispose();
+        }
+        
         _reductionSubscription = Observable
             .Interval(TimeSpan.FromSeconds(_gunConfig.TimeToSpreadReduce))
             .Subscribe(_ =>
@@ -66,23 +96,39 @@ public class Spread
 
     public Vector3 CalculatingSpread(Vector3 velocity)
     {
+        _currentBulletCount++;
+
         float spreadX = Random.Range(-_currentSpread, _currentSpread);
         Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
+        
+        float spreadAcceleration;
+        
+        if (_currentBulletCount <= _initialBulletsCount)
+        {
+            spreadAcceleration = _baseStepSpread * (_currentBulletCount / (float)_initialBulletsCount);
+        }
+        else
+        {
+            int excessBullets = _currentBulletCount - _initialBulletsCount;
+            spreadAcceleration = _baseStepSpread + Mathf.Pow(excessBullets, _gunConfig.SpreadIncreaseCoefficient);
+        }
 
-        _bulletsFired++;
-        _currentSpread = _baseSpread * Mathf.Pow(_bulletsFired, _growthFactor);
-        _currentSpread = Mathf.Clamp(_currentSpread, 0, _maxSpread);
+        _currentSpread += spreadAcceleration;
+        _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
         Debug.Log(_currentSpread);
-        float stepsToReduce = _currentSpread / _currentSpread / _gunConfig.TimeToSpreadReduce;
+        float stepsToReduce = _currentSpread / _baseStepSpread;
         _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);
+        _recoil.UpdateSpread(_currentSpread);
         return velocityWithSpread;
     }
-
+    
     private void SpreadReduce()
     {
-        float stepReduce = _currentSpread / _gunConfig.TimeToSpreadReduce;
-        _currentSpread -= stepReduce;
-        _currentSpread = Mathf.Clamp(_currentSpread, 0, _maxSpread);
+        _currentSpread -= _baseStepSpread;
+        _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
+        
+        _currentBulletCount = 0;
+
         _eventController.SpreadReduce();
     }
 } 
