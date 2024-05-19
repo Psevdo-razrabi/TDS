@@ -2,7 +2,6 @@ using System;
 using Cysharp.Threading.Tasks;
 using Game.Player.Weapons.WeaponConfigs;
 using UnityEngine;
-using Zenject;
 
 public class BulletLifeCycle
 {

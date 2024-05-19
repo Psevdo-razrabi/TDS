@@ -17,17 +17,17 @@ public class ShootComponent
     private Recoil _recoil;
     private Spread _spread;
     private WeaponConfigs _weaponConfigs;
-    private EventController _eventController;
+    private FireComponent _shootComponent;
     private ReloadComponent _reloadComponent;
     
-    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, EventController eventController , WeaponConfigs weaponConfigs, ReloadComponent reloadComponent)
+    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, FireComponent shootComponent , WeaponConfigs weaponConfigs, ReloadComponent reloadComponent)
     {
         _cameraShake = cameraShake;
         _bulletLifeCycle = bulletLifeCycle;
         _recoil = recoil;
         _spread = spread;
         _weaponConfigs = weaponConfigs;
-        _eventController = eventController;
+        _shootComponent = shootComponent;
         _reloadComponent = reloadComponent;
         
         LoadConfigs();  
@@ -40,7 +40,6 @@ public class ShootComponent
         _cameraShake.ShakeCamera();
         
        _reloadComponent.AmmoInMagazine.Value--;
-        Debug.Log(_reloadComponent.AmmoInMagazine.Value + "ткущие пулькф");
     }
     
     private async void LoadConfigs()
@@ -48,10 +47,10 @@ public class ShootComponent
         while (_weaponConfigs.IsLoadConfigs == false)
             await UniTask.Yield();
         
-        _eventController.ShotFired += ShotFired;
+        _shootComponent.ShotFired += ShotFire;
     }
 
-    private void ShotFired()
+    private void ShotFire()
     {
         if(_reloadComponent.AmmoInMagazine.Value > 0)
             HandleShoot();

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5673af232f64f429459ffe427611e64, type: 3}
-  m_Name: RifleConfig
+  m_Name: RifleAimConfig
   m_EditorClassIdentifier: 
-  <TotalAmmo>k__BackingField: 60
-  <ReloadTime>k__BackingField: 2
+  <TotalAmmo>k__BackingField: 0
+  <ReloadTime>k__BackingField: 0
   <BulletPoint>k__BackingField: {fileID: 0}
-  <TimeBetweenShoots>k__BackingField: 0.1
-  <MaxSpread>k__BackingField: 15
-  <MaxSpreadBullet>k__BackingField: 25
-  <TimeToSpreadReduce>k__BackingField: 0.05
-  <BaseSpread>k__BackingField: 0.1
-  <GrowthFactor>k__BackingField: 1.2
-  <RecoilForce>k__BackingField: 25
-  <ReloadTime>k__BackingField: 2
+  <TimeBetweenShoots>k__BackingField: 0
+  <MaxSpread>k__BackingField: 0
+  <MaxSpreadBullet>k__BackingField: 0
+  <TimeToSpreadReduce>k__BackingField: 0
+  <BaseSpread>k__BackingField: 0
+  <GrowthFactor>k__BackingField: 0
+  <RecoilForce>k__BackingField: 0
+  <ReloadTime>k__BackingField: 0

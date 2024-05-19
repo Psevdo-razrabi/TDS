@@ -9,25 +9,24 @@ using Random = UnityEngine.Random;
 
 public class Spread 
 {
-     private WeaponConfigs _weaponConfigs;
+    private WeaponConfigs _weaponConfigs;
     private RifleConfig _gunConfig;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private CompositeDisposable _compositeDisposable = new();
     private IDisposable _reductionSubscription;
     private EventController _eventController;
     private ChangeCrosshair _changeCrosshair;
-    private Recoil _recoil;
     
     private float _currentSpread;
-    private float _baseStepSpread;
-    private float _currentCoefficient;
-    private int _currentBulletCount;
-
-    public Spread(WeaponConfigs weaponConfigs, EventController eventController, ChangeCrosshair changeCrosshair, Recoil recoil)
+    private float _stepSpread;
+    private int _bulletsFired = 0;
+    private float _maxSpread;
+    private float _baseSpread;
+    private float _growthFactor;
+    public Spread(WeaponConfigs weaponConfigs, EventController eventController,ChangeCrosshair changeCrosshair)
     {
         _weaponConfigs = weaponConfigs;
         _eventController = eventController;
         _changeCrosshair = changeCrosshair;
-        _recoil = recoil;
         LoadConfigs();
     }
     
@@ -35,26 +34,24 @@ public class Spread
     {
         while (_weaponConfigs.IsLoadConfigs == false)
             await UniTask.Yield();
-
+        
         _gunConfig = _weaponConfigs.RifleConfig;
-        CalculateStepSpread();
+        CalculateMaxSpread();
     }
     
-    private void CalculateStepSpread()
+    private void CalculateMaxSpread()
     {
-        _baseStepSpread = _gunConfig.MaxSpread / _gunConfig.MaxSpreadBullet;
-        _currentSpread = _baseStepSpread;
-        _currentCoefficient = _gunConfig.BaseSpreadCoefficient;
-        _currentBulletCount = 0;
+        _maxSpread = _gunConfig.MaxSpread;
+        _baseSpread = _gunConfig.BaseSpread;
+        _growthFactor = _gunConfig.GrowthFactor;
+        _currentSpread = 0;
+        _bulletsFired = 0;
     }
-    
+
     public void StartSpreadReduction()
     {
-        if (_reductionSubscription != null)
-        {
-            _reductionSubscription.Dispose();
-        }
-        
+        _reductionSubscription?.Dispose();
+
         _reductionSubscription = Observable
             .Interval(TimeSpan.FromSeconds(_gunConfig.TimeToSpreadReduce))
             .Subscribe(_ =>
@@ -69,31 +66,23 @@ public class Spread
 
     public Vector3 CalculatingSpread(Vector3 velocity)
     {
-        _currentBulletCount++;
-
         float spreadX = Random.Range(-_currentSpread, _currentSpread);
         Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
-        
-        float spreadAcceleration = _baseStepSpread * _currentCoefficient;
-        _currentCoefficient = Mathf.Min(_currentCoefficient * _gunConfig.SpreadMultiplierCoefficient, _gunConfig.MaxSpreadCoefficient);
-        
-        _currentSpread += spreadAcceleration;
-        _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
+
+        _bulletsFired++;
+        _currentSpread = _baseSpread * Mathf.Pow(_bulletsFired, _growthFactor);
+        _currentSpread = Mathf.Clamp(_currentSpread, 0, _maxSpread);
         Debug.Log(_currentSpread);
-        float stepsToReduce = _currentSpread / _baseStepSpread;
+        float stepsToReduce = _currentSpread / _currentSpread / _gunConfig.TimeToSpreadReduce;
         _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);
-        _recoil.UpdateSpread(_currentSpread);
         return velocityWithSpread;
     }
-    
+
     private void SpreadReduce()
     {
-        _currentSpread -= _baseStepSpread;
-        _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
-        
-        _currentCoefficient = _gunConfig.BaseSpreadCoefficient;
-        _currentBulletCount = 0;
-
+        float stepReduce = _currentSpread / _gunConfig.TimeToSpreadReduce;
+        _currentSpread -= stepReduce;
+        _currentSpread = Mathf.Clamp(_currentSpread, 0, _maxSpread);
         _eventController.SpreadReduce();
     }
 } 
