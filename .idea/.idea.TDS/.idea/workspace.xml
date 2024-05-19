@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/FireComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/FireComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/BulletLifeCycle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/BulletLifeCycle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/RifleConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/WeaponConfigs/RifleConfig.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +149,7 @@
       <workItem from="1715530463844" duration="77929000" />
       <workItem from="1715875942255" duration="1544000" />
       <workItem from="1716029608936" duration="9245000" />
-      <workItem from="1716131264812" duration="3083000" />
+      <workItem from="1716131264812" duration="3739000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
