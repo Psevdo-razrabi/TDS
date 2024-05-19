@@ -1,5 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
 
 public class EventController
 {
@@ -7,6 +6,7 @@ public class EventController
     public event Action SpreadReducing;
     public event Action EnemyDie;
     public event Action EnemyHitBullet;
+    public event Action BulletStoped;
 
     public void ShotFire()
     {

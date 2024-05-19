@@ -1,7 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Game.Player.Weapons.InterfaceWeapon;
-using Input;
 
 namespace Game.Player.Weapons.StrategyFire
 {

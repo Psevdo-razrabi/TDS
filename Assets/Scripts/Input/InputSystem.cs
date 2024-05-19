@@ -105,7 +105,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""FillImage"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""db2ac6d7-8bb1-4d36-a08d-c9b6c19654e1"",
                     ""expectedControlType"": ""Button"",
@@ -133,7 +133,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FillImage"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -226,6 +226,34 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""UI"",
+            ""id"": ""7e52b540-a282-4c02-b08a-d71cdc80d9af"",
+            ""actions"": [
+                {
+                    ""name"": ""HideStorage"",
+                    ""type"": ""Button"",
+                    ""id"": ""86b74f74-f155-441b-87b3-e4ce7e43d048"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""ca8c89d0-ae51-4697-90d7-d331b7ba7452"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HideStorage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -238,13 +266,16 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
-        m_Movement_Dash = m_Movement.FindAction("FillImage", throwIfNotFound: true);
+        m_Movement_Dash = m_Movement.FindAction("Dash", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
         m_Weapon_Fire = m_Weapon.FindAction("Fire", throwIfNotFound: true);
         m_Weapon_ChangeFireMode = m_Weapon.FindAction("ChangeFireMode", throwIfNotFound: true);
         m_Weapon_ChangeWeapon = m_Weapon.FindAction("ChangeWeapon", throwIfNotFound: true);
+        // UI
+        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
+        m_UI_HideStorage = m_UI.FindAction("HideStorage", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -488,6 +519,52 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         }
     }
     public WeaponActions @Weapon => new WeaponActions(this);
+
+    // UI
+    private readonly InputActionMap m_UI;
+    private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
+    private readonly InputAction m_UI_HideStorage;
+    public struct UIActions
+    {
+        private @InputSystem m_Wrapper;
+        public UIActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @HideStorage => m_Wrapper.m_UI_HideStorage;
+        public InputActionMap Get() { return m_Wrapper.m_UI; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
+        public void AddCallbacks(IUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIActionsCallbackInterfaces.Add(instance);
+            @HideStorage.started += instance.OnHideStorage;
+            @HideStorage.performed += instance.OnHideStorage;
+            @HideStorage.canceled += instance.OnHideStorage;
+        }
+
+        private void UnregisterCallbacks(IUIActions instance)
+        {
+            @HideStorage.started -= instance.OnHideStorage;
+            @HideStorage.performed -= instance.OnHideStorage;
+            @HideStorage.canceled -= instance.OnHideStorage;
+        }
+
+        public void RemoveCallbacks(IUIActions instance)
+        {
+            if (m_Wrapper.m_UIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UIActions @UI => new UIActions(this);
     public interface IMouseActions
     {
         void OnMousePosition(InputAction.CallbackContext context);
@@ -505,5 +582,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnChangeFireMode(InputAction.CallbackContext context);
         void OnChangeWeapon(InputAction.CallbackContext context);
+    }
+    public interface IUIActions
+    {
+        void OnHideStorage(InputAction.CallbackContext context);
     }
 }

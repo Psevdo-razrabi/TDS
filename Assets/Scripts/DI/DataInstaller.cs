@@ -13,14 +13,11 @@ namespace DI
             BindJsonContext();
             BindUnitOfWorks();
             BindRepositories();
-            BindMethodListEditor();
         }
 
         private void BindUnitOfWorks() => BindNewInstance<UnitOfWorks>();
 
         private void BindIdGenerator() => BindNewInstance<IdGenerator>();
-
-        private void BindMethodListEditor() => BindNewInstance<MethodListEditor>();
         private void BindJsonContext() => Container.Bind<DataContext>().To<JsonDataContext>().AsSingle().NonLazy();
 
         private void BindRepositories()

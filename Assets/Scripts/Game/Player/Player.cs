@@ -48,7 +48,7 @@ namespace Game.Player
         private async void Start()
         {
             CharacterController = GetComponent<CharacterController>();
-            await AsyncWorker.Await(PlayerConfigs);
+            await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
             
             HealthStats =

@@ -72,11 +72,8 @@ public class ChangeCrosshair : MonoBehaviour
     
     public void IncreaseFiredSize(float additionalExpansion,float stepToReduce)
     {
-        Debug.Log(additionalExpansion);
-        Debug.Log(stepToReduce);
         _additionalExpansion += additionalExpansion;
         _stepValue = _additionalExpansion / stepToReduce;
-
     }                                                                 
 
     public void DecreaseFiredSize()
