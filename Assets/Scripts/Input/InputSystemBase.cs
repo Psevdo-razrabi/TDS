@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.AsyncWorker;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
@@ -12,11 +13,11 @@ namespace Input
         protected InputSystem InputSystemNew;
         protected readonly CompositeDisposable CompositeDisposable = new();
         protected PlayerConfigs PlayerConfigs;
-        protected AsyncWorker AsyncWorker;
+        protected IAwaiter AsyncWorker;
         
         
         [Inject]
-        private void Construct(InputSystem input, PlayerConfigs playerConfigs, AsyncWorker worker)
+        private void Construct(InputSystem input, PlayerConfigs playerConfigs, IAwaiter worker)
         {
             InputSystemNew = input ?? throw new ArgumentNullException($"{nameof(input)} is null");
             InputSystemNew.Enable();

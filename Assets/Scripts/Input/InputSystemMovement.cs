@@ -40,7 +40,7 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
         InputSystemNew.Movement.Jump.performed += Jump;
         InputSystemNew.Movement.Dash.performed += _ => _delayedСlick.OnNext(Unit.Default);
 
-        await AsyncWorker.Await(PlayerConfigs);
+        await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
         
         _delayedСlick
             .ThrottleFirst(TimeSpan.FromSeconds(PlayerConfigs.DashConfig.DelayAfterEachDash))

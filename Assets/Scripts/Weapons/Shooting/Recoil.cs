@@ -1,38 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Game.Player.Weapons;
+using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UnityEngine;
+using Weapons.InterfaceWeapon;
 using Zenject;
 
-public class Recoil
+public class Recoil : IConfigRelize, IVisitWeaponType, IInitializable
 {
     private float _currentSpread;
     private float _baseRecoilForce;
     
-    private RifleConfig _gunConfig;
-    private BulletConfig _bulletConfig;
-    private Crosshair _crosshair;
-    private ChangeCrosshair _changeCrosshair;
-    private WeaponConfigs _weaponConfigs;
+    private readonly Crosshair _crosshair;
+    private readonly WeaponConfigs _weaponConfigs;
+    private DistributionConfigs _distributionConfigs;
+    private BaseWeaponConfig _weaponConfig;
     
-
-    public Recoil(Crosshair crosshair, ChangeCrosshair changeCrosshair, WeaponConfigs weaponConfigs)
+    public Recoil(Crosshair crosshair, WeaponConfigs weaponConfigs, DistributionConfigs distributionConfigs)
     {
         _crosshair = crosshair;
-        _changeCrosshair = changeCrosshair;
         _weaponConfigs = weaponConfigs;
-        LoadConfigs();
+        _distributionConfigs = distributionConfigs;
     }
     
-    private async void LoadConfigs()
+    public void Initialize()
     {
-        while (_weaponConfigs.IsLoadConfigs == false)
-            await UniTask.Yield();
-        
-        _gunConfig = _weaponConfigs.RifleConfig;
-        _baseRecoilForce = _gunConfig.RecoilForce;
+        _distributionConfigs.ClassesWantConfig.Add(this);
     }
+    
     public void UpdateSpread(float currentSpread)
     {
         _currentSpread = currentSpread;
@@ -40,20 +35,41 @@ public class Recoil
     
     public void RecoilCursor()
     {
-        if (_gunConfig == null)
-            return;
-
-        Vector3 forward = _gunConfig.BulletPoint.transform.forward;
+        Vector3 forward = _weaponConfig.BulletPoint.transform.forward;
         forward.Normalize();
         
         Vector3 perpendicular = Vector3.Cross(forward, Vector3.up);
         float sideRecoilStrength = Random.Range(-1f, 1f);
         Vector3 sideRecoil = perpendicular * sideRecoilStrength;
         
-        float adjustedRecoilForce = _baseRecoilForce * Mathf.Lerp(0.5f, 1f, _currentSpread / _gunConfig.MaxSpread);
+        float adjustedRecoilForce = _baseRecoilForce * Mathf.Lerp(0.5f, 1f, _currentSpread / _weaponConfig.MaxSpread);
         Vector2 recoil = new Vector2(forward.x + sideRecoil.x, forward.z + sideRecoil.z) * adjustedRecoilForce;
 
         _crosshair.RecoilPlus(recoil);
     }
-    
+
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        VisitWeapon(weaponComponent);
+    }
+
+    public void Visit(Pistol pistol)
+    {
+        _weaponConfig = _weaponConfigs.PistolConfig;
+    }
+
+    public void Visit(Rifle rifle)
+    {
+        _weaponConfig = _weaponConfigs.RifleConfig;
+    }
+
+    public void Visit(Shotgun shotgun)
+    {
+        _weaponConfig = _weaponConfigs.ShotgunConfig;
+    }
+
+    public void VisitWeapon(WeaponComponent component)
+    {
+        Visit((dynamic)component);
+    }
 }

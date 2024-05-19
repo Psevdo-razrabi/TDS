@@ -1,21 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Game.Player.Weapons;
+using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UniRx;
 using UnityEngine;
+using Weapons.InterfaceWeapon;
+using Zenject;
 using Random = UnityEngine.Random;
 
-public class Spread 
+public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
 {
-    private WeaponConfigs _weaponConfigs;
-    private RifleConfig _gunConfig;
-    private CompositeDisposable _compositeDisposable = new CompositeDisposable();
+    private readonly WeaponConfigs _weaponConfigs;
+    private BaseWeaponConfig _gunConfig;
+    private readonly CompositeDisposable _compositeDisposable = new ();
     private IDisposable _reductionSubscription;
-    private EventController _eventController;
-    private ChangeCrosshair _changeCrosshair;
-    private Recoil _recoil;
+    private readonly EventController _eventController;
+    private readonly ChangeCrosshair _changeCrosshair;
+    private readonly Recoil _recoil;
+    private DistributionConfigs _distributionConfigs;
     
     private float _currentSpread;
     private float _baseStepSpread;
@@ -23,23 +26,46 @@ public class Spread
 
     private int _initialBulletsCount;
 
-    public Spread(WeaponConfigs weaponConfigs, EventController eventController, ChangeCrosshair changeCrosshair, Recoil recoil)
+    public Spread(WeaponConfigs weaponConfigs, EventController eventController, 
+        ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs)
     {
         _weaponConfigs = weaponConfigs;
         _eventController = eventController;
         _changeCrosshair = changeCrosshair;
         _recoil = recoil;
-        LoadConfigs();
+        _distributionConfigs = distributionConfigs;
     }
     
-    private async void LoadConfigs()
+    public void Initialize()
     {
-        while (_weaponConfigs.IsLoadConfigs == false)
-            await UniTask.Yield();
-
-        _gunConfig = _weaponConfigs.RifleConfig;
+        _distributionConfigs.ClassesWantConfig.Add(this);
+    }
+    
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        VisitWeapon(weaponComponent);
         _initialBulletsCount = _gunConfig.InitialBulletsCount;
         CalculateStepSpread();
+    }
+
+    public void Visit(Pistol pistol)
+    {
+        _gunConfig = _weaponConfigs.PistolConfig;
+    }
+
+    public void Visit(Rifle rifle)
+    {
+        _gunConfig = _weaponConfigs.RifleConfig;
+    }
+
+    public void Visit(Shotgun shotgun)
+    {
+        _gunConfig = _weaponConfigs.ShotgunConfig;
+    }
+
+    public void VisitWeapon(WeaponComponent component)
+    {
+        Visit((dynamic)component);
     }
     
     private void CalculateStepSpread()

@@ -1,60 +1,96 @@
-using System.Collections;
-using System.Collections.Generic;
-using Cysharp.Threading.Tasks;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons;
-using Game.Player.Weapons.InterfaseWeapon;
-using Game.Player.Weapons.ReloadStrategy;
+using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UniRx;
 using UnityEngine;
+using Weapons.InterfaceWeapon;
 using Zenject;
 
-public class ShootComponent
-{        
+public class ShootComponent : IInitializable, IConfigRelize, IVisitWeaponType
+{     
+    private readonly CameraShake _cameraShake;
+    private readonly BulletLifeCycle _bulletLifeCycle;
+    private readonly Recoil _recoil;
+    private readonly Spread _spread;
+    private readonly EventController _eventController;
+    private readonly IAwaiter _awaiter;
+    private readonly WeaponConfigs _weaponConfigs;
+    private readonly WeaponData _weaponData;
+    private readonly DistributionConfigs _distributionConfigs;
+    private BaseWeaponConfig _baseWeaponConfig;
     
-    private CameraShake _cameraShake;
-    private BulletLifeCycle _bulletLifeCycle;
-    private Recoil _recoil;
-    private Spread _spread;
-    private WeaponConfigs _weaponConfigs;
-    private EventController _eventController;
-    private ReloadComponent _reloadComponent;
-    
-    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, EventController eventController , WeaponConfigs weaponConfigs, ReloadComponent reloadComponent)
+    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, 
+        EventController eventController, IAwaiter awaiter, 
+        WeaponConfigs weaponConfigs, WeaponData weaponData, DistributionConfigs distributionConfigs)
     {
         _cameraShake = cameraShake;
         _bulletLifeCycle = bulletLifeCycle;
         _recoil = recoil;
         _spread = spread;
-        _weaponConfigs = weaponConfigs;
         _eventController = eventController;
-        _reloadComponent = reloadComponent;
-        
-        LoadConfigs();  
+        _awaiter = awaiter;
+        _weaponConfigs = weaponConfigs;
+        _weaponData = weaponData;
+        _distributionConfigs = distributionConfigs;
     }
-    public void HandleShoot()
+    
+    public void Initialize()
+    {
+        _distributionConfigs.ClassesWantConfig.Add(this);
+        LoadConfigs();
+    }
+
+    private void HandleShoot()
     {
         _bulletLifeCycle.BulletSpawn();
         _spread.StartSpreadReduction();
         _recoil.RecoilCursor();
         _cameraShake.ShakeCamera();
-        
-       _reloadComponent.AmmoInMagazine.Value--;
-        Debug.Log(_reloadComponent.AmmoInMagazine.Value + "ткущие пулькф");
+
+        _weaponData.AmmoInMagazine.Value--;
+        Debug.Log(_weaponData.AmmoInMagazine.Value + "ткущие пулькф");
     }
     
     private async void LoadConfigs()
     {
-        while (_weaponConfigs.IsLoadConfigs == false)
-            await UniTask.Yield();
-        
+        await _awaiter.AwaitLoadWeaponConfigs(_weaponConfigs);
         _eventController.ShotFired += ShotFired;
     }
 
     private void ShotFired()
     {
-        if(_reloadComponent.AmmoInMagazine.Value > 0)
+        if(_weaponData.AmmoInMagazine.Value > 0)
             HandleShoot();
+    }
+
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        VisitWeapon(weaponComponent);
+    }
+
+    public void Visit(Pistol pistol)
+    {
+        _baseWeaponConfig = _weaponConfigs.PistolConfig;
+        _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_baseWeaponConfig.TotalAmmo);
+    }
+
+    public void Visit(Rifle rifle)
+    {
+        _baseWeaponConfig  = _weaponConfigs.RifleConfig;
+        _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_baseWeaponConfig.TotalAmmo);
+    }
+
+    public void Visit(Shotgun shotgun)
+    {
+        _baseWeaponConfig  = _weaponConfigs.ShotgunConfig;
+        _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_baseWeaponConfig.TotalAmmo);
+    }
+
+    public void VisitWeapon(WeaponComponent component)
+    {
+        Visit((dynamic)component);
     }
 }
  

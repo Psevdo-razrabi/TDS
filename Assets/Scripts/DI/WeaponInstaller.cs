@@ -1,22 +1,22 @@
 ﻿using Game.Player.Weapons;
 using Game.Player.Weapons.ChangeWeapon;
 using Game.Player.Weapons.Mediators;
+using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.ReloadStrategy;
 using Game.Player.Weapons.StrategyFire;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DI
 {
     public class WeaponInstaller : BaseBindings
     {
-        [SerializeField] private Pistol pistol;
         [SerializeField] private ChangeModeFire fireMode;
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private ChangeCrosshair _changeCrosshair;
+        [SerializeField] private WeaponPivots _weaponPivots;
         
         public override void InstallBindings()
         {
@@ -30,6 +30,12 @@ namespace DI
             BindWeapon();
             BindWeaponChange();
             BindConfigs();
+            BindWeaponPrefab();
+        }
+
+        private void BindWeaponPrefab()
+        {
+            BindNewInstance<WeaponPrefabs>();
         }
 
         private void BindShootComponent()
@@ -58,7 +64,11 @@ namespace DI
 
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 
-        private void BindWeaponChange() => BindNewInstance<WeaponChange>();
+        private void BindWeaponChange()
+        {
+            BindNewInstance<WeaponChange>();
+            BindInstance(_weaponPivots);
+        }
         
         private void BindWeaponComponent()
         {
@@ -72,7 +82,9 @@ namespace DI
         
         private void BindWeapon()
         {
-            Container.Bind<WeaponComponent>().To<Pistol>().FromInstance(pistol).AsSingle().NonLazy();
+            Container.Bind<WeaponComponent>().To<Pistol>().AsSingle().NonLazy();
+            Container.Bind<WeaponComponent>().To<Rifle>().AsSingle().NonLazy();
+            Container.Bind<WeaponComponent>().To<Shotgun>().AsSingle().NonLazy();
         }
     }
 }

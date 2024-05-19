@@ -5,17 +5,15 @@ namespace Game.Player.Weapons.ChangeWeapon
     public class WeaponChange
     {
         private readonly IChangeWeapon _changeWeapon;
-        private readonly WeaponComponent _weaponComponent;
         
-        public void Change()
+        public void Change(WeaponComponent weaponComponent)
         {
-            _changeWeapon.ChangeWeapon(_weaponComponent);
+            _changeWeapon.ChangeWeapon(weaponComponent);
         }
         
-        public WeaponChange(WeaponComponent weaponComponent, IChangeWeapon weaponChange)
+        public WeaponChange(IChangeWeapon weaponChange)
         {
             _changeWeapon = weaponChange;
-            _weaponComponent = weaponComponent;
         }
     }
 }

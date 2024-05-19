@@ -11,18 +11,16 @@ namespace Game.Player.Weapons.Decorator
     {
         private readonly ReloadComponent _reloadComponent;
         private readonly IReloadStrategy _reloadStrategy;
-        private readonly BoolStorage _boolStorage;
 
-        public ReloadAction(ReloadComponent reloadComponent, IReloadStrategy reloadStrategy, BoolStorage boolStorage)
+        public ReloadAction(ReloadComponent reloadComponent, IReloadStrategy reloadStrategy)
         {
             _reloadComponent = reloadComponent;
             _reloadStrategy = reloadStrategy;
-            _boolStorage = boolStorage;
         }
 
         public void Execute()
         {
-            _reloadStrategy.Reload(_reloadComponent, _boolStorage);
+            _reloadStrategy.Reload(_reloadComponent, _reloadComponent.BoolStorage);
         }
     }
 }
