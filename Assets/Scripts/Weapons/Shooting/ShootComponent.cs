@@ -50,7 +50,6 @@ public class ShootComponent : IInitializable, IConfigRelize, IVisitWeaponType
         _cameraShake.ShakeCamera();
 
         _weaponData.AmmoInMagazine.Value--;
-        Debug.Log(_weaponData.AmmoInMagazine.Value + "ткущие пулькф");
     }
     
     private async void LoadConfigs()

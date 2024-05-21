@@ -39,6 +39,7 @@ namespace Input
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
         {
+            _queueStates.Clear();
             methodFireStates.ForEach(x => _queueStates.Enqueue(x));
             SetFireMode();
         }

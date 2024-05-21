@@ -115,7 +115,6 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
 
         _currentSpread += spreadAcceleration;
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
-        Debug.Log(_currentSpread);
         float stepsToReduce = _currentSpread / _baseStepSpread;
         _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);
         _recoil.UpdateSpread(_currentSpread);
