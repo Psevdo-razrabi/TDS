@@ -82,9 +82,9 @@ namespace DI
         
         private void BindWeapon()
         {
-            Container.Bind<WeaponComponent>().To<Pistol>().AsSingle().NonLazy();
-            Container.Bind<WeaponComponent>().To<Rifle>().AsSingle().NonLazy();
-            Container.Bind<WeaponComponent>().To<Shotgun>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Pistol>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Rifle>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<Shotgun>().AsSingle().NonLazy();
         }
     }
 }

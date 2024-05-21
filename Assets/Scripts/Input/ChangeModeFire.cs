@@ -40,6 +40,7 @@ namespace Input
         public void SetFireModes(List<MethodInfo> methodFireStates)
         {
             methodFireStates.ForEach(x => _queueStates.Enqueue(x));
+            SetFireMode();
         }
 
         public async UniTask ChangeMode() {
@@ -50,10 +51,7 @@ namespace Input
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
-            _modeFire = _queueStates.Dequeue();
-            _queueStates.Enqueue(_modeFire);
-            _modeFire.Invoke(null, null);
-            _modeFire = null;
+            SetFireMode();
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
         }
         
@@ -62,6 +60,14 @@ namespace Input
         {
             _fireStrategy = fireStrategy;
             _fireComponent = fireComponent;
+        }
+
+        private void SetFireMode()
+        {
+            _modeFire = _queueStates.Dequeue();
+            _queueStates.Enqueue(_modeFire);
+            _modeFire.Invoke(this, null);
+            _modeFire = null;
         }
     }
 }

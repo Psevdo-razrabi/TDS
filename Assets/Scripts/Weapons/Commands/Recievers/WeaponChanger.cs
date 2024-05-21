@@ -1,9 +1,11 @@
-﻿using Game.AsyncWorker.Interfaces;
+﻿using System.Collections.Generic;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons.Commands.Factory;
 using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Sirenix.Utilities;
+using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
@@ -26,41 +28,43 @@ namespace Game.Player.Weapons.Commands.Recievers
 
         public void WeaponChange(WeaponComponent weaponComponent)
         {
-            _weaponPrefabs.PrefabsWeapon
-                .ForEach(x => x.Value.weapon.SetActive(false));
+            _weaponPrefabs.InitPrefab.ForEach(x => x.Value.SetActive(false));
             VisitWeapon(weaponComponent);
         }
 
         public async void Initialize()
         {
             await _awaiter.AwaitLoadPrefabConfigs(_weaponPrefabs);
+
+            _weaponPrefabs.InitPrefab = new Dictionary<string, GameObject>
+            {
+                { _weaponPrefabs.NameLoadPistolPrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadPistolPrefab].weapon) },
+                { _weaponPrefabs.NameLoadRiflePrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadRiflePrefab].weapon) },
+                { _weaponPrefabs.NameLoadShotgunPrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadShotgunPrefab].weapon) }
+            };
             
-            var pistol = _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadPistolPrefab].weapon);
-            var rifle = _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadRiflePrefab].weapon);
-            var shotgun = _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadShotgunPrefab].weapon);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].transform.SetParent(_weaponPivots.PistolPivot.transform);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].transform.SetParent(_weaponPivots.RiflePivot.transform);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].transform.SetParent(_weaponPivots.ShotgunPivot.transform);
             
-            pistol.transform.SetParent(_weaponPivots.PistolPivot.transform);
-            rifle.transform.SetParent(_weaponPivots.RiflePivot.transform);
-            shotgun.transform.SetParent(_weaponPivots.ShotgunPivot.transform);
-            
-            pistol.SetActive(false);
-            rifle.SetActive(false);
-            shotgun.SetActive(false);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].SetActive(false);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].SetActive(false);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].SetActive(false);
         }
 
         public void Visit(Pistol pistol)
         {
-            _weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadPistolPrefab].weapon.SetActive(true);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].SetActive(true);
         }
 
         public void Visit(Rifle rifle)
         {
-            _weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadRiflePrefab].weapon.SetActive(true);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].SetActive(true);
         }
 
         public void Visit(Shotgun shotgun)
         {
-            _weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadShotgunPrefab].weapon.SetActive(true);
+            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].SetActive(true);
         }
 
         public void VisitWeapon(WeaponComponent component)

@@ -1,12 +1,8 @@
 ﻿using System;
 using Game.Player.Weapons;
-using Game.Player.Weapons.ChangeWeapon;
-using Game.Player.Weapons.WeaponClass;
 using Input.Interface;
 using UniRx;
-using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Input
