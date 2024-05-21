@@ -37,11 +37,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a27b9a36220c14046811791c58b5b30f
-    m_Address: Pistol
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 06f7e95cbbdbbd04a975be5d4f182800
     m_Address: ShotgunShake
     m_ReadOnly: 0

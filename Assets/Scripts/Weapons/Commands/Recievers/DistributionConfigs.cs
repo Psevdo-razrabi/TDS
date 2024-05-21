@@ -28,6 +28,7 @@ namespace Game.Player.Weapons.Commands.Recievers
                 _awaiter.AwaitLoadShakeCameraConfigs(_shakeConfigs),
                 _awaiter.AwaitLoadPrefabConfigs(_weaponPrefabs)
             });
+            
             ClassesWantConfig
                 .ForEach(x => x.GetWeaponConfig(weaponComponent));
         }
