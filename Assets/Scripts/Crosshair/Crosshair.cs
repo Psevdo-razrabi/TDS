@@ -13,6 +13,7 @@ public class Crosshair : MonoBehaviour
     private void Awake()
     {
         Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

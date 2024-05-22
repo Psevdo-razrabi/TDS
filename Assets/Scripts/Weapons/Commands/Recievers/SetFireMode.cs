@@ -17,7 +17,6 @@ namespace Customs
         private readonly Type _typeFireMode = typeof(ChangeModeFire);
         private List<MethodInfo> _methodInfos;
         private MethodInfo[] _allMethodUseAttribute;
-        private ContextMenuAttribute[] _allAttributes;
         private int _index;
 
         public SetFireMode(ISetFireModes changeModeFire)
@@ -31,15 +30,11 @@ namespace Customs
                 .GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
                 .Where(m => m.IsDefined(typeof(ContextMenuAttribute), false))
                 .ToArray();
-            _allAttributes = _allMethodUseAttribute
-                .OfType<ContextMenuAttribute>()
-                .ToArray();
-
         }
 
         public void Visit(Pistol pistol)
         {
-            if (_allAttributes[_index].Label == "single fire" || _allAttributes[_index].Label == "burst fire")
+            if (_allMethodUseAttribute[_index].Name == "AddSingleFire" || _allMethodUseAttribute[_index].Name == "AddBurstFire")
             {
                 _methodInfos.Add(_allMethodUseAttribute[_index]);
             }
@@ -47,7 +42,7 @@ namespace Customs
 
         public void Visit(Rifle rifle)
         {
-            if (_allAttributes[_index].Label == "single fire" || _allAttributes[_index].Label == "burst fire" || _allAttributes[_index].Label == "automatic fire")
+            if (_allMethodUseAttribute[_index].Name == "AddSingleFire" || _allMethodUseAttribute[_index].Name == "AddBurstFire" || _allMethodUseAttribute[_index].Name == "AddAutomaticFire")
             {
                 _methodInfos.Add(_allMethodUseAttribute[_index]);
             }
@@ -55,14 +50,14 @@ namespace Customs
 
         public void Visit(Shotgun shotgun)
         {
-            if (_allAttributes[_index].Label != "single fire") return;
+            if (_allMethodUseAttribute[_index].Name != "AddSingleFire") return;
             _methodInfos.Add(_allMethodUseAttribute[_index]);
         }
 
         public void VisitWeapon(WeaponComponent component)
         {
             _methodInfos = new List<MethodInfo>();
-            for (_index = 0; _index < _allAttributes.Length; _index++)
+            for (_index = 0; _index < _allMethodUseAttribute.Length; _index++)
             {
                 Visit((dynamic)component);
             }

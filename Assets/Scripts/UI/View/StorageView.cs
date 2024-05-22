@@ -10,7 +10,7 @@ namespace UI.View
         public Button pistolEquip;
         [Data("Rifle Equip")]
         public Button rifleEquip;
-        [Data("Pistol Equip")]
+        [Data("Shotgun Equip")]
         public Button shotgunEquip;
     }
 }

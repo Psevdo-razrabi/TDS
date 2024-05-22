@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Game.Player.Weapons.Commands.Factory;
+using UnityEngine;
 using Zenject;
 
 namespace Game.Player.Weapons.Commands.Invoker
 {
     public class InvokerWeaponCommand : IInitializable, IDisposable
     {
-        private readonly List<Command> _weaponCommands = new();
+        private readonly ConcurrentQueue<Command> _weaponCommands = new();
         private readonly FactoryCommands _factoryCommands;
         private event Action<WeaponComponent> InvokeCommands;
 
@@ -33,17 +35,22 @@ namespace Game.Player.Weapons.Commands.Invoker
 
         private void CreateCommands(WeaponComponent weaponComponent)
         {
-            _weaponCommands.Add(_factoryCommands.CreateCommand<InitializeConfigCommand>());
-            _weaponCommands.Add(_factoryCommands.CreateCommand<ChangeWeaponCommand>());
-            _weaponCommands.Add(_factoryCommands.CreateCommand<ChangePrefabWeapon>());
-            _weaponCommands.Add(_factoryCommands.CreateCommand<CommandSetFireMode>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<InitializeConfigCommand>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<ChangeWeaponCommand>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<ChangePrefabWeapon>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<CommandSetFireMode>());
+
+            var count = _weaponCommands.Count;
+
+            for (int i = 0; i < count; i++)
+                Invoke(weaponComponent);
             
-            Invoke(weaponComponent);
+            Debug.Log("Completed");
         }
 
         private async void Invoke(WeaponComponent weaponComponent)
         {
-            foreach (var command in _weaponCommands)
+            if (_weaponCommands.TryDequeue(out var command))
                 await command.Execute(weaponComponent);
         }
     }
