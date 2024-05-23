@@ -14,8 +14,9 @@ namespace Game.Player.Weapons.WeaponConfigs
         [field: SerializeField] public int MaxSpreadBullet { get; protected set; }
         [field: SerializeField] public float TimeToSpreadReduce { get; protected set; }
         
-        [field: SerializeField] public float SpreadIncreaseCoefficient{ get; protected set; }
-        [field: SerializeField] public int InitialBulletsCount{ get; protected set; }
+        [field: SerializeField] public float SpreadMultiplier { get; protected set; }
+        [field: SerializeField] public float MultiplierIncreaseRate { get; protected set; }
+        [field: SerializeField] public float BaseIncrement { get; protected set; }
         
         [field: Header("Настройки отдачи")]
         [field: SerializeField] public float RecoilForce { get; protected set; }

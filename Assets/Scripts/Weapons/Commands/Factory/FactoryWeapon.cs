@@ -15,4 +15,4 @@ namespace Game.Player.Weapons.Commands.Factory
             return _diContainer.InstantiatePrefab(weapon);
         }
     }
-}
+}   

@@ -12,6 +12,7 @@ namespace DI
         private void BindDashViewModel()
         {
             BindNewInstance<DashViewModel>();
+            BindNewInstance<AmmoInMagazineViewModel>();
             BindNewInstance<ReloadViewModel>();
             BindNewInstance<StorageViewModel>();
         }

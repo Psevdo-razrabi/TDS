@@ -43,12 +43,15 @@ namespace DI
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)
                 .WhenInjectedInto<ReloadComponent>();
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)
-                .WhenInjectedInto<ReloadViewModel>();
+                .WhenInjectedInto<
+                    ReloadViewModel>();
             
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
                 .WhenInjectedInto<AsyncWorker>();
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
                 .WhenInjectedInto<DashViewModel>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
+                .WhenInjectedInto<AmmoInMagazineViewModel>();
         }
         
         private ValueCountStorage<float> CreateStorage()

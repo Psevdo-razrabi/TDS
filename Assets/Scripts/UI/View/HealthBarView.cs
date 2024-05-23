@@ -12,7 +12,7 @@ namespace UI.View
 
         private void OnEnable()
         {
-            ImageFillAmount
+                ImageFillAmount
                 .Subscribe(x => _image.fillAmount = x)
                 .AddTo(_compositeDisposable);
         }

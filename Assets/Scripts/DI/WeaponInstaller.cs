@@ -17,7 +17,7 @@ namespace DI
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private ChangeCrosshair _changeCrosshair;
         [SerializeField] private WeaponPivots _weaponPivots;
-        
+
         public override void InstallBindings()
         {
             BindCursor();

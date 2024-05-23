@@ -20,12 +20,6 @@ public class ChangeCrosshair : MonoBehaviour
     private float _stepValue;
     private bool _canMove;
     
-    [Inject]
-    public void Constructor(EventController eventController)
-    {
-        eventController.SpreadReducing += DecreaseFiredSize;
-    }
-    
     void Start()
     {
         _canMove = true; 

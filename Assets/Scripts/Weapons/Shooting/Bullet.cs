@@ -27,7 +27,6 @@ public class Bullet : MonoBehaviour
     {
         _damage = damage;
         _bullet.SetActive(true);
-        _particleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -42,7 +41,6 @@ public class Bullet : MonoBehaviour
             _eventController.OnEnemyHitBullet();
         }
         
-        _bulletEffectSystem.StartParticleSystem(_particleSystem,transform.position,true);
         _bullet.SetActive(false);
     }
 

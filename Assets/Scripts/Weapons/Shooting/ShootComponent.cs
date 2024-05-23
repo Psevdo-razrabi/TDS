@@ -14,26 +14,24 @@ public class ShootComponent : IInitializable, IConfigRelize, IVisitWeaponType
     private readonly BulletLifeCycle _bulletLifeCycle;
     private readonly Recoil _recoil;
     private readonly Spread _spread;
-    private readonly EventController _eventController;
     private readonly IAwaiter _awaiter;
     private readonly WeaponConfigs _weaponConfigs;
     private readonly WeaponData _weaponData;
     private readonly DistributionConfigs _distributionConfigs;
     private BaseWeaponConfig _baseWeaponConfig;
     
-    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, 
-        EventController eventController, IAwaiter awaiter, 
-        WeaponConfigs weaponConfigs, WeaponData weaponData, DistributionConfigs distributionConfigs)
+    public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread, IAwaiter awaiter, 
+        WeaponConfigs weaponConfigs, WeaponData weaponData, DistributionConfigs distributionConfigs, FireComponent fireComponent)
     {
         _cameraShake = cameraShake;
         _bulletLifeCycle = bulletLifeCycle;
         _recoil = recoil;
         _spread = spread;
-        _eventController = eventController;
         _awaiter = awaiter;
         _weaponConfigs = weaponConfigs;
         _weaponData = weaponData;
         _distributionConfigs = distributionConfigs;
+        fireComponent.ShotFired += ShotFired;
     }
     
     public void Initialize()
@@ -50,13 +48,11 @@ public class ShootComponent : IInitializable, IConfigRelize, IVisitWeaponType
         _cameraShake.ShakeCamera();
 
         _weaponData.AmmoInMagazine.Value--;
-        Debug.Log(_weaponData.AmmoInMagazine.Value + "ткущие пулькф");
     }
     
     private async void LoadConfigs()
     {
         await _awaiter.AwaitLoadWeaponConfigs(_weaponConfigs);
-        _eventController.ShotFired += ShotFired;
     }
 
     private void ShotFired()

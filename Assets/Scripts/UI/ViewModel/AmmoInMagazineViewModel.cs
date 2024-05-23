@@ -2,17 +2,18 @@
 using MVVM;
 using UI.Storage;
 using UniRx;
-using IInitializable = Zenject.IInitializable;
+using Zenject;
 
 namespace UI.ViewModel
 {
-    public class DashViewModel : IInitializable, IDisposable
+    public class AmmoInMagazineViewModel : IInitializable, IDisposable
     {
-        [Data("DashInScreen")] 
-        public readonly ReactiveProperty<string> Dash = new();
+        [Data("AmmoInScreen")]
+        public readonly ReactiveProperty<string> Ammo = new();
+
         private ValueCountStorage<int> _valueCountStorage;
 
-        public DashViewModel(ValueCountStorage<int> valueCountStorage)
+        public AmmoInMagazineViewModel(ValueCountStorage<int> valueCountStorage)
         {
             _valueCountStorage = valueCountStorage;
         }
@@ -22,7 +23,7 @@ namespace UI.ViewModel
             OnValueCountChange(_valueCountStorage.Value);
             _valueCountStorage.OnCountValueChange += OnValueCountChange;
         }
-        
+
         public void Dispose()
         {
             _valueCountStorage.OnCountValueChange -= OnValueCountChange;
@@ -30,7 +31,7 @@ namespace UI.ViewModel
         
         private void OnValueCountChange(int count)
         {
-            Dash.Value = $"Dash CountSDAS: {count}";
+            Ammo.Value = count.ToString();
         }
     }
 }

@@ -43,16 +43,23 @@ namespace Game.Player.Weapons.Commands.Recievers
                 { _weaponPrefabs.NameLoadShotgunPrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadShotgunPrefab].weapon) }
             };
             
-            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].transform.SetParent(_weaponPivots.PistolPivot.transform);
-            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].transform.SetParent(_weaponPivots.RiflePivot.transform);
-            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].transform.SetParent(_weaponPivots.ShotgunPivot.transform);
+            SetPrefabPositionOnPivot(_weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab], _weaponPivots.PistolPivot);
+            SetPrefabPositionOnPivot(_weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab], _weaponPivots.RiflePivot);
+            SetPrefabPositionOnPivot(_weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab], _weaponPivots.ShotgunPivot);
             
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].SetActive(false);
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].SetActive(false);
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].SetActive(false);
         }
 
-        public void Visit(Pistol pistol)
+        private void SetPrefabPositionOnPivot(GameObject prefab, GameObject pivot)
+        {
+            prefab.transform.SetParent(pivot.transform);
+            prefab.transform.position = pivot.transform.position;
+            prefab.transform.rotation = Quaternion.LookRotation(pivot.transform.forward);
+        }
+
+        public void Visit(Pistol pistol)    
         {
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].SetActive(true);
         }
@@ -71,5 +78,6 @@ namespace Game.Player.Weapons.Commands.Recievers
         {
             Visit((dynamic)component);
         }
+        
     }
 }

@@ -16,17 +16,15 @@ namespace Game.Player.Weapons
         public readonly ActionsCleaner ActionsCleaner;
         public readonly WeaponData WeaponData;
         public readonly WeaponConfigs.WeaponConfigs WeaponConfigs;
-        private EventController _eventController;
 
         public Action ShotFired;
         
-        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner, WeaponConfigs.WeaponConfigs weaponConfigs, EventController eventController)
+        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner, WeaponConfigs.WeaponConfigs weaponConfigs)
         {
             WeaponData = weaponData;
             MouseInputObserver = mouseInputObserver;
             ActionsCleaner = actionsCleaner;
             WeaponConfigs = weaponConfigs;
-            _eventController = eventController;
         }
         
         public void FireBullet()
