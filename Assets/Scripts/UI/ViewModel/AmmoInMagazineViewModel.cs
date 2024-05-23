@@ -2,13 +2,14 @@
 using MVVM;
 using UI.Storage;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
 namespace UI.ViewModel
 {
     public class AmmoInMagazineViewModel : IInitializable, IDisposable
     {
-        [Data("AmmoInScreen")]
+        [Data("AmmoInMagazine")]
         public readonly ReactiveProperty<string> Ammo = new();
 
         private ValueCountStorage<int> _valueCountStorage;
@@ -32,6 +33,7 @@ namespace UI.ViewModel
         private void OnValueCountChange(int count)
         {
             Ammo.Value = count.ToString();
+            Debug.Log(Ammo.Value);
         }
     }
 }

@@ -8,7 +8,5 @@ namespace UI.View
     {
         [Data("DashInScreen")] 
         public TextMeshProUGUI dashView;
-        [Data("AmmoInScreen")] 
-        public TextMeshProUGUI ammoView;
     }
 }

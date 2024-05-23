@@ -17,12 +17,14 @@ namespace Game.Player.Weapons
         
         public readonly WeaponData WeaponData;
         public readonly ValueCountStorage<float> ImageReloadValue;
+        public readonly ValueCountStorage<int> AmmoReloadValue;
         public readonly BoolStorage BoolStorage;
         
-        public ReloadComponent(WeaponData weaponData, ValueCountStorage<float> imageReloadValue, BoolStorage boolStorage,WeaponConfigs.WeaponConfigs weaponConfigs)
+        public ReloadComponent(WeaponData weaponData, ValueCountStorage<float> imageReloadValue,ValueCountStorage<int> ammoReloadValue, BoolStorage boolStorage,WeaponConfigs.WeaponConfigs weaponConfigs)
         {
             WeaponData = weaponData;
             ImageReloadValue = imageReloadValue;
+            AmmoReloadValue = ammoReloadValue;
             BoolStorage = boolStorage;
             _weaponConfigs = weaponConfigs;
             SubscribeToReloadEnd();
@@ -50,10 +52,11 @@ namespace Game.Player.Weapons
                     .AddTo(_compositeDisposable);
             }
         }
-
+                                           
         private void BulletRecovery()
         {
             WeaponData.AmmoInMagazine.Value = _weaponConfigs.RifleConfig.TotalAmmo;
+            AmmoReloadValue.SetValue(_weaponConfigs.RifleConfig.TotalAmmo);
         }
-    }
+    } 
 }

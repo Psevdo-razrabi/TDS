@@ -12,9 +12,9 @@ namespace Game.Player.Weapons.WeaponConfigs
         public BulletConfig BulletConfig { get; private set; }
         public bool IsLoadConfigs { get; private set; }
 
-        private const string NameLoadPistolConfig = "Pistol";
-        private const string NameLoadRifleConfig = "Rifle";
-        private const string NameLoadShotgunConfig = "Shotgun";
+        private const string NameLoadPistolConfig = "PistolConfig";
+        private const string NameLoadRifleConfig = "RifleConfig";
+        private const string NameLoadShotgunConfig = "ShotgunConfig";
         private const string NameLoadBulletConfig = "Bullet";
         
         private Loader _loader;

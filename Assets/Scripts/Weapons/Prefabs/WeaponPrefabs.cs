@@ -14,9 +14,9 @@ namespace Game.Player.Weapons.Prefabs
         
         public bool IsLoadConfigs { get; private set; }
 
-        public readonly string NameLoadPistolPrefab = "PistolPrefab";
-        public readonly string NameLoadRiflePrefab = "RiflePrefab";
-        public readonly string NameLoadShotgunPrefab = "ShotgunPrefab";
+        public readonly string NameLoadPistolPrefab = "Pistol";
+        public readonly string NameLoadRiflePrefab = "Rifle";
+        public readonly string NameLoadShotgunPrefab = "Shotgun";
         private Dictionary<string, (GameObject weapon, GameObject bulletSpawnPoint)> _prefabsWeapon;
         
         private Loader _loader;

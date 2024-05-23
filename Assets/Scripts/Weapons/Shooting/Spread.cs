@@ -28,8 +28,7 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
     
     private int _initialBulletsCount;
     
-    public Spread(WeaponConfigs weaponConfigs,
-                  ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs)
+    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs)
     {
         _weaponConfigs = weaponConfigs;
         _changeCrosshair = changeCrosshair;

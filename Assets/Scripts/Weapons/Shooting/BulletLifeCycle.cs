@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Game.Player.Interfaces;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UI.Storage;
@@ -21,6 +22,7 @@ public class BulletLifeCycle : IConfigRelize, IVisitWeaponType, IInitializable
     private Rigidbody _bulletRigidbody;
     private BaseWeaponConfig _weaponConfig;
     private DistributionConfigs _distributionConfigs;
+    private WeaponPrefabs _weaponPrefabs;
     
     public BulletLifeCycle(PoolObject<Bullet> pool, WeaponConfigs weaponConfigs, 
         Spread spread, EventController eventController, DistributionConfigs distributionConfigs)

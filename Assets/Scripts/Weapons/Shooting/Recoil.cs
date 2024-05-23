@@ -1,5 +1,6 @@
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class Recoil : IConfigRelize, IVisitWeaponType, IInitializable
     private readonly WeaponConfigs _weaponConfigs;
     private DistributionConfigs _distributionConfigs;
     private BaseWeaponConfig _weaponConfig;
+    private WeaponPrefabs _weaponPrefabs;
     
     public Recoil(Crosshair crosshair, WeaponConfigs weaponConfigs, DistributionConfigs distributionConfigs)
     {
