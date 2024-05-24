@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab76b30925ad4eb6b920c655022a9615, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Shotgun
   <TotalAmmo>k__BackingField: 5
   <BulletPoint>k__BackingField: {fileID: 0}
   <TimeBetweenShoots>k__BackingField: 0.05
   <MaxSpread>k__BackingField: 1
   <MaxSpreadBullet>k__BackingField: 1
   <TimeToSpreadReduce>k__BackingField: 1
-  <SpreadIncreaseCoefficient>k__BackingField: 1
-  <InitialBulletsCount>k__BackingField: 1
+  <SpreadMultiplier>k__BackingField: 0
+  <MultiplierIncreaseRate>k__BackingField: 0
+  <BaseIncrement>k__BackingField: 0
   <RecoilForce>k__BackingField: 1
   <ReloadTime>k__BackingField: 1

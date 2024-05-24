@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5673af232f64f429459ffe427611e64, type: 3}
   m_Name: RifleConfig
   m_EditorClassIdentifier: 
+  <Name>k__BackingField: Rifle
   <TotalAmmo>k__BackingField: 30
   <BulletPoint>k__BackingField: {fileID: 0}
   <TimeBetweenShoots>k__BackingField: 0.1
-  <MaxSpread>k__BackingField: 15
+  <MaxSpread>k__BackingField: 20
   <MaxSpreadBullet>k__BackingField: 25
-  <TimeToSpreadReduce>k__BackingField: 0.05
-  <SpreadIncreaseCoefficient>k__BackingField: 0.25
-  <InitialBulletsCount>k__BackingField: 5
+  <TimeToSpreadReduce>k__BackingField: 0.2
+  <SpreadMultiplier>k__BackingField: 0.8
+  <MultiplierIncreaseRate>k__BackingField: 0.05
+  <BaseIncrement>k__BackingField: 2
   <RecoilForce>k__BackingField: 25
   <ReloadTime>k__BackingField: 2
