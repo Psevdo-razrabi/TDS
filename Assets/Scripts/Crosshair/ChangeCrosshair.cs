@@ -11,10 +11,12 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private RectTransform[] _crosshairParts;
     [SerializeField] private float _forceChanges;
     [SerializeField] private float _maxExpandDistance;
-
+    [SerializeField] private float _maxAdditionalExpansion;
+    [SerializeField] private float _speedExpand;
+    
     private EventController _eventController;
     private CompositeDisposable _compositeDisposable = new();
-    private Vector2[] _initialPositions;
+    private Vector2[] _initialPositions;    
     private float _expandMultiplier;
     private float _additionalExpansion;
     private float _stepValue;
@@ -60,13 +62,14 @@ public class ChangeCrosshair : MonoBehaviour
             float totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
             Vector2 targetPosition = _initialPositions[i] + direction * totalExpansion;
 
-            _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, 10 * Time.deltaTime);
+            _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, _speedExpand * Time.deltaTime);
         }
     }
     
     public void IncreaseFiredSize(float additionalExpansion,float stepToReduce)
     {
         _additionalExpansion += additionalExpansion;
+        _additionalExpansion = Mathf.Min(_additionalExpansion, _maxAdditionalExpansion);
         _stepValue = _additionalExpansion / stepToReduce;
     }                                                                 
 

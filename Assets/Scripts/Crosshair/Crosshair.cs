@@ -3,41 +3,49 @@ using UnityEngine;
 public class Crosshair : MonoBehaviour
 {
     [SerializeField] private RectTransform _crosshair;
-    [SerializeField] private float _speed;
-    
-    private Vector2 _crosshairPos;
-    private Vector2 _recoilPosition;
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _recoilSmoothingSpeed;
 
-    public RectTransform CrossHair => _crosshair;
-    
+    private Vector2 _targetCrosshairPos;
+
+    public Transform CrossHair => _crosshair.transform;
     private void Awake()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        _targetCrosshairPos = _crosshair.anchoredPosition;
     }
 
     void Update()
     {
-        ReadPosition();
+        ReadMousePosition();
+        SmoothCrosshairMovement();
     }
-    
-    private void ReadPosition()
+
+    private void ReadMousePosition()
     {
         Vector2 inputMouse = new Vector2(UnityEngine.Input.GetAxis("Mouse X"), UnityEngine.Input.GetAxis("Mouse Y"));
-        _crosshairPos = _crosshair.anchoredPosition + inputMouse * _speed;
-        UpdateCrosshairPosition(_crosshairPos);
+        _targetCrosshairPos += inputMouse * _movementSpeed * Time.deltaTime;
+        _targetCrosshairPos = ClampCrosshairPosition(_targetCrosshairPos);
+    }
+
+    private void SmoothCrosshairMovement()
+    {
+        _crosshair.anchoredPosition = Vector2.Lerp(_crosshair.anchoredPosition, _targetCrosshairPos, _recoilSmoothingSpeed * Time.deltaTime);
+        _crosshair.anchoredPosition = ClampCrosshairPosition(_crosshair.anchoredPosition);
     }
 
     public void RecoilPlus(Vector2 recoil)
     {
-        _crosshair.anchoredPosition += recoil;
-        UpdateCrosshairPosition(_crosshair.anchoredPosition);
+        _targetCrosshairPos += recoil;
+        _targetCrosshairPos = ClampCrosshairPosition(_targetCrosshairPos);
     }
-    public void UpdateCrosshairPosition(Vector2 limitedInput)
-    {
-        limitedInput.x = Mathf.Clamp(limitedInput.x, -Screen.width / 2, Screen.width / 2);
-        limitedInput.y = Mathf.Clamp(limitedInput.y, -Screen.height / 2, Screen.height / 2);
 
-        _crosshair.anchoredPosition = limitedInput;
+    private Vector2 ClampCrosshairPosition(Vector2 position)
+    {
+        return new Vector2(
+            Mathf.Clamp(position.x, -Screen.width / 2f, Screen.width / 2f),
+            Mathf.Clamp(position.y, -Screen.height / 2f, Screen.height / 2f)
+        );
     }
 }

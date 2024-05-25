@@ -1408,6 +1408,8 @@ MonoBehaviour:
   - {fileID: 1730520077}
   _forceChanges: 500
   _maxExpandDistance: 1000
+  _maxAdditionalExpansion: 300
+  _speedExpand: 8
 --- !u!114 &329907086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,7 +1423,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crosshair: {fileID: 329907084}
-  _speed: 10
+  _movementSpeed: 3500
+  _recoilSmoothingSpeed: 25
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
