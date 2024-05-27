@@ -79,7 +79,6 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
     {
         float reductionAmount = _baseIncrement;
         _currentSpread = Mathf.Max(0, _currentSpread - reductionAmount);
-        Debug.Log("СПУСТИЛ" + _currentSpread);
         _spreadMultiplier -= _multiplierIncreaseRate;
         _changeCrosshair.DecreaseFiredSize();
     }

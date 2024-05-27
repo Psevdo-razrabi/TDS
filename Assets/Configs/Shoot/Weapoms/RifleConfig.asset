@@ -17,10 +17,13 @@ MonoBehaviour:
   <BulletPoint>k__BackingField: {fileID: 0}
   <TimeBetweenShoots>k__BackingField: 1
   <MaxSpread>k__BackingField: 20
-  <MaxSpreadBullet>k__BackingField: 25
   <TimeToSpreadReduce>k__BackingField: 0.15
   <SpreadMultiplier>k__BackingField: 0.8
   <MultiplierIncreaseRate>k__BackingField: 0.05
   <BaseIncrement>k__BackingField: 2
   <RecoilForce>k__BackingField: 25
   <ReloadTime>k__BackingField: 2
+  <SingleFire>k__BackingField: 1
+  <BurstFire>k__BackingField: 1
+  <BurstReloadTime>k__BackingField: 0.2
+  <AutomaticFire>k__BackingField: 1

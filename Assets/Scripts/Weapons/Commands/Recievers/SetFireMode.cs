@@ -4,8 +4,10 @@ using System.Linq;
 using System.Reflection;
 using Game.Player.Weapons;
 using Game.Player.Weapons.WeaponClass;
+using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using Input.Interface;
+using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
@@ -15,13 +17,15 @@ namespace Customs
     {
         private readonly ISetFireModes _changeModeFire;
         private readonly Type _typeFireMode = typeof(ChangeModeFire);
+        private readonly WeaponConfigs _weaponConfigs;
         private List<MethodInfo> _methodInfos;
         private MethodInfo[] _allMethodUseAttribute;
         private int _index;
 
-        public SetFireMode(ISetFireModes changeModeFire)
+        public SetFireMode(ISetFireModes changeModeFire,WeaponConfigs weaponConfigs)
         {
             _changeModeFire = changeModeFire;
+            _weaponConfigs = weaponConfigs;
         }
 
         public void Initialize()
@@ -34,24 +38,17 @@ namespace Customs
 
         public void Visit(Pistol pistol)
         {
-            if (_allMethodUseAttribute[_index].Name == "AddSingleFire" || _allMethodUseAttribute[_index].Name == "AddBurstFire")
-            {
-                _methodInfos.Add(_allMethodUseAttribute[_index]);
-            }
+            AddFireModes(_weaponConfigs.PistolConfig);
         }
 
         public void Visit(Rifle rifle)
         {
-            if (_allMethodUseAttribute[_index].Name == "AddSingleFire" || _allMethodUseAttribute[_index].Name == "AddBurstFire" || _allMethodUseAttribute[_index].Name == "AddAutomaticFire")
-            {
-                _methodInfos.Add(_allMethodUseAttribute[_index]);
-            }
+            AddFireModes(_weaponConfigs.RifleConfig);
         }
 
         public void Visit(Shotgun shotgun)
         {
-            if (_allMethodUseAttribute[_index].Name != "AddSingleFire") return;
-            _methodInfos.Add(_allMethodUseAttribute[_index]);
+            AddFireModes(_weaponConfigs.ShotgunConfig);
         }
 
         public void VisitWeapon(WeaponComponent component)
@@ -71,7 +68,28 @@ namespace Customs
         
         private List<MethodInfo> SetMethod()
         {
-            return _methodInfos;
+            return new List<MethodInfo>(_methodInfos);
+        }
+        
+        private void AddFireModes(BaseWeaponConfig config)
+        {
+            if (config.SingleFire && _allMethodUseAttribute[_index].Name == "AddSingleFire")
+            {
+                _methodInfos.Add(_allMethodUseAttribute[_index]);
+                Debug.Log("СИНГЛЬ");
+            }
+
+            if (config.BurstFire && _allMethodUseAttribute[_index].Name == "AddBurstFire")
+            {
+                _methodInfos.Add(_allMethodUseAttribute[_index]);
+                Debug.Log("БИРСТ");
+            }
+
+            if (config.AutomaticFire && _allMethodUseAttribute[_index].Name == "AddAutomaticFire")
+            {
+                _methodInfos.Add(_allMethodUseAttribute[_index]);
+                Debug.Log("АВТАМАТИК");
+            }
         }
     }
 }
