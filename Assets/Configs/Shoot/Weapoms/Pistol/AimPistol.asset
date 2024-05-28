@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab76b30925ad4eb6b920c655022a9615, type: 3}
-  m_Name: Shotgun
+  m_Script: {fileID: 11500000, guid: 4a58c08301b0454c981761a3155b1b7e, type: 3}
+  m_Name: AimPistol
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Shotgun
-  <TotalAmmo>k__BackingField: 5
+  <Name>k__BackingField: 
+  <TotalAmmo>k__BackingField: 0
   <BulletPoint>k__BackingField: {fileID: 0}
-  <TimeBetweenShoots>k__BackingField: 0.05
-  <MaxSpread>k__BackingField: 1
-  <TimeToSpreadReduce>k__BackingField: 1
+  <TimeBetweenShoots>k__BackingField: 0
+  <MaxSpread>k__BackingField: 0
+  <TimeToSpreadReduce>k__BackingField: 0
   <SpreadMultiplier>k__BackingField: 0
   <MultiplierIncreaseRate>k__BackingField: 0
   <BaseIncrement>k__BackingField: 0
-  <RecoilForce>k__BackingField: 1
-  <ReloadTime>k__BackingField: 1
-  <SingleFire>k__BackingField: 1
+  <RecoilForce>k__BackingField: 0
+  <ReloadTime>k__BackingField: 0
+  <SingleFire>k__BackingField: 0
   <BurstFire>k__BackingField: 0
   <BurstReloadTime>k__BackingField: 0
   <AutomaticFire>k__BackingField: 0

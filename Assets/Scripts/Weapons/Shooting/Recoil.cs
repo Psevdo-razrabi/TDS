@@ -7,44 +7,45 @@ using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
-public class Recoil : IConfigRelize, IVisitWeaponType, IInitializable
+public class Recoil : IConfigRelize, IInitializable
 {
     private float _currentSpread;
     private float _baseRecoilForce;
-    
+
     private readonly Crosshair _crosshair;
-    private readonly WeaponConfigs _weaponConfigs;
     private DistributionConfigs _distributionConfigs;
-    private BaseWeaponConfig _weaponConfig;
+    private readonly CurrentWeapon _currentWeapon;
+    private BaseWeaponConfig _gunConfig;
     private WeaponPrefabs _weaponPrefabs;
-    
+
     public Recoil(Crosshair crosshair, WeaponConfigs weaponConfigs, DistributionConfigs distributionConfigs)
     {
         _crosshair = crosshair;
-        _weaponConfigs = weaponConfigs;
+        _currentWeapon = new CurrentWeapon(weaponConfigs);
         _distributionConfigs = distributionConfigs;
     }
-    
+
     public void Initialize()
     {
         _distributionConfigs.ClassesWantConfig.Add(this);
     }
-    
+
     public void UpdateSpread(float currentSpread)
     {
         _currentSpread = currentSpread;
     }
-    
+
     public void RecoilCursor()
     {
-        Vector3 forward = _weaponConfig.BulletPoint.transform.forward;
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
+        Vector3 forward = _gunConfig.BulletPoint.transform.forward;
         forward.Normalize();
-        
+
         Vector3 perpendicular = Vector3.Cross(forward, Vector3.up);
         float sideRecoilStrength = Random.Range(-1f, 1f);
         Vector3 sideRecoil = perpendicular * sideRecoilStrength;
-        
-        float adjustedRecoilForce = _weaponConfig.RecoilForce * Mathf.Lerp(0.5f, 1f, _currentSpread / _weaponConfig.MaxSpread);
+
+        float adjustedRecoilForce = _gunConfig.RecoilForce * Mathf.Lerp(0.5f, 1f, _currentSpread / _gunConfig.MaxSpread);
         Vector2 recoil = new Vector2(forward.x + sideRecoil.x, forward.z + sideRecoil.z) * adjustedRecoilForce;
         Debug.Log("рекоил = " + recoil);
         _crosshair.RecoilPlus(recoil);
@@ -52,26 +53,7 @@ public class Recoil : IConfigRelize, IVisitWeaponType, IInitializable
 
     public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
-        VisitWeapon(weaponComponent);
-    }
-
-    public void Visit(Pistol pistol)
-    {
-        _weaponConfig = _weaponConfigs.PistolConfig;
-    }
-
-    public void Visit(Rifle rifle)
-    {
-        _weaponConfig = _weaponConfigs.RifleConfig;
-    }
-
-    public void Visit(Shotgun shotgun)
-    {
-        _weaponConfig = _weaponConfigs.ShotgunConfig;
-    }
-
-    public void VisitWeapon(WeaponComponent component)
-    {
-        Visit((dynamic)component);
+        _currentWeapon.LoadConfig(weaponComponent);
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
     }
 }

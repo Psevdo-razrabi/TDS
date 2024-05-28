@@ -57,6 +57,8 @@ namespace DI
                 .WhenInjectedInto<ReloadComponent>();
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
                 .WhenInjectedInto<AmmoInMagazineViewModel>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<ShootComponent>();
         }
         
         private ValueCountStorage<float> CreateStorage()

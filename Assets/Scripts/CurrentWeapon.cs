@@ -10,45 +10,39 @@ using Weapons.InterfaceWeapon;
 using Unity.VisualScripting;
 using Game.Player.Weapons.Commands.Recievers;
 using Game.AsyncWorker.Interfaces;
+using Input;
+using Zenject;
 
-public class CurrentWeapon : IInitializable, IConfigRelize, IVisitWeaponType
+public class CurrentWeapon : IVisitWeaponType
 {
     private readonly WeaponConfigs _weaponConfigs;
-    private BaseWeaponConfig _gunConfig;
-    private readonly CompositeDisposable _compositeDisposable = new();
-    private IDisposable _reductionSubscription;
-    private DistributionConfigs _distributionConfigs;
-    private readonly IAwaiter _awaiter;
+    
+    private InputSystemMouse _inputSystemMouse;
+    private BaseWeaponConfig _weaponConfig;
+    private BaseWeaponConfig _aimWeaponConfig;
+    
+    private bool _isAiming;
 
-    public BaseWeaponConfig GunConfig => _gunConfig;
-
-    private CurrentWeapon(WeaponConfigs weaponConfigs)
+    public CurrentWeapon(WeaponConfigs weaponConfigs)
     {
         _weaponConfigs = weaponConfigs;
     }
-
-
-    private async void LoadConfigs()
+    
+    [Inject]
+    public void Construct(InputSystemMouse systemMouse) // аим пока нихуя не раболтает, поэтому даю тока дефолт конфиг
     {
-        await _awaiter.AwaitLoadWeaponConfigs(_weaponConfigs);
+        if (_inputSystemMouse != null)
+            return;
+        _inputSystemMouse = systemMouse;
+        _inputSystemMouse.RightMouseButtonDown += OnRightMouseButtonDown;
+        _inputSystemMouse.RightMouseButtonUp += OnRightMouseButtonUp;
     }
+    
+    public BaseWeaponConfig CurrentWeaponConfig => _weaponConfig;
 
-    public void Visit(Pistol pistol)
+    public void LoadConfig(WeaponComponent weaponComponent)
     {
-        _gunConfig = _weaponConfigs.PistolConfig;
-        Debug.Log("����");
-    }
-
-    public void Visit(Rifle rifle)
-    {
-        _gunConfig = _weaponConfigs.RifleConfig;
-        Debug.Log("���1�");
-    }
-
-    public void Visit(Shotgun shotgun)
-    {
-        _gunConfig = _weaponConfigs.ShotgunConfig;
-        Debug.Log("����2");
+        VisitWeapon(weaponComponent);
     }
 
     public void VisitWeapon(WeaponComponent component)
@@ -56,14 +50,33 @@ public class CurrentWeapon : IInitializable, IConfigRelize, IVisitWeaponType
         Visit((dynamic)component);
     }
 
-    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    public void Visit(Pistol pistol)
     {
-        VisitWeapon(weaponComponent);
+        _weaponConfig = _weaponConfigs.PistolConfig;
+        _aimWeaponConfig = _weaponConfigs.PistolAimConfig;
     }
 
-    public void Initialize()
+    public void Visit(Rifle rifle)
     {
-        _distributionConfigs.ClassesWantConfig.Add(this);
-        LoadConfigs();
+        _weaponConfig = _weaponConfigs.RifleConfig;
+        _aimWeaponConfig = _weaponConfigs.RifleAimConfig;
+    }
+
+    public void Visit(Shotgun shotgun)
+    {
+        _weaponConfig = _weaponConfigs.ShotgunConfig;
+        _aimWeaponConfig = _weaponConfigs.ShotgunAimConfig;
+    }
+    
+    private void OnRightMouseButtonDown()
+    {
+        _isAiming = true;
+        Debug.Log("ИЗ АИМИНГ");
+    }
+
+    private void OnRightMouseButtonUp()
+    {
+        _isAiming = false;
+            Debug.Log("ХУЙ ТАМ ЛОЛ");
     }
 }

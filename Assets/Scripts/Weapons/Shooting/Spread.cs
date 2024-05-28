@@ -9,7 +9,7 @@ using Weapons.InterfaceWeapon;
 using Zenject;
 using Random = UnityEngine.Random;
 
-public class Spread
+public class Spread : IConfigRelize, IInitializable
 {
     private readonly WeaponConfigs _weaponConfigs;
     private BaseWeaponConfig _gunConfig;
@@ -17,9 +17,8 @@ public class Spread
     private IDisposable _reductionSubscription;
     private readonly ChangeCrosshair _changeCrosshair;
     private readonly Recoil _recoil;
-    private DistributionConfigs _distributionConfigs;
     private readonly CurrentWeapon _currentWeapon;
-    
+    private readonly DistributionConfigs _distributionConfigs;
     private float _currentSpread;
     private float _baseIncrement;
     private int _currentBulletCount;
@@ -29,19 +28,13 @@ public class Spread
     
     private int _initialBulletsCount;
     
-    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon)
+    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs)
     {
         _weaponConfigs = weaponConfigs;
         _changeCrosshair = changeCrosshair;
         _recoil = recoil;
-        _distributionConfigs = distributionConfigs;
         _currentWeapon = currentWeapon;
-    }
-    
-    private void GetCurrentConfig()
-    {
-        _gunConfig = _currentWeapon.GunConfig;
-        Debug.Log(_gunConfig.TotalAmmo);
+        _distributionConfigs = distributionConfigs;
     }
     
     private void CalculateBaseIncrement()
@@ -80,14 +73,14 @@ public class Spread
 
     public Vector3 CalculatingSpread(Vector3 velocity)
     {
-        GetCurrentConfig();
         float spreadX = Random.Range(-_currentSpread, _currentSpread);
         Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
-
+        
         _currentSpread *= _spreadMultiplier;
         _spreadMultiplier += _multiplierIncreaseRate;
 
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
+        Debug.Log($"ан конфиг макс спреад {_gunConfig.MaxSpread} ");
         Debug.Log(_currentSpread);
         float stepsToReduce = _currentSpread / _baseIncrement;
 
@@ -95,5 +88,20 @@ public class Spread
         _recoil.UpdateSpread(_currentSpread);
 
         return velocityWithSpread;
+    }
+
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        _currentWeapon.LoadConfig(weaponComponent);
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
+
+        _spreadMultiplier = _gunConfig.SpreadMultiplier;
+        _multiplierIncreaseRate = _gunConfig.MultiplierIncreaseRate;
+        CalculateBaseIncrement();
+    }
+
+    public void Initialize()
+    {
+        _distributionConfigs.ClassesWantConfig.Add(this);
     }
 } 

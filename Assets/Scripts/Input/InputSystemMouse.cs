@@ -13,17 +13,23 @@ namespace Input
         private Action _mouseRightClickUpHandler;
         private Action _mouseRightClickDownHandler;
         
-
+        public event Action RightMouseButtonDown = delegate { };
+        public event Action RightMouseButtonUp = delegate { };
+        
         public void OnSubscribeRightMouseClickUp(Action action)
         {
             _mouseRightClickUpHandler = action;
             InputSystemNew.Mouse.Aim.performed += MouseRightClickUpHandler;
+            RightMouseButtonUp();
+            RightMouseButtonUp?.Invoke();
         }
 
         public void OnSubscribeRightMouseClickDown(Action action)
         {
             _mouseRightClickDownHandler = action;
             InputSystemNew.Mouse.Aim.canceled += MouseRightClickDownHandler;
+            RightMouseButtonDown();
+            RightMouseButtonDown?.Invoke();
         }
 
         public void OnUnsubscribeRightMouseClickUp()
@@ -38,7 +44,7 @@ namespace Input
             _mouseRightClickDownHandler = null;
         }
         
-        private void MouseRightClickUpHandler(InputAction.CallbackContext context) => _mouseRightClickUpHandler?.Invoke();
+        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>   _mouseRightClickUpHandler?.Invoke();
 
         private void MouseRightClickDownHandler(InputAction.CallbackContext context) => _mouseRightClickDownHandler?.Invoke();
         

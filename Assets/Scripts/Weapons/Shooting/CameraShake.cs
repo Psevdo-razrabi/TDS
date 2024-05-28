@@ -2,13 +2,14 @@ using DG.Tweening;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
 using Game.Player.Weapons.WeaponClass;
+using Game.Player.Weapons.WeaponConfigs;
 using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
 public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
 { 
-    private CameraShakeConfigs _cameraShakeConfigs;
+     private CameraShakeConfigs _cameraShakeConfigs;
     private CameraShakeConfig _shakeConfig;
     private ICameraProvider _cameraProvider;
     private DistributionConfigs _distributionConfigs;

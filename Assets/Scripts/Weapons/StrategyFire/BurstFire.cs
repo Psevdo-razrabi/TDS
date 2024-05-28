@@ -1,11 +1,14 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Game.Player.Weapons.InterfaceWeapon;
+using UnityEngine;
 
 namespace Game.Player.Weapons.StrategyFire
 {
-    public class BurstFire : FireStrategy
+    public class BurstFire : FireStrategy, IDisposable
     {
+        private bool _isDisposed = false;
+    
         public BurstFire(FireComponent fireComponent) : base(fireComponent)
         {
             FireComponent.ActionsCleaner.RemoveAction();
@@ -14,18 +17,28 @@ namespace Game.Player.Weapons.StrategyFire
 
         public override async void Fire(FireComponent component)
         {
+            if (_isDisposed) return;
+        
             await BurstShoot(component);
         }
-        
+
         private async UniTask BurstShoot(FireComponent component)
         {
-            for (int i = 0; i < 3; i++) //кол-во выстрелов берста
+            for (int i = 0; i < 3; i++)
             {
-                component.FireBullet();
-                await UniTask.DelayFrame(100); //кол-во кадров между выстрелами
-            }
+                if (_isDisposed) return;
 
-            await UniTask.Delay(TimeSpan.FromSeconds(2.0f)); //время между burstami
+                component.FireBullet();
+                await UniTask.Delay(
+                    TimeSpan.FromSeconds(FireComponent.CurrentWeapon.CurrentWeaponConfig.TimeBetweenShoots));
+            }
+        
+            await UniTask.Delay(TimeSpan.FromSeconds(FireComponent.CurrentWeapon.CurrentWeaponConfig.BurstReloadTime));
+        }
+
+        public void Dispose()
+        {
+            _isDisposed = true;
         }
     }
 }

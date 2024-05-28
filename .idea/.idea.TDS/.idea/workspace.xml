@@ -6,6 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Configs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Configs.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/Pistol.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/Pistol.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/RifleAimConfig.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/RifleAimConfig.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/RifleConfig.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/RifleConfig.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/Shotgun.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Configs/Shoot/Weapoms/Shotgun.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Prefabs/Weapons/Rifle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Prefabs/Weapons/Rifle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameMain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameMain.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ConfigsLoader/WeaponConfigs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CurrentWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CurrentWeapon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DI/UI/ModelInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DI/UI/ModelInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystemMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystemMouse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/FireComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/FireComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/ReloadComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/ReloadComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/BulletLifeCycle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/BulletLifeCycle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/CameraShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/CameraShake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Recoil.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Recoil.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/ShootComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/Spread.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/AutomaticFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/AutomaticFire.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/BurstFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/StrategyFire/BurstFire.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +43,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ef0191b30684937a869061138f38973572e20/39/e89b5079/ConcurrentQueue`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ef0191b30684937a869061138f38973572e20/51/266c5b97/Type.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ef0191b30684937a869061138f38973572e20/b3/d0a2430f/MethodInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ef0191b30684937a869061138f38973572e20/e1/04937f1f/IReadOnlyList`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputGuns.cs" root0="FORCE_HIGHLIGHTING" />
@@ -36,6 +64,9 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Core/Utilities/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -157,6 +188,8 @@
       <workItem from="1716568675122" duration="623000" />
       <workItem from="1716632009088" duration="5516000" />
       <workItem from="1716643225549" duration="17000" />
+      <workItem from="1716842283340" duration="4436000" />
+      <workItem from="1716923185212" duration="11640000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />

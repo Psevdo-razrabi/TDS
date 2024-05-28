@@ -72,6 +72,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 222a1fe921131444aa2968ac91c1c438
+    m_Address: PistolAimConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e579cf1167beaa74e9ca14670179b8f4
+    m_Address: RifleAimConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2bba1ce61a786f48a43ba59ef5d8e89
+    m_Address: ShotgunAimConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a32baf0e5cd480a4ba13a93650c972e4, type: 2}
   m_SchemaSet:
