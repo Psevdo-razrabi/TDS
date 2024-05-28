@@ -9,6 +9,7 @@ public class Crosshair : MonoBehaviour
     private Vector2 _targetCrosshairPos;
 
     public Transform CrossHair => _crosshair.transform;
+
     private void Awake()
     {
         Cursor.visible = false;

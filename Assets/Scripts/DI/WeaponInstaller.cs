@@ -30,6 +30,7 @@ namespace DI
             BindWeapon();
             BindWeaponChange();
             BindConfigs();
+            BindCurrentWeapon();
             BindWeaponPrefab();
         }
 
@@ -86,5 +87,7 @@ namespace DI
             Container.BindInterfacesAndSelfTo<Rifle>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<Shotgun>().AsSingle().NonLazy();
         }
+
+        private void BindCurrentWeapon() => Container.BindInterfacesAndSelfTo<CurrentWeapon>().AsSingle().NonLazy();
     }
 }

@@ -9,7 +9,7 @@ using Weapons.InterfaceWeapon;
 using Zenject;
 using Random = UnityEngine.Random;
 
-public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
+public class Spread
 {
     private readonly WeaponConfigs _weaponConfigs;
     private BaseWeaponConfig _gunConfig;
@@ -18,6 +18,7 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
     private readonly ChangeCrosshair _changeCrosshair;
     private readonly Recoil _recoil;
     private DistributionConfigs _distributionConfigs;
+    private readonly CurrentWeapon _currentWeapon;
     
     private float _currentSpread;
     private float _baseIncrement;
@@ -28,25 +29,19 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
     
     private int _initialBulletsCount;
     
-    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs)
+    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon)
     {
         _weaponConfigs = weaponConfigs;
         _changeCrosshair = changeCrosshair;
         _recoil = recoil;
         _distributionConfigs = distributionConfigs;
+        _currentWeapon = currentWeapon;
     }
     
-    public void Initialize()
+    private void GetCurrentConfig()
     {
-        _distributionConfigs.ClassesWantConfig.Add(this);
-    }
-    
-    public void GetWeaponConfig(WeaponComponent weaponComponent)
-    {
-        VisitWeapon(weaponComponent);
-        _spreadMultiplier = _gunConfig.SpreadMultiplier;
-        _multiplierIncreaseRate = _gunConfig.MultiplierIncreaseRate;
-        CalculateBaseIncrement();
+        _gunConfig = _currentWeapon.GunConfig;
+        Debug.Log(_gunConfig.TotalAmmo);
     }
     
     private void CalculateBaseIncrement()
@@ -85,6 +80,7 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
 
     public Vector3 CalculatingSpread(Vector3 velocity)
     {
+        GetCurrentConfig();
         float spreadX = Random.Range(-_currentSpread, _currentSpread);
         Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
 
@@ -99,25 +95,5 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
         _recoil.UpdateSpread(_currentSpread);
 
         return velocityWithSpread;
-    }
-    
-    public void Visit(Pistol pistol)
-    {
-        _gunConfig = _weaponConfigs.PistolConfig;
-    }
-
-    public void Visit(Rifle rifle)
-    {
-        _gunConfig = _weaponConfigs.RifleConfig;
-    }
-
-    public void Visit(Shotgun shotgun)
-    {
-        _gunConfig = _weaponConfigs.ShotgunConfig;
-    }
-
-    public void VisitWeapon(WeaponComponent component)
-    {
-        Visit((dynamic)component);
     }
 } 
