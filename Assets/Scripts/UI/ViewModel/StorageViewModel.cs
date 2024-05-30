@@ -23,6 +23,12 @@ namespace UI.ViewModel
             _storageModel.ChangeWeapon(_diContainer.Resolve<Pistol>());
         }
         
+        [Method("PistolAim Equip")]
+        public void PistolAimEquip()
+        {
+            _storageModel.ChangeWeapon(_diContainer.Resolve<Pistol>());
+        }
+        
         [Method("Rifle Equip")]
         public void RifleEquip()
         {

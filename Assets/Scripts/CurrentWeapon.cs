@@ -1,15 +1,8 @@
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Game.Player.Weapons;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using UniRx;
 using Weapons.InterfaceWeapon;
-using Unity.VisualScripting;
-using Game.Player.Weapons.Commands.Recievers;
-using Game.AsyncWorker.Interfaces;
+using Game.Player.PlayerStateMashine;
 using Input;
 using Zenject;
 
@@ -20,6 +13,7 @@ public class CurrentWeapon : IVisitWeaponType
     private InputSystemMouse _inputSystemMouse;
     private BaseWeaponConfig _weaponConfig;
     private BaseWeaponConfig _aimWeaponConfig;
+    private StateMachineData _stateMachineData;
     
     private bool _isAiming;
 
@@ -29,13 +23,9 @@ public class CurrentWeapon : IVisitWeaponType
     }
     
     [Inject]
-    public void Construct(InputSystemMouse systemMouse) // аим пока нихуя не раболтает, поэтому даю тока дефолт конфиг
+    public void Construct(StateMachineData stateMachineData)
     {
-        if (_inputSystemMouse != null)
-            return;
-        _inputSystemMouse = systemMouse;
-        _inputSystemMouse.RightMouseButtonDown += OnRightMouseButtonDown;
-        _inputSystemMouse.RightMouseButtonUp += OnRightMouseButtonUp;
+        _stateMachineData = stateMachineData;
     }
     
     public BaseWeaponConfig CurrentWeaponConfig => _weaponConfig;
@@ -66,17 +56,5 @@ public class CurrentWeapon : IVisitWeaponType
     {
         _weaponConfig = _weaponConfigs.ShotgunConfig;
         _aimWeaponConfig = _weaponConfigs.ShotgunAimConfig;
-    }
-    
-    private void OnRightMouseButtonDown()
-    {
-        _isAiming = true;
-        Debug.Log("ИЗ АИМИНГ");
-    }
-
-    private void OnRightMouseButtonUp()
-    {
-        _isAiming = false;
-            Debug.Log("ХУЙ ТАМ ЛОЛ");
     }
 }

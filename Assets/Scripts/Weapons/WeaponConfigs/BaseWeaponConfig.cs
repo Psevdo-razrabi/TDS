@@ -6,7 +6,6 @@ namespace Game.Player.Weapons.WeaponConfigs
     { 
         [field: SerializeField] public string Name { get; protected set; }
         [field: SerializeField, Range(0,100)] public int TotalAmmo { get; protected set; }
-        [field: SerializeField] public GameObject BulletPoint { get; protected set; }
         
         [field: SerializeField, Range(0,10)] public float TimeBetweenShoots { get; protected set; }
         

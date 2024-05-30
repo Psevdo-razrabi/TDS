@@ -17,13 +17,15 @@ namespace Game.Player.Weapons.Commands.Recievers
         private readonly WeaponPivots _weaponPivots;
         private readonly FactoryWeapon _factoryWeapon;
         private readonly IAwaiter _awaiter;
+        private readonly WeaponData _weaponData;
 
-        public WeaponChanger(WeaponPrefabs weaponPrefabs, WeaponPivots weaponPivots, FactoryWeapon factoryWeapon, IAwaiter awaiter)
+        public WeaponChanger(WeaponPrefabs weaponPrefabs, WeaponPivots weaponPivots, FactoryWeapon factoryWeapon, IAwaiter awaiter, WeaponData weaponData) 
         {
             _weaponPrefabs = weaponPrefabs;
             _weaponPivots = weaponPivots;
             _factoryWeapon = factoryWeapon;
             _awaiter = awaiter;
+            _weaponData = weaponData;
         }
 
         public void WeaponChange(WeaponComponent weaponComponent)
@@ -62,16 +64,19 @@ namespace Game.Player.Weapons.Commands.Recievers
         public void Visit(Pistol pistol)    
         {
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].SetActive(true);
+            _weaponData.BulletPoint =  _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].GetComponentInChildren<BulletSpawnPoint>().gameObject.transform;
         }
 
         public void Visit(Rifle rifle)
         {
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].SetActive(true);
+            _weaponData.BulletPoint =  _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].GetComponentInChildren<BulletSpawnPoint>().gameObject.transform;
         }
 
         public void Visit(Shotgun shotgun)
         {
             _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].SetActive(true);
+            _weaponData.BulletPoint =  _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].GetComponentInChildren<BulletSpawnPoint>().gameObject.transform;
         }
 
         public void VisitWeapon(WeaponComponent component)

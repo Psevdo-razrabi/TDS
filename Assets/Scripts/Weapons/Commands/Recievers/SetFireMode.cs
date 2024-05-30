@@ -76,19 +76,16 @@ namespace Customs
             if (config.SingleFire && _allMethodUseAttribute[_index].Name == "AddSingleFire")
             {
                 _methodInfos.Add(_allMethodUseAttribute[_index]);
-                Debug.Log("СИНГЛЬ");
             }
 
             if (config.BurstFire && _allMethodUseAttribute[_index].Name == "AddBurstFire")
             {
                 _methodInfos.Add(_allMethodUseAttribute[_index]);
-                Debug.Log("БИРСТ");
             }
 
             if (config.AutomaticFire && _allMethodUseAttribute[_index].Name == "AddAutomaticFire")
             {
                 _methodInfos.Add(_allMethodUseAttribute[_index]);
-                Debug.Log("АВТАМАТИК");
             }
         }
     }

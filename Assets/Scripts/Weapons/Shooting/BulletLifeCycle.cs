@@ -22,17 +22,17 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     private BaseWeaponConfig _gunConfig;
     private DistributionConfigs _distributionConfigs;
     private CurrentWeapon _currentWeapon;
-    private WeaponPrefabs _weaponPrefabs;
-    
+    private WeaponData _weaponData;
+        
     public BulletLifeCycle(PoolObject<Bullet> pool, WeaponConfigs weaponConfigs, 
-        Spread spread, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon, WeaponPrefabs weaponPrefabs)
+        Spread spread, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon, WeaponData weaponData)
     {
         _pool = pool;
         _weaponConfigs = weaponConfigs;
         _spread = spread;
         _distributionConfigs = distributionConfigs;
         _currentWeapon = currentWeapon;
-        _weaponPrefabs = weaponPrefabs;
+        _weaponData = weaponData;
     }
     
     public void GetWeaponConfig(WeaponComponent weaponComponent)
@@ -52,16 +52,16 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
         _pool.AddElementsInPool("bullet", _weaponConfigs.BulletConfig.BulletPrefab , _gunConfig.TotalAmmo);
         Bullet bullet = _pool.GetElementInPool("bullet");
         bullet.Initialize(_gunConfig.TotalAmmo);
-        Debug.Log(_weaponPrefabs.PrefabsWeapon[_gunConfig.Name].bulletSpawnPoint.transform.position);
-        bullet.transform.position = _weaponPrefabs.PrefabsWeapon[_gunConfig.Name].bulletSpawnPoint.transform.position;
-        bullet.transform.rotation = Quaternion.LookRotation(_weaponPrefabs.PrefabsWeapon[_gunConfig.Name].bulletSpawnPoint.transform.forward);
+
+        bullet.transform.position = _weaponData.BulletPoint.position;
+        bullet.transform.rotation = Quaternion.LookRotation(_weaponData.BulletPoint.forward);
         await BulletLaunch(bullet);
     }
 
     private async UniTask BulletLaunch(Bullet bullet)
     {
         _bulletRigidbody = bullet.GetComponent<Rigidbody>();
-        Vector3 velocity = _gunConfig.BulletPoint.transform.forward * _weaponConfigs.BulletConfig.BulletSpeed;
+        Vector3 velocity = _weaponData.BulletPoint.forward * _weaponConfigs.BulletConfig.BulletSpeed;
         _bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity);
         await ReturnBullet(bullet);
     }

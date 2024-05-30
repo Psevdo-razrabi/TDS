@@ -16,13 +16,14 @@ public class Recoil : IConfigRelize, IInitializable
     private DistributionConfigs _distributionConfigs;
     private readonly CurrentWeapon _currentWeapon;
     private BaseWeaponConfig _gunConfig;
-    private WeaponPrefabs _weaponPrefabs;
+    private WeaponData _weaponData;
 
-    public Recoil(Crosshair crosshair, WeaponConfigs weaponConfigs, DistributionConfigs distributionConfigs)
+    public Recoil(Crosshair crosshair, WeaponConfigs weaponConfigs, DistributionConfigs distributionConfigs, WeaponData weaponData)
     {
         _crosshair = crosshair;
         _currentWeapon = new CurrentWeapon(weaponConfigs);
         _distributionConfigs = distributionConfigs;
+        _weaponData = weaponData;
     }
 
     public void Initialize()
@@ -38,7 +39,7 @@ public class Recoil : IConfigRelize, IInitializable
     public void RecoilCursor()
     {
         _gunConfig = _currentWeapon.CurrentWeaponConfig;
-        Vector3 forward = _gunConfig.BulletPoint.transform.forward;
+        Vector3 forward = _weaponData.BulletPoint.forward;
         forward.Normalize();
 
         Vector3 perpendicular = Vector3.Cross(forward, Vector3.up);
