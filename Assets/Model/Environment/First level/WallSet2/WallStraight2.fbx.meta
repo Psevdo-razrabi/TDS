@@ -3,7 +3,17 @@ guid: ab02ec3dfb517b64e85906d25f355448
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: b8fe5c4ae62fa6a42bdf085ada06993a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blueEmission
+    second: {fileID: 2100000, guid: b8fe5c4ae62fa6a42bdf085ada06993a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
