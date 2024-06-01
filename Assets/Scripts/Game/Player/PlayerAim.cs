@@ -8,40 +8,30 @@ using Zenject;
 
 namespace Game.Player
 {
-    public class PlayerAim : MonoBehaviour, IPlayerAim
+    public class PlayerAim : MonoBehaviour, ICameraProvider, IPlayerAim
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
-
-        private Vector3 _lookPosition;
-        private IMouse _mousePosition;
-        private Vector3 _mouse;
-        private readonly CompositeDisposable _compositeDisposable = new();
+        [SerializeField] private Crosshair _crosshair;
+        
         private StateMachineData _stateMachineData;
 
+        public Transform CameraTransform => _camera.transform;
+        
         [Inject]
-        private void Construct(IMouse mouse, StateMachineData stateMachineData)
+        private void Construct(StateMachineData stateMachineData)
         {
-            _mousePosition = mouse;
-            _mousePosition.PositionMouse
-                .Subscribe(vector => _mouse = vector)
-                .AddTo(_compositeDisposable);
             _stateMachineData = stateMachineData;
         }
 
         public (bool, Vector3) GetMousePosition()
         {
-            //var directionToMouseX = (_mouse.x - transform.position.x) / Screen.width * 2 - 1;
-            //var directionToMouseY = (_mouse.y - transform.position.y) / Screen.height * 2 - 1;
-            
-            //Debug.Log(new Vector2(directionToMouseX, directionToMouseY));
-            
-            var directionMouse = new Vector2((_mouse.x - transform.position.x) / Screen.width * 2 - 1, (_mouse.y - transform.position.y) / Screen.height * 2 - 1);
+            var directionCrosshair = new Vector2((_crosshair.transform.position.x - transform.position.x) / Screen.width * 2 - 1, (_crosshair.transform.position.y - transform.position.y) / Screen.height * 2 - 1);
 
             _stateMachineData.MouseDirection =
-                new Vector2(Mathf.Clamp(directionMouse.x, -1, 1), Mathf.Clamp(directionMouse.y, -1, 1));
+                new Vector2(Mathf.Clamp(directionCrosshair.x, -1, 1), Mathf.Clamp(directionCrosshair.y, -1, 1));
             
-            Ray ray = _camera.ScreenPointToRay(_mouse);
+            Ray ray = _camera.ScreenPointToRay(_crosshair.transform.position);
             return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
         }
 
@@ -56,12 +46,6 @@ namespace Game.Player
                 transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
                 transform.rotation = rotation;
             }
-        }
-
-        private void OnDisable()
-        {
-            _compositeDisposable.Clear();
-            _compositeDisposable.Dispose();
         }
     }
 }

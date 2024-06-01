@@ -45,8 +45,8 @@ namespace Game.Player.States
 
         private void UpdateAnimatorMouseInput()
         {
-            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameMouseXParameter, Data.MouseDirection.x);
-            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameMouseYParameter, Data.MouseDirection.y);
+            // Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameMouseXParameter, Data.MouseDirection.x);
+            //   Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameMouseYParameter, Data.MouseDirection.y);
         }
     }
 }

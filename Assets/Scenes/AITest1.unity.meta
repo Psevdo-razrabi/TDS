@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/AITest1.unity.meta
 guid: c47365dfed2ce4a43a983c3a8b3dbaa4
+========
+guid: 67679358d24183b44b2bfbf61921cb21
+>>>>>>>> main:Assets/Scenes/Game 1.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

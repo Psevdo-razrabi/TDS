@@ -13,7 +13,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using Zenject;
 
-[CustomEditor(typeof(ChangeModeFire))]
+//[CustomEditor(typeof(ChangeModeFire))] - на неопределнный срок
 public class MethodListEditor : Editor
 {
     private ReorderableList _list;
@@ -23,7 +23,7 @@ public class MethodListEditor : Editor
     private List<string> _methodLabels = new();
     private UnitOfWorks _unitOfWorks;
     private IdGenerator _idGenerator;
-    private const string PlayerPrefsKey = "MethodList";
+    private const string PlayerPrefsKey = "SetFireMode";
     private const string PlayerPrefsKeyLabels = "MethodLabels";
     
     [Inject]
@@ -94,7 +94,7 @@ public class MethodListEditor : Editor
         serializedObject.ApplyModifiedProperties();
         Save();
         
-        EditorGUILayout.BeginHorizontal();
+        //EditorGUILayout.BeginHorizontal();
 
         if (GUILayout.Button("Swap Up"))
         {
@@ -106,7 +106,7 @@ public class MethodListEditor : Editor
             MoveDown(1);
         }
 
-        EditorGUILayout.EndHorizontal();
+        //EditorGUILayout.EndHorizontal();
     }
 
     private void MoveUp(int sign)
