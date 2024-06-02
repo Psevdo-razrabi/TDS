@@ -36,8 +36,6 @@ namespace Game.Core.Health
 
             _amountHealthPercentage -= value / MaxHealth;
             
-            Debug.LogWarning(_amountHealthPercentage);
-            
             _healthValue.ChangeValue(_amountHealthPercentage);
             
             if (CurrentHealth != 0f) return;
@@ -54,9 +52,6 @@ namespace Game.Core.Health
             _amountHealthPercentage = value;
             
             _healthValue.ChangeValue(_amountHealthPercentage);
-            
-            Debug.LogWarning(CurrentHealth);
-            Debug.LogWarning(_amountHealthPercentage);
             
             await UniTask.Yield();
         }

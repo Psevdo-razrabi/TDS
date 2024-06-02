@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a0ac48ce67d4047a865f4c223a14fdc, type: 3}
   m_Name: MoveWithAim
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 4
   <SpeedStrafe>k__BackingField: 3
   <SpeedBackwards>k__BackingField: 2
+  <SpeedAngleForward>k__BackingField: 3.5
+  <SpeedAngleBackwards>k__BackingField: 1.5

@@ -1,8 +1,5 @@
-﻿using System;
-using Game.Player.Interfaces;
+﻿using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
-using Input.Interface;
-using UniRx;
 using UnityEngine;
 using Zenject;
 

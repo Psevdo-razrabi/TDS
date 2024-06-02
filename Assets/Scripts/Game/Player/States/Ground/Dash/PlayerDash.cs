@@ -2,11 +2,12 @@
 using Cysharp.Threading.Tasks;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
+using Game.Player.States.Orientation;
 using UnityEngine;
 
 namespace Game.Player.States.Dash
 {
-    public class PlayerDash : BaseMove
+    public class PlayerDash : PlayerOrientation
     {
         private bool _isDashing;
         private PlayerDashConfig _dashConfig;
@@ -18,14 +19,12 @@ namespace Game.Player.States.Dash
         {
             base.OnEnter();
             _dashConfig = Player.PlayerConfigs.DashConfig;
-            Debug.Log("вошел в состояние FillImage");
             Move();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("вышел из состояние FillImage");
             OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
         }
 
@@ -75,6 +74,5 @@ namespace Game.Player.States.Dash
 
             await UniTask.Delay(TimeSpan.FromSeconds(_dashConfig.DelayAfterEachDash));
         }
-
     }
 }

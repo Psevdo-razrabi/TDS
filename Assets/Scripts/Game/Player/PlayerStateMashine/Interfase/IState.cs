@@ -5,5 +5,6 @@
         void OnEnter();
         void OnExit();
         void OnUpdateBehaviour();
+        void OnFixedUpdateBehaviour();
     }
 }
