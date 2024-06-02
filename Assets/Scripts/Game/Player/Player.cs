@@ -1,4 +1,5 @@
-﻿using Customs;
+﻿using System;
+using Customs;
 using Enemy;
 using Game.Core.Health;
 using Game.Player.AnimatorScripts;
@@ -9,6 +10,7 @@ using Input;
 using UI.Storage;
 using UniRx;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Player
@@ -16,7 +18,6 @@ namespace Game.Player
     [RequireComponent(typeof(CharacterController))]
     public class Player : MonoBehaviour, IStateDataWorker, IHealth, IInitialaize
     {
-        [SerializeField] private RagdollHelper ragdollHelper;
         public InputSystemMovement InputSystem { get; private set; }
         public InputSystemMouse InputSystemMouse { get; private set; }
         public IPlayerAim PlayerAim { get; private set; }
@@ -27,22 +28,26 @@ namespace Game.Player
         [Inject] public StateHandleChain StateChain { get; private set; }
         [Inject] public StateMachineData StateMachineData { get; private set; }
         [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
-         public ValueCountStorage<float> ValueModelHealth { get; private set; }
+        private ValueCountStorage<float> ValueModelHealth { get; set; }
         [Inject] public EventController EventController { get; private set; }
+        [field: SerializeField] public GameObject PlayerModelRotate { get; private set; } 
+        public DashTrailEffect DashTrailEffect { get; private set; }
 
         private InitializationStateMachine _initializationStateMachine;
         private CompositeDisposable _disposable = new();
+        [SerializeField] private RagdollHelper ragdollHelper;
 
         [Inject]
         private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
             InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
-            InitializationStateMachine stateMachine)
+            InitializationStateMachine stateMachine, DashTrailEffect trailEffect)
         {
             PlayerAim = playerAim;
             InputSystem = inputSystemMovement;
             InputSystemMouse = inputSystemMouse;
             AnimatorController = animatorController;
             _initializationStateMachine = stateMachine;
+            DashTrailEffect = trailEffect;
         }
 
         private async void Start()
@@ -70,6 +75,11 @@ namespace Game.Player
             if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
             
             _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
+        }
+
+        private void FixedUpdate()
+        {
+            _initializationStateMachine.PlayerStateMachine.currentStates.OnFixedUpdateBehaviour();
         }
 
         private void OnDisable()

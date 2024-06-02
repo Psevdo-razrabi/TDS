@@ -5,7 +5,6 @@ using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
-using UI.Storage;
 using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
@@ -34,7 +33,6 @@ public class BulletLifeCycle : IConfigRelize, IVisitWeaponType, IInitializable
     
     public void Initialize()
     {
-        _eventController.BulletStoped += StopBullet;
         _distributionConfigs.ClassesWantConfig.Add(this);
     }
     

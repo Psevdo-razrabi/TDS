@@ -169,11 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5805607287829988868}
   - component: {fileID: 5157757363804720445}
-  - component: {fileID: 1060790582493490719}
   - component: {fileID: 9020294757335333239}
-  - component: {fileID: 559093329563218138}
-  - component: {fileID: 4751899430014974930}
-  - component: {fileID: 5465352757119454689}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -221,23 +217,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1060790582493490719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670410746113450448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69f673eae7414a909d878de6e71d8fa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ground:
-    serializedVersion: 2
-    m_Bits: 64
-  _camera: {fileID: 0}
-  _crosshair: {fileID: 0}
 --- !u!143 &9020294757335333239
 CharacterController:
   m_ObjectHideFlags: 0
@@ -264,44 +243,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: -0.15, z: 0}
---- !u!114 &559093329563218138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670410746113450448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 466fc7027bad400c948cad01fa81861f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ragdollHelper: {fileID: 4751899430014974930}
---- !u!114 &4751899430014974930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670410746113450448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 495db3d49f214655ba7bf59ecf989a07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5465352757119454689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670410746113450448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cb12b3b0e324bd5b8148ea1e8229a18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthBarView: {fileID: 0}
 --- !u!1 &670930229302132036
 GameObject:
   m_ObjectHideFlags: 0
