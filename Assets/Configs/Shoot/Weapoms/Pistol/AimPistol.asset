@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <TotalAmmo>k__BackingField: 0
-  <BulletPoint>k__BackingField: {fileID: 0}
   <TimeBetweenShoots>k__BackingField: 0
+  <StartSpread>k__BackingField: 5
   <MaxSpread>k__BackingField: 0
   <TimeToSpreadReduce>k__BackingField: 0
   <SpreadMultiplier>k__BackingField: 0
