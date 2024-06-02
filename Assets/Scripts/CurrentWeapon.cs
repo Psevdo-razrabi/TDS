@@ -5,12 +5,8 @@ using Weapons.InterfaceWeapon;
 using Game.Player.PlayerStateMashine;
 using Input;
 using UI.Storage;
-using UI.ViewModel;
 using UniRx;
-using Unity.VisualScripting;
-using UnityEngine;
 using Zenject;
-using Observable = UnityEngine.InputSystem.Utilities.Observable;
 
 public class CurrentWeapon : IVisitWeaponType
 {

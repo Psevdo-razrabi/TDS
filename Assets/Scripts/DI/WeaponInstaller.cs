@@ -59,7 +59,6 @@ namespace DI
         {
             BindNewInstance<WeaponConfigs>();
             BindNewInstance<CameraShakeConfigs>();
-            BindNewInstance<CrosshairConfigs>();
         }
         private void BindPool() => BindNewInstance<PoolObject<Bullet>>();
 

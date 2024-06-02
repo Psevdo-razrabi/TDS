@@ -3744,6 +3744,7 @@ GameObject:
   - component: {fileID: 1017338640}
   - component: {fileID: 1017338637}
   - component: {fileID: 1017338641}
+  - component: {fileID: 1017338642}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -3780,6 +3781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 1017338642}
   - {fileID: 1017338635}
   - {fileID: 1017338634}
   - {fileID: 1017338636}
@@ -3914,6 +3916,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03002b7503f04ec4a50976b7babb65b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1017338642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b859c366cabc47679a7d4f340f108f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1031792355
@@ -8144,7 +8158,7 @@ PrefabInstance:
     - target: {fileID: 1643039864789488011, guid: 192ead0ea49e2964da0c87e19ee18577,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[1].m_Value.y
-      value: 1.0081681
+      value: 1.1181682
       objectReference: {fileID: 0}
     - target: {fileID: 1643039864789488011, guid: 192ead0ea49e2964da0c87e19ee18577,
         type: 3}
@@ -8411,7 +8425,7 @@ Transform:
   m_GameObject: {fileID: 919132147963920946}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.7036543, y: -0.13000011, z: 2.7880933}
+  m_LocalPosition: {x: -0.7036543, y: -0.02, z: 2.7880933}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

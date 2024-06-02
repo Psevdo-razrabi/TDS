@@ -17,12 +17,15 @@ namespace Game.Player.PlayerStateMashine
         public bool IsAim;
         public ReactiveProperty<bool> IsAiming = new();
         public bool IsDashing;
+        public bool IsAir;
         
         private float _xInput;
         private float _yInput;
         private float _currentSpeed = 1f;
         private int _dashCount;
         private Vector2 _mouseDirection;
+
+        public float TargetDirectionY { get; set; }
 
         public Vector2 MouseDirection
         {

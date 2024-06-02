@@ -109,7 +109,7 @@ namespace DG.Tweening
 
 
             // Called via Reflection by DOTweenPathInspector
-            // Returns FALSE if the DOTween's Physics Module is disabled, or if there's no rigidbody attached
+            // Returns FALSE if the DOTween's PhysicsWorld Module is disabled, or if there's no rigidbody attached
 #if UNITY_2018_1_OR_NEWER
             [UnityEngine.Scripting.Preserve]
 #endif

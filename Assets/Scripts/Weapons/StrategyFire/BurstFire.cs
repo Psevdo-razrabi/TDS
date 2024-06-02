@@ -35,10 +35,5 @@ namespace Game.Player.Weapons.StrategyFire
         
             await UniTask.Delay(TimeSpan.FromSeconds(FireComponent.CurrentWeapon.CurrentWeaponConfig.BurstReloadTime));
         }
-
-        public void Dispose()
-        {
-            _isDisposed = true;
-        }
     }
 }

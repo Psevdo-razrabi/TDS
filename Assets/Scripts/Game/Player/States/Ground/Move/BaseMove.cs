@@ -84,8 +84,9 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            Debug.LogWarning(Data.CurrentSpeed);
             var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Movement;
+            targetSpeed.y = Data.TargetDirectionY;
+            Debug.LogWarning(targetSpeed);
             Player.CharacterController.Move(targetSpeed);
         }
     }

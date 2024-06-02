@@ -1,5 +1,4 @@
-﻿using System;
-using Customs;
+﻿using Customs;
 using Enemy;
 using Game.Core.Health;
 using Game.Player.AnimatorScripts;
@@ -7,16 +6,16 @@ using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 using Input;
+using PhysicsWorld;
 using UI.Storage;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace Game.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class Player : MonoBehaviour, IStateDataWorker, IHealth, IInitialaize
+    public class Player : MonoBehaviour, IStateDataWorker, IHealth, IInitialaize, IGravity
     {
         public InputSystemMovement InputSystem { get; private set; }
         public InputSystemMouse InputSystemMouse { get; private set; }

@@ -1,5 +1,3 @@
-    using System.Collections;
-using System.Collections.Generic;
 using UI.ViewModel;
 using UnityEngine;
 using Zenject;
