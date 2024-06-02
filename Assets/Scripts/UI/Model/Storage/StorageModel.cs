@@ -17,5 +17,9 @@ namespace UI.Storage
         {
             _weaponCommand.OnInvokeCommands(weaponComponent);
         }
+        public void ChangeAimWeapon(WeaponComponent weaponComponent)
+        {
+            _weaponCommand.OnInvokeCommands(weaponComponent);
+        }
     }
 }

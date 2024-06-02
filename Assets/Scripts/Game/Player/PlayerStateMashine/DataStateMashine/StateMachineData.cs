@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.PlayerStateMashine
@@ -14,6 +15,7 @@ namespace Game.Player.PlayerStateMashine
         
         public bool IsMove;
         public bool IsAim;
+        public ReactiveProperty<bool> IsAiming = new();
         public bool IsDashing;
         
         private float _xInput;

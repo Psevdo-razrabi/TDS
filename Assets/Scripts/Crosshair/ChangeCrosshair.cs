@@ -14,13 +14,18 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private float _maxAdditionalExpansion;
     [SerializeField] private float _speedExpand;
     
-    private EventController _eventController;
     private CompositeDisposable _compositeDisposable = new();
+    private Spread _spread;
     private Vector2[] _initialPositions;    
     private float _expandMultiplier;
     private float _additionalExpansion;
     private float _stepValue;
     private bool _canMove;
+    private float _totalExpansion;
+
+    public float TotalExpansion => _totalExpansion;
+    public Camera CameraObject => _camera;
+    public Transform Crosshair => _crosshair.transform;
     
     void Start()
     {
@@ -56,12 +61,13 @@ public class ChangeCrosshair : MonoBehaviour
 
     private void ChangeSize()
     {
+        _totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
+        
         for (int i = 0; i < _crosshairParts.Length; i++)
         {
             Vector2 direction = _initialPositions[i].normalized;
-            float totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
-            Vector2 targetPosition = _initialPositions[i] + direction * totalExpansion;
-
+            Vector2 targetPosition = _initialPositions[i] + direction * _totalExpansion;
+            
             _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, _speedExpand * Time.deltaTime);
         }
     }

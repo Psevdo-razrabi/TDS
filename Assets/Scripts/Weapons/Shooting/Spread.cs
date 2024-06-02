@@ -22,11 +22,13 @@ public class Spread : IConfigRelize, IInitializable
     private float _currentSpread;
     private float _baseIncrement;
     private int _currentBulletCount;
+    private Vector3 _crosshairSpread;
     
     private float _spreadMultiplier;
     private float _multiplierIncreaseRate;
     
     private int _initialBulletsCount;
+    
     
     public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs)
     {
@@ -40,7 +42,18 @@ public class Spread : IConfigRelize, IInitializable
     private void CalculateBaseIncrement()
     {
         _baseIncrement = _gunConfig.BaseIncrement;
-        _currentSpread = _baseIncrement;
+        _currentSpread = _gunConfig.StartSpread;
+    }
+    
+    public Vector3 CalculateCrosshairSpread()
+    {
+        float randomX = Random.Range(-_changeCrosshair.TotalExpansion, _changeCrosshair.TotalExpansion);
+        Debug.Log(randomX);
+        Vector2 firePointScreenPosition = RectTransformUtility.WorldToScreenPoint(_changeCrosshair.CameraObject, _changeCrosshair.Crosshair.position);
+        Vector2 targetScreenPosition = new Vector2(firePointScreenPosition.x + randomX, firePointScreenPosition.y);
+        Ray ray = _changeCrosshair.CameraObject.ScreenPointToRay(targetScreenPosition);
+
+        return ray.direction;
     }
     
     public void StartSpreadReduction()
@@ -55,9 +68,9 @@ public class Spread : IConfigRelize, IInitializable
             .Subscribe(_ =>
             {
                 SpreadReduce();
-                if (_currentSpread <= 0.1f)
+                if (_currentSpread <= _gunConfig.StartSpread)
                 {
-                    _currentSpread = 0.1f;
+                    _currentSpread =  _gunConfig.StartSpread;
                     _reductionSubscription.Dispose();
                 }
             }).AddTo(_compositeDisposable);

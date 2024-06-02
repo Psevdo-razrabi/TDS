@@ -48,7 +48,6 @@ public class Recoil : IConfigRelize, IInitializable
 
         float adjustedRecoilForce = _gunConfig.RecoilForce * Mathf.Lerp(0.5f, 1f, _currentSpread / _gunConfig.MaxSpread);
         Vector2 recoil = new Vector2(forward.x + sideRecoil.x, forward.z + sideRecoil.z) * adjustedRecoilForce;
-        Debug.Log("рекоил = " + recoil);
         _crosshair.RecoilPlus(recoil);
     }
 

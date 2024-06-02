@@ -1,4 +1,6 @@
 ﻿using Game.Player.PlayerStateMashine;
+using UniRx;
+using UnityEngine;
 
 namespace Game.Player.States
 {
@@ -20,12 +22,14 @@ namespace Game.Player.States
             base.AddActionsCallbacks();
             Player.InputSystemMouse.OnSubscribeRightMouseClickUp(() =>
             {
+                Data.IsAiming.Value = true;
                 OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });
             
             Player.InputSystemMouse.OnSubscribeRightMouseClickDown(() =>
             {
+                Data.IsAiming.Value = false;
                 OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });

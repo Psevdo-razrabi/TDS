@@ -33,7 +33,6 @@ namespace UI.ViewModel
         private void OnValueCountChange(int count)
         {
             Ammo.Value = count.ToString();
-            Debug.Log(Ammo.Value);
         }
     }
 }

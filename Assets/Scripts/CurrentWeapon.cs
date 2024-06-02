@@ -4,34 +4,48 @@ using Game.Player.Weapons;
 using Weapons.InterfaceWeapon;
 using Game.Player.PlayerStateMashine;
 using Input;
+using UI.Storage;
+using UI.ViewModel;
+using UniRx;
+using Unity.VisualScripting;
+using UnityEngine;
 using Zenject;
+using Observable = UnityEngine.InputSystem.Utilities.Observable;
 
 public class CurrentWeapon : IVisitWeaponType
 {
     private readonly WeaponConfigs _weaponConfigs;
-    
+
+    private WeaponComponent _weaponComponent;
     private InputSystemMouse _inputSystemMouse;
     private BaseWeaponConfig _weaponConfig;
     private BaseWeaponConfig _aimWeaponConfig;
     private StateMachineData _stateMachineData;
-    
-    private bool _isAiming;
+    private CompositeDisposable _compositeDisposable = new();
+    private StorageModel _storageModel;
 
+    private bool _isAiming;
+    
     public CurrentWeapon(WeaponConfigs weaponConfigs)
     {
         _weaponConfigs = weaponConfigs;
     }
     
     [Inject]
-    public void Construct(StateMachineData stateMachineData)
+    public void Construct(StateMachineData stateMachineData, StorageModel storageViewModel)
     {
         _stateMachineData = stateMachineData;
+        _storageModel = storageViewModel;
+        
+        _isAiming = _stateMachineData.IsAiming.Value;
+        SubscribeAim();
     }
     
-    public BaseWeaponConfig CurrentWeaponConfig => _weaponConfig;
+    public BaseWeaponConfig CurrentWeaponConfig => _isAiming ? _aimWeaponConfig : _weaponConfig;
 
     public void LoadConfig(WeaponComponent weaponComponent)
     {
+        _weaponComponent = weaponComponent;
         VisitWeapon(weaponComponent);
     }
 
@@ -56,5 +70,21 @@ public class CurrentWeapon : IVisitWeaponType
     {
         _weaponConfig = _weaponConfigs.ShotgunConfig;
         _aimWeaponConfig = _weaponConfigs.ShotgunAimConfig;
+    }
+
+    private void SwitchAim()
+    {
+        _isAiming = _stateMachineData.IsAiming.Value;
+        _storageModel.ChangeAimWeapon(_weaponComponent);
+    }
+
+    private void SubscribeAim()
+    {
+        _stateMachineData.IsAiming
+            .Subscribe(_ =>
+            {
+                SwitchAim();
+            })
+            .AddTo(_compositeDisposable);
     }
 }

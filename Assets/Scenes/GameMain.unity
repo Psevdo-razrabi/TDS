@@ -8066,6 +8066,11 @@ PrefabInstance:
       propertyPath: healthBarView
       value: 
       objectReference: {fileID: 437190771}
+    - target: {fileID: 5805607287829988868, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.039
+      objectReference: {fileID: 0}
     - target: {fileID: 6111512907163761237, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8116,10 +8121,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6667431830363227672, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667431830363227672, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 6667431830363227672, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.017
+      objectReference: {fileID: 0}
+    - target: {fileID: 8229515183471098301, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.191
+      objectReference: {fileID: 0}
     - target: {fileID: 8626136729749753995, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.629
+      value: 0.309
       objectReference: {fileID: 0}
     - target: {fileID: 8626136729749753995, guid: 2e4ff9cf87c34f245856d05e12dd5efc,
         type: 3}
