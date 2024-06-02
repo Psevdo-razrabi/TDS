@@ -18,7 +18,7 @@ namespace Game.Player.PlayerStateMashine
         
         private float _xInput;
         private float _yInput;
-        private float _currentSpeed;
+        private float _currentSpeed = 1f;
         private int _dashCount;
         private Vector2 _mouseDirection;
 
@@ -33,7 +33,6 @@ namespace Game.Player.PlayerStateMashine
                 _mouseDirection = value;
             }
         }
-        
         
         public float XInput
         {

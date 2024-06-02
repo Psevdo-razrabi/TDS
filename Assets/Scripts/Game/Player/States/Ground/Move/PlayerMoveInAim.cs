@@ -1,11 +1,11 @@
 using Game.Player.PlayerStateMashine;
-using Game.Player.States.Dash;
+using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
 using UnityEngine;
 
 namespace Game.Player.States
 {
-    public class PlayerMoveInAim : BaseMove
+    public class PlayerMoveInAim : PlayerOrientation
     {
         public PlayerMoveInAim(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
         {

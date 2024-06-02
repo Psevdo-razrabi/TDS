@@ -11,8 +11,9 @@ namespace Game.Player.AnimatorScripts
         [field: SerializeField] public string NameJumpParameter { get; private set; }
         [field: SerializeField] public string NameDashParameter { get; private set; }
         [field: SerializeField] public string NameAimParameter { get; private set; }
-        [field: SerializeField] public string NameMouseXParameter { get; private set; }
-        [field: SerializeField] public string NameMouseYParameter { get; private set; }
+        [field: SerializeField] public string NameRemappedLateralSpeedNormalizedParameter { get; private set; }
+        [field: SerializeField] public string NameRemappedForwardSpeedNormalizedParameter { get; private set; }
+        [field: SerializeField] public string NameRemappedSpeedNormalizedParameter { get; private set; }
 
 
         public void SetFloatParameters(string nameParameters, float value)
