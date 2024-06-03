@@ -1,11 +1,11 @@
-﻿using Customs;
-using Game.AsyncWorker;
+﻿using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 using Input;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -14,10 +14,12 @@ namespace DI
         [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
-        [SerializeField] private Player player; 
+        [SerializeField] private Player player;
+        [SerializeField] private DashTrailEffect dashTrailEffect;
         [SerializeField] private ChangeModeFire fireMode;
         [SerializeField] private InputSystemMouse inputSystemMouse;
         [SerializeField] private InputSystemWeapon inputSystemWeapon;
+        [SerializeField] private InputSystemUi inputSystemUi;
         
         public override void InstallBindings()
         {
@@ -32,7 +34,7 @@ namespace DI
             BindHandlesState();
             BindStateMachineData();
             BindAsyncWorker();
-            BindMethodInfo();
+            BindEffect();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();
@@ -43,15 +45,26 @@ namespace DI
             BindInstance(inputSystemMovement);
             BindInstance(inputSystemMouse);
             BindInstance(inputSystemWeapon);
+            BindInstance(inputSystemUi);
             BindNewInstance<MouseInputObserver>();
+            
         }
 
+        private void BindEffect()
+        {
+            BindNewInstance<BulletEffectSystem>();
+        }
+        
         private void BindAnimator() => BindInstance(animatorController);
 
         private void BindPlayerAim() => BindInstance(playerAim);
 
-        private void BindPlayer() => BindInstance(player);
-
+        private void BindPlayer()
+        {
+            BindInstance(player);
+            BindInstance(dashTrailEffect);
+        }
+        
         private void BindLoader() => BindNewInstance<Loader>();
 
         private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
@@ -71,8 +84,6 @@ namespace DI
             BindNewInstance<StateHandleChain>();
             
         }
-
-        private void BindMethodInfo() => BindNewInstance<MethodList>();
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();
     }

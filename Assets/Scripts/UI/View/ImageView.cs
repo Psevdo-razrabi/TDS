@@ -1,4 +1,5 @@
-﻿using MVVM;
+﻿using System;
+using MVVM;
 using UnityEngine;
 using UnityEngine.UI;
 

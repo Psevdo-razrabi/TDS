@@ -1,10 +1,11 @@
 ﻿using Game.Player.PlayerStateMashine;
+using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
 using UnityEngine;
 
 namespace Game.Player.States
 {
-    public class PlayerMove : BaseMove
+    public class PlayerMove : PlayerOrientation
     {
         public PlayerMove(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
         {

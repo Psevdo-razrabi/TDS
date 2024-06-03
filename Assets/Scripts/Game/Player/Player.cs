@@ -6,6 +6,7 @@ using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 using Input;
+using PhysicsWorld;
 using UI.Storage;
 using UniRx;
 using UnityEngine;
@@ -14,9 +15,8 @@ using Zenject;
 namespace Game.Player
 {
     [RequireComponent(typeof(CharacterController))]
-    public class Player : MonoBehaviour, IStateDataWorker, IHealth
+    public class Player : MonoBehaviour, IStateDataWorker, IHealth, IInitialaize, IGravity
     {
-        [SerializeField] private RagdollHelper ragdollHelper;
         public InputSystemMovement InputSystem { get; private set; }
         public InputSystemMouse InputSystemMouse { get; private set; }
         public IPlayerAim PlayerAim { get; private set; }
@@ -27,28 +27,32 @@ namespace Game.Player
         [Inject] public StateHandleChain StateChain { get; private set; }
         [Inject] public StateMachineData StateMachineData { get; private set; }
         [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
-        [Inject] public ValueCountStorage<float> ValueModelHealth { get; private set; }
+        private ValueCountStorage<float> ValueModelHealth { get; set; }
         [Inject] public EventController EventController { get; private set; }
+        [field: SerializeField] public GameObject PlayerModelRotate { get; private set; } 
+        public DashTrailEffect DashTrailEffect { get; private set; }
 
         private InitializationStateMachine _initializationStateMachine;
         private CompositeDisposable _disposable = new();
+        [SerializeField] private RagdollHelper ragdollHelper;
 
         [Inject]
         private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
             InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
-            InitializationStateMachine stateMachine)
+            InitializationStateMachine stateMachine, DashTrailEffect trailEffect)
         {
             PlayerAim = playerAim;
             InputSystem = inputSystemMovement;
             InputSystemMouse = inputSystemMouse;
             AnimatorController = animatorController;
             _initializationStateMachine = stateMachine;
+            DashTrailEffect = trailEffect;
         }
 
         private async void Start()
         {
             CharacterController = GetComponent<CharacterController>();
-            await AsyncWorker.Await(PlayerConfigs);
+            await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
             
             HealthStats =
@@ -56,19 +60,37 @@ namespace Game.Player
                     new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
                         new Die<Player>(gameObject, EventController, ragdollHelper)),
                     PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
+            
+            HealthStats.Subscribe();
         }
 
         private void Update()
         {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
+            {
+                HealthStats.SetDamage(10f);
+            }
+            
             if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
             
             _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
         }
 
+        private void FixedUpdate()
+        {
+            _initializationStateMachine.PlayerStateMachine.currentStates.OnFixedUpdateBehaviour();
+        }
+
         private void OnDisable()
         {
+            HealthStats.Unsubscribe();
             _disposable.Clear();
             _disposable.Dispose();
+        }
+        
+        public void InitModel(ValueCountStorage<float> valueCountStorage)
+        {
+            ValueModelHealth = valueCountStorage;
         }
     }
 }

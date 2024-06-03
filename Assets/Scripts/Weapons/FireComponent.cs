@@ -16,20 +16,21 @@ namespace Game.Player.Weapons
         public readonly ActionsCleaner ActionsCleaner;
         public readonly WeaponData WeaponData;
         public readonly WeaponConfigs.WeaponConfigs WeaponConfigs;
-        private EventController _eventController;
-
-        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner, WeaponConfigs.WeaponConfigs weaponConfigs, EventController eventController)
+        public readonly CurrentWeapon CurrentWeapon;
+        public Action ShotFired;
+        
+        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner, WeaponConfigs.WeaponConfigs weaponConfigs, CurrentWeapon currentWeapon)
         {
             WeaponData = weaponData;
             MouseInputObserver = mouseInputObserver;
             ActionsCleaner = actionsCleaner;
             WeaponConfigs = weaponConfigs;
-            _eventController = eventController;
+            CurrentWeapon = currentWeapon;
         }
         
         public void FireBullet()
         {
-            var fireAction = new FireBulletAction(WeaponData, _fireStrategy,() => _eventController.ShotFire());
+            var fireAction = new FireBulletAction(WeaponData, _fireStrategy,() => ShotFired?.Invoke());
             var handler = new HandlerDecoratorActions(() => !WeaponData.IsReloading, fireAction);
             handler.Execute();
         }

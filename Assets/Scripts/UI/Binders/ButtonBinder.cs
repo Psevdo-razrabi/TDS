@@ -16,12 +16,12 @@ namespace UI.Binders
             _modelAction = new UnityAction(modelAction);
         }
         
-        public void Bind()
+        void IBinder.Bind()
         {
             _viewButton.onClick.AddListener(_modelAction);
         }
 
-        public void Unbind()
+        void IBinder.Unbind()
         {
             _viewButton.onClick.RemoveListener(_modelAction);
         }

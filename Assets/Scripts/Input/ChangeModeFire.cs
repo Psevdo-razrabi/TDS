@@ -12,11 +12,10 @@ using Zenject;
 
 namespace Input
 {
-    public class ChangeModeFire : MonoBehaviour, ISetFireModes, IInitializable
+    public class ChangeModeFire : MonoBehaviour, ISetFireModes
     {
-        public string fireMode;
-        private readonly Queue<Action> _queueStates = new();
-        private Action _modeFire;
+        private readonly Queue<MethodInfo> _queueStates = new();
+        private MethodInfo _modeFire;
         private MediatorFireStrategy _fireStrategy;
         private FireComponent _fireComponent;
         
@@ -40,16 +39,9 @@ namespace Input
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
         {
-            //methodFireStates.ForEach(x => _queueStates.Enqueue(x)); - на неопределенный срок
-        }
-        
-        public async void Initialize()
-        {
-            _queueStates.Enqueue(AddSingleFire);
-            _queueStates.Enqueue(AddBurstFire);
-            _queueStates.Enqueue(AddAutomaticFire);
-
-            await ChangeMode();
+            _queueStates.Clear();
+            methodFireStates.ForEach(x => _queueStates.Enqueue(x));
+            SetFireMode();
         }
 
         public async UniTask ChangeMode() {
@@ -60,10 +52,7 @@ namespace Input
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
-            _modeFire = _queueStates.Dequeue();
-            _queueStates.Enqueue(_modeFire);
-            _modeFire();
-            _modeFire = null;
+            SetFireMode();
             await UniTask.Delay(TimeSpan.FromSeconds(0.3f));
         }
         
@@ -72,6 +61,14 @@ namespace Input
         {
             _fireStrategy = fireStrategy;
             _fireComponent = fireComponent;
+        }
+
+        private void SetFireMode()
+        {
+            _modeFire = _queueStates.Dequeue();
+            _queueStates.Enqueue(_modeFire);
+            _modeFire.Invoke(this, null);
+            _modeFire = null;
         }
     }
 }

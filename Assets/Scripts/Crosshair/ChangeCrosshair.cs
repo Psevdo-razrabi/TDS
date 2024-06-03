@@ -11,20 +11,21 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private RectTransform[] _crosshairParts;
     [SerializeField] private float _forceChanges;
     [SerializeField] private float _maxExpandDistance;
-
-    private EventController _eventController;
+    [SerializeField] private float _maxAdditionalExpansion;
+    [SerializeField] private float _speedExpand;
+    
     private CompositeDisposable _compositeDisposable = new();
-    private Vector2[] _initialPositions;
+    private Spread _spread;
+    private Vector2[] _initialPositions;    
     private float _expandMultiplier;
     private float _additionalExpansion;
     private float _stepValue;
     private bool _canMove;
-    
-    [Inject]
-    public void Constructor(EventController eventController)
-    {
-        eventController.SpreadReducing += DecreaseFiredSize;
-    }
+    private float _totalExpansion;
+
+    public float TotalExpansion => _totalExpansion;
+    public Camera CameraObject => _camera;
+    public Transform Crosshair => _crosshair.transform;
     
     void Start()
     {
@@ -60,23 +61,22 @@ public class ChangeCrosshair : MonoBehaviour
 
     private void ChangeSize()
     {
+        _totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
+        
         for (int i = 0; i < _crosshairParts.Length; i++)
         {
             Vector2 direction = _initialPositions[i].normalized;
-            float totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
-            Vector2 targetPosition = _initialPositions[i] + direction * totalExpansion;
-
-            _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, 10 * Time.deltaTime);
+            Vector2 targetPosition = _initialPositions[i] + direction * _totalExpansion;
+            
+            _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, _speedExpand * Time.deltaTime);
         }
     }
     
     public void IncreaseFiredSize(float additionalExpansion,float stepToReduce)
     {
-        Debug.Log(additionalExpansion);
-        Debug.Log(stepToReduce);
         _additionalExpansion += additionalExpansion;
+        _additionalExpansion = Mathf.Min(_additionalExpansion, _maxAdditionalExpansion);
         _stepValue = _additionalExpansion / stepToReduce;
-
     }                                                                 
 
     public void DecreaseFiredSize()

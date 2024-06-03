@@ -1,4 +1,5 @@
 ﻿using System;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.PlayerStateMashine
@@ -14,13 +15,17 @@ namespace Game.Player.PlayerStateMashine
         
         public bool IsMove;
         public bool IsAim;
+        public ReactiveProperty<bool> IsAiming = new();
         public bool IsDashing;
+        public bool IsAir;
         
         private float _xInput;
         private float _yInput;
-        private float _currentSpeed;
+        private float _currentSpeed = 1f;
         private int _dashCount;
         private Vector2 _mouseDirection;
+
+        public float TargetDirectionY { get; set; }
 
         public Vector2 MouseDirection
         {
@@ -33,7 +38,6 @@ namespace Game.Player.PlayerStateMashine
                 _mouseDirection = value;
             }
         }
-        
         
         public float XInput
         {

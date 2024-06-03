@@ -1,13 +1,17 @@
 ﻿using Game.AsyncWorker;
-using Game.Player;
 using Game.Player.Weapons;
+using Input;
 using UI.Storage;
+using UI.View;
 using UI.ViewModel;
+using UnityEngine;
 
 namespace DI
 {
     public sealed class ModelInstaller : BaseBindings
     {
+        [SerializeField] private GameObjectView gameObjectViewReload;
+        [SerializeField] private GameObjectView gameObjectViewStorage;
         public override void InstallBindings()
         {
             BindModels();
@@ -16,40 +20,55 @@ namespace DI
         private void BindModels()
         {
             BindNewInstance<ValueCountStorage<int>>();
-            BindNewInstance<BoolStorage>();
-            Bind();
+            BindNewInstance<StorageModel>();
+            BindBoolStorage();
+            BindValue();
         }
 
-        private void Bind()
+        private void BindBoolStorage()
+        {
+            var reloadBool = CreateStorageBool();
+            var storageBool = CreateStorageBool();
+            Container.Bind<BoolStorage>().To<BoolStorage>().FromInstance(reloadBool).WhenInjectedIntoInstance(gameObjectViewReload);
+            Container.Bind<BoolStorage>().To<BoolStorage>().FromInstance(reloadBool).WhenInjectedInto<ReloadComponent>();
+
+            Container.Bind<BoolStorage>().To<BoolStorage>().FromInstance(storageBool).WhenInjectedIntoInstance(gameObjectViewStorage);
+            Container.Bind<BoolStorage>().To<BoolStorage>().FromInstance(storageBool).WhenInjectedInto<InputSystemUi>();
+        }
+
+        private void BindValue()
         {
             var valueFromReload = CreateStorage();
-            var valueFromHealthPlayer = CreateStorage();
+            var valueFromAmmo =new ValueCountStorage<int>();
             var valueFromDash = new ValueCountStorage<int>();
-            var valueHealthToEnemy = CreateStorage();
+            
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)
                 .WhenInjectedInto<ReloadComponent>();
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)
-                .WhenInjectedInto<ReloadViewModel>();
-            
-            Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromHealthPlayer)
-                .WhenInjectedInto<Player>();
-            Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromHealthPlayer)
-                .WhenInjectedInto<HealthPlayerViewModel>();
+                .WhenInjectedInto<
+                    ReloadViewModel>();
             
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
                 .WhenInjectedInto<AsyncWorker>();
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
                 .WhenInjectedInto<DashViewModel>();
             
-            Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueHealthToEnemy)
-                .WhenInjectedInto<Enemy.Enemy>();
-            Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueHealthToEnemy)
-                .WhenInjectedInto<HealthEnemyViewModel>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<ReloadComponent>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<AmmoInMagazineViewModel>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<ShootComponent>();
         }
         
         private ValueCountStorage<float> CreateStorage()
         {
             return new ValueCountStorage<float>();
+        }
+        
+        private BoolStorage CreateStorageBool()
+        {
+            return new BoolStorage();
         }
     }
 }

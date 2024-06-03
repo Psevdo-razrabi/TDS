@@ -6,7 +6,7 @@ namespace UI.View
 {
     public class TextView : MonoBehaviour
     {
-        [Data("TextInScreen")] 
-        public TextMeshProUGUI textView;
+        [Data("DashInScreen")] 
+        public TextMeshProUGUI dashView;
     }
 }

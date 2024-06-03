@@ -12,22 +12,9 @@ namespace DI
         private void BindDashViewModel()
         {
             BindNewInstance<DashViewModel>();
+            BindNewInstance<AmmoInMagazineViewModel>();
             BindNewInstance<ReloadViewModel>();
-            BindNewInstance<HealthPlayerViewModel>();
-            BindNewInstance<HealthEnemyViewModel>();
-
-            // Container.Bind
-            //     .WithId("PlayerHealth")
-            //     .AsTransient()
-            //     .WithArguments("ValuePlayerHealth")
-            //     .NonLazy();
-            //     
-            // Container.Bind(typeof(HealthPlayerViewModel),typeof(IDisposable),typeof(IInitializable))
-            //     .WithId("EnemyHealth")
-            //     .AsTransient()
-            //     .WithArguments("ValueEnemyHealth")
-            //     .NonLazy();
-
+            BindNewInstance<StorageViewModel>();
         }
     }
 }

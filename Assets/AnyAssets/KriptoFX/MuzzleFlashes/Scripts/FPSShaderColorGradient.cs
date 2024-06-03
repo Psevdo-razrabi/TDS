@@ -10,7 +10,7 @@ public class FPSShaderColorGradient : MonoBehaviour
    
     [HideInInspector]
     public bool canUpdate;
-    //private Material mat;
+    //private Material materialShader;
     private int propertyID;
     private float startTime;
     private Color startColor;
