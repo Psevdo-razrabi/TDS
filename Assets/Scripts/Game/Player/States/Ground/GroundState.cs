@@ -10,12 +10,6 @@ namespace Game.Player.States
         {
             
         }
-
-        protected void OnAnimatorStateSet(ref bool parameters, bool state, string nameStateAnimator)
-        {
-            parameters = state;
-            Player.AnimatorController.SetBoolParameters(nameStateAnimator, state);
-        }
         
         protected override void AddActionsCallbacks()
         {
@@ -23,14 +17,14 @@ namespace Game.Player.States
             Player.InputSystemMouse.OnSubscribeRightMouseClickUp(() =>
             {
                 Data.IsAiming.Value = true;
-                OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
+                Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });
             
             Player.InputSystemMouse.OnSubscribeRightMouseClickDown(() =>
             {
                 Data.IsAiming.Value = false;
-                OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+                Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
                 Player.StateChain.HandleState();
             });
         }

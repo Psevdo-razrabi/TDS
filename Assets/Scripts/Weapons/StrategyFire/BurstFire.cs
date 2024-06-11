@@ -24,7 +24,7 @@ namespace Game.Player.Weapons.StrategyFire
 
         private async UniTask BurstShoot(FireComponent component)
         {
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 if (_isDisposed) return;
 

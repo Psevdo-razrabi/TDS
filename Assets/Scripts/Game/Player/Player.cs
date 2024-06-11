@@ -66,11 +66,6 @@ namespace Game.Player
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.G))
-            {
-                HealthStats.SetDamage(10f);
-            }
-            
             if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
             
             _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();

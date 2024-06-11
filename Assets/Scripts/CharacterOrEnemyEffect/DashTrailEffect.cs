@@ -1,17 +1,23 @@
 using System;
+using CharacterOrEnemyEffect;
+using CharacterOrEnemyEffect.Interfaces;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.Utilities;
+using UniRx;
 using UnityEngine;
 using UnityEngine.VFX;
+using Zenject;
 
-public class DashTrailEffect : MonoBehaviour
+public class DashTrailEffect : MonoBehaviour, IIsTrailActive
 {
     [SerializeField] private float activeTime = 2f;
     [Header("Mesh Related")]
     [SerializeField] private float meshRefreshRate = 0.1f;
     [SerializeField] private float meshDestroyDelay = 3f;
-    [SerializeField] private Transform positionToSpawn;
+    [Header("Transforms")]
+    [SerializeField] private Transform playerDirectionTransform;
+    [SerializeField] private Transform playerRotationTransform;
     [Header("Shader Related")]
     [SerializeField] private Material materialShader;
     [SerializeField] private float shaderVarRate = 0.1f;
@@ -21,10 +27,15 @@ public class DashTrailEffect : MonoBehaviour
     [SerializeField] private VisualEffect vfxGraphInitialImpact;
     [SerializeField] private float timeToStopVFXEffect;
     private SkinnedMeshRenderer[] _skinnedMeshRenderers;
-    private bool _isTrailActive;
     private const string ShaderVarRef = "_Alpha";
     private static readonly int Alpha = Shader.PropertyToID(ShaderVarRef);
+    private CreateVFXTrail _createVFXTrail;
 
+    public ReactiveProperty<bool> IsTrailActive { get; private set; } = new();
+
+    [Inject]
+    private void Construct(CreateVFXTrail createVFXTrail) => _createVFXTrail = createVFXTrail;
+    
     private void Start()
     {
         VFXStop();
@@ -32,10 +43,11 @@ public class DashTrailEffect : MonoBehaviour
     
     public async void ActivateVFXEffectDash()
     {
-        if (_isTrailActive) return;
+        if (IsTrailActive.Value) return;
         
-        _isTrailActive = true;
+        IsTrailActive.Value = true;
         await ActivateTrail();
+        IsTrailActive.Value = false;
     }
     
     private async UniTask ActivateTrail()
@@ -48,7 +60,6 @@ public class DashTrailEffect : MonoBehaviour
             .OnComplete(async () =>
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(timeToStopVFXEffect));
-                _isTrailActive = false;
                 VFXStop();
             });
     }
@@ -62,16 +73,14 @@ public class DashTrailEffect : MonoBehaviour
 
     private async void CreateObjectVFXTrail(SkinnedMeshRenderer meshRenderer)
     {
-        var gameObjVFX = new GameObject();
-        gameObjVFX.transform.SetPositionAndRotation(positionToSpawn.position, positionToSpawn.rotation);
-        var meshRendererVFX = gameObjVFX.AddComponent<MeshRenderer>();
-        var meshFilter = gameObjVFX.AddComponent<MeshFilter>();
-        var mesh = new Mesh();
-        meshRenderer.BakeMesh(mesh);
-        meshFilter.mesh = mesh;
-        meshRendererVFX.material = materialShader;
-        await AnimateMaterialFloat(meshRendererVFX.material, 0, shaderVarRate, shaderVarRefreshRate);
-        Destroy(gameObjVFX, meshDestroyDelay);
+        var effect = _createVFXTrail.Create();
+        effect.gameObject.transform.SetPositionAndRotation(playerDirectionTransform.position, playerRotationTransform.rotation);
+        meshRenderer.BakeMesh(effect.mesh);
+        effect.meshFilter.mesh = effect.mesh;
+        effect.meshRenderer.material = materialShader;
+        await AnimateMaterialFloat(effect.meshRenderer.material, 0, shaderVarRate, shaderVarRefreshRate);
+        await UniTask.Delay(TimeSpan.FromSeconds(meshDestroyDelay));
+        effect.gameObject.SetActive(false);
     }
 
     

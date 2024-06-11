@@ -9,7 +9,7 @@ namespace Game.Player.States.StateHandle
         
         public PlayerDashHandle(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
 
-        public bool CanHandle() => !StateMachine.Data.IsInputZero() && StateMachine.Data.IsDashing &&
+        public bool CanHandle() => !StateMachine.Data.IsInputZero() && StateMachine.Data.IsDashing.Value &&
                                    StateMachine.Data.DashCount != 0;
 
         public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerDash>();

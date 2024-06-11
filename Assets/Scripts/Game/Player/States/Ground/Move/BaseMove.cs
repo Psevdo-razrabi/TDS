@@ -40,8 +40,7 @@ namespace Game.Player.States
             {
                 if (Data.DashCount == 0) return;
 
-                OnAnimatorStateSet(ref Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
-                Player.DashTrailEffect.ActivateVFXEffectDash();
+                Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
                 Player.StateChain.HandleState();
             });
         }
@@ -49,9 +48,6 @@ namespace Game.Player.States
         protected override void RemoveActionCallbacks()
         {
             base.RemoveActionCallbacks();
-
-            Player.InputSystem.OnUnsubscribeDash();
-
             Disposable.Clear();
         }
 
@@ -60,19 +56,19 @@ namespace Game.Player.States
             switch (Data.XInput, Data.YInput)
             {
                 case (var xInput, 0) when xInput != 0:
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedStrafe, 0.3f);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedStrafe, configs.TimeInterpolateSpeed);
                     break;
                 case (0, > 0):
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.Speed, 0.3f);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.Speed, configs.TimeInterpolateSpeed);
                     break;
                 case (0, < 0):
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedBackwards, 0.3f);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedBackwards, configs.TimeInterpolateSpeed);
                     break; 
                 case (var xInput, > 0) when xInput != 0:
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleForward, 0.3f);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleForward, configs.TimeInterpolateSpeed);
                     break;
                 case (var xInput,< 0) when xInput != 0:
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleBackwards, 0.3f);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleBackwards, configs.TimeInterpolateSpeed);
                     break;
             }
         }
@@ -86,7 +82,6 @@ namespace Game.Player.States
         {
             var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Movement;
             targetSpeed.y = Data.TargetDirectionY;
-            Debug.LogWarning(targetSpeed);
             Player.CharacterController.Move(targetSpeed);
         }
     }

@@ -1,7 +1,6 @@
 ﻿using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Interfase;
 using UniRx;
-using UnityEngine;
 
 namespace Game.Player.States
 {

@@ -38,7 +38,7 @@ namespace Input
             _mouseRightClickDownHandler = null;
         }
         
-        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>   _mouseRightClickUpHandler?.Invoke();
+        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>  _mouseRightClickUpHandler?.Invoke();
 
         private void MouseRightClickDownHandler(InputAction.CallbackContext context) => _mouseRightClickDownHandler?.Invoke();
         

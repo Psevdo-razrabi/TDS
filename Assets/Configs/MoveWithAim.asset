@@ -17,3 +17,4 @@ MonoBehaviour:
   <SpeedBackwards>k__BackingField: 2
   <SpeedAngleForward>k__BackingField: 3.5
   <SpeedAngleBackwards>k__BackingField: 1.5
+  <TimeInterpolateSpeed>k__BackingField: 0.3
