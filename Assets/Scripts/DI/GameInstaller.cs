@@ -1,11 +1,13 @@
-﻿using Game.AsyncWorker;
+﻿using CharacterOrEnemyEffect.Factory;
+using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
+using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
 using Input;
+using MVVM;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -20,6 +22,7 @@ namespace DI
         [SerializeField] private InputSystemMouse inputSystemMouse;
         [SerializeField] private InputSystemWeapon inputSystemWeapon;
         [SerializeField] private InputSystemUi inputSystemUi;
+        [SerializeField] private InputBuffer inputBuffer;
         
         public override void InstallBindings()
         {
@@ -35,6 +38,20 @@ namespace DI
             BindStateMachineData();
             BindAsyncWorker();
             BindEffect();
+            BindFactory();
+            BindPool();
+        }
+
+        private void BindPool()
+        {
+            BindNewInstance<PoolObject>();
+        }
+
+        private void BindFactory()
+        {
+            BindNewInstance<FactoryComponent>();
+            BindNewInstance<FactoryGameObject>();
+            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().AsSingle().WithArguments(true, "Mesh", 10).NonLazy();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();
@@ -47,7 +64,8 @@ namespace DI
             BindInstance(inputSystemWeapon);
             BindInstance(inputSystemUi);
             BindNewInstance<MouseInputObserver>();
-            
+            BindNewInstance<BufferAction>();
+            BindInstance(inputBuffer);
         }
 
         private void BindEffect()
@@ -82,7 +100,6 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
-            
         }
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();

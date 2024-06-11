@@ -1,8 +1,6 @@
 ﻿using System;
 using Game.Player.Weapons.InterfaceWeapon;
-using Input;
 using UniRx;
-using UnityEngine;
 
 namespace Game.Player.Weapons.StrategyFire
 {

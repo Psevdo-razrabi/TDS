@@ -21,7 +21,6 @@ namespace DI
         public override void InstallBindings()
         {
             BindCursor();
-            BindPool();
             BindShootComponent();
             BindActionCleaner();
             BindWeaponComponent();
@@ -60,7 +59,6 @@ namespace DI
             BindNewInstance<WeaponConfigs>();
             BindNewInstance<CameraShakeConfigs>();
         }
-        private void BindPool() => BindNewInstance<PoolObject<Bullet>>();
 
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 

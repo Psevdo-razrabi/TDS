@@ -9,7 +9,7 @@ namespace Game.Player.States.StateHandle
         
         public PlayerIdleHandler(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
         
-        public bool CanHandle() => StateMachine.Data.IsInputZero() && !StateMachine.Data.IsAim && !StateMachine.Data.IsDashing;
+        public bool CanHandle() => StateMachine.Data.IsInputZero() && !StateMachine.Data.IsAim && !StateMachine.Data.IsDashing.Value;
 
         public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerIdle>();
     }

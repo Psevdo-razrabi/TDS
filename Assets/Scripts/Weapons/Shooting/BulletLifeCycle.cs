@@ -15,7 +15,7 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
 {
     private const float BulletLifeTime = 2f;
         
-    private PoolObject<Bullet> _pool;
+    private PoolObject _pool;
     private readonly WeaponConfigs _weaponConfigs;
     private Spread _spread;
     private Rigidbody _bulletRigidbody;
@@ -24,7 +24,7 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     private CurrentWeapon _currentWeapon;
     private WeaponData _weaponData;
         
-    public BulletLifeCycle(PoolObject<Bullet> pool, WeaponConfigs weaponConfigs, 
+    public BulletLifeCycle(PoolObject pool, WeaponConfigs weaponConfigs, 
         Spread spread, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon, WeaponData weaponData)
     {
         _pool = pool;
@@ -49,8 +49,8 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     
     public async void BulletSpawn()
     {
-        _pool.AddElementsInPool("bullet", _weaponConfigs.BulletConfig.BulletPrefab , _gunConfig.TotalAmmo);
-        Bullet bullet = _pool.GetElementInPool("bullet");
+        _pool.AddElementsInPool("bullet", _weaponConfigs.BulletConfig.BulletPrefab , _gunConfig.TotalAmmo, typeof(Bullet));
+        Bullet bullet = _pool.GetElementInPool("bullet").GetComponent<Bullet>();
         bullet.Initialize(_gunConfig.TotalAmmo);
 
         bullet.transform.position = _weaponData.BulletPoint.position;

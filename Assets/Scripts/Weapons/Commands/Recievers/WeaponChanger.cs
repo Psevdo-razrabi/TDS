@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using CharacterOrEnemyEffect.Factory;
 using Game.AsyncWorker.Interfaces;
-using Game.Player.Weapons.Commands.Factory;
 using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
@@ -15,11 +15,11 @@ namespace Game.Player.Weapons.Commands.Recievers
     {
         private WeaponPrefabs _weaponPrefabs;
         private readonly WeaponPivots _weaponPivots;
-        private readonly FactoryWeapon _factoryWeapon;
+        private readonly FactoryGameObject _factoryWeapon;
         private readonly IAwaiter _awaiter;
         private readonly WeaponData _weaponData;
 
-        public WeaponChanger(WeaponPrefabs weaponPrefabs, WeaponPivots weaponPivots, FactoryWeapon factoryWeapon, IAwaiter awaiter, WeaponData weaponData) 
+        public WeaponChanger(WeaponPrefabs weaponPrefabs, WeaponPivots weaponPivots, FactoryGameObject factoryWeapon, IAwaiter awaiter, WeaponData weaponData) 
         {
             _weaponPrefabs = weaponPrefabs;
             _weaponPivots = weaponPivots;
@@ -40,9 +40,9 @@ namespace Game.Player.Weapons.Commands.Recievers
 
             _weaponPrefabs.InitPrefab = new Dictionary<string, GameObject>
             {
-                { _weaponPrefabs.NameLoadPistolPrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadPistolPrefab].weapon) },
-                { _weaponPrefabs.NameLoadRiflePrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadRiflePrefab].weapon) },
-                { _weaponPrefabs.NameLoadShotgunPrefab, _factoryWeapon.CreateWeapon(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadShotgunPrefab].weapon) }
+                { _weaponPrefabs.NameLoadPistolPrefab, _factoryWeapon.CreateGameObject(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadPistolPrefab].weapon) },
+                { _weaponPrefabs.NameLoadRiflePrefab, _factoryWeapon.CreateGameObject(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadRiflePrefab].weapon) },
+                { _weaponPrefabs.NameLoadShotgunPrefab, _factoryWeapon.CreateGameObject(_weaponPrefabs.PrefabsWeapon[_weaponPrefabs.NameLoadShotgunPrefab].weapon) }
             };
             
             SetPrefabPositionOnPivot(_weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab], _weaponPivots.PistolPivot);

@@ -9,7 +9,7 @@ namespace Game.Player.Weapons.ReloadStrategy
 {
     public class ReloadImage : IReloadStrategy
     {
-        private const float duration = 1f;
+        private const float Duration = 1f;
         private readonly Subject<Unit> _reloadCompletedSubject = new();
         public IObservable<Unit> ReloadCompleted => _reloadCompletedSubject;
         
@@ -26,7 +26,7 @@ namespace Game.Player.Weapons.ReloadStrategy
         private async UniTask ReloadWithImage(ReloadComponent reloadComponent)
         {
             await DOTween
-                .To(() => 0f, x => reloadComponent.ImageReloadValue.ChangeValue(x), 1f, duration)
+                .To(() => 0f, x => reloadComponent.ImageReloadValue.ChangeValue(x), 1f, Duration)
                 .SetEase(Ease.Linear);
             
             reloadComponent.WeaponData.IsReloading = false;

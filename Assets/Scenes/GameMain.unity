@@ -1948,7 +1948,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a938327dea1455f4ca07daac70657166, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2596,6 +2596,7 @@ GameObject:
   - component: {fileID: 653300012}
   - component: {fileID: 653300013}
   - component: {fileID: 653300014}
+  - component: {fileID: 653300015}
   m_Layer: 0
   m_Name: Input
   m_TagString: Untagged
@@ -2664,6 +2665,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc536449b0ce434a8ad35d788a18c9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &653300015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 653300009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfff2aed7f9b4393a449f0589cc90d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &696128980 stripped
@@ -3745,6 +3758,7 @@ GameObject:
   - component: {fileID: 1017338637}
   - component: {fileID: 1017338641}
   - component: {fileID: 1017338642}
+  - component: {fileID: 1017338643}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -3784,6 +3798,7 @@ MonoBehaviour:
   - {fileID: 1017338642}
   - {fileID: 1017338635}
   - {fileID: 1017338634}
+  - {fileID: 1017338643}
   - {fileID: 1017338636}
   - {fileID: 1017338639}
   - {fileID: 1017338638}
@@ -3828,6 +3843,7 @@ MonoBehaviour:
   inputSystemMouse: {fileID: 653300013}
   inputSystemWeapon: {fileID: 653300012}
   inputSystemUi: {fileID: 653300014}
+  inputBuffer: {fileID: 653300015}
 --- !u!114 &1017338635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,6 +3944,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b859c366cabc47679a7d4f340f108f4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1017338643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017338630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3acb6cc454849cba06edaabf5e6e851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1031792355
@@ -8115,7 +8143,8 @@ MonoBehaviour:
   activeTime: 2
   meshRefreshRate: 0.1
   meshDestroyDelay: 3
-  positionToSpawn: {fileID: 543450651703138440}
+  playerDirectionTransform: {fileID: 543450651703138440}
+  playerRotationTransform: {fileID: 635675288}
   materialShader: {fileID: 2100000, guid: f3c24b9419493944bb23c4690fd1e650, type: 2}
   shaderVarRate: 0.1
   shaderVarRefreshRate: 0.05
@@ -8610,6 +8639,7 @@ GameObject:
   - component: {fileID: 2030387050}
   - component: {fileID: 2030387049}
   - component: {fileID: 2030387048}
+  - component: {fileID: 5866666019879486195}
   m_Layer: 0
   m_Name: Player@Rifle Idle
   m_TagString: Untagged
@@ -10043,6 +10073,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5866666019879486195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147963920946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b892f1171bb38014eb89c6e161578bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <WallMaterial>k__BackingField: {fileID: 2100000, guid: a938327dea1455f4ca07daac70657166,
+    type: 2}
+  <Camera>k__BackingField: {fileID: 330585545}
+  <LayerWall>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!4 &5901452233769044491
 Transform:
   m_ObjectHideFlags: 0

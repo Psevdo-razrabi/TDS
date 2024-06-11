@@ -6,7 +6,7 @@ namespace Game.Player.PlayerStateMashine
 {
     public class StateMachineData
     {
-        private PlayerConfigs _playerConfigs;
+        private readonly PlayerConfigs _playerConfigs;
 
         public StateMachineData(PlayerConfigs configs)
         {
@@ -15,8 +15,8 @@ namespace Game.Player.PlayerStateMashine
         
         public bool IsMove;
         public bool IsAim;
-        public ReactiveProperty<bool> IsAiming = new();
-        public bool IsDashing;
+        public readonly ReactiveProperty<bool> IsAiming = new();
+        public readonly ReactiveProperty<bool> IsDashing = new();
         public bool IsAir;
         
         private float _xInput;

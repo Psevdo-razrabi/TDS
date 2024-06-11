@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.Utilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 
-public class PoolObject<TComponent> where TComponent : Object
+public class PoolObject
 {
     private Dictionary<string, Queue<ObjectInPool>> _poolObject;
     private DiContainer _container;
@@ -21,41 +21,49 @@ public class PoolObject<TComponent> where TComponent : Object
         _poolObject = new Dictionary<string, Queue<ObjectInPool>>();
     }
 
-    public void AddElementsInPool(string keyObjectInPool, GameObject objectInPool, float countElementsWillBeInPool = 1f)
+    public void AddElementsInPool(string keyObjectInPool, GameObject objectInPool, int countElementsWillBeInPool = 1, params Type[] typesComponent)
+    {
+        CanAddInPool(keyObjectInPool, objectInPool, countElementsWillBeInPool, typesComponent);
+    }
+
+    private void CanAddInPool(string keyObjectInPool, GameObject objectInPool, int countElementsWillBeInPool = 1, params Type[] typesComponent)
     {
         if (_poolObject.ContainsKey(keyObjectInPool))
         {
-            AddElement(countElementsWillBeInPool, keyObjectInPool, objectInPool);
+            AddElement(countElementsWillBeInPool, keyObjectInPool, objectInPool, typesComponent);
         }
         else 
         {
             _poolObject.Add(keyObjectInPool, new Queue<ObjectInPool>());
-            AddElement(countElementsWillBeInPool, keyObjectInPool, objectInPool); 
+            AddElement(countElementsWillBeInPool, keyObjectInPool, objectInPool, typesComponent); 
         }
     }
 
-    private void AddElement(float countElementsWillBeInPool, string keyObjectInPool, GameObject objectInPool)
+    private void AddElement(int countElementsWillBeInPool, string keyObjectInPool, GameObject objectInPool, params Type[] typesComponent)
     {
         for (var i = 0; i < countElementsWillBeInPool; i++)
         {
-            AddObjectInPool(keyObjectInPool, objectInPool, false);
+            AddObjectInPool(keyObjectInPool, objectInPool, false, typesComponent);
         }
     }
 
-    private TComponent AddObjectInPool(string keyObjectInPool, GameObject prefabObjectObject, bool isActive)
+    private GameObject AddObjectInPool(string keyObjectInPool, GameObject prefabObjectObject, bool isActive, params Type[] typesComponent)
     {
-        var objectInPool = CreateNewObjectWithComponent(prefabObjectObject);
+        var objectInPool = CreateNewObjectWithComponent(prefabObjectObject, typesComponent);
         objectInPool.GameObject().SetActive(isActive);
         _poolObject[keyObjectInPool].Enqueue(new ObjectInPool(objectInPool));
         return objectInPool;
     }
         
-    private TComponent CreateNewObjectWithComponent(GameObject prefabObjectObject)
+    private GameObject CreateNewObjectWithComponent(GameObject prefabObjectObject, params Type[] typesComponent)
     {
-        return _container.InstantiatePrefabForComponent<TComponent>(prefabObjectObject);
+        var prefab = _container.InstantiatePrefab(prefabObjectObject);
+        
+        typesComponent.ForEach(x => prefab.AddComponent(x));
+        return prefab;
     }
 
-    public TComponent GetElementInPool(string keyObjectInPool)
+    public GameObject GetElementInPool(string keyObjectInPool)
     {
         if (HasFreeElementInPool(out var objectInPool, keyObjectInPool))
         {
@@ -64,19 +72,18 @@ public class PoolObject<TComponent> where TComponent : Object
 
         if (AutoExpandPool)
             return _poolObject[keyObjectInPool]
-                .Where(objectPool => objectPool.PrefabObjectObject.GameObject().activeInHierarchy)
-                .Select(objectPool => AddObjectInPool(keyObjectInPool, objectPool.PrefabObjectObject.GameObject(), false))
+                .Where(objectPool => objectPool.PrefabObject.GameObject().activeInHierarchy)
+                .Select(objectPool => AddObjectInPool(keyObjectInPool, objectPool.PrefabObject.GameObject(), false))
                 .FirstOrDefault();
         Debug.LogWarning($"parameter {nameof(AutoExpandPool)} false and object dont create automatically create manually");
         return null;
-
     }
 
-    private bool HasFreeElementInPool(out TComponent objectInPool, string keyObjectInPool)
+    private bool HasFreeElementInPool(out GameObject objectInPool, string keyObjectInPool)
     {
-        foreach (var objectPool in _poolObject[keyObjectInPool].Where(objectPool => !objectPool.PrefabObjectObject.GameObject().activeInHierarchy))
+        foreach (var objectPool in _poolObject[keyObjectInPool].Where(objectPool => !objectPool.PrefabObject.GameObject().activeInHierarchy))
         {
-            objectInPool = objectPool.PrefabObjectObject;
+            objectInPool = objectPool.PrefabObject;
             objectInPool.GameObject().SetActive(true);
             return true;
         }
@@ -87,14 +94,14 @@ public class PoolObject<TComponent> where TComponent : Object
         
     private class ObjectInPool
     {
-        public readonly TComponent PrefabObjectObject;
+        public readonly GameObject PrefabObject;
             
-        public ObjectInPool(TComponent prefabObjectObject)
+        public ObjectInPool(GameObject prefabObject)
         {
-            if (prefabObjectObject == null)
-                throw new ArgumentNullException($"One of the arguments construct is null {prefabObjectObject} or {prefabObjectObject}");
+            if (prefabObject == null)
+                throw new ArgumentNullException($"One of the arguments construct is null {prefabObject} or {prefabObject}");
                 
-            PrefabObjectObject = prefabObjectObject;
+            PrefabObject = prefabObject;
         }
     }
 }
