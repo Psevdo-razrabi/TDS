@@ -9,7 +9,7 @@ using Zenject;
 
 public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
 { 
-     private CameraShakeConfigs _cameraShakeConfigs;
+    private CameraShakeConfigs _cameraShakeConfigs;
     private CameraShakeConfig _shakeConfig;
     private ICameraProvider _cameraProvider;
     private DistributionConfigs _distributionConfigs;

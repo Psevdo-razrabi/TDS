@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +11,7 @@ namespace Game.Player.Weapons.Prefabs
         public IReadOnlyDictionary<string, (GameObject weapon, GameObject bulletSpawnPoint)> PrefabsWeapon { get;
             private set;
         }
+        
         public Dictionary<string, GameObject> InitPrefab { get; set; }
         
         public bool IsLoadConfigs { get; private set; }
