@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using CharacterOrEnemyEffect.Factory;
 using UnityEngine;
 using Zenject;
@@ -28,7 +27,7 @@ namespace Game.Player.Weapons.Commands.Invoker
             InvokeCommands += CreateCommands;
         }
         
-        public void OnInvokeCommands(WeaponComponent weaponComponent)
+        public void OnInvokeCommands(WeaponComponent weaponComponent) 
         {
             InvokeCommands?.Invoke(weaponComponent);
         }

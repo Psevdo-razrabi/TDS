@@ -2,7 +2,7 @@
 
 namespace Game.Player.PlayerStateMashine.Configs
 {
-    [CreateAssetMenu(fileName = "PlayerConfig", menuName = "PlayerConfig/FillImage")]
+    [CreateAssetMenu(fileName = "PlayerConfig", menuName = "PlayerConfig/Dash")]
     public class PlayerDashConfig : ScriptableObject
     {
         [field: SerializeField] public float DashDistance { get; private set; }

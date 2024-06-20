@@ -1,14 +1,22 @@
+using System;
+using Customs;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using Sirenix.Utilities;
 using UnityEngine;
 
 public class DeadZoneCamera : MonoBehaviour
 {
-    private static int PosId = Shader.PropertyToID("_PlayerPosition");
-    private static int SizeId = Shader.PropertyToID("_Size");
+    private static readonly int ColorID = Shader.PropertyToID("_BaseColor");
 
-    [field: Header("ParametersShader")] 
-    [field: SerializeField] public Material WallMaterial { get; private set; }
-    [field: SerializeField] public Camera Camera { get; private set; }
-    [field: SerializeField] public LayerMask LayerWall { get; private set; }
+    [field: SerializeField] private Camera _camera;
+    [field: SerializeField] private LayerMask _layerWall;
+    [field: SerializeField] [Range(0, 10)] private float _timeToHideMaterial;
+    [field: SerializeField] [Range(0, 10)] private float _timeToShowMaterial;
+    [field: SerializeField] private float _ratioAlpha;
+    private Material[] _materials;
+    private GameObject _obstacleGameObject;
+    private bool _isWallRaycast;
     
     private void Update()
     {
@@ -17,15 +25,47 @@ public class DeadZoneCamera : MonoBehaviour
 
     private void CalculateVectors()
     {
-        var direction = Camera.transform.position - transform.position;
+        var direction = _camera.transform.position - transform.position;
         var ray = new Ray(transform.position, direction.normalized);
-        var view = Camera.WorldToViewportPoint(transform.position);
-        SetPropertyMaterial(view, ray);
+        
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 3000, _layerWall))
+        {
+            OperationWithMaterial(_ratioAlpha, _timeToHideMaterial, true, 
+                (mat, isTransparent) => mat.SetMaterialTransparent(isTransparent));
+            _isWallRaycast = true;
+            if(_obstacleGameObject == raycastHit.transform.gameObject) return;
+            
+            _obstacleGameObject = raycastHit.transform.gameObject;
+            _materials = raycastHit.transform.gameObject.GetComponentInChildren<Renderer>().materials;
+        }
+        else if(_isWallRaycast)
+        {
+            OperationWithMaterial(1f, _timeToShowMaterial, false, null, 
+                (mat, isTransparent) => mat.SetMaterialTransparent(isTransparent));
+            _isWallRaycast = false;
+        }
     }
 
-    private void SetPropertyMaterial(Vector3 view, Ray ray)
+    private void OperationWithMaterial(float endValue, float time, bool isTransparent, 
+        Action<Material, bool> beforeAssigningRenderType = null, Action<Material, bool> afterAssigningRenderType = null)
     {
-        WallMaterial.SetFloat(SizeId, Physics.Raycast(ray, 3000, LayerWall) ? 1 : 0);
-        WallMaterial.SetVector(PosId, view);
+        _materials?.ForEach(async mat =>
+        {
+            beforeAssigningRenderType?.Invoke(mat, isTransparent);
+            await InterpolateAlpha(endValue, time, mat);
+            afterAssigningRenderType?.Invoke(mat, isTransparent);
+        });
+    }
+    
+    private async UniTask InterpolateAlpha(float endValue, float time, Material material)
+    {
+        await DOTween
+            .To(() => material.GetVector(ColorID).w, x =>
+                {
+                    var vectorColor = material.GetColor(ColorID);
+                    vectorColor.a = x;
+                    material.SetColor(ColorID, vectorColor);
+                },
+                endValue, time);
     }
 }

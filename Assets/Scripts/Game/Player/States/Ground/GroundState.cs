@@ -1,6 +1,4 @@
 ﻿using Game.Player.PlayerStateMashine;
-using UniRx;
-using UnityEngine;
 
 namespace Game.Player.States
 {
@@ -16,15 +14,21 @@ namespace Game.Player.States
             base.AddActionsCallbacks();
             Player.InputSystemMouse.OnSubscribeRightMouseClickUp(() =>
             {
+                if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
                 Data.IsAiming.Value = true;
                 Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
+                var config = Player.PlayerConfigs.FowConfig;
+                Player.RadiusChanger.ChangerRadius(config.EndValueRadius, config.StartValueRadius, config.TimeToMaxRadius);
                 Player.StateChain.HandleState();
             });
             
             Player.InputSystemMouse.OnSubscribeRightMouseClickDown(() =>
             {
+                if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
                 Data.IsAiming.Value = false;
                 Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+                var config = Player.PlayerConfigs.FowConfig;
+                Player.RadiusChanger.ChangerRadius(config.StartValueRadius, config.EndValueRadius, config.TimeToMaxRadius);
                 Player.StateChain.HandleState();
             });
         }

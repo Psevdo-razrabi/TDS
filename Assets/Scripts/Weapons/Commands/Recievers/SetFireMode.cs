@@ -7,7 +7,6 @@ using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using Input.Interface;
-using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 

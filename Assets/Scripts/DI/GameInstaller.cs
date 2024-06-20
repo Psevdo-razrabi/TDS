@@ -1,4 +1,5 @@
 ﻿using CharacterOrEnemyEffect.Factory;
+using FOW;
 using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
@@ -8,6 +9,7 @@ using Game.Player.States.StateHandle;
 using Input;
 using MVVM;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -23,6 +25,7 @@ namespace DI
         [SerializeField] private InputSystemWeapon inputSystemWeapon;
         [SerializeField] private InputSystemUi inputSystemUi;
         [SerializeField] private InputBuffer inputBuffer;
+        [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
         
         public override void InstallBindings()
         {
@@ -40,6 +43,14 @@ namespace DI
             BindEffect();
             BindFactory();
             BindPool();
+            BindRevealer();
+        }
+
+        private void BindRevealer()
+        {
+            BindInstance(fogOfWarRevealer3D);
+            BindNewInstance<FOWRadiusChanger>();
+            BindNewInstance<HiderManager>();
         }
 
         private void BindPool()
