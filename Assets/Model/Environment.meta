@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scenes/Level1.unity.meta
-guid: 92c1a879cf5cca943a918de3638c0e17
-========
-guid: 4dc7181d17c97014c9ab494526a77058
+<<<<<<<< HEAD:Assets/Model/Environment.meta
+guid: 85c843dd4ec7ace4588a5149d4c0d104
 folderAsset: yes
->>>>>>>> 3DMaximBranch:Assets/Model/Environment.meta
+========
+guid: b54c0dd5c34518a4d8b008feac853ec9
+>>>>>>>> main:Assets/Scenes/Game 1.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

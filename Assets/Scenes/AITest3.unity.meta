@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/AITest3.unity.meta
 guid: e5f0ff806cac68b4f8de9095d9829ee8
+========
+guid: f4227764308e84f89a765fbf315e2945
+>>>>>>>> 3DMaximBranch:Assets/FlatKit/[Render Pipeline] Built-In.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

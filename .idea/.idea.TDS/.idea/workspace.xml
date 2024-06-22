@@ -5,67 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/ScanArea.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/ScanArea.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/MaterialExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/MaterialExtensions.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/FOWRadiusChanger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/FOWRadiusChanger.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/Configs/PlayerFogOfWarConfig.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/Configs/PlayerFogOfWarConfig.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Configs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Configs.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Default Local Group.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_BundledAssetGroupSchema.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_BundledAssetGroupSchema.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_ContentUpdateGroupSchema.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AssetGroups/Schemas/Default Local Group_ContentUpdateGroupSchema.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/SciFi Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/SciFi Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/SciFi Assets/Scenes/SampleScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/SciFi Assets/Scenes/SampleScene.unity.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/Dash.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/Dash.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/HealthConfig.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/HealthConfig/HealthConfigEnemy.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/HealthConfig/HealthConfigEnemy.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/HealthConfig/HealthConfigPlayer.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/HealthConfig/HealthConfigPlayer.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/Move.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/Move.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/MoveWithAim.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/MoveWithAim.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/1.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/Blood.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/Blood.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/Enemy.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/Enemy.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Materials/MainMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Materials/MainMaterial.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Settings/URP-HighFidelity-Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Settings/URP-HighFidelity-Renderer.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Settings/URP-HighFidelity.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Settings/URP-HighFidelity.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/EnemyShader.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/EnemyShader.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameMain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameMain.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/CutoutObject.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/CutoutObject.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/DeadZoneCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/DeadZoneCamera.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/DetectingEnemies.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/DetectingEnemies.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Customs/MathfExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/MathfExtensions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Customs/MathfExtensions.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/MathfExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/Player.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/Player.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerAim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/PlayerAim.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerAim.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/PlayerAim.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/Configs/PlayerDashConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/Configs/PlayerDashConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/PlayerConfigs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/PlayerConfigs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Buffer/BufferAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Buffer/BufferAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/GroundState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/GroundState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/ChangeModeFire.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/ChangeModeFire.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Invoker/InvokerWeaponCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Invoker/InvokerWeaponCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Recievers/SetFireMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Recievers/SetFireMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Prefabs/WeaponPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Prefabs/WeaponPrefabs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/CameraShake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Shooting/CameraShake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Crab.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Crab.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Animators/PlayerAC.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Animators/PlayerAC.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Environment.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Environment.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Environment/First level.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Environment/First level.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/Opsive/Installer/UltimateCharacterController/UltimateCharacterController.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Assembly-CSharp.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Cinemachine.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/PPv2URPConverters.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/SG_CharacterTrail_2021.3_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Burst.CodeGen.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Burst.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Burst.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.CollabProxy.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.EditorCoroutines.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Mathematics.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Mathematics.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Performance.Profile-Analyzer.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.PlasticSCM.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipeline.Universal.ShaderLibrary.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.Core.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.Core.Runtime.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.Core.ShaderLibrary.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.Universal.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.Universal.Runtime.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.RenderPipelines.Universal.Shaders.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Rider.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Searcher.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Services.Core.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.Settings.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.ShaderGraph.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.ShaderGraph.Utilities.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.TestTools.CodeCoverage.Editor.OpenCover.Model.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.TestTools.CodeCoverage.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VSCode.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualEffectGraph.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualEffectGraph.Runtime.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.Core.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.Core.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.Flow.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.Flow.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.SettingsProvider.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.Shared.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.State.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualScripting.State.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/Unity.VisualStudio.Editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEditor.SpatialTracking.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEditor.TestRunner.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEditor.UI.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEditor.XR.LegacyInputHelpers.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEngine.SpatialTracking.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEngine.TestRunner.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEngine.UI.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/UnityEngine.XR.LegacyInputHelpers.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/V.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_CharacterEffects_2021.3_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_DragonBreath.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_DragonBreath_2020.3_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_DragonBreath_2021.2_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_GroundSlash_2021.2_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_LevelUp_2021.3_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_Slash_2021.2_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_Slash_2021.3_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/VFXGraph_StylizedBeam_2021.2_URP.sln.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Shaders/SG_CharacterTrail_2021.3_URP/com.unity.cinemachine.editor.csproj.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameMain2.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameMain2.unity.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Interfaces.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Interfaces.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,71 +88,34 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17d9ce77f27a4bd2afb5ba32c9bea97646ac00/c9/626a4efc/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ef0191b30684937a869061138f38973572e20/2f/3d329955/IEquatable`1.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/32c3559b9d594067ba62b7c42966fa0e43200/a1/a166dcae/ContextMenuAttribute.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/34/0e274cf5/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/37/dfc532fd/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/b0/b91e5516/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/e8/baff9199/SerializeField.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/eb/534c324e/Shader.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/Downloads/Telegram Desktop/Extensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Audio/NewBehaviourScript.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Customs/CustomiseAssets/HiderManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/ParticleSystem/BulletEffectSystem.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UI/ViewModel/ReloadViewModel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.21.20/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.21.20/Runtime/ResourceManager/Util/MonoBehaviourCallbackHooks.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.rider@3.0.28/Rider/Editor/RiderScriptEditor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.22/Editor/SimpleJSON.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Debugging/DebugUpdater.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Volume/Volume.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Volume/VolumeComponent.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Runtime/ScriptableRendererData.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@14.0.9/Editor/Data/Graphs/SerializableMesh.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@14.0.9/Editor/ShaderGraphProjectSettings.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/LayoutRebuilder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Volume/Volume.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Actions/InputActionState.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.21.20/Runtime/AddressablesImpl.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.addressables@1.21.20/Runtime/ResourceManager/Util/MonoBehaviourCallbackHooks.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.shadergraph@14.0.9/Editor/ShaderGraphProjectSettings.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Core/Utilities/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/Runtime/Volume/VolumeComponent.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.visualstudio@2.0.22/Editor/SimpleJSON.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
   <component name="ProjectId" id="2fDnmB73kQph8hWGOvIVtmzQre2" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.16951081&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;BeamProger&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CodeLensConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\KOBAN13\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\KOBAN13\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\KOBAN13\\AppData\\Local\\Symbols\\src&quot;
-    ]
-  }
-}</component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Desktop/builds/TSD/7\MegaKurs.exe" />
@@ -170,19 +145,17 @@
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
-      <option name="projectPathOnTarget" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="38688">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="38688" />
-      <option name="projectPathOnTarget" />
+      <option name="pid" />
       <option name="selectedOptions">
-        <list />
+        <set />
       </option>
       <method v="2" />
     </configuration>
@@ -230,24 +203,8 @@
       <workItem from="1716985845221" duration="26680000" />
       <workItem from="1717087518850" duration="7765000" />
       <workItem from="1717159503156" duration="26801000" />
-      <workItem from="1717337730933" duration="9242000" />
-      <workItem from="1717417692187" duration="749000" />
-      <workItem from="1717418501042" duration="701000" />
-      <workItem from="1717419254800" duration="31349000" />
-      <workItem from="1717574024636" duration="8542000" />
-      <workItem from="1717589887898" duration="37802000" />
-      <workItem from="1717746763069" duration="5149000" />
-      <workItem from="1717758953811" duration="9947000" />
-      <workItem from="1717943399637" duration="10030000" />
-      <workItem from="1718000724181" duration="1240000" />
-      <workItem from="1718002080504" duration="14673000" />
-      <workItem from="1718038932882" duration="6310000" />
-      <workItem from="1718198841152" duration="5212000" />
-      <workItem from="1718207739848" duration="7083000" />
-      <workItem from="1718261362206" duration="13425000" />
-      <workItem from="1718341977023" duration="17448000" />
-      <workItem from="1718468378155" duration="12105000" />
-      <workItem from="1718553033410" duration="91442000" />
+      <workItem from="1717337730933" duration="3421000" />
+      <workItem from="1717441518909" duration="108000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
@@ -278,7 +235,7 @@
     <option name="unityProject" value="true" />
     <option name="unityProjectFolder" value="true" />
   </component>
-  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -289,6 +246,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
@@ -300,63 +258,15 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/AnyAssets/FogOfWar/Scripts/Hiders/HiderBehavior.cs</url>
-          <line>11</line>
-          <properties documentPath="Z:\TDS\Assets\AnyAssets\FogOfWar\Scripts\Hiders\HiderBehavior.cs" containingFunctionPresentation="Method 'Awake'">
-            <startOffsets>
-              <option value="243" />
-            </startOffsets>
-            <endOffsets>
-              <option value="308" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Audio/NewBehaviourScript.cs</url>
-          <line>24</line>
-          <properties documentPath="Z:\TDS\Assets\Audio\NewBehaviourScript.cs" containingFunctionPresentation="Method 'Start'">
-            <startOffsets>
-              <option value="804" />
-            </startOffsets>
-            <endOffsets>
-              <option value="836" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/DetectingEnemies.cs</url>
-          <line>30</line>
-          <properties documentPath="Z:\TDS\Assets\Scripts\CharacterOrEnemyEffect\DetectingEnemies.cs" containingFunctionPresentation="Lambda expression inside Method 'SubscribeTrigger'">
-            <startOffsets>
-              <option value="886" />
-            </startOffsets>
-            <endOffsets>
-              <option value="906" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Customs/CustomiseAssets/HiderManager.cs</url>
-          <line>68</line>
-          <properties documentPath="Z:\TDS\Assets\Scripts\Customs\CustomiseAssets\HiderManager.cs" containingFunctionPresentation="Method 'Tick'">
-            <startOffsets>
-              <option value="1835" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1853" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="30" />
+          <url>file://$PROJECT_DIR$/Assets/Scripts/PhysicsWorld/Gravity.cs</url>
+          <line>31</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\PhysicsWorld\Gravity.cs" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
-        <PinnedItemInfo parentTag="Type#Game.Player.States.Buffer.BufferAction" memberName="lastStateAction" />
-        <PinnedItemInfo parentTag="Type#UnityEngine.RaycastHit" memberName="collider" />
         <PinnedItemInfo parentTag="Type#Game.Player.Weapons.WeaponConfigs.BaseWeaponConfig" memberName="BulletPoint" />
         <PinnedItemInfo parentTag="Type#Customs.MethodList" memberName="methods" />
         <PinnedItemInfo parentTag="Type#SaveSystem.GameData" memberName="MethodName" />

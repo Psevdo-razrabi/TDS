@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Textures.meta
-guid: 5652f833227022c48aa8b135e860b055
-========
-guid: 5b53201c649252645bb6ee38cb9c3770
->>>>>>>> 3DMaximBranch:Assets/Model/Environment/First level.meta
+<<<<<<<< HEAD:Assets/Model/Environment/First level.meta
+guid: de84d88b44fa84f49a0a195c59fc3f20
 folderAsset: yes
+========
+guid: ed09910c0094cb27be8f3ca264680da3
+>>>>>>>> main:Assets/Scripts/Interfaces.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

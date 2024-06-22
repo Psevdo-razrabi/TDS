@@ -1,14 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Materials/PrototypeGridMaterial.mat.meta
-guid: 82e594f5189825d418c670e13aeb8fa4
-NativeFormatImporter:
-========
-guid: f2766442bbade454ba816046166d6c2c
-folderAsset: yes
+guid: e2bdd81107ccb704fa2d2295f133ff0b
 DefaultImporter:
->>>>>>>> 3DMaximBranch:Assets/Model/Environment/First level/CasinoZone.meta
   externalObjects: {}
-  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
