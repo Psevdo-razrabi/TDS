@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Customs;
 using Cysharp.Threading.Tasks;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Mediators;
@@ -19,19 +18,19 @@ namespace Input
         private MediatorFireStrategy _fireStrategy;
         private FireComponent _fireComponent;
         
-        [ContextMenuAttribute("single fire")]
+        [Customs.ContextMenu("single fire")]
         private void AddSingleFire()
         {
             _fireStrategy.ChangeFireMode(new SingleFire(_fireComponent));
         }
         
-        [ContextMenuAttribute("burst fire")]
+        [Customs.ContextMenu("burst fire")]
         private void AddBurstFire()
         {
             _fireStrategy.ChangeFireMode(new BurstFire(_fireComponent));
         }
         
-        [ContextMenuAttribute("automatic fire")]
+        [Customs.ContextMenu("automatic fire")]
         private void AddAutomaticFire()
         {
             _fireStrategy.ChangeFireMode(new AutomaticFire(_fireComponent));
@@ -39,6 +38,7 @@ namespace Input
         
         public void SetFireModes(List<MethodInfo> methodFireStates)
         {
+            _queueStates.Clear();
             methodFireStates.ForEach(x => _queueStates.Enqueue(x));
             SetFireMode();
         }

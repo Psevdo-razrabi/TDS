@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.DirectionStrategy;
 using UniRx;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace Game.Player.States
 {
     public abstract class BaseMove : GroundState
     {
         protected Vector3 Movement;
-        private float x;
-        private float y;
+        private Vector3 _speed;
 
         private Dictionary<Vector3, IDirectionCalculator> _dictionarySpeed = new()
         {
@@ -22,7 +23,8 @@ namespace Game.Player.States
             { Vector3.left, new StrafeCalculator() }
         };
 
-        protected BaseMove(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        protected BaseMove(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) :
+            base(stateMachine, player, stateMachineData)
         {
         }
 
@@ -33,12 +35,12 @@ namespace Game.Player.States
             Player.InputSystem.Move
                 .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y).normalized)
                 .AddTo(Disposable);
-            
+
             Player.InputSystem.OnSubscribeDash(() =>
             {
-                if(Data.DashCount == 0) return;
-                
-                OnAnimatorStateSet(ref Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
+                if (Data.DashCount == 0) return;
+
+                Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
                 Player.StateChain.HandleState();
             });
         }
@@ -46,51 +48,41 @@ namespace Game.Player.States
         protected override void RemoveActionCallbacks()
         {
             base.RemoveActionCallbacks();
-
-            Player.InputSystem.OnUnsubscribeDash();
-
             Disposable.Clear();
         }
-        
-        protected void UpdateDesiredTargetSpeed(PlayerMoveConfig configs)
+
+        protected async void UpdateDesiredTargetSpeed(PlayerMoveConfig configs)
         {
-           Data.CurrentSpeed = Data.CurrentSpeed switch
+            switch (Data.XInput, Data.YInput)
             {
-                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y > 0 && Movement == Vector3.forward => configs.Speed,
-                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y < 0 && Movement == Vector3.back => configs.Speed,
-                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x > 0 && Movement == Vector3.right => configs.Speed,
-                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x < 0 && Movement == Vector3.left => configs.Speed,
-                _ => configs.SpeedBackwards
-            };
+                case (var xInput, 0) when xInput != 0:
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedStrafe, configs.TimeInterpolateSpeed);
+                    break;
+                case (0, > 0):
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.Speed, configs.TimeInterpolateSpeed);
+                    break;
+                case (0, < 0):
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedBackwards, configs.TimeInterpolateSpeed);
+                    break; 
+                case (var xInput, > 0) when xInput != 0:
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleForward, configs.TimeInterpolateSpeed);
+                    break;
+                case (var xInput,< 0) when xInput != 0:
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleBackwards, configs.TimeInterpolateSpeed);
+                    break;
+            }
+        }
 
-            x = x switch
-            {
-                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y > 0 && Movement == Vector3.left => x=-1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y < 0 && Movement == Vector3.right => x=-1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x > 0 && Movement == Vector3.forward => x=-1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x < 0 && Movement == Vector3.back => x=-1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y > 0 && Movement == Vector3.right => x = 1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) < Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.y < 0 && Movement == Vector3.left => x = 1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x > 0 && Movement == Vector3.back => x = 1f,
-                _ when Mathf.Abs(Data.MouseDirection.x) > Mathf.Abs(Data.MouseDirection.y) && Data.MouseDirection.x < 0 && Movement == Vector3.forward => x = 1f,
-                _ => x=0
-            };
-
-            y = y switch
-            {
-                _ when Data.CurrentSpeed == configs.Speed => y = 1,
-                _ when Data.CurrentSpeed == configs.SpeedBackwards => y = -1,
-                _ => y = 0
-            };
-
-            Player.AnimatorController.SetFloatParameters("MouseX", x);
-            Player.AnimatorController.SetFloatParameters("MouseY", y);
+        private async UniTask InterpolateSpeed(float currentSpeed, float endValue, float duration)
+        {
+            await DOTween.To(() => currentSpeed, x => Data.CurrentSpeed = x, endValue, duration);
         }
 
         protected virtual void Move()
         {
-            var speed = Data.CurrentSpeed * Time.deltaTime;
-            Player.CharacterController.Move(speed * Movement);
+            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Movement;
+            targetSpeed.y = Data.TargetDirectionY;
+            Player.CharacterController.Move(targetSpeed);
         }
     }
 }

@@ -2,31 +2,33 @@
 using Cysharp.Threading.Tasks;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
+using Game.Player.States.Orientation;
 using UnityEngine;
 
 namespace Game.Player.States.Dash
 {
-    public class PlayerDash : BaseMove
+    public class PlayerDash : PlayerOrientation
     {
         private bool _isDashing;
         private PlayerDashConfig _dashConfig;
         public PlayerDash(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
-        {
-        }
+        { }
 
         public override void OnEnter()
         {
             base.OnEnter();
             _dashConfig = Player.PlayerConfigs.DashConfig;
-            Debug.Log("вошел в состояние FillImage");
+            Player.DashTrailEffect.ActivateVFXEffectDash();
+            Debug.LogWarning("ВХОД В ДЕШ");
             Move();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("вышел из состояние FillImage");
-            OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+            Debug.LogWarning("ВЫХОД В ДЕШ");
+            Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
         }
 
         protected async override void Move()
@@ -39,9 +41,9 @@ namespace Game.Player.States.Dash
             Player.StateChain.HandleState();
         }
 
-        private async void AwaitDash()
+        private void AwaitDash()
         {
-            await Player.AsyncWorker.Dash(-1);
+            Player.AsyncWorker.Dash(-1);
         }
 
         private async UniTask Dash()
@@ -67,14 +69,13 @@ namespace Game.Player.States.Dash
 
                 await UniTask.Yield();
             }
-            
-            OnAnimatorStateSet(ref Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
 
+            Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
             SwitchState();
             AwaitDash();
-
+            
             await UniTask.Delay(TimeSpan.FromSeconds(_dashConfig.DelayAfterEachDash));
+            Debug.LogWarning("ДОШЕЛ ДО КОНЦА");
         }
-
     }
 }

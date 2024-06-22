@@ -17,11 +17,10 @@ namespace DI
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private ChangeCrosshair _changeCrosshair;
         [SerializeField] private WeaponPivots _weaponPivots;
-        
+
         public override void InstallBindings()
         {
             BindCursor();
-            BindPool();
             BindShootComponent();
             BindActionCleaner();
             BindWeaponComponent();
@@ -30,6 +29,7 @@ namespace DI
             BindWeapon();
             BindWeaponChange();
             BindConfigs();
+            BindCurrentWeapon();
             BindWeaponPrefab();
         }
 
@@ -58,9 +58,7 @@ namespace DI
         {
             BindNewInstance<WeaponConfigs>();
             BindNewInstance<CameraShakeConfigs>();
-            BindNewInstance<CrosshairConfigs>();
         }
-        private void BindPool() => BindNewInstance<PoolObject<Bullet>>();
 
         private void BindActionCleaner() => BindNewInstance<ActionsCleaner>();
 
@@ -86,5 +84,7 @@ namespace DI
             Container.BindInterfacesAndSelfTo<Rifle>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<Shotgun>().AsSingle().NonLazy();
         }
+
+        private void BindCurrentWeapon() => Container.BindInterfacesAndSelfTo<CurrentWeapon>().AsSingle().NonLazy();
     }
 }

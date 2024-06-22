@@ -8,7 +8,7 @@ namespace UI.ViewModel
 {
     public class DashViewModel : IInitializable, IDisposable
     {
-        [Data("TextInScreen")] 
+        [Data("DashInScreen")] 
         public readonly ReactiveProperty<string> Dash = new();
         private ValueCountStorage<int> _valueCountStorage;
 
@@ -30,7 +30,7 @@ namespace UI.ViewModel
         
         private void OnValueCountChange(int count)
         {
-            Dash.Value = $"Dash Count: {count}";
+            Dash.Value = $"Dash CountSDAS: {count}";
         }
     }
 }

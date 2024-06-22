@@ -14,17 +14,22 @@ namespace Game.Player.Weapons
         private IReloadStrategy _reloadStrategy = new ReloadImage();
         private CompositeDisposable _compositeDisposable = new();
         private WeaponConfigs.WeaponConfigs _weaponConfigs;
+        private readonly CurrentWeapon _currentWeapon;
         
         public readonly WeaponData WeaponData;
         public readonly ValueCountStorage<float> ImageReloadValue;
+        public readonly ValueCountStorage<int> AmmoReloadValue;
         public readonly BoolStorage BoolStorage;
         
-        public ReloadComponent(WeaponData weaponData, ValueCountStorage<float> imageReloadValue, BoolStorage boolStorage,WeaponConfigs.WeaponConfigs weaponConfigs)
+        
+        public ReloadComponent(WeaponData weaponData, ValueCountStorage<float> imageReloadValue,ValueCountStorage<int> ammoReloadValue, BoolStorage boolStorage,WeaponConfigs.WeaponConfigs weaponConfigs, CurrentWeapon currentWeapon)
         {
             WeaponData = weaponData;
             ImageReloadValue = imageReloadValue;
+            AmmoReloadValue = ammoReloadValue;
             BoolStorage = boolStorage;
             _weaponConfigs = weaponConfigs;
+            _currentWeapon = currentWeapon;
             SubscribeToReloadEnd();
         }
         
@@ -50,10 +55,11 @@ namespace Game.Player.Weapons
                     .AddTo(_compositeDisposable);
             }
         }
-
+                                           
         private void BulletRecovery()
         {
-            WeaponData.AmmoInMagazine.Value = _weaponConfigs.RifleConfig.TotalAmmo;
+            WeaponData.AmmoInMagazine.Value = _currentWeapon.CurrentWeaponConfig.TotalAmmo;
+            AmmoReloadValue.SetValue(_currentWeapon.CurrentWeaponConfig.TotalAmmo);
         }
-    }
+    } 
 }

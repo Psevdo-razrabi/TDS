@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿        using UniRx;
+        using UnityEngine;
 
 namespace Game.Player.AnimatorScripts
 {
@@ -11,8 +12,9 @@ namespace Game.Player.AnimatorScripts
         [field: SerializeField] public string NameJumpParameter { get; private set; }
         [field: SerializeField] public string NameDashParameter { get; private set; }
         [field: SerializeField] public string NameAimParameter { get; private set; }
-        [field: SerializeField] public string NameMouseXParameter { get; private set; }
-        [field: SerializeField] public string NameMouseYParameter { get; private set; }
+        [field: SerializeField] public string NameRemappedLateralSpeedNormalizedParameter { get; private set; }
+        [field: SerializeField] public string NameRemappedForwardSpeedNormalizedParameter { get; private set; }
+        [field: SerializeField] public string NameRemappedSpeedNormalizedParameter { get; private set; }
 
 
         public void SetFloatParameters(string nameParameters, float value)
@@ -20,8 +22,20 @@ namespace Game.Player.AnimatorScripts
             PlayerAnimator.SetFloat(nameParameters, value);
         }
 
-        public void SetBoolParameters(string nameParameters , bool isBool) => PlayerAnimator.SetBool(nameParameters, isBool);
+        public void SetBoolParameters(string nameParameters, bool isBool) => PlayerAnimator.SetBool(nameParameters, isBool);
 
         public void SetTriggerParameters(string nameParameters) => PlayerAnimator.SetTrigger(nameParameters);
+        
+        public void OnAnimatorStateSet(ref bool parameters, bool state, string nameStateAnimator)
+        {
+            parameters = state;
+            SetBoolParameters(nameStateAnimator, state);
+        }
+
+        public void OnAnimatorStateSet(ReactiveProperty<bool> parameters, bool state, string nameStateAnimator)
+        {
+            parameters.Value = state;
+            SetBoolParameters(nameStateAnimator, parameters.Value);
+        }
     }
 }

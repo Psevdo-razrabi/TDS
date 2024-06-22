@@ -9,70 +9,51 @@ using Weapons.InterfaceWeapon;
 using Zenject;
 using Random = UnityEngine.Random;
 
-public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
+public class Spread : IConfigRelize, IInitializable
 {
     private readonly WeaponConfigs _weaponConfigs;
     private BaseWeaponConfig _gunConfig;
-    private readonly CompositeDisposable _compositeDisposable = new ();
+    private readonly CompositeDisposable _compositeDisposable = new();
     private IDisposable _reductionSubscription;
-    private readonly EventController _eventController;
     private readonly ChangeCrosshair _changeCrosshair;
     private readonly Recoil _recoil;
-    private DistributionConfigs _distributionConfigs;
-    
+    private readonly CurrentWeapon _currentWeapon;
+    private readonly DistributionConfigs _distributionConfigs;
     private float _currentSpread;
-    private float _baseStepSpread;
+    private float _baseIncrement;
     private int _currentBulletCount;
-
+    private Vector3 _crosshairSpread;
+    
+    private float _spreadMultiplier;
+    private float _multiplierIncreaseRate;
+    
     private int _initialBulletsCount;
-
-    public Spread(WeaponConfigs weaponConfigs, EventController eventController, 
-        ChangeCrosshair changeCrosshair, Recoil recoil, DistributionConfigs distributionConfigs)
+    
+    
+    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs)
     {
         _weaponConfigs = weaponConfigs;
-        _eventController = eventController;
         _changeCrosshair = changeCrosshair;
         _recoil = recoil;
+        _currentWeapon = currentWeapon;
         _distributionConfigs = distributionConfigs;
     }
     
-    public void Initialize()
+    private void CalculateBaseIncrement()
     {
-        _distributionConfigs.ClassesWantConfig.Add(this);
+        _baseIncrement = _gunConfig.BaseIncrement;
+        _currentSpread = _gunConfig.StartSpread;
     }
     
-    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    public Vector3 CalculateCrosshairSpread()
     {
-        VisitWeapon(weaponComponent);
-        _initialBulletsCount = _gunConfig.InitialBulletsCount;
-        CalculateStepSpread();
-    }
+        float randomX = Random.Range(-_changeCrosshair.TotalExpansion, _changeCrosshair.TotalExpansion);
+        Debug.Log(randomX);
+        Vector2 firePointScreenPosition = RectTransformUtility.WorldToScreenPoint(_changeCrosshair.CameraObject, _changeCrosshair.Crosshair.position);
+        Vector2 targetScreenPosition = new Vector2(firePointScreenPosition.x + randomX, firePointScreenPosition.y);
+        Ray ray = _changeCrosshair.CameraObject.ScreenPointToRay(targetScreenPosition);
 
-    public void Visit(Pistol pistol)
-    {
-        _gunConfig = _weaponConfigs.PistolConfig;
-    }
-
-    public void Visit(Rifle rifle)
-    {
-        _gunConfig = _weaponConfigs.RifleConfig;
-    }
-
-    public void Visit(Shotgun shotgun)
-    {
-        _gunConfig = _weaponConfigs.ShotgunConfig;
-    }
-
-    public void VisitWeapon(WeaponComponent component)
-    {
-        Visit((dynamic)component);
-    }
-    
-    private void CalculateStepSpread()
-    {
-        _baseStepSpread = _gunConfig.MaxSpread / _gunConfig.MaxSpreadBullet;
-        _currentSpread = _baseStepSpread;
-        _currentBulletCount = 0;
+        return ray.direction;
     }
     
     public void StartSpreadReduction()
@@ -87,48 +68,53 @@ public class Spread : IConfigRelize, IVisitWeaponType, IInitializable
             .Subscribe(_ =>
             {
                 SpreadReduce();
-                if (_currentSpread <= 0)
+                if (_currentSpread <= _gunConfig.StartSpread)
                 {
+                    _currentSpread =  _gunConfig.StartSpread;
                     _reductionSubscription.Dispose();
                 }
             }).AddTo(_compositeDisposable);
     }
 
+    private void SpreadReduce()
+    {
+        float reductionAmount = _baseIncrement;
+        _currentSpread = Mathf.Max(0, _currentSpread - reductionAmount);
+        _spreadMultiplier -= _multiplierIncreaseRate;
+        _changeCrosshair.DecreaseFiredSize();
+    }
+
     public Vector3 CalculatingSpread(Vector3 velocity)
     {
-        _currentBulletCount++;
-
         float spreadX = Random.Range(-_currentSpread, _currentSpread);
         Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
         
-        float spreadAcceleration;
-        
-        if (_currentBulletCount <= _initialBulletsCount)
-        {
-            spreadAcceleration = _baseStepSpread * (_currentBulletCount / (float)_initialBulletsCount);
-        }
-        else
-        {
-            int excessBullets = _currentBulletCount - _initialBulletsCount;
-            spreadAcceleration = _baseStepSpread + Mathf.Pow(excessBullets, _gunConfig.SpreadIncreaseCoefficient);
-        }
+        _currentSpread *= _spreadMultiplier;
+        _spreadMultiplier += _multiplierIncreaseRate;
 
-        _currentSpread += spreadAcceleration;
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
+        Debug.Log($"ан конфиг макс спреад {_gunConfig.MaxSpread} ");
         Debug.Log(_currentSpread);
-        float stepsToReduce = _currentSpread / _baseStepSpread;
+        float stepsToReduce = _currentSpread / _baseIncrement;
+
         _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);
         _recoil.UpdateSpread(_currentSpread);
+
         return velocityWithSpread;
     }
-    
-    private void SpreadReduce()
-    {
-        _currentSpread -= _baseStepSpread;
-        _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
-        
-        _currentBulletCount = 0;
 
-        _eventController.SpreadReduce();
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        _currentWeapon.LoadConfig(weaponComponent);
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
+
+        _spreadMultiplier = _gunConfig.SpreadMultiplier;
+        _multiplierIncreaseRate = _gunConfig.MultiplierIncreaseRate;
+        CalculateBaseIncrement();
+    }
+
+    public void Initialize()
+    {
+        _distributionConfigs.ClassesWantConfig.Add(this);
     }
 } 

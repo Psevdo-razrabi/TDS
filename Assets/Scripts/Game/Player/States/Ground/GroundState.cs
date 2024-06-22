@@ -8,25 +8,27 @@ namespace Game.Player.States
         {
             
         }
-
-        protected void OnAnimatorStateSet(ref bool parameters, bool state, string nameStateAnimator)
-        {
-            parameters = state;
-            Player.AnimatorController.SetBoolParameters(nameStateAnimator, state);
-        }
         
         protected override void AddActionsCallbacks()
         {
             base.AddActionsCallbacks();
             Player.InputSystemMouse.OnSubscribeRightMouseClickUp(() =>
             {
-                OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
+                if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
+                Data.IsAiming.Value = true;
+                Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
+                var config = Player.PlayerConfigs.FowConfig;
+                Player.RadiusChanger.ChangerRadius(config.EndValueRadius, config.StartValueRadius, config.TimeToMaxRadius);
                 Player.StateChain.HandleState();
             });
             
             Player.InputSystemMouse.OnSubscribeRightMouseClickDown(() =>
             {
-                OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+                if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
+                Data.IsAiming.Value = false;
+                Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+                var config = Player.PlayerConfigs.FowConfig;
+                Player.RadiusChanger.ChangerRadius(config.StartValueRadius, config.EndValueRadius, config.TimeToMaxRadius);
                 Player.StateChain.HandleState();
             });
         }

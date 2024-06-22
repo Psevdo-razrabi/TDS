@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Game.Player.Interfaces;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
+using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using UI.Storage;
@@ -10,74 +11,59 @@ using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
-public class BulletLifeCycle : IConfigRelize, IVisitWeaponType, IInitializable
+public class BulletLifeCycle : IConfigRelize, IInitializable
 {
     private const float BulletLifeTime = 2f;
         
-    private PoolObject<Bullet> _pool;
+    private PoolObject _pool;
     private readonly WeaponConfigs _weaponConfigs;
-    private EventController _eventController;
     private Spread _spread;
     private Rigidbody _bulletRigidbody;
-    private BaseWeaponConfig _weaponConfig;
+    private BaseWeaponConfig _gunConfig;
     private DistributionConfigs _distributionConfigs;
-    
-    public BulletLifeCycle(PoolObject<Bullet> pool, WeaponConfigs weaponConfigs, 
-        Spread spread, EventController eventController, DistributionConfigs distributionConfigs)
+    private CurrentWeapon _currentWeapon;
+    private WeaponData _weaponData;
+        
+    public BulletLifeCycle(PoolObject pool, WeaponConfigs weaponConfigs, 
+        Spread spread, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon, WeaponData weaponData)
     {
         _pool = pool;
         _weaponConfigs = weaponConfigs;
         _spread = spread;
-        _eventController = eventController;
         _distributionConfigs = distributionConfigs;
-    }
-    
-    public void Initialize()
-    {
-        _eventController.BulletStoped += StopBullet;
-        _distributionConfigs.ClassesWantConfig.Add(this);
+        _currentWeapon = currentWeapon;
+        _weaponData = weaponData;
     }
     
     public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
-        VisitWeapon(weaponComponent);
+        _currentWeapon.LoadConfig(weaponComponent);
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
     }
 
-    public void Visit(Pistol pistol)
+    public void Initialize()
     {
-        _weaponConfig = _weaponConfigs.PistolConfig;
+        _distributionConfigs.ClassesWantConfig.Add(this);
     }
-
-    public void Visit(Rifle rifle)
-    {
-        _weaponConfig = _weaponConfigs.RifleConfig;
-    }
-
-    public void Visit(Shotgun shotgun)
-    {
-        _weaponConfig = _weaponConfigs.ShotgunConfig;
-    }
-
-    public void VisitWeapon(WeaponComponent component)
-    {
-        Visit((dynamic)component);
-    }
+    
     
     public async void BulletSpawn()
     {
-        _pool.AddElementsInPool("bullet", _weaponConfigs.BulletConfig.BulletPrefab, _weaponConfig.TotalAmmo);
-        Bullet bullet = _pool.GetElementInPool("bullet");
-        bullet.Initialize(_weaponConfig.TotalAmmo);
-        bullet.transform.position = _weaponConfig.BulletPoint.transform.position;
-        bullet.transform.rotation = Quaternion.LookRotation(_weaponConfig.BulletPoint.transform.forward);
+        _pool.AddElementsInPool("bullet", _weaponConfigs.BulletConfig.BulletPrefab , _gunConfig.TotalAmmo, typeof(Bullet));
+        Bullet bullet = _pool.GetElementInPool("bullet").GetComponent<Bullet>();
+        bullet.Initialize(_gunConfig.TotalAmmo);
+
+        bullet.transform.position = _weaponData.BulletPoint.position;
+        bullet.transform.rotation = Quaternion.LookRotation(_weaponData.BulletPoint.forward);
         await BulletLaunch(bullet);
     }
 
     private async UniTask BulletLaunch(Bullet bullet)
     {
         _bulletRigidbody = bullet.GetComponent<Rigidbody>();
-        Vector3 velocity = _weaponConfig.BulletPoint.transform.forward * _weaponConfigs.BulletConfig.BulletSpeed;
-        _bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity);
+        Vector3 velocity = _weaponData.BulletPoint.forward * _weaponConfigs.BulletConfig.BulletSpeed;
+        _bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity) + _spread.CalculateCrosshairSpread();
+        Debug.Log(_spread.CalculateCrosshairSpread());
         await ReturnBullet(bullet);
     }
     

@@ -13,6 +13,7 @@ namespace Game.Player.PlayerStateMashine
         public PlayerMoveConfig MoveWithAim { get; private set; }
         public PlayerDashConfig DashConfig { get; private set; }
         public PlayerHealthConfig HealthConfig { get; private set; }
+        public PlayerFogOfWarConfig FowConfig { get; private set; }
 
         public bool IsLoadMoveConfig { get; private set; } = false;
         public bool IsLoadMoveAimConfig { get; private set; } = false;
@@ -25,6 +26,7 @@ namespace Game.Player.PlayerStateMashine
         private const string NameMoveWithAimConfig = "MoveStateAim";
         private const string NameDashConfig = "Dash";
         private const string NameHealthConfig = "HealthPlayer";
+        private const string NameFowConfig = "FOWConfig";
 
         [Inject]
         private async void Construct(Loader loader)
@@ -39,6 +41,7 @@ namespace Game.Player.PlayerStateMashine
             IsLoadDashConfig = true;
             HealthConfig = await _loader.LoadResources<ScriptableObject>(NameHealthConfig) as PlayerHealthConfig;
             IsLoadHealthConfig = true;
+            FowConfig = await _loader.LoadResources<ScriptableObject>(NameFowConfig) as PlayerFogOfWarConfig;
             IsLoadAllConfig = true;
         }
     }

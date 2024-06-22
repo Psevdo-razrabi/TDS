@@ -1,10 +1,15 @@
-﻿using Game.AsyncWorker;
+﻿using CharacterOrEnemyEffect.Factory;
+using FOW;
+using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
+using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
 using Input;
+using MVVM;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -13,11 +18,14 @@ namespace DI
         [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
-        [SerializeField] private Player player; 
+        [SerializeField] private Player player;
+        [SerializeField] private DashTrailEffect dashTrailEffect;
         [SerializeField] private ChangeModeFire fireMode;
         [SerializeField] private InputSystemMouse inputSystemMouse;
         [SerializeField] private InputSystemWeapon inputSystemWeapon;
         [SerializeField] private InputSystemUi inputSystemUi;
+        [SerializeField] private InputBuffer inputBuffer;
+        [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
         
         public override void InstallBindings()
         {
@@ -33,6 +41,28 @@ namespace DI
             BindStateMachineData();
             BindAsyncWorker();
             BindEffect();
+            BindFactory();
+            BindPool();
+            BindRevealer();
+        }
+
+        private void BindRevealer()
+        {
+            BindInstance(fogOfWarRevealer3D);
+            BindNewInstance<FOWRadiusChanger>();
+            BindNewInstance<HiderManager>();
+        }
+
+        private void BindPool()
+        {
+            BindNewInstance<PoolObject>();
+        }
+
+        private void BindFactory()
+        {
+            BindNewInstance<FactoryComponent>();
+            BindNewInstance<FactoryGameObject>();
+            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().AsSingle().WithArguments(true, "Mesh", 10).NonLazy();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();
@@ -45,7 +75,8 @@ namespace DI
             BindInstance(inputSystemWeapon);
             BindInstance(inputSystemUi);
             BindNewInstance<MouseInputObserver>();
-            
+            BindNewInstance<BufferAction>();
+            BindInstance(inputBuffer);
         }
 
         private void BindEffect()
@@ -56,8 +87,12 @@ namespace DI
         private void BindAnimator() => BindInstance(animatorController);
 
         private void BindPlayerAim() => BindInstance(playerAim);
-        
-        private void BindPlayer() => BindInstance(player);
+
+        private void BindPlayer()
+        {
+            BindInstance(player);
+            BindInstance(dashTrailEffect);
+        }
         
         private void BindLoader() => BindNewInstance<Loader>();
 
@@ -76,7 +111,6 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
-            
         }
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();

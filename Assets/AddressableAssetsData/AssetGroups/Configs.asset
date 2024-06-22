@@ -33,7 +33,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 40ce6a8f7ede3f44dbd2dd23c47669c3
-    m_Address: Rifle
+    m_Address: RifleConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -63,7 +63,32 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 74261c4f5910d9f4b9c47966fabf96da
-    m_Address: Shotgun
+    m_Address: ShotgunConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a27b9a36220c14046811791c58b5b30f
+    m_Address: PistolConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 222a1fe921131444aa2968ac91c1c438
+    m_Address: PistolAimConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e579cf1167beaa74e9ca14670179b8f4
+    m_Address: RifleAimConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a2bba1ce61a786f48a43ba59ef5d8e89
+    m_Address: ShotgunAimConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3302f840d842556448190f3a202561b2
+    m_Address: FOWConfig
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

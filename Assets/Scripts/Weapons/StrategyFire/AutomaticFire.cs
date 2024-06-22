@@ -1,14 +1,11 @@
 ﻿using System;
 using Game.Player.Weapons.InterfaceWeapon;
-using Input;
 using UniRx;
-using UnityEngine;
 
 namespace Game.Player.Weapons.StrategyFire
 {
     public class AutomaticFire : FireStrategy
     {
-        private float _fireRate = 0.05f; // в конфиг
         private DateTimeOffset _lastFired;
         private CompositeDisposable _compositeDisposable = new();
         private IDisposable _mouseDown;
@@ -64,7 +61,7 @@ namespace Game.Player.Weapons.StrategyFire
             Observable
                 .EveryUpdate()
                 .Timestamp()
-                .Where(x => x.Timestamp > _lastFired.AddSeconds(_fireRate))
+                .Where(x => x.Timestamp > _lastFired.AddSeconds(FireComponent.CurrentWeapon.CurrentWeaponConfig.TimeBetweenShoots))
                 .Subscribe(x =>
                 {
                     FireComponent.FireBullet();

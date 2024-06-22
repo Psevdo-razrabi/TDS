@@ -39,16 +39,26 @@ namespace DI
         private void BindValue()
         {
             var valueFromReload = CreateStorage();
+            var valueFromAmmo =new ValueCountStorage<int>();
             var valueFromDash = new ValueCountStorage<int>();
+            
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)
                 .WhenInjectedInto<ReloadComponent>();
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)
-                .WhenInjectedInto<ReloadViewModel>();
+                .WhenInjectedInto<
+                    ReloadViewModel>();
             
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
                 .WhenInjectedInto<AsyncWorker>();
             Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromDash)
                 .WhenInjectedInto<DashViewModel>();
+            
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<ReloadComponent>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<AmmoInMagazineViewModel>();
+            Container.Bind<ValueCountStorage<int>>().To<ValueCountStorage<int>>().FromInstance(valueFromAmmo)
+                .WhenInjectedInto<ShootComponent>();
         }
         
         private ValueCountStorage<float> CreateStorage()

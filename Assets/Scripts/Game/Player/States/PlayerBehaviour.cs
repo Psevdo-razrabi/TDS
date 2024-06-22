@@ -1,7 +1,6 @@
 ﻿using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Interfase;
 using UniRx;
-using UnityEngine;
 
 namespace Game.Player.States
 {
@@ -20,8 +19,8 @@ namespace Game.Player.States
         {
             Player.PlayerAim.Aim();
             UpdateAnimatorInput();
-            UpdateAnimatorMouseInput();
         }
+        public virtual void OnFixedUpdateBehaviour() {}
 
         protected PlayerBehaviour(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData)
         {
@@ -38,15 +37,6 @@ namespace Game.Player.States
         {
             Data.XInput = UnityEngine.Input.GetAxis("Horizontal");
             Data.YInput = UnityEngine.Input.GetAxis("Vertical");
-            
-            //Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameHorizontalParameter, Data.XInput);
-            //Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameVerticalParameter, Data.YInput);
-        }
-
-        private void UpdateAnimatorMouseInput()
-        {
-            // Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameMouseXParameter, Data.MouseDirection.x);
-            //   Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameMouseYParameter, Data.MouseDirection.y);
         }
     }
 }

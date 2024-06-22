@@ -2,6 +2,7 @@ using DG.Tweening;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
 using Game.Player.Weapons.WeaponClass;
+using Game.Player.Weapons.WeaponConfigs;
 using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;

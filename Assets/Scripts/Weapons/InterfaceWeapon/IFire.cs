@@ -1,4 +1,6 @@
-﻿namespace Game.Player.Weapons.InterfaseWeapon
+﻿using System;
+
+namespace Game.Player.Weapons.InterfaseWeapon
 {
     public interface IFire
     {

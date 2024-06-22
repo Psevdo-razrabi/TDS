@@ -17,18 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 7cc66d754ff73eb428e5a6e69368bd47
   m_SerializeEntries:
-  - m_GUID: 3f37df769d70ba843a18d164a83365c1
-    m_Address: PistolPrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 12f89c9a7078a3047a9d5ed6429413b4
-    m_Address: RiflePrefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fa3c4dd1515926b40bc29cf306b534a7
-    m_Address: ShotgunPrefab
+    m_Address: Shotgun
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 687a0049c7012b94ab06ec6519091e4a
+    m_Address: Rifle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f37df769d70ba843a18d164a83365c1
+    m_Address: Pistol
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using Game.Player;
+﻿using Game.Player;
 using Game.Player.Interfaces;
 using UI.Storage;
 using UI.View;
