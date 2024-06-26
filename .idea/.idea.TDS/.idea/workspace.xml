@@ -7,54 +7,13 @@
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Animations/Player/Animators/PlayerAC.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Player/Animators/PlayerAC.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Configs/Player/Dash.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Configs/Player/Dash.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player@Jumping.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player@Jumping.fbx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player@Running Jump.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Player@Running Jump.fbx.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameMain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameMain.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/Parkur/ParkurSystem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/Parkur/ParkurSystem.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PhysicsWorld/Gravity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PhysicsWorld/Gravity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Capsule.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Capsule.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/CheckCapsuleOverWall.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/CheckCapsuleOverWall.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Readme.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Readme.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Scenes.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Scenes/SampleScene.unity" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Scenes/SampleScene.unity.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/SampleSceneProfile.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/SampleSceneProfile.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Balanced-Renderer.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Balanced-Renderer.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Balanced.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Balanced.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-HighFidelity-Renderer.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-HighFidelity-Renderer.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-HighFidelity.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-HighFidelity.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Performant-Renderer.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Performant-Renderer.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Performant.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Settings/URP-Performant.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Through.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Through.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Transparent.shadergraph" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/Transparent.shadergraph.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Icons.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Icons/URP.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Icons/URP.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Layout.wlt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Layout.wlt.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Scripts.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Scripts/Editor.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Scripts/Readme.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/TutorialInfo/Scripts/Readme.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Test/Assets/UniversalRenderPipelineGlobalSettings.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +27,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/17d9ce77f27a4bd2afb5ba32c9bea97646ac00/c9/626a4efc/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2ef0191b30684937a869061138f38973572e20/2f/3d329955/IEquatable`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/32c3559b9d594067ba62b7c42966fa0e43200/a1/a166dcae/ContextMenuAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/27/9402ab9d/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/34/0e274cf5/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/37/dfc532fd/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/b0/b91e5516/Object.cs" root0="SKIP_HIGHLIGHTING" />
@@ -165,10 +125,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="3836">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="8820">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="3836" />
+      <option name="pid" value="8820" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -239,7 +199,11 @@
       <workItem from="1718553033410" duration="103794000" />
       <workItem from="1718976020332" duration="17109000" />
       <workItem from="1719145649081" duration="871000" />
-      <workItem from="1719146533625" duration="13432000" />
+      <workItem from="1719146533625" duration="14163000" />
+      <workItem from="1719209387158" duration="20198000" />
+      <workItem from="1719247928830" duration="38514000" />
+      <workItem from="1719423744656" duration="365000" />
+      <workItem from="1719424187390" duration="5353000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
@@ -309,19 +273,6 @@
           <line>24</line>
           <properties documentPath="Z:\TDS\Assets\Audio\NewBehaviourScript.cs" containingFunctionPresentation="Method 'Start'" />
           <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/CharacterOrEnemyEffect/Parkur/ParkurSystem.cs</url>
-          <line>37</line>
-          <properties documentPath="Z:\TDS\Assets\Scripts\CharacterOrEnemyEffect\Parkur\ParkurSystem.cs" containingFunctionPresentation="Method 'Update'">
-            <startOffsets>
-              <option value="1182" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1182" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
