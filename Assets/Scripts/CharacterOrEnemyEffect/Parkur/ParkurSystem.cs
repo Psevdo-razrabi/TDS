@@ -1,5 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using Game.Player;
+using UniRx;
 using UnityEngine;
 
 public class ParkurSystem : MonoBehaviour
@@ -9,11 +12,19 @@ public class ParkurSystem : MonoBehaviour
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private float _ObjectHeight;
     [SerializeField] private Vector3 ToAnimation;
-    [SerializeField] private GameObject _step;
-    [SerializeField] private GameObject modelRotate;
     [SerializeField] private LayerMask _layerMask;
-    [SerializeField] private bool _isActionState;
-    private bool _isClimb;
+    [SerializeField] private bool _isActionState = true;
+    [SerializeField] private GameObject _step;
+    [SerializeField] private float HeightCorrectionForStep;
+    [SerializeField] private float HeightCorrectionForClamb;
+    [SerializeField] private float HeightCorrectionForClambOnWall;
+    [SerializeField] private Player Player;
+    [SerializeField] private bool _isPlayerOnObstacle;
+    [SerializeField] private bool _lockAtObstacle;
+    private Quaternion _requiredRotation;
+    private float ledgeRayHeight = 0.4f;
+    public Vector3 Movement { get; set; }
+    private CompositeDisposable _disposable = new();
 
     [Header("Настройки для луча")] 
     
@@ -24,16 +35,59 @@ public class ParkurSystem : MonoBehaviour
 
     [Header("Настройки для угла")] 
     [SerializeField] private float startMaxAngle;
-    
 
+    private void Start()
+    {
+        Player.InputSystem.Move
+            .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y).normalized)
+            .AddTo(_disposable);
+    }
+
+    private void OnDestroy()
+    {
+        _disposable.Dispose();
+        _disposable.Clear();
+    }
+
+    public void AnimationEnd()
+    {
+        _isPlayerOnObstacle = true;
+    }
+    
     private async void Update()
     {
         if (_animator.IsInTransition(0))
             return;
-        
         Step();
+
+        _animator.SetBool("onSurface", _characterController.isGrounded);
         
-        if (UnityEngine.Input.GetButtonDown("Jump") && _isClimb)
+        if (_characterController.isGrounded)
+        {
+            if(_isPlayerOnObstacle) Debug.LogWarning("я на уступе");
+        }
+        
+        var checkLanding = CheckLanding();
+
+        if (_isPlayerOnObstacle & _lockAtObstacle == false & checkLanding.isLanding)
+        {
+            _isPlayerOnObstacle = false;
+            Debug.LogWarning("персонаж упал");
+        
+            // if (_ObjectHeight is >= 0.8f and <= 1.5f)
+            // {
+            //     _animator.CrossFade("Climb", 0.2f);
+            //     await UniTask.Yield();
+            // }
+            //
+            if (_ObjectHeight is >= 1.5f and <= 3f)
+            {
+                _animator.CrossFade("Jumping", 0.2f);
+                await UniTask.Yield();
+            }
+        }
+        
+        if (UnityEngine.Input.GetButtonDown("Jump") && _lockAtObstacle)
         {
             await ClimbAnimation();
         }
@@ -44,14 +98,21 @@ public class ParkurSystem : MonoBehaviour
         {
             _animator
                 .MatchTarget(_ObjPosition, transform.rotation, AvatarTarget.RightFoot,
-                    new MatchTargetWeightMask(new Vector3(0f, 0.9f, 0.9f), 0), 0.14f, 0.33f);
+                    new MatchTargetWeightMask(new Vector3(0f, 1f, 1f), 0), 0.14f, 0.33f);
         }
         
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Step"))
         {
             _animator
                 .MatchTarget(_ObjPosition, transform.rotation, AvatarTarget.RightFoot,
-                    new MatchTargetWeightMask(new Vector3(0f, 1f, 1f), 0), 0.42f, 0.50f);
+                    new MatchTargetWeightMask(new Vector3(0f, 1f, 0f), 0), 0.42f, 0.50f);
+        }
+        
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("ClimbToWall"))
+        {
+            _animator
+                .MatchTarget(_ObjPosition, transform.rotation, AvatarTarget.RightHand,
+                    new MatchTargetWeightMask(new Vector3(0f, 1f, 1f), 0), 0.05f, 0.33f);
         }
     }
 
@@ -60,56 +121,69 @@ public class ParkurSystem : MonoBehaviour
         if (Physics.Raycast(_step.transform.position, _step.transform.forward, out RaycastHit hit, rayCastDistance,
                 _layerMask))
         {
-            Quaternion rotation = Quaternion.Euler(0f, modelRotate.transform.rotation.y, 0f);
-
-            var forwardVector = transform.position + rotation * Vector3.forward * 1f;
-            var rightVector = transform.position + rotation * Vector3.right * 1f;
-            var leftVector = transform.position + rotation * Vector3.left * 1f;
-            var backVector = transform.position + rotation * Vector3.back * 1f;
-            
-            CalculateAngle(forwardVector, hit.point);
-            CalculateAngle(rightVector, hit.point);
-            CalculateAngle(leftVector, hit.point);
-            CalculateAngle(backVector, hit.point);
-
             _ObjectHeight = hit.collider.bounds.size.y;
+            Vector3 raisedEndPoint = Vector3.zero;
 
-            Vector3 newPoint = hit.point;
+            if (_ObjectHeight is >= 0.4f and <= 0.8f)
+            {
+                raisedEndPoint = hit.point + Vector3.up * (hit.collider.bounds.size.y - HeightCorrectionForStep);
+            }
+        
+            if (_ObjectHeight is >= 0.8f and <= 1.5f)
+            {
+                raisedEndPoint = hit.point + Vector3.up * (hit.collider.bounds.size.y - HeightCorrectionForClamb);
+            }
+        
+            if (_ObjectHeight is >= 1.5f and <= 5f)
+            {
+                raisedEndPoint = hit.point + Vector3.up * (hit.collider.bounds.size.y - HeightCorrectionForClambOnWall);
+            }
             
-            Vector3 raisedEndPoint = newPoint + Vector3.up * (hit.collider.bounds.size.y - 0.05f);
             _ObjPosition = raisedEndPoint;
-            _isClimb = true;
-            
-            DrawLine(newPoint, raisedEndPoint, forwardVector, rightVector, leftVector, backVector);
+            _lockAtObstacle = true;
+            _requiredRotation = Quaternion.LookRotation(-hit.normal);
+            DrawLine(hit.point, raisedEndPoint, -hit.normal);
         }
         else
         {
-            _isClimb = false;
+            _lockAtObstacle = false;
         }
     }
 
-    private void DrawLine(Vector3 endPoint, Vector3 raisedEndPoint, Vector3 forwardVector, Vector3 rightVector, Vector3 leftVector, Vector3 backVector)
+    /*private bool CheckLedge(Vector3 movementDirection)
+    {
+        var ledgeOriginOffset = 0f;
+
+        var ledgeOrigin = _step.transform.position;
+        
+        if (!Physics.Raycast(ledgeOrigin, Vector3.down, out RaycastHit hit, rayCastDistance, _layerMask)) return false;
+        var ledgeHeight = hit.collider.bounds.size.y;
+
+        if (ledgeHeight > ledgeRayHeight) return true;
+        return false;
+    }*/
+
+    private (bool isLanding, RaycastHit hitObject) CheckLanding()
+    {
+        if (_isActionState) return (false, default);
+
+        if (Physics.Raycast(_step.transform.position, Vector3.down, out RaycastHit hitInfo, rayCastDistance, _layerMask)) 
+            return (false, default);
+        Debug.LogWarning("падаю");
+        return (true, hitInfo);
+    }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(_step.transform.position + Vector3.down * 0.2f, 0.5f);
+        Gizmos.DrawLine(_step.transform.position, _step.transform.position + Vector3.down * 0.5f);
+    }
+    
+
+    private void DrawLine(Vector3 endPoint, Vector3 raisedEndPoint, Vector3 normal)
     {
         Debug.DrawLine(_step.transform.position, endPoint, Color.red);
         Debug.DrawLine(endPoint, raisedEndPoint, Color.cyan);
-        Debug.DrawLine(transform.position, forwardVector, Color.green);
-        Debug.DrawLine(transform.position, rightVector, Color.yellow);
-        Debug.DrawLine(transform.position, leftVector, Color.blue);
-        Debug.DrawLine(transform.position, backVector, Color.magenta);
-    }
-
-    private void CalculateAngle(Vector3 direction, Vector3 endPoint)
-    {
-        Debug.DrawLine(transform.position, direction, Color.white);
-        if (Physics.Raycast(transform.position, direction, rayCastDistance, _layerMask))
-        {
-            Quaternion forwardRotation = Quaternion.LookRotation(direction);
-            Quaternion endRotation = Quaternion.LookRotation(endPoint);
-            float angle = Quaternion.Angle(forwardRotation, endRotation);
-            float sign = Mathf.Sign(forwardRotation.eulerAngles.y - endRotation.eulerAngles.y);
-            angle *= sign;
-            currentAngle = angle;
-        }
     }
 
     private async UniTask ClimbAnimation()
@@ -120,9 +194,15 @@ public class ParkurSystem : MonoBehaviour
             await UniTask.Yield();
         }
         
-        if (_ObjectHeight >= 0.8 && _ObjectHeight <= 1.5f)
+        if (_ObjectHeight is >= 0.8f and <= 1.5f)
         {
             _animator.CrossFade("Climb", 0.2f);
+            await UniTask.Yield();
+        }
+        
+        if (_ObjectHeight is >= 1.5f and <= 3f)
+        {
+            _animator.CrossFade("ClimbToWall", 0.2f);
             await UniTask.Yield();
         }
 
@@ -130,7 +210,15 @@ public class ParkurSystem : MonoBehaviour
         _animator.applyRootMotion = true;
         _characterController.enabled = false;
 
-        await UniTask.Delay(TimeSpan.FromSeconds(_animator.GetNextAnimatorStateInfo(0).length));
+        await DOTween
+            .To(() => 0f, x =>
+                {
+                    if (_lockAtObstacle)
+                    {
+                        transform.rotation = Quaternion.RotateTowards(transform.rotation, _requiredRotation, 100f * x);
+                    }
+                },
+                _animator.GetNextAnimatorStateInfo(0).length, _animator.GetNextAnimatorStateInfo(0).length);
 
         _isActionState = false;
         _animator.applyRootMotion = false;

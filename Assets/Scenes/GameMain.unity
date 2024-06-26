@@ -610,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 2451359}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.042, y: 0.001, z: 0}
+  m_LocalPosition: {x: 6.21, y: 0.009, z: 0}
   m_LocalScale: {x: 3, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -789,7 +789,7 @@ Transform:
   m_GameObject: {fileID: 116604940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.363621, y: 0.10672862, z: -17.298527}
+  m_LocalPosition: {x: -4.07, y: 0.10672862, z: -3.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3459,7 +3459,7 @@ Transform:
   - {fileID: 6530375404970805940}
   - {fileID: 1607907933}
   - {fileID: 371248387}
-  - {fileID: 1680681458}
+  - {fileID: 1301090513}
   m_Father: {fileID: 543450651703138440}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &635675289
@@ -5660,6 +5660,37 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1067422555}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1301090512
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1301090513}
+  m_Layer: 7
+  m_Name: Step
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1301090513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301090512}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 635675288}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1344531421
 GameObject:
   m_ObjectHideFlags: 0
@@ -5883,8 +5914,8 @@ Transform:
   m_GameObject: {fileID: 1496409236}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.239, z: 0}
-  m_LocalScale: {x: 3, y: 1.1, z: 1}
+  m_LocalPosition: {x: 1.07, y: 0.239, z: 0}
+  m_LocalScale: {x: 3, y: 1.1, z: 2.52}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 116604941}
@@ -8056,37 +8087,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1680681457
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1680681458}
-  m_Layer: 7
-  m_Name: Step
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1680681458
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1680681457}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.036000013, y: 0, z: 0.3670001}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 635675288}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1705221589
 GameObject:
   m_ObjectHideFlags: 0
@@ -9104,8 +9104,8 @@ Transform:
   m_GameObject: {fileID: 2123261543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.653, y: 0.757, z: 0}
-  m_LocalScale: {x: 3, y: 2, z: 1}
+  m_LocalPosition: {x: -3.653, y: 1.775, z: 0}
+  m_LocalScale: {x: 3, y: 4, z: 2.52}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 116604941}
@@ -10943,13 +10943,18 @@ MonoBehaviour:
   _characterController: {fileID: 2030387049}
   _ObjectHeight: 0
   ToAnimation: {x: 0, y: 0, z: 0}
-  _step: {fileID: 1680681457}
-  modelRotate: {fileID: 635675287}
   _layerMask:
     serializedVersion: 2
     m_Bits: 4096
   _isActionState: 0
-  rayCastDistance: 0.4
+  _step: {fileID: 1301090512}
+  HeightCorrectionForStep: 0.05
+  HeightCorrectionForClamb: 0.2
+  HeightCorrectionForClambOnWall: 0.75
+  Player: {fileID: 2030387048}
+  _isPlayerOnObstacle: 0
+  _lockAtObstacle: 0
+  rayCastDistance: 1
   distanceThreshold: 0.1
   angleThreshold: 0.5
   currentAngle: 0
