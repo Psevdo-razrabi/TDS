@@ -40,11 +40,11 @@ namespace Input
             
             _delayedClickShoot
                 .ThrottleFirst(TimeSpan.FromSeconds(0.1f))
-                .Subscribe(_ => WeaponComponent.fireComponent.Fire()) //задержка между выстрелами
+                .Subscribe(_ => WeaponComponent.FireComponent.Fire()) //задержка между выстрелами
                 .AddTo(CompositeDisposable);
         }
 
-        private void WeaponReload(InputAction.CallbackContext obj) => WeaponComponent.reloadComponent.Reload();
+        private void WeaponReload(InputAction.CallbackContext obj) => WeaponComponent.ReloadComponent.Reload();
         
         private void OnDisable()
         {

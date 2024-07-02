@@ -4,12 +4,11 @@ using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
+using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
 using Input;
-using MVVM;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -26,6 +25,7 @@ namespace DI
         [SerializeField] private InputSystemUi inputSystemUi;
         [SerializeField] private InputBuffer inputBuffer;
         [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
+        [SerializeField] private StorageAssetReference _storageAssetReference;
         
         public override void InstallBindings()
         {
@@ -93,8 +93,12 @@ namespace DI
             BindInstance(player);
             BindInstance(dashTrailEffect);
         }
-        
-        private void BindLoader() => BindNewInstance<Loader>();
+
+        private void BindLoader()
+        {
+            BindNewInstance<Loader>();
+            BindInstance(_storageAssetReference);
+        }
 
         private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
 

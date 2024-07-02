@@ -30,7 +30,8 @@ namespace Game.Player
         [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
         private ValueCountStorage<float> ValueModelHealth { get; set; }
         [Inject] public EventController EventController { get; private set; }
-        [field: SerializeField] public GameObject PlayerModelRotate { get; private set; } 
+        [field: SerializeField] public GameObject PlayerModelRotate { get; private set; }
+        [field: SerializeField] public GameObject PlayerStep { get; private set; }
         public DashTrailEffect DashTrailEffect { get; private set; }
 
         private InitializationStateMachine _initializationStateMachine;
@@ -60,7 +61,7 @@ namespace Game.Player
             HealthStats =
                 new RestoringHealth(
                     new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
-                        new Die<Player>(gameObject, EventController, ragdollHelper)),
+                        new Die<Player>(EventController, ragdollHelper)),
                     PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
             
             HealthStats.Subscribe();

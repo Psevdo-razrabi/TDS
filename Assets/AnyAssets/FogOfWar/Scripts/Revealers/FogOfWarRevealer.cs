@@ -67,7 +67,7 @@ namespace FOW
         [SerializeField] protected bool DrawExtraCastLines;
         [SerializeField] protected bool DrawIteritiveLines;
 #endif
-        public ReactiveCollection<FogOfWarHider> hidersSeen = new();
+        public ReactiveCollection<FogOfWarHider> hidersSeen { get; } = new();
 
         public struct ViewCastInfo
         {

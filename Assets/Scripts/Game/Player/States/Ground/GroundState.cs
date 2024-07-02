@@ -8,7 +8,7 @@ namespace Game.Player.States
         {
             
         }
-        
+
         protected override void AddActionsCallbacks()
         {
             base.AddActionsCallbacks();

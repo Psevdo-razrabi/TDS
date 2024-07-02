@@ -1,48 +1,54 @@
-﻿using Game.Core.Health;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Game.Core.Health;
 using Game.Player.PlayerStateMashine.Configs;
 using UnityEngine;
 using Zenject;
 
 namespace Game.Player.PlayerStateMashine
 {
-    public class PlayerConfigs
+    public class PlayerConfigs : IInitializable
     {
-        private Loader _loader;
+        private readonly Loader _loader;
+        private readonly StorageAssetReference _storageAssetReference;
+        private List<ScriptableObject> _playerConfigs = new();
         
         public PlayerMoveConfig BaseMove { get; private set; }
         public PlayerMoveConfig MoveWithAim { get; private set; }
         public PlayerDashConfig DashConfig { get; private set; }
         public PlayerHealthConfig HealthConfig { get; private set; }
         public PlayerFogOfWarConfig FowConfig { get; private set; }
-
-        public bool IsLoadMoveConfig { get; private set; } = false;
-        public bool IsLoadMoveAimConfig { get; private set; } = false;
-        public bool IsLoadDashConfig { get; private set; } = false;
-        public bool IsLoadHealthConfig { get; private set; } = false;
+        public CrouchAndStandConfig StandUpCrouch { get; private set; }
+        public CrouchAndStandConfig SitDownCrouch { get; private set; }
+        public CrouchingPlace CrouchingPlace { get; private set; }
+        public CrouchMovement CrouchMovement { get; private set; }
 
         public bool IsLoadAllConfig { get; private set; } = false;
 
-        private const string NameBaseMoveConfig = "Move";
-        private const string NameMoveWithAimConfig = "MoveStateAim";
-        private const string NameDashConfig = "Dash";
-        private const string NameHealthConfig = "HealthPlayer";
-        private const string NameFowConfig = "FOWConfig";
-
-        [Inject]
-        private async void Construct(Loader loader)
+        public PlayerConfigs(Loader loader, StorageAssetReference storageAssetReference)
         {
             _loader = loader;
-            
-            BaseMove = await _loader.LoadResources<ScriptableObject>(NameBaseMoveConfig) as PlayerMoveConfig;
-            IsLoadMoveConfig = true;
-            MoveWithAim = await _loader.LoadResources<ScriptableObject>(NameMoveWithAimConfig) as PlayerMoveConfig;
-            IsLoadMoveAimConfig = true;
-            DashConfig = await _loader.LoadResources<ScriptableObject>(NameDashConfig) as PlayerDashConfig;
-            IsLoadDashConfig = true;
-            HealthConfig = await _loader.LoadResources<ScriptableObject>(NameHealthConfig) as PlayerHealthConfig;
-            IsLoadHealthConfig = true;
-            FowConfig = await _loader.LoadResources<ScriptableObject>(NameFowConfig) as PlayerFogOfWarConfig;
-            IsLoadAllConfig = true;
+            _storageAssetReference = storageAssetReference;
+        }
+
+        public async void Initialize()
+        {
+           _playerConfigs = await _loader.LoadAllResourcesUseLabel<ScriptableObject>(_storageAssetReference.PlayerScriptableObjectLabel);
+           LoadToAssetReference(); 
+           DashConfig = _playerConfigs.FirstOrDefault(x => x is PlayerDashConfig) as PlayerDashConfig;
+           HealthConfig = _playerConfigs.FirstOrDefault(x => x is PlayerHealthConfig) as PlayerHealthConfig;
+           FowConfig = _playerConfigs.FirstOrDefault(x => x is PlayerFogOfWarConfig) as PlayerFogOfWarConfig;
+           CrouchingPlace = _playerConfigs.FirstOrDefault(x => x is CrouchingPlace) as CrouchingPlace;
+           CrouchMovement = _playerConfigs.FirstOrDefault(x => x is CrouchMovement) as CrouchMovement;
+           IsLoadAllConfig = true;
+        }
+
+        private async void LoadToAssetReference()
+        {
+            BaseMove = await _loader.LoadResourcesUsingReference(_storageAssetReference.PlayerMove);
+            MoveWithAim = await _loader.LoadResourcesUsingReference(_storageAssetReference.PlayerMoveInAim);
+            StandUpCrouch = await _loader.LoadResourcesUsingReference(_storageAssetReference.StandUpCrouch);
+            SitDownCrouch = await _loader.LoadResourcesUsingReference(_storageAssetReference.SitDownCrouch);
         }
     }
 }

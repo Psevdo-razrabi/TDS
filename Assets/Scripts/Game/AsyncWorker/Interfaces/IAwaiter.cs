@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Player.PlayerStateMashine;
+using Game.Player.Weapons.AudioWeapon;
 using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponConfigs;
 

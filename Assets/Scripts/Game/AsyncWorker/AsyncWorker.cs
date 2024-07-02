@@ -5,7 +5,6 @@ using Game.Player.PlayerStateMashine;
 using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.WeaponConfigs;
 using UI.Storage;
-using UniRx;
 using Zenject;
 
 namespace Game.AsyncWorker
@@ -42,28 +41,22 @@ namespace Game.AsyncWorker
         
         public async UniTask AwaitLoadPlayerConfig(PlayerConfigs configs)
         {
-            while (configs.IsLoadAllConfig == false)
-                await UniTask.Yield();
+            await UniTask.WaitUntil(() => configs.IsLoadAllConfig);
         }
         
         public async UniTask AwaitLoadWeaponConfigs(WeaponConfigs configs)
         {
-            while (configs.IsLoadConfigs == false)
-                await UniTask.Yield();
+            await UniTask.WaitUntil(() => configs.IsLoadConfigs);
         }
 
         public async UniTask AwaitLoadShakeCameraConfigs(CameraShakeConfigs cameraShakeConfigs)
         {
-            while (cameraShakeConfigs.IsLoadShakeConfigs == false)
-            {
-                await UniTask.Yield();
-            }
+            await UniTask.WaitUntil(() => cameraShakeConfigs.IsLoadShakeConfigs);
         }
 
         public async UniTask AwaitLoadPrefabConfigs(WeaponPrefabs weaponPrefabs)
         {
-            while (weaponPrefabs.IsLoadConfigs == false)
-                await UniTask.Yield();
+            await UniTask.WaitUntil(() => weaponPrefabs.IsLoadConfigs);
         }
 
         public void Dash(int sign)

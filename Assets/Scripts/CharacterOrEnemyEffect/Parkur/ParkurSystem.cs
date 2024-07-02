@@ -62,17 +62,11 @@ public class ParkurSystem : MonoBehaviour
 
         _animator.SetBool("onSurface", _characterController.isGrounded);
         
-        if (_characterController.isGrounded)
-        {
-            if(_isPlayerOnObstacle) Debug.LogWarning("я на уступе");
-        }
-        
         var checkLanding = CheckLanding();
 
         if (_isPlayerOnObstacle & _lockAtObstacle == false & checkLanding.isLanding)
         {
             _isPlayerOnObstacle = false;
-            Debug.LogWarning("персонаж упал");
         
             // if (_ObjectHeight is >= 0.8f and <= 1.5f)
             // {
@@ -169,7 +163,6 @@ public class ParkurSystem : MonoBehaviour
 
         if (Physics.Raycast(_step.transform.position, Vector3.down, out RaycastHit hitInfo, rayCastDistance, _layerMask)) 
             return (false, default);
-        Debug.LogWarning("падаю");
         return (true, hitInfo);
     }
     
@@ -200,7 +193,7 @@ public class ParkurSystem : MonoBehaviour
             await UniTask.Yield();
         }
         
-        if (_ObjectHeight is >= 1.5f and <= 3f)
+        if (_ObjectHeight is >= 1.5f and <= 5f)
         {
             _animator.CrossFade("ClimbToWall", 0.2f);
             await UniTask.Yield();
@@ -208,7 +201,6 @@ public class ParkurSystem : MonoBehaviour
 
         _isActionState = true;
         _animator.applyRootMotion = true;
-        _characterController.enabled = false;
 
         await DOTween
             .To(() => 0f, x =>
@@ -222,6 +214,5 @@ public class ParkurSystem : MonoBehaviour
 
         _isActionState = false;
         _animator.applyRootMotion = false;
-        _characterController.enabled = true;
     }
 }
