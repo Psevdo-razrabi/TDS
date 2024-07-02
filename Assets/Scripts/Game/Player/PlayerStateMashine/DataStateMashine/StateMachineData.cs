@@ -18,6 +18,8 @@ namespace Game.Player.PlayerStateMashine
         public readonly ReactiveProperty<bool> IsAiming = new();
         public readonly ReactiveProperty<bool> IsDashing = new();
         public bool IsAir;
+        public bool IsPlayerSitDown;
+        public bool IsPlayerCrouch;
         
         private float _xInput;
         private float _yInput;
@@ -87,5 +89,6 @@ namespace Game.Player.PlayerStateMashine
         }
 
         public bool IsInputZero() => _xInput == 0 && _yInput == 0;
+        public bool IsInputZeroX() => _xInput == 0;
     }
 }

@@ -50,8 +50,8 @@ namespace Input
         private void RegisterActionsBuffer()
         {
             SubscribeActionBuffer(_dashClick, _inputSystemMovement.OnDash);
-            SubscribeActionBuffer(_weaponShotClick, _inputSystemWeapon.WeaponComponent.fireComponent.Fire);
-            SubscribeActionBuffer(_weaponReloadClick, _inputSystemWeapon.WeaponComponent.reloadComponent.Reload);
+            SubscribeActionBuffer(_weaponShotClick, _inputSystemWeapon.WeaponComponent.FireComponent.Fire);
+            SubscribeActionBuffer(_weaponReloadClick, _inputSystemWeapon.WeaponComponent.ReloadComponent.Reload);
         }
         
         private void OnEnable()

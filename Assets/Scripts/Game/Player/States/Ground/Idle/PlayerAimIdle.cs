@@ -25,7 +25,7 @@ namespace Game.Player.States
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
-            
+            GravityForce();
             Player.StateChain.HandleState<PlayerAimMoveHandler>();
         }
     }

@@ -15,9 +15,11 @@ namespace Game.Player.Weapons.Decorator
             _action = action;
         }
 
-        public void Execute()
+        public bool CanExecute()
         {
-            if(_handlerOperation()) _action.Execute();
+            var isOperationToExecute = _handlerOperation();
+            if(isOperationToExecute) _action.Execute();
+            return isOperationToExecute;
         }
     }
 }

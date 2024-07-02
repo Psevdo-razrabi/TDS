@@ -28,7 +28,7 @@ namespace Enemy
         
         private void Start()
         {
-            HealthStats = new Health<Enemy>(healthConfigConfig.MaxHealth, _valueCountStorage, new Die<Enemy>(gameObject, _eventController, ragdollHelper));
+            HealthStats = new Health<Enemy>(healthConfigConfig.MaxHealth, _valueCountStorage, new Die<Enemy>(_eventController, ragdollHelper));
         }
     }
 }

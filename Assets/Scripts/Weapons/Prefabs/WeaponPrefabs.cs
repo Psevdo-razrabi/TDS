@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
 using UnityEngine;
 using Zenject;
 
@@ -19,6 +18,7 @@ namespace Game.Player.Weapons.Prefabs
         public readonly string NameLoadPistolPrefab = "Pistol";
         public readonly string NameLoadRiflePrefab = "Rifle";
         public readonly string NameLoadShotgunPrefab = "Shotgun";
+        public GameObject CurrentPrefabWeapon { get; set; }
         private Dictionary<string, (GameObject weapon, GameObject bulletSpawnPoint)> _prefabsWeapon;
         
         private Loader _loader;

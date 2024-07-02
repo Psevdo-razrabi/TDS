@@ -1,5 +1,7 @@
 ﻿using Game.Player.Weapons;
+using Game.Player.Weapons.AudioWeapon;
 using Game.Player.Weapons.ChangeWeapon;
+using Game.Player.Weapons.Commands;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.ReloadStrategy;
@@ -8,6 +10,7 @@ using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using UnityEngine;
+using Weapons.Commands.Recievers;
 
 namespace DI
 {
@@ -17,6 +20,7 @@ namespace DI
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private ChangeCrosshair _changeCrosshair;
         [SerializeField] private WeaponPivots _weaponPivots;
+        [SerializeField] private WeaponAudio _weaponAudio;
 
         public override void InstallBindings()
         {
@@ -31,6 +35,20 @@ namespace DI
             BindConfigs();
             BindCurrentWeapon();
             BindWeaponPrefab();
+            BindWeaponAudio();
+        }
+
+        private void BindWeaponAudio()
+        {
+            BindInstance(_weaponAudio);
+            BindNewInstance<AudioStorage>();
+            BindNewInstance<InitializeWeaponAudio>();
+            BindNewInstance<AudioWeaponCommand>();
+            BindNewInstance<AudioComponent>();
+            
+            BindNewInstance<PistolAudioType>();
+            BindNewInstance<RifleAudioType>();
+            BindNewInstance<ShotgunAudioType>();
         }
 
         private void BindWeaponPrefab()

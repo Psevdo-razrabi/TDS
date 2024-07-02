@@ -63,7 +63,6 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
         _bulletRigidbody = bullet.GetComponent<Rigidbody>();
         Vector3 velocity = _weaponData.BulletPoint.forward * _weaponConfigs.BulletConfig.BulletSpeed;
         _bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity) + _spread.CalculateCrosshairSpread();
-        Debug.Log(_spread.CalculateCrosshairSpread());
         await ReturnBullet(bullet);
     }
     

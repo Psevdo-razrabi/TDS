@@ -48,7 +48,6 @@ public class Spread : IConfigRelize, IInitializable
     public Vector3 CalculateCrosshairSpread()
     {
         float randomX = Random.Range(-_changeCrosshair.TotalExpansion, _changeCrosshair.TotalExpansion);
-        Debug.Log(randomX);
         Vector2 firePointScreenPosition = RectTransformUtility.WorldToScreenPoint(_changeCrosshair.CameraObject, _changeCrosshair.Crosshair.position);
         Vector2 targetScreenPosition = new Vector2(firePointScreenPosition.x + randomX, firePointScreenPosition.y);
         Ray ray = _changeCrosshair.CameraObject.ScreenPointToRay(targetScreenPosition);
@@ -93,8 +92,6 @@ public class Spread : IConfigRelize, IInitializable
         _spreadMultiplier += _multiplierIncreaseRate;
 
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
-        Debug.Log($"ан конфиг макс спреад {_gunConfig.MaxSpread} ");
-        Debug.Log(_currentSpread);
         float stepsToReduce = _currentSpread / _baseIncrement;
 
         _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);

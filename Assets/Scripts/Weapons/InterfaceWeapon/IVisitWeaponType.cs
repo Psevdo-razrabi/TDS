@@ -8,6 +8,5 @@ namespace Weapons.InterfaceWeapon
         void Visit(Pistol pistol);
         void Visit(Rifle rifle);
         void Visit(Shotgun shotgun);
-        void VisitWeapon(WeaponComponent component);
     }
 }

@@ -38,6 +38,7 @@ namespace Game.Player.Weapons.Commands.Invoker
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<ChangeWeaponCommand>());
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<ChangePrefabWeapon>());
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<CommandSetFireMode>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<AudioWeaponCommand>());
 
             var count = _weaponCommands.Count;
 
