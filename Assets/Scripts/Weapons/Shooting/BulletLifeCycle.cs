@@ -72,10 +72,6 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
         await BulletLaunch(bullet);
     }
 
-    private void CheckAimPoint()
-    {
-        _aimPoint = _aimRay.CheckComponent();
-    }
     private async UniTask BulletLaunch(Bullet bullet)
     {
        
