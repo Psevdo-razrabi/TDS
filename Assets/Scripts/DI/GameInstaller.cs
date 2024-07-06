@@ -7,6 +7,7 @@ using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
+using Game.Player.States.Subscribers;
 using Input;
 using UnityEngine;
 
@@ -74,7 +75,7 @@ namespace DI
             BindInstance(inputSystemMouse);
             BindInstance(inputSystemWeapon);
             BindInstance(inputSystemUi);
-            BindNewInstance<MouseInputObserver>();
+            BindNewInstance<InputObserver>();
             BindNewInstance<BufferAction>();
             BindInstance(inputBuffer);
         }
@@ -92,6 +93,7 @@ namespace DI
         {
             BindInstance(player);
             BindInstance(dashTrailEffect);
+            BindNewInstance<CrouchSubscribe>();
         }
 
         private void BindLoader()
@@ -113,6 +115,10 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerDashHandle>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerIdleHandler>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerIdleCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerMoveCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerSitDownCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerStandUpCrouchHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
         }

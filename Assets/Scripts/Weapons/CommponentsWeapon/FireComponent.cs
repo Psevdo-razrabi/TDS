@@ -12,7 +12,7 @@ namespace Game.Player.Weapons
 {
     public class FireComponent : IFireMediator, IFire
     {
-        public readonly MouseInputObserver MouseInputObserver;
+        public readonly InputObserver InputObserver;
         public readonly ActionsCleaner ActionsCleaner;
         public readonly CurrentWeapon CurrentWeapon;
         public Action ShotFired;
@@ -20,11 +20,11 @@ namespace Game.Player.Weapons
         private IAudioWeapon _audioWeapon;
         private readonly WeaponData _weaponData;
         
-        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, 
+        public FireComponent(WeaponData weaponData, InputObserver inputObserver, 
             ActionsCleaner actionsCleaner, CurrentWeapon currentWeapon, IAudioWeapon audioWeapon)
         {
             _weaponData = weaponData;
-            MouseInputObserver = mouseInputObserver;
+            InputObserver = inputObserver;
             ActionsCleaner = actionsCleaner;
             CurrentWeapon = currentWeapon;
             _audioWeapon = audioWeapon;

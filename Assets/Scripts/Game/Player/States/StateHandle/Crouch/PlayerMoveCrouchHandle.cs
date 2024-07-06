@@ -8,7 +8,7 @@ namespace Game.Player.States.StateHandle
         public InitializationStateMachine StateMachine { get; }
         public PlayerMoveCrouchHandle(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
 
-        public bool CanHandle() => StateMachine.Data.IsPlayerSitDown;
+        public bool CanHandle() => StateMachine.Data.IsCrouch && !StateMachine.Data.IsInputZero();
 
         public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerCrouch>();
     }

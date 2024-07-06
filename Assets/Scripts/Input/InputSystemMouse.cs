@@ -10,37 +10,37 @@ namespace Input
     public class InputSystemMouse : InputSystemBase, IMouse
     {
         public Vector2ReactiveProperty PositionMouse { get; } = new();
-        private Action _mouseRightClickUpHandler;
-        private Action _mouseRightClickDownHandler;
+        public Action mouseRightClickUpHandler { get; private set; }
+        public Action mouseRightClickDownHandler { get; private set; }
         
         
-        public void OnSubscribeRightMouseClickUp(Action action)
+        public void OnSubscribeRightMouseClickDown(Action action)
         {
-            _mouseRightClickUpHandler = action;
+            mouseRightClickUpHandler = action;
             InputSystemNew.Mouse.Aim.performed += MouseRightClickUpHandler;
         }
 
-        public void OnSubscribeRightMouseClickDown(Action action)
+        public void OnSubscribeRightMouseClickUp(Action action)
         {
-            _mouseRightClickDownHandler = action;
+            mouseRightClickDownHandler = action;
             InputSystemNew.Mouse.Aim.canceled += MouseRightClickDownHandler;
-        }
-
-        public void OnUnsubscribeRightMouseClickUp()
-        {
-            InputSystemNew.Mouse.Aim.performed -= MouseRightClickUpHandler;
-            _mouseRightClickUpHandler = null;
         }
 
         public void OnUnsubscribeRightMouseClickDown()
         {
+            InputSystemNew.Mouse.Aim.performed -= MouseRightClickUpHandler;
+            mouseRightClickUpHandler = null;
+        }
+
+        public void OnUnsubscribeRightMouseClickUp()
+        {
             InputSystemNew.Mouse.Aim.canceled -= MouseRightClickDownHandler;
-            _mouseRightClickDownHandler = null;
+            mouseRightClickDownHandler = null;
         }
         
-        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>  _mouseRightClickUpHandler?.Invoke();
+        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>  mouseRightClickUpHandler?.Invoke();
 
-        private void MouseRightClickDownHandler(InputAction.CallbackContext context) => _mouseRightClickDownHandler?.Invoke();
+        private void MouseRightClickDownHandler(InputAction.CallbackContext context) => mouseRightClickDownHandler?.Invoke();
         
         
         private void MousePosition(InputAction.CallbackContext obj)

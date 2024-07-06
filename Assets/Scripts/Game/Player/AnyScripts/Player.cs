@@ -23,6 +23,7 @@ namespace Game.Player
         public AnimatorController AnimatorController { get; private set; }
         public CharacterController CharacterController { get; private set; }
         public IHealthStats HealthStats { get; private set; }
+        public InputObserver InputObserver { get; private set; }
         public FOWRadiusChanger RadiusChanger { get; private set; }
         [Inject] public PlayerConfigs PlayerConfigs { get; private set; }
         [Inject] public StateHandleChain StateChain { get; private set; }
@@ -31,7 +32,6 @@ namespace Game.Player
         private ValueCountStorage<float> ValueModelHealth { get; set; }
         [Inject] public EventController EventController { get; private set; }
         [field: SerializeField] public GameObject PlayerModelRotate { get; private set; }
-        [field: SerializeField] public GameObject PlayerStep { get; private set; }
         public DashTrailEffect DashTrailEffect { get; private set; }
 
         private InitializationStateMachine _initializationStateMachine;
@@ -41,7 +41,7 @@ namespace Game.Player
         [Inject]
         private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
             InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
-            InitializationStateMachine stateMachine, DashTrailEffect trailEffect, FOWRadiusChanger radiusChanger)
+            InitializationStateMachine stateMachine, DashTrailEffect trailEffect, FOWRadiusChanger radiusChanger, InputObserver inputObserver)
         {
             PlayerAim = playerAim;
             InputSystem = inputSystemMovement;
@@ -50,6 +50,7 @@ namespace Game.Player
             _initializationStateMachine = stateMachine;
             DashTrailEffect = trailEffect;
             RadiusChanger = radiusChanger;
+            InputObserver = inputObserver;
         }
 
         private async void Start()

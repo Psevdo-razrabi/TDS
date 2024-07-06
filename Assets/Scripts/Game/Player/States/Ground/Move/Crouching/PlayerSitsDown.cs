@@ -1,9 +1,7 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using DG.Tweening.Core;
+﻿using Cysharp.Threading.Tasks;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
+using Game.Player.States.StateHandle;
 using UnityEngine;
 
 namespace Game.Player.States.Crouching
@@ -17,15 +15,22 @@ namespace Game.Player.States.Crouching
 
         public override async void OnEnter()
         {
-            base.OnEnter();
             _crouchAndStandConfig = Player.PlayerConfigs.SitDownCrouch;
             Data.IsPlayerSitDown = true;
+            Debug.Log("вошел в crouchSitDown");
+            Player.InputSystemMouse.mouseRightClickUpHandler?.Invoke();
+            Player.InputSystemMouse.OnUnsubscribeRightMouseClickUp();
+            Player.InputSystemMouse.OnUnsubscribeRightMouseClickDown();
             await PlayerSitDown();
+            Player.StateChain.HandleState<PlayerMoveCrouchHandle>();
+            Player.StateChain.HandleState<PlayerIdleCrouchHandle>();
+            Player.StateChain.HandleState<PlayerStandUpCrouchHandler>();
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            Debug.Log("вышел из crouchSitDown");
             Data.IsPlayerSitDown = false;
         }
 
@@ -33,6 +38,7 @@ namespace Game.Player.States.Crouching
         {
             base.OnUpdateBehaviour();
             GravityForce();
+            Debug.LogWarning(Data.IsAim);
         }
         
         private async UniTask PlayerSitDown()
@@ -49,20 +55,6 @@ namespace Game.Player.States.Crouching
 
             await UniTask.WhenAll(heightChange, centerChange);
             Data.IsPlayerCrouch = true;
-        }
-
-        protected async UniTask InterpolatedFloatWithEase(float startValue, Action<float> setter, float endValue, float duration, AnimationCurve curve)
-        {
-            await DOTween
-                .To(() => startValue, x => setter(x), endValue, duration)
-                .SetEase(curve);
-        }
-        
-        protected async UniTask InterpolatedVector3WithEase(Vector3 startValue, Action<Vector3> setter, Vector3 endValue, float duration, AnimationCurve curve)
-        {
-            await DOTween
-                .To(() => startValue, x => setter(x), endValue, duration)
-                .SetEase(curve);
         }
 
         /*private async UniTask ChangeHeight()

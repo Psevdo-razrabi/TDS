@@ -45,12 +45,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - PlayerConfig
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 84064ed8769ef4b429c18360d6d52763
-    m_Address: FindPlace
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PlayerConfig
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: b5cbeb14e16a49442ae6a3d8d29ae37c
     m_Address: SitDown
     m_ReadOnly: 0
@@ -63,6 +57,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: df0b7fe4b833f4a448495c4b6b719b3c
     m_Address: CrouchingMovement
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerConfig
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 691298c4432841145a5ca79e23aa248e
+    m_Address: CrouchParameters
     m_ReadOnly: 0
     m_SerializedLabels:
     - PlayerConfig
