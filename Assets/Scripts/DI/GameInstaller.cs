@@ -1,4 +1,5 @@
-﻿using CharacterOrEnemyEffect.Factory;
+﻿using CharacterOrEnemyEffect;
+using CharacterOrEnemyEffect.Factory;
 using FOW;
 using Game.AsyncWorker;
 using Game.Player;
@@ -63,7 +64,13 @@ namespace DI
         {
             BindNewInstance<FactoryComponent>();
             BindNewInstance<FactoryGameObject>();
-            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().AsSingle().WithArguments(true, "Mesh", 10).NonLazy();
+            Container
+                .Bind<FactoryComponentWithMonoBehaviour>()
+                .To<FactoryComponentWithMonoBehaviour>()
+                .AsSingle()
+                .WithArguments(true, "Mesh", 10)
+                .WhenInjectedInto<CreateVFXTrail>()
+                .NonLazy();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();
