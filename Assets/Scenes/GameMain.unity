@@ -4277,7 +4277,7 @@ MonoBehaviour:
   inputSystemMovement: {fileID: 653300010}
   animatorController: {fileID: 281113073}
   playerAim: {fileID: 635675289}
-  player: {fileID: 2030387048}
+  player: {fileID: 0}
   dashTrailEffect: {fileID: 2030387053}
   fireMode: {fileID: 1193399310}
   inputSystemMouse: {fileID: 653300013}
@@ -9149,20 +9149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameObject: {fileID: 7885301876833364058}
---- !u!114 &2030387048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132147963920946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 466fc7027bad400c948cad01fa81861f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <PlayerModelRotate>k__BackingField: {fileID: 635675287}
-  ragdollHelper: {fileID: 2030387050}
 --- !u!143 &2030387049
 CharacterController:
   m_ObjectHideFlags: 0
@@ -9745,9 +9731,9 @@ GameObject:
   - component: {fileID: 2030387051}
   - component: {fileID: 2030387050}
   - component: {fileID: 2030387049}
-  - component: {fileID: 2030387048}
   - component: {fileID: 5866666019879486195}
   - component: {fileID: 5866666019879486196}
+  - component: {fileID: 5866666019879486197}
   m_Layer: 7
   m_Name: Player@Rifle Idle
   m_TagString: Untagged
@@ -11225,7 +11211,7 @@ MonoBehaviour:
   HeightCorrectionForStep: 0.05
   HeightCorrectionForClamb: 0.2
   HeightCorrectionForClambOnWall: 0
-  Player: {fileID: 2030387048}
+  Player: {fileID: 0}
   _isPlayerOnObstacle: 0
   _lockAtObstacle: 0
   rayCastDistance: 1
@@ -11233,6 +11219,20 @@ MonoBehaviour:
   angleThreshold: 0.5
   currentAngle: 0
   startMaxAngle: 1
+--- !u!114 &5866666019879486197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147963920946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2509ecc1597415ab8a7ca9f62976298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PlayerModelRotate>k__BackingField: {fileID: 635675287}
+  ragdollHelper: {fileID: 2030387050}
 --- !u!4 &5901452233769044491
 Transform:
   m_ObjectHideFlags: 0

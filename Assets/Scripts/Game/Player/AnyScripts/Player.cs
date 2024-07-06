@@ -39,9 +39,10 @@ namespace Game.Player
         [SerializeField] private RagdollHelper ragdollHelper;
 
         [Inject]
-        private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
-            InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
-            InitializationStateMachine stateMachine, DashTrailEffect trailEffect, FOWRadiusChanger radiusChanger, InputObserver inputObserver)
+        private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement,
+            InputSystemMouse inputSystemMouse, AnimatorController animatorController,
+            InitializationStateMachine stateMachine, DashTrailEffect trailEffect, FOWRadiusChanger radiusChanger,
+            InputObserver inputObserver)
         {
             PlayerAim = playerAim;
             InputSystem = inputSystemMovement;
@@ -58,20 +59,20 @@ namespace Game.Player
             CharacterController = GetComponent<CharacterController>();
             await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
             StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
-            
+
             HealthStats =
                 new RestoringHealth(
-                    new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
+                    new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth,
                         new Die<Player>(EventController, ragdollHelper)),
                     PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
-            
+
             HealthStats.Subscribe();
         }
 
         private void Update()
         {
-            if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
-            
+            if (!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
+
             _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
         }
 
@@ -86,7 +87,7 @@ namespace Game.Player
             _disposable.Clear();
             _disposable.Dispose();
         }
-        
+
         public void InitModel(ValueCountStorage<float> valueCountStorage)
         {
             ValueModelHealth = valueCountStorage;
