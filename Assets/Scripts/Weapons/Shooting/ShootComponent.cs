@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
@@ -59,8 +60,19 @@ public class ShootComponent : IInitializable, IConfigRelize
         _currentWeapon.LoadConfig(weaponComponent);
         _gunConfig = _currentWeapon.CurrentWeaponConfig;
         _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_gunConfig.TotalAmmo);
+        InitDamageForType();
+        _weaponData.Dispose();
+        _weaponData.SubscribeCanShot();
     }
 
+    private void InitDamageForType()
+    {
+        foreach (var bodyTypeDamage in _gunConfig.DamageSettings)
+        {
+            _weaponData.DamageForType[bodyTypeDamage.BodyType] = bodyTypeDamage.Damage;
+        }
+    }
+    
     public void Initialize()
     {
         _distributionConfigs.ClassesWantConfig.Add(this);

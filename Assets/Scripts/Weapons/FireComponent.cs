@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Player.PlayerStateMashine;
 using Game.Player.Weapons.Decorator;
 using Game.Player.Weapons.InterfaceWeapon;
 using Game.Player.Weapons.InterfaseWeapon;
@@ -12,6 +13,7 @@ namespace Game.Player.Weapons
     public class FireComponent : IFireMediator, IFire
     {
         private FireStrategy _fireStrategy;
+        private StateMachineData _stateMachineData;
         public readonly MouseInputObserver MouseInputObserver;
         public readonly ActionsCleaner ActionsCleaner;
         public readonly WeaponData WeaponData;
@@ -19,8 +21,9 @@ namespace Game.Player.Weapons
         public readonly CurrentWeapon CurrentWeapon;
         public Action ShotFired;
         
-        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner, WeaponConfigs.WeaponConfigs weaponConfigs, CurrentWeapon currentWeapon)
+        public FireComponent(WeaponData weaponData, MouseInputObserver mouseInputObserver, ActionsCleaner actionsCleaner, WeaponConfigs.WeaponConfigs weaponConfigs, CurrentWeapon currentWeapon,StateMachineData stateMachineData)
         {
+            _stateMachineData = stateMachineData;
             WeaponData = weaponData;
             MouseInputObserver = mouseInputObserver;
             ActionsCleaner = actionsCleaner;
@@ -31,7 +34,7 @@ namespace Game.Player.Weapons
         public void FireBullet()
         {
             var fireAction = new FireBulletAction(WeaponData, _fireStrategy,() => ShotFired?.Invoke());
-            var handler = new HandlerDecoratorActions(() => !WeaponData.IsReloading, fireAction);
+            var handler = new HandlerDecoratorActions(() => WeaponData.IsReloading == false && _stateMachineData.IsDashing == false, fireAction);
             handler.Execute();
         }
         

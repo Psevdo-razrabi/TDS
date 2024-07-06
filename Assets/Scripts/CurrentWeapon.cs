@@ -87,4 +87,9 @@ public class CurrentWeapon : IVisitWeaponType
             })
             .AddTo(_compositeDisposable);
     }
+
+    private void RestoreWeaponState()
+    {
+        
+    }
 }

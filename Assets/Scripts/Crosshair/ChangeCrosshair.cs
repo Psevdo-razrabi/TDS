@@ -27,7 +27,7 @@ public class ChangeCrosshair : MonoBehaviour
     public Camera CameraObject => _camera;
     public Transform Crosshair => _crosshair.transform;
     
-    void Start()
+    private void Start()
     {
         _canMove = true; 
         

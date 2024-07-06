@@ -93,8 +93,7 @@ public class Spread : IConfigRelize, IInitializable
         _spreadMultiplier += _multiplierIncreaseRate;
 
         _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
-        Debug.Log($"ан конфиг макс спреад {_gunConfig.MaxSpread} ");
-        Debug.Log(_currentSpread);
+        Debug.Log("разброс " + _currentSpread);
         float stepsToReduce = _currentSpread / _baseIncrement;
 
         _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);

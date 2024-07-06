@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Player.PlayerStateMashine;
 using Game.Player.Weapons.Decorator;
 using Game.Player.Weapons.InterfaseWeapon;
 using Game.Player.Weapons.ReloadStrategy;
@@ -15,6 +16,7 @@ namespace Game.Player.Weapons
         private CompositeDisposable _compositeDisposable = new();
         private WeaponConfigs.WeaponConfigs _weaponConfigs;
         private readonly CurrentWeapon _currentWeapon;
+        private readonly StateMachineData _stateMachineData;
         
         public readonly WeaponData WeaponData;
         public readonly ValueCountStorage<float> ImageReloadValue;
@@ -22,8 +24,9 @@ namespace Game.Player.Weapons
         public readonly BoolStorage BoolStorage;
         
         
-        public ReloadComponent(WeaponData weaponData, ValueCountStorage<float> imageReloadValue,ValueCountStorage<int> ammoReloadValue, BoolStorage boolStorage,WeaponConfigs.WeaponConfigs weaponConfigs, CurrentWeapon currentWeapon)
+        public ReloadComponent(WeaponData weaponData, ValueCountStorage<float> imageReloadValue,ValueCountStorage<int> ammoReloadValue, BoolStorage boolStorage,WeaponConfigs.WeaponConfigs weaponConfigs, CurrentWeapon currentWeapon, StateMachineData stateMachineData)
         {
+            _stateMachineData = stateMachineData;
             WeaponData = weaponData;
             ImageReloadValue = imageReloadValue;
             AmmoReloadValue = ammoReloadValue;
@@ -36,7 +39,7 @@ namespace Game.Player.Weapons
         public void Reload()
         {
             var fireAction = new ReloadAction(this, _reloadStrategy);
-            var handler = new HandlerDecoratorActions(() => !WeaponData.IsReloading, fireAction);
+            var handler = new HandlerDecoratorActions(() => WeaponData.IsReloading == false && _stateMachineData.IsDashing == false, fireAction);
             handler.Execute();
         }
         

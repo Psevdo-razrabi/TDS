@@ -8,7 +8,7 @@ public class Crosshair : MonoBehaviour
 
     private Vector2 _targetCrosshairPos;
 
-    public Transform CrossHair => _crosshair.transform;
+    public RectTransform CrossHair => _crosshair;
 
     private void Awake()
     {
