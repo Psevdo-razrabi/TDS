@@ -9,7 +9,7 @@ using Zenject;
 
 public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
 { 
-     private CameraShakeConfigs _cameraShakeConfigs;
+    private CameraShakeConfigs _cameraShakeConfigs;
     private CameraShakeConfig _shakeConfig;
     private ICameraProvider _cameraProvider;
     private DistributionConfigs _distributionConfigs;
@@ -56,7 +56,7 @@ public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
 
     public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
-        VisitWeapon(weaponComponent);
+        weaponComponent.Accept(this);
     }
 
     public void Visit(Pistol pistol)
@@ -72,10 +72,5 @@ public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
     public void Visit(Shotgun shotgun)
     {
         _shakeConfig = _cameraShakeConfigs.ShotGunShakeConfig;
-    }
-
-    public void VisitWeapon(WeaponComponent component)
-    {
-        Visit((dynamic)component);
     }
 }

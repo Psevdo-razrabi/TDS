@@ -112,6 +112,24 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouching"",
+                    ""type"": ""Button"",
+                    ""id"": ""23ad8b5a-1faf-4dfb-bcd2-9ab6bff6e36b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Clamb"",
+                    ""type"": ""Button"",
+                    ""id"": ""7659a99a-7a21-4929-a3c5-2cee5449e027"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -134,6 +152,28 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfff9625-e3ba-47ef-bb04-6f5f6076e8ad"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouching"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""587a1505-aa73-42f4-8105-4ba7bdcc841c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Clamb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -267,6 +307,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
         m_Movement_Dash = m_Movement.FindAction("Dash", throwIfNotFound: true);
+        m_Movement_Crouching = m_Movement.FindAction("Crouching", throwIfNotFound: true);
+        m_Movement_Clamb = m_Movement.FindAction("Clamb", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
@@ -401,12 +443,16 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
     private readonly InputAction m_Movement_Jump;
     private readonly InputAction m_Movement_Dash;
+    private readonly InputAction m_Movement_Crouching;
+    private readonly InputAction m_Movement_Clamb;
     public struct MovementActions
     {
         private @InputSystem m_Wrapper;
         public MovementActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Movement_Jump;
         public InputAction @Dash => m_Wrapper.m_Movement_Dash;
+        public InputAction @Crouching => m_Wrapper.m_Movement_Crouching;
+        public InputAction @Clamb => m_Wrapper.m_Movement_Clamb;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -422,6 +468,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
+            @Crouching.started += instance.OnCrouching;
+            @Crouching.performed += instance.OnCrouching;
+            @Crouching.canceled += instance.OnCrouching;
+            @Clamb.started += instance.OnClamb;
+            @Clamb.performed += instance.OnClamb;
+            @Clamb.canceled += instance.OnClamb;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -432,6 +484,12 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
+            @Crouching.started -= instance.OnCrouching;
+            @Crouching.performed -= instance.OnCrouching;
+            @Crouching.canceled -= instance.OnCrouching;
+            @Clamb.started -= instance.OnClamb;
+            @Clamb.performed -= instance.OnClamb;
+            @Clamb.canceled -= instance.OnClamb;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -575,6 +633,8 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     {
         void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnCrouching(InputAction.CallbackContext context);
+        void OnClamb(InputAction.CallbackContext context);
     }
     public interface IWeaponActions
     {

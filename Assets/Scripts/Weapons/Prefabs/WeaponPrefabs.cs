@@ -10,6 +10,7 @@ namespace Game.Player.Weapons.Prefabs
         public IReadOnlyDictionary<string, (GameObject weapon, GameObject bulletSpawnPoint)> PrefabsWeapon { get;
             private set;
         }
+        
         public Dictionary<string, GameObject> InitPrefab { get; set; }
         
         public bool IsLoadConfigs { get; private set; }
@@ -17,6 +18,7 @@ namespace Game.Player.Weapons.Prefabs
         public readonly string NameLoadPistolPrefab = "Pistol";
         public readonly string NameLoadRiflePrefab = "Rifle";
         public readonly string NameLoadShotgunPrefab = "Shotgun";
+        public GameObject CurrentPrefabWeapon { get; set; }
         private Dictionary<string, (GameObject weapon, GameObject bulletSpawnPoint)> _prefabsWeapon;
         
         private Loader _loader;

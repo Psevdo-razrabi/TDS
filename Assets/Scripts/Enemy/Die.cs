@@ -8,13 +8,11 @@ namespace Enemy
 {
     public class Die<T> : IDie<T>
     {
-        private readonly GameObject _gameObject;
         private readonly EventController _eventController;
         private readonly RagdollHelper _ragdollHelper;
 
-        public Die(GameObject gameObject, EventController eventController, RagdollHelper ragdollHelper)
+        public Die(EventController eventController, RagdollHelper ragdollHelper)
         {
-            _gameObject = gameObject;
             _eventController = eventController;
             _ragdollHelper = ragdollHelper;
         }

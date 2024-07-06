@@ -1,4 +1,5 @@
-﻿using Game.AsyncWorker.Interfaces;
+﻿using System.Threading;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.Weapons.Prefabs;
@@ -16,9 +17,9 @@ namespace Game.AsyncWorker
     public class AsyncWorker : IInitializable, IAwaiter
     {
         private IStateDataWorker _dataWorkerStateMachine;
-        private Queue<Action> _queueTask = new();
+        private Queue<Action> _dashAction = new();
+        private readonly Queue<Action> _dashRollback = new();
         private int _maxQueueSize;
-        private bool _isTaskComplite;
         private ValueCountStorage<int> _valueModelDash;
         
         public async void Initialize()
@@ -31,61 +32,56 @@ namespace Game.AsyncWorker
                 EnqueueToQueue(() => DashOperationCount(1));
             
             _valueModelDash.SetValue(_maxQueueSize);
+
+            ThreadPool.QueueUserWorkItem(async (state) =>
+            {
+                await ProcessQueue();
+            });
         }
         
         public async UniTask AwaitLoadPlayerConfig(PlayerConfigs configs)
         {
-            while (configs.IsLoadAllConfig == false)
-                await UniTask.Yield();
+            await UniTask.WaitUntil(() => configs.IsLoadAllConfig);
         }
         
         public async UniTask AwaitLoadWeaponConfigs(WeaponConfigs configs)
         {
-            while (configs.IsLoadConfigs == false)
-                await UniTask.Yield();
+            await UniTask.WaitUntil(() => configs.IsLoadConfigs);
         }
 
         public async UniTask AwaitLoadShakeCameraConfigs(CameraShakeConfigs cameraShakeConfigs)
         {
-            while (cameraShakeConfigs.IsLoadShakeConfigs == false)
-            {
-                await UniTask.Yield();
-            }
+            await UniTask.WaitUntil(() => cameraShakeConfigs.IsLoadShakeConfigs);
         }
 
         public async UniTask AwaitLoadPrefabConfigs(WeaponPrefabs weaponPrefabs)
         {
-            while (weaponPrefabs.IsLoadConfigs == false)
-                await UniTask.Yield();
+            await UniTask.WaitUntil(() => weaponPrefabs.IsLoadConfigs);
         }
 
-        public async UniTask Dash(int sign)
+        public void Dash(int sign)
         {
             DashOperationCount(sign);
-            _isTaskComplite = false;
-            await UniTask.SwitchToThreadPool(); 
-            await DequeueToQueue();
-            await AwaitLoadPlayerConfig();
-            await UniTask.SwitchToMainThread();
-            EnqueueToQueue(() => DashOperationCount(1));
+            
+            _dashRollback.Enqueue(() =>
+            {
+                DequeueToQueue();
+                EnqueueToQueue(() => DashOperationCount(1));
+            });
         }
 
         private void EnqueueToQueue(Action delegateToQueue)
         {
-            if (_queueTask.Count < _maxQueueSize)
-                _queueTask.Enqueue(delegateToQueue);
+            if (_dashAction.Count < _maxQueueSize)
+                _dashAction.Enqueue(delegateToQueue);
             else
                 Debug.LogWarning("Очередь задач переполнена");
         }
 
-        private async UniTask DequeueToQueue()
+        private void DequeueToQueue()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_dataWorkerStateMachine.PlayerConfigs.DashConfig.DashDelay));
-
-            if (_queueTask.Count > 0)
-                _queueTask.Dequeue()?.Invoke();
-            
-            _isTaskComplite = true;
+            if (_dashAction.Count > 0)
+                _dashAction.Dequeue()?.Invoke();
         }
 
         private void DashOperationCount(int sign)
@@ -94,13 +90,6 @@ namespace Game.AsyncWorker
             _valueModelDash.ChangeValue(_dataWorkerStateMachine.StateMachineData.DashCount);
             _dataWorkerStateMachine.StateMachineData.DashCount =
                 Mathf.Clamp(_dataWorkerStateMachine.StateMachineData.DashCount, 0, _dataWorkerStateMachine.PlayerConfigs.DashConfig.NumberChargesDash);
-            Debug.Log(_dataWorkerStateMachine.StateMachineData.DashCount);
-        }
-        
-        private async UniTask AwaitLoadPlayerConfig()
-        {
-            while (!_isTaskComplite)
-                await UniTask.Yield();
         }
         
         [Inject]
@@ -108,6 +97,21 @@ namespace Game.AsyncWorker
         {
             _dataWorkerStateMachine = dataWorker;
             _valueModelDash = valueModelDash;
+        }
+
+        private async UniTask ProcessQueue()
+        {
+            while (true)
+            {
+                while (_dashRollback.Count == 0)
+                {
+                    await UniTask.Yield();
+                }
+                
+                var action = _dashRollback.Dequeue();
+                await UniTask.Delay(TimeSpan.FromSeconds(_dataWorkerStateMachine.PlayerConfigs.DashConfig.DashDelay));
+                action();
+            }
         }
     }
 }

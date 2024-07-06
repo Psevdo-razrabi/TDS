@@ -7,7 +7,6 @@ using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using Input.Interface;
-using UnityEngine;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
@@ -50,19 +49,15 @@ namespace Customs
         {
             AddFireModes(_weaponConfigs.ShotgunConfig);
         }
-
-        public void VisitWeapon(WeaponComponent component)
+        
+        
+        public void SetFireModes(WeaponComponent weaponComponent)
         {
             _methodInfos = new List<MethodInfo>();
             for (_index = 0; _index < _allMethodUseAttribute.Length; _index++)
             {
-                Visit((dynamic)component);
+                weaponComponent.Accept(this);
             }
-        }
-        
-        public void SetFireModes(WeaponComponent weaponComponent)
-        {
-            VisitWeapon(weaponComponent);
             _changeModeFire.SetFireModes(SetMethod());
         }
         

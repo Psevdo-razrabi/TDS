@@ -9,18 +9,13 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
 {
     public Vector2ReactiveProperty Move { get; } = new();
     public event Action OnJump;
-    
+    public Action OnDash;
     private Action _dashButton;
     private Subject<Unit> _delayedСlick = new();
     
     public void OnSubscribeDash(Action action)
     {
         _dashButton = action;
-    }
-
-    public void OnUnsubscribeDash()
-    {
-        _dashButton = null;
     }
 
     private void DashClickHandler() => _dashButton?.Invoke();
@@ -37,10 +32,22 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
     
     private async void OnEnable()
     {
+        OnDash += DashClickHandler;
+        await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
+        Subscribe();
+    }
+
+    private void OnDisable()
+    {
+        OnDash -= DashClickHandler;
+        Unsubscribe();
+        Clear();
+    }
+
+    private void Subscribe()
+    {
         InputSystemNew.Movement.Jump.performed += Jump;
         InputSystemNew.Movement.Dash.performed += _ => _delayedСlick.OnNext(Unit.Default);
-
-        await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
         
         _delayedСlick
             .ThrottleFirst(TimeSpan.FromSeconds(PlayerConfigs.DashConfig.DelayAfterEachDash))
@@ -48,13 +55,18 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
             .AddTo(CompositeDisposable);
     }
 
-    private void OnDisable()
+    private void Unsubscribe()
+    {
+        InputSystemNew.Movement.Jump.performed -= Jump;
+        InputSystemNew.Movement.Dash.performed -= _ => _delayedСlick.OnNext(Unit.Default);
+        _dashButton = null;
+        OnDash -= DashClickHandler;
+    }
+
+    private void Clear()
     {
         CompositeDisposable.Clear();
         CompositeDisposable.Dispose();
-        InputSystemNew.Movement.Jump.performed -= Jump;
-        InputSystemNew.Movement.Dash.performed -= _ => _delayedСlick.OnNext(Unit.Default);
-        
         InputSystemNew.Disable();
     }
 }

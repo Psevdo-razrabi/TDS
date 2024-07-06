@@ -16,9 +16,9 @@ TagManager:
   - Enemy
   - Obstacle
   - Bullet
-  - Floor
-  - 
-  - 
+  - Wall
+  - ClambingObject
+  - CrouchingObject
   - 
   - 
   - 

@@ -1,11 +1,15 @@
-﻿using Game.AsyncWorker;
+﻿using CharacterOrEnemyEffect.Factory;
+using FOW;
+using Game.AsyncWorker;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine;
+using Game.Player.PlayerStateMashine.Configs;
+using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
+using Game.Player.States.Subscribers;
 using Input;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DI
 {
@@ -20,6 +24,9 @@ namespace DI
         [SerializeField] private InputSystemMouse inputSystemMouse;
         [SerializeField] private InputSystemWeapon inputSystemWeapon;
         [SerializeField] private InputSystemUi inputSystemUi;
+        [SerializeField] private InputBuffer inputBuffer;
+        [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
+        [SerializeField] private StorageAssetReference _storageAssetReference;
         
         public override void InstallBindings()
         {
@@ -35,6 +42,28 @@ namespace DI
             BindStateMachineData();
             BindAsyncWorker();
             BindEffect();
+            BindFactory();
+            BindPool();
+            BindRevealer();
+        }
+
+        private void BindRevealer()
+        {
+            BindInstance(fogOfWarRevealer3D);
+            BindNewInstance<FOWRadiusChanger>();
+            BindNewInstance<HiderManager>();
+        }
+
+        private void BindPool()
+        {
+            BindNewInstance<PoolObject>();
+        }
+
+        private void BindFactory()
+        {
+            BindNewInstance<FactoryComponent>();
+            BindNewInstance<FactoryGameObject>();
+            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().AsSingle().WithArguments(true, "Mesh", 10).NonLazy();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();
@@ -46,8 +75,9 @@ namespace DI
             BindInstance(inputSystemMouse);
             BindInstance(inputSystemWeapon);
             BindInstance(inputSystemUi);
-            BindNewInstance<MouseInputObserver>();
-            
+            BindNewInstance<InputObserver>();
+            BindNewInstance<BufferAction>();
+            BindInstance(inputBuffer);
         }
 
         private void BindEffect()
@@ -63,9 +93,14 @@ namespace DI
         {
             BindInstance(player);
             BindInstance(dashTrailEffect);
+            BindNewInstance<CrouchSubscribe>();
         }
-        
-        private void BindLoader() => BindNewInstance<Loader>();
+
+        private void BindLoader()
+        {
+            BindNewInstance<Loader>();
+            BindInstance(_storageAssetReference);
+        }
 
         private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
 
@@ -80,9 +115,12 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerDashHandle>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerIdleHandler>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerIdleCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerMoveCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerSitDownCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerStandUpCrouchHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
-            
         }
 
         private void BindAsyncWorker() => BindNewInstance<AsyncWorker>();

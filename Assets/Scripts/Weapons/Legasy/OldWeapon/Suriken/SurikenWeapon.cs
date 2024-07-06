@@ -37,7 +37,7 @@ namespace Game.Player.Weapons.Suriken
             while (true)
             {
                 Collider[] enemiesInRange =
-                    Physics.OverlapSphere(transform.position, WeaponStats[CurrentLevel - 1].Range, _layerMask);
+                    PhysicsWorld.OverlapSphere(transform.position, WeaponStats[CurrentLevel - 1].Range, _layerMask);
                 if (enemiesInRange.Length > 0)
                 {
                     Vector3 targetPosition = enemiesInRange[Random.Range(0, enemiesInRange.Length)].transform.position;

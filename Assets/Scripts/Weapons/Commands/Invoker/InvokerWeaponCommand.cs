@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using Game.Player.Weapons.Commands.Factory;
+using CharacterOrEnemyEffect.Factory;
 using UnityEngine;
 using Zenject;
 
@@ -10,10 +9,10 @@ namespace Game.Player.Weapons.Commands.Invoker
     public class InvokerWeaponCommand : IInitializable, IDisposable
     {
         private readonly ConcurrentQueue<Command> _weaponCommands = new();
-        private readonly FactoryCommands _factoryCommands;
+        private readonly FactoryComponent _factoryCommands;
         private event Action<WeaponComponent> InvokeCommands;
 
-        public InvokerWeaponCommand(FactoryCommands factoryCommands)
+        public InvokerWeaponCommand(FactoryComponent factoryCommands)
         {
             _factoryCommands = factoryCommands;
         }
@@ -28,17 +27,18 @@ namespace Game.Player.Weapons.Commands.Invoker
             InvokeCommands += CreateCommands;
         }
         
-        public void OnInvokeCommands(WeaponComponent weaponComponent)
+        public void OnInvokeCommands(WeaponComponent weaponComponent) 
         {
             InvokeCommands?.Invoke(weaponComponent);
         }
 
         private void CreateCommands(WeaponComponent weaponComponent)
         {
-            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<InitializeConfigCommand>());
-            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<ChangeWeaponCommand>());
-            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<ChangePrefabWeapon>());
-            _weaponCommands.Enqueue(_factoryCommands.CreateCommand<CommandSetFireMode>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<InitializeConfigCommand>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<ChangeWeaponCommand>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<ChangePrefabWeapon>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<CommandSetFireMode>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<AudioWeaponCommand>());
 
             var count = _weaponCommands.Count;
 

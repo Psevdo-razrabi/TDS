@@ -10,5 +10,6 @@ namespace Game.Player.PlayerStateMashine.Configs
         [field: SerializeField] public float SpeedBackwards { get; private set; }
         [field: SerializeField] public float SpeedAngleForward { get; private set; }
         [field: SerializeField] public float SpeedAngleBackwards { get; private set; }
+        [field: SerializeField] public float TimeInterpolateSpeed { get; private set; }
     }
 }

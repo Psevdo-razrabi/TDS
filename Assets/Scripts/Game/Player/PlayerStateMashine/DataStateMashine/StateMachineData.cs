@@ -6,7 +6,7 @@ namespace Game.Player.PlayerStateMashine
 {
     public class StateMachineData
     {
-        private PlayerConfigs _playerConfigs;
+        private readonly PlayerConfigs _playerConfigs;
 
         public StateMachineData(PlayerConfigs configs)
         {
@@ -15,14 +15,20 @@ namespace Game.Player.PlayerStateMashine
         
         public bool IsMove;
         public bool IsAim;
-        public ReactiveProperty<bool> IsAiming = new();
-        public bool IsDashing;
+        public readonly ReactiveProperty<bool> IsAiming = new();
+        public readonly ReactiveProperty<bool> IsDashing = new();
+        public bool IsAir;
+        public bool IsPlayerSitDown;
+        public bool IsCrouch;
+        public bool IsPlayerCrouch;
         
         private float _xInput;
         private float _yInput;
         private float _currentSpeed = 1f;
         private int _dashCount;
         private Vector2 _mouseDirection;
+
+        public float TargetDirectionY { get; set; }
 
         public Vector2 MouseDirection
         {
@@ -84,5 +90,7 @@ namespace Game.Player.PlayerStateMashine
         }
 
         public bool IsInputZero() => _xInput == 0 && _yInput == 0;
+        public bool IsInputZeroX() => _xInput == 0;
+        public bool IsInputNotZeroZ() => _yInput > 0;
     }
 }

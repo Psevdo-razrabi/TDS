@@ -16,9 +16,15 @@ namespace Game.Player.States.StateHandle
             .FirstOrDefault(handle => handle.CanHandle())?
             .Handle();
 
-        public void HandleState<T>() =>
+        public void HandleState<T>() where T : IStateHandle =>
             _handles
                 .FirstOrDefault(handle => handle.GetType() == typeof(T) && handle.CanHandle())?
                 .Handle();
+
+        public bool CanHandleState<T>() where T : IStateHandle
+        {
+            var handle = _handles.FirstOrDefault(handle => handle.GetType() == typeof(T) && handle.CanHandle());
+            return handle != null;
+        }
     }
 }

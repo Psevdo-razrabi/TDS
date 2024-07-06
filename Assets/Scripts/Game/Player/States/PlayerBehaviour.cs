@@ -1,5 +1,6 @@
 ﻿using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Interfase;
+using PhysicsWorld;
 using UniRx;
 using UnityEngine;
 
@@ -33,6 +34,11 @@ namespace Game.Player.States
         protected virtual void AddActionsCallbacks() {}
 
         protected virtual void RemoveActionCallbacks() {}
+
+        protected virtual void GravityForce()
+        {
+            Player.CharacterController.Move(new Vector3(0f, Data.TargetDirectionY, 0f));
+        }
 
         private void UpdateAnimatorInput()
         {

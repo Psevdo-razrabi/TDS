@@ -1,5 +1,6 @@
 ﻿using System;
 using Game.Player.Weapons;
+using Game.Player.Weapons.WeaponClass;
 using Input.Interface;
 using UniRx;
 using UnityEngine.InputSystem;
@@ -9,20 +10,21 @@ namespace Input
 {
     public class InputSystemWeapon : InputSystemBase, IChangeWeapon
     {
-        private WeaponComponent _weaponComponent;
         private Subject<Unit> _delayedClickChangeMode = new();
         private Subject<Unit> _delayedClickShoot = new();
         private ChangeModeFire _changeModeFire;
-
+        public WeaponComponent WeaponComponent { get; private set; }
+        
         public void ChangeWeapon(WeaponComponent weaponComponent)
         {
-            _weaponComponent = weaponComponent;
+            WeaponComponent = weaponComponent;
         }
 
         [Inject]
-        private void Construct(ChangeModeFire changeModeFire)
+        private void Construct(ChangeModeFire changeModeFire, DiContainer container) //временное использование
         {
             _changeModeFire = changeModeFire;
+            WeaponComponent = container.Resolve<Pistol>();
         }
 
         private void OnEnable()
@@ -38,14 +40,11 @@ namespace Input
             
             _delayedClickShoot
                 .ThrottleFirst(TimeSpan.FromSeconds(0.1f))
-                .Subscribe(_ => _weaponComponent.fireComponent.Fire()) //задержка между выстрелами
+                .Subscribe(_ => WeaponComponent.FireComponent.Fire()) //задержка между выстрелами
                 .AddTo(CompositeDisposable);
         }
 
-        private void WeaponReload(InputAction.CallbackContext obj)
-        {
-            _weaponComponent.reloadComponent.Reload();
-        }
+        private void WeaponReload(InputAction.CallbackContext obj) => WeaponComponent.ReloadComponent.Reload();
         
         private void OnDisable()
         {

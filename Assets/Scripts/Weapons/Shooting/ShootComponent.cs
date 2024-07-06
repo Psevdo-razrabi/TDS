@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Recievers;
@@ -39,6 +38,18 @@ public class ShootComponent : IInitializable, IConfigRelize
         fireComponent.ShotFired += ShotFired;
     }
 
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        _currentWeapon.LoadConfig(weaponComponent);
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
+        OperationWithWeaponData();
+    }
+
+    public void Initialize()
+    {
+        _distributionConfigs.ClassesWantConfig.Add(this);
+    }
+    
     private void HandleShoot()
     {
         _bulletLifeCycle.BulletSpawn();
@@ -50,32 +61,18 @@ public class ShootComponent : IInitializable, IConfigRelize
     }
 
     private void ShotFired()
-    {
-        if(_weaponData.AmmoInMagazine.Value > 0)
-            HandleShoot();
+    { 
+        HandleShoot();
     }
 
-    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    private void OperationWithWeaponData()
     {
-        _currentWeapon.LoadConfig(weaponComponent);
-        _gunConfig = _currentWeapon.CurrentWeaponConfig;
         _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_gunConfig.TotalAmmo);
-        InitDamageForType();
         _weaponData.Dispose();
-        _weaponData.SubscribeCanShot();
-    }
-
-    private void InitDamageForType()
-    {
-        foreach (var bodyTypeDamage in _gunConfig.DamageSettings)
-        {
-            _weaponData.DamageForType[bodyTypeDamage.BodyType] = bodyTypeDamage.Damage;
-        }
-    }
-    
-    public void Initialize()
-    {
-        _distributionConfigs.ClassesWantConfig.Add(this);
+        var currentWeaponAudio = _currentWeapon.WeaponComponent.AudioComponent;
+        var currentWeapon = _currentWeapon.WeaponComponent;
+        _weaponData.Subscribe(() => currentWeaponAudio.PlayOneShot(currentWeapon.WeaponAudioType.WeaponOutAmmo(),
+            _currentWeapon.WeaponPrefabs.CurrentPrefabWeapon.transform.position));
     }
 }
  
