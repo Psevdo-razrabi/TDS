@@ -29,6 +29,7 @@ namespace Game.Player.States
             base.OnUpdateBehaviour();
             GravityForce();
             Player.StateChain.HandleState<PlayerMoveHandler>();
+            Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
         }
     }
 }

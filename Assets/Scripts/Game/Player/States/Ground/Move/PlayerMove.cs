@@ -36,6 +36,7 @@ namespace Game.Player.States
             UpdateDesiredTargetSpeed(Player.PlayerConfigs.BaseMove);
             
             Player.StateChain.HandleState<PlayerIdleHandler>();
+            Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
         }
     }
 }

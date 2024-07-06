@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc96abc9156b4725adb4670be0a77162, type: 3}
-  m_Name: FindPlace
+  m_Script: {fileID: 11500000, guid: d66938cdb07b43738cdd26f86b7e4021, type: 3}
+  m_Name: CrouchParameters
   m_EditorClassIdentifier: 
-  <DistanceToCrouchPlace>k__BackingField: 0.5
-  <LayerMaskObjectToCrouch>k__BackingField:
-    serializedVersion: 2
-    m_Bits: 8192
+  <TimeToReloadCrouchState>k__BackingField: 1

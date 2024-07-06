@@ -36,6 +36,7 @@ namespace Game.Player.States
             UpdateDesiredTargetSpeed(Player.PlayerConfigs.MoveWithAim);
             
             Player.StateChain.HandleState<PlayerAimIdleHandler>();
+            Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
         }
     }
 }

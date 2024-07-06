@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Game.Core.Health;
 using Game.Player.PlayerStateMashine.Configs;
 using UnityEngine;
@@ -20,10 +21,10 @@ namespace Game.Player.PlayerStateMashine
         public PlayerFogOfWarConfig FowConfig { get; private set; }
         public CrouchAndStandConfig StandUpCrouch { get; private set; }
         public CrouchAndStandConfig SitDownCrouch { get; private set; }
-        public CrouchingPlace CrouchingPlace { get; private set; }
         public CrouchMovement CrouchMovement { get; private set; }
-
+        public AnyCrouchParameters CrouchParameters { get; private set; }
         public bool IsLoadAllConfig { get; private set; } = false;
+        
 
         public PlayerConfigs(Loader loader, StorageAssetReference storageAssetReference)
         {
@@ -34,21 +35,22 @@ namespace Game.Player.PlayerStateMashine
         public async void Initialize()
         {
            _playerConfigs = await _loader.LoadAllResourcesUseLabel<ScriptableObject>(_storageAssetReference.PlayerScriptableObjectLabel);
-           LoadToAssetReference(); 
+           await LoadToAssetReference(); 
            DashConfig = _playerConfigs.FirstOrDefault(x => x is PlayerDashConfig) as PlayerDashConfig;
            HealthConfig = _playerConfigs.FirstOrDefault(x => x is PlayerHealthConfig) as PlayerHealthConfig;
            FowConfig = _playerConfigs.FirstOrDefault(x => x is PlayerFogOfWarConfig) as PlayerFogOfWarConfig;
-           CrouchingPlace = _playerConfigs.FirstOrDefault(x => x is CrouchingPlace) as CrouchingPlace;
            CrouchMovement = _playerConfigs.FirstOrDefault(x => x is CrouchMovement) as CrouchMovement;
+           CrouchParameters = _playerConfigs.FirstOrDefault(x => x is AnyCrouchParameters) as AnyCrouchParameters;
            IsLoadAllConfig = true;
         }
 
-        private async void LoadToAssetReference()
+        private async UniTask LoadToAssetReference()
         {
             BaseMove = await _loader.LoadResourcesUsingReference(_storageAssetReference.PlayerMove);
             MoveWithAim = await _loader.LoadResourcesUsingReference(_storageAssetReference.PlayerMoveInAim);
             StandUpCrouch = await _loader.LoadResourcesUsingReference(_storageAssetReference.StandUpCrouch);
             SitDownCrouch = await _loader.LoadResourcesUsingReference(_storageAssetReference.SitDownCrouch);
+            await UniTask.Yield();
         }
     }
 }

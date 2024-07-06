@@ -1,10 +1,11 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
+using UnityEngine;
 
 namespace Game.Player.States.Crouching
 {
-    public class PlayerStandUp : PlayerSitsDown
+    public class PlayerStandUp : BaseCrouching
     {
         private CrouchAndStandConfig _standUp;
         public PlayerStandUp(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
@@ -15,13 +16,16 @@ namespace Game.Player.States.Crouching
         {
             base.OnEnter();
             _standUp = Player.PlayerConfigs.StandUpCrouch;
+            Debug.Log("вошел в crouchStandUp");
             await PlayerSitDown();
+            Player.StateChain.HandleState();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsPlayerSitDown = true;
+            Data.IsCrouch = false;
+            Debug.Log("вышел из crouchStandUp");
         }
 
         public override void OnUpdateBehaviour()

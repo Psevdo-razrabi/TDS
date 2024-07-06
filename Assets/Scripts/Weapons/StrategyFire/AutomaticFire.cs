@@ -25,11 +25,11 @@ namespace Game.Player.Weapons.StrategyFire
 
         protected override void AddActionsCallbacks()
         {
-            _mouseUp = FireComponent.MouseInputObserver
+            _mouseUp = FireComponent.InputObserver
                 .SubscribeMouseUp()
                 .Subscribe(OnMouseLeftClickUp)
                 .AddTo(_compositeDisposable);
-            _mouseDown = FireComponent.MouseInputObserver
+            _mouseDown = FireComponent.InputObserver
                 .SubscribeMouseDown()
                 .Subscribe(OnMouseLeftClickDown)
                 .AddTo(_compositeDisposable);

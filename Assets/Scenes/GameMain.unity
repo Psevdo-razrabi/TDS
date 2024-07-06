@@ -857,7 +857,7 @@ SphereCollider:
     m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 16119
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -9162,7 +9162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <PlayerModelRotate>k__BackingField: {fileID: 635675287}
-  <PlayerStep>k__BackingField: {fileID: 1301090512}
   ragdollHelper: {fileID: 2030387050}
 --- !u!143 &2030387049
 CharacterController:
@@ -11197,7 +11196,7 @@ MonoBehaviour:
   _camera: {fileID: 330585545}
   _layerWall:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 12800
   _timeToHideMaterial: 1
   _timeToShowMaterial: 1
   _ratioAlpha: 0.2
