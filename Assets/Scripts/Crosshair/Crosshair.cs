@@ -39,6 +39,7 @@ public class Crosshair : MonoBehaviour
     public void RecoilPlus(Vector2 recoil)
     {
         _targetCrosshairPos += recoil;
+        
         _targetCrosshairPos = ClampCrosshairPosition(_targetCrosshairPos);
     }
 

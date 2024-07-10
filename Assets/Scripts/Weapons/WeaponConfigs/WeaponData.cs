@@ -1,5 +1,5 @@
 using System;
-using Cysharp.Threading.Tasks;
+using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
@@ -7,6 +7,7 @@ namespace Game.Player.Weapons.WeaponConfigs
 {
     public class WeaponData : IDisposable
     {
+        public Dictionary<BodyType, float> DamageForType { get; set; } = new();
         public bool IsReloading { get; set; }
         public bool IsShoot { get; private set; } = true;
         public ReactiveProperty<int> AmmoInMagazine { get; set; } 

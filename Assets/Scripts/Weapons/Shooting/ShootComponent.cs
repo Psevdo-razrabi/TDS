@@ -43,6 +43,7 @@ public class ShootComponent : IInitializable, IConfigRelize
         _currentWeapon.LoadConfig(weaponComponent);
         _gunConfig = _currentWeapon.CurrentWeaponConfig;
         OperationWithWeaponData();
+        InitDamageForType();
     }
 
     public void Initialize()
@@ -64,7 +65,13 @@ public class ShootComponent : IInitializable, IConfigRelize
     { 
         HandleShoot();
     }
-
+    private void InitDamageForType()
+    {
+        foreach (var bodyTypeDamage in _gunConfig.DamageSettings)
+        {
+            _weaponData.DamageForType[bodyTypeDamage.BodyType] = bodyTypeDamage.Damage;
+        }
+    }
     private void OperationWithWeaponData()
     {
         _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_gunConfig.TotalAmmo);

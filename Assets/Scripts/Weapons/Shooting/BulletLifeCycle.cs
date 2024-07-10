@@ -1,4 +1,5 @@
 using System;
+using CharacterOrEnemyEffect.Factory;
 using Cysharp.Threading.Tasks;
 using Game.Player.Interfaces;
 using Game.Player.Weapons;
@@ -15,9 +16,9 @@ using Zenject;
 public class BulletLifeCycle : IConfigRelize, IInitializable
 {
     private const float BULLET_LIFE_TIME = 2f;
-    private CompositeDisposable _compositeDisposable = new();
-    private PoolObject<Bullet> _pool;
     private readonly WeaponConfigs _weaponConfigs;
+    private CompositeDisposable _compositeDisposable = new();
+    private FactoryComponentWithMonoBehaviour _factory;
     private Spread _spread;
     private Rigidbody _bulletRigidbody;
     private BaseWeaponConfig _gunConfig;
@@ -30,10 +31,10 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     private Vector3? _hitPoint;
     private Vector3? _aimPoint;
     
-    public BulletLifeCycle(PoolObject<Bullet> pool, WeaponConfigs weaponConfigs, 
+    public BulletLifeCycle(WeaponConfigs weaponConfigs, FactoryComponentWithMonoBehaviour factory,
         Spread spread, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon, WeaponData weaponData, HeightCheck heightCheck, AimRay aimRay)
     {
-        _pool = pool;
+        _factory = factory;
         _weaponConfigs = weaponConfigs;
         _spread = spread;
         _distributionConfigs = distributionConfigs;
@@ -47,6 +48,7 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     {
         _currentWeapon.LoadConfig(weaponComponent);
         _gunConfig = _currentWeapon.CurrentWeaponConfig;
+        _factory.CreatePool<Bullet>(_weaponConfigs.BulletConfig.BulletPrefab);
     }
 
     public void Initialize()
@@ -63,8 +65,7 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     
     public async void BulletSpawn()
     {
-        _pool.AddElementsInPool("bullet", _weaponConfigs.BulletConfig.BulletPrefab , _gunConfig.TotalAmmo);
-        Bullet bullet = _pool.GetElementInPool("bullet");
+        Bullet bullet = _factory.CreateWithPoolObject<Bullet>().Item2;
         bullet.Init();
 
         bullet.transform.position = _weaponData.BulletPoint.position;
@@ -91,9 +92,15 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
 
         directionHeight = _aimPoint.HasValue ? (_aimPoint.Value - _weaponData.BulletPoint.position).normalized : directionHeight;
         
-        _bulletRigidbody = bullet.GetComponent<Rigidbody>();
         Vector3 velocity = directionHeight * _weaponConfigs.BulletConfig.BulletSpeed;
-        _bulletRigidbody.velocity = velocity + _spread.CalculatingSpread(velocity) + _spread.CalculateCrosshairSpread();
+        Vector3 finalVelocity = velocity + _spread.CalculatingSpread(velocity) + _spread.CalculateCrosshairSpread();
+        
+        /*
+        _bulletRigidbody = bullet.GetComponent<Rigidbody>();
+        _bulletRigidbody.velocity = finalVelocity;
+        */
+        
+        TestTransform testTransform = new TestTransform(bullet.gameObject, finalVelocity);
         await ReturnBullet(bullet);
     }
     private void StopBullet()

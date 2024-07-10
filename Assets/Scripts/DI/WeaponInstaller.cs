@@ -21,7 +21,10 @@ namespace DI
         [SerializeField] private ChangeCrosshair _changeCrosshair;
         [SerializeField] private WeaponPivots _weaponPivots;
         [SerializeField] private WeaponAudio _weaponAudio;
-
+        [SerializeField] private HeightCheck _heightCheck;
+        [SerializeField] private AimRay _aimRay;
+        [SerializeField] private CrosshairRaycast _crosshairRaycast;
+        
         public override void InstallBindings()
         {
             BindCursor();
@@ -36,8 +39,17 @@ namespace DI
             BindCurrentWeapon();
             BindWeaponPrefab();
             BindWeaponAudio();
-        }
+            BindRaycast();
 
+        }
+        
+        private void BindRaycast()
+        {
+            BindInstance(_heightCheck);
+            BindInstance(_aimRay);
+            BindInstance(_crosshairRaycast);
+        }
+        
         private void BindWeaponAudio()
         {
             BindInstance(_weaponAudio);

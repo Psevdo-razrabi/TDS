@@ -1,4 +1,4 @@
-﻿using Game.Player.Interfaces;
+using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using UnityEngine;
 using Zenject;
@@ -10,11 +10,12 @@ namespace Game.Player
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
         [SerializeField] private Crosshair _crosshair;
-        
+        [SerializeField] private GameObject _gun;
+
         private StateMachineData _stateMachineData;
 
         public Transform CameraTransform => _camera.transform;
-        
+
         [Inject]
         private void Construct(StateMachineData stateMachineData)
         {
@@ -23,12 +24,14 @@ namespace Game.Player
 
         public (bool, Vector3) GetMousePosition()
         {
-            var directionCrosshair = new Vector2((_crosshair.CrossHair.anchoredPosition.x - transform.position.x) / Screen.width * 2 - 1, (_crosshair.CrossHair.anchoredPosition.y - transform.position.y) / Screen.height * 2 - 1);
+            var directionCrosshair =
+                new Vector2((_crosshair.CrossHair.anchoredPosition.x - _crosshair.CrossHair.anchoredPosition.x) / Screen.width * 2 - 1,
+                    (_crosshair.CrossHair.anchoredPosition.y - _crosshair.CrossHair.anchoredPosition.y) / Screen.height * 2 - 1);
 
             _stateMachineData.MouseDirection =
                 new Vector2(Mathf.Clamp(directionCrosshair.x, -1, 1), Mathf.Clamp(directionCrosshair.y, -1, 1));
-            
-            Ray ray = _camera.ScreenPointToRay(_crosshair.transform.position);
+
+            Ray ray = _camera.ScreenPointToRay(_crosshair.CrossHair.position);
             return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
         }
 
@@ -38,6 +41,7 @@ namespace Game.Player
             if (success)
             {
                 Vector3 direction = position - transform.position;
+                Debug.Log(position);
                 direction.y = 0f;
                 var rotation = Quaternion.LookRotation(direction);
                 transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);

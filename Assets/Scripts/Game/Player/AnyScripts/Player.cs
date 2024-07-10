@@ -1,7 +1,6 @@
-﻿using Customs;
+using Customs;
 using Enemy;
 using Game.Core.Health;
-using Game.Player.AnimatorScripts;
 using Game.Player.Interfaces;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
@@ -11,6 +10,7 @@ using UI.Storage;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using AnimatorController = Game.Player.AnimatorScripts.AnimatorController;
 
 namespace Game.Player
 {

@@ -8,7 +8,6 @@ using Zenject;
 public class HeightCheck : MonoBehaviour
 {
     [SerializeField] private List<LayerMask> _floorLayer;
-    [SerializeField] private Camera _camera;
     [SerializeField] private Transform _spherePoint;
     [SerializeField] private float topSurface;
     
