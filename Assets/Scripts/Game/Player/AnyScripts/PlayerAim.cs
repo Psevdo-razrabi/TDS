@@ -41,11 +41,12 @@ namespace Game.Player
             if (success)
             {
                 Vector3 direction = position - transform.position;
-                Debug.Log(position);
                 direction.y = 0f;
                 var rotation = Quaternion.LookRotation(direction);
                 transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
                 transform.rotation = rotation;
+                _gun.transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
+                _gun.transform.rotation = rotation;
             }
         }
     }

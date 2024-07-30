@@ -1,4 +1,5 @@
 using System;
+using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,7 @@ public class ChangeCrosshair : MonoBehaviour
     [SerializeField] private float _maxExpandDistance;
     [SerializeField] private float _maxAdditionalExpansion;
     [SerializeField] private float _speedExpand;
+    [SerializeField] private float _minSize;
     
     private CompositeDisposable _compositeDisposable = new();
     private Spread _spread;
@@ -22,10 +24,23 @@ public class ChangeCrosshair : MonoBehaviour
     private float _stepValue;
     private bool _canMove;
     private float _totalExpansion;
-
+    private float _aimingExpansion;
+    private StateMachineData _stateMachineData;
+    private CurrentWeapon _currentWeapon;
+    
+    public RectTransform[] CrosshairParts => _crosshairParts;
     public float TotalExpansion => _totalExpansion;
     public Camera CameraObject => _camera;
     public Transform Crosshair => _crosshair.transform;
+
+    [Inject]
+    private void Cunstruct(StateMachineData stateMachineData, CurrentWeapon currentWeapon)
+    {
+        _stateMachineData = stateMachineData;
+        _currentWeapon = currentWeapon;
+        SubscribeAim();
+        SubscribeUpdate();
+    }
     
     private void Start()
     {
@@ -36,9 +51,8 @@ public class ChangeCrosshair : MonoBehaviour
         {
             _initialPositions[i] = _crosshairParts[i].anchoredPosition;
         }
-        
         _additionalExpansion = 0f;
-        SubscribeUpdate();
+        _totalExpansion = 0f;
     }
     
     private void SubscribeUpdate()
@@ -50,6 +64,19 @@ public class ChangeCrosshair : MonoBehaviour
             .AddTo(_compositeDisposable);
     }
 
+    private void SubscribeAim()
+    {
+        _stateMachineData.IsAiming
+            .Subscribe(isAiming =>
+            {
+                if (isAiming == true)
+                    OnAimingStart();
+                else
+                    OnAimingEnd();
+            })
+            .AddTo(_compositeDisposable);
+    }
+    
     private void CalculatePosition()
     {
         Vector2 playerScreenPosition = RectTransformUtility.WorldToScreenPoint(_camera, _player.position);
@@ -61,12 +88,12 @@ public class ChangeCrosshair : MonoBehaviour
 
     private void ChangeSize()
     {
-        _totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion;
+        _totalExpansion = _expandMultiplier * _forceChanges + _additionalExpansion + _aimingExpansion;
         
         for (int i = 0; i < _crosshairParts.Length; i++)
         {
             Vector2 direction = _initialPositions[i].normalized;
-            Vector2 targetPosition = _initialPositions[i] + direction * _totalExpansion;
+            Vector2 targetPosition = _initialPositions[i] + direction * Mathf.Max(_totalExpansion, _minSize);
             
             _crosshairParts[i].anchoredPosition = Vector2.Lerp(_crosshairParts[i].anchoredPosition, targetPosition, _speedExpand * Time.deltaTime);
         }
@@ -83,4 +110,15 @@ public class ChangeCrosshair : MonoBehaviour
     {
         _additionalExpansion = Mathf.Max(0, _additionalExpansion - _stepValue);
     }
+    
+    private void OnAimingStart()
+    {
+        _aimingExpansion -= _currentWeapon.CurrentWeaponConfig.ReduceCrosshairValue;
+    }
+
+    private void OnAimingEnd()
+    {
+        _aimingExpansion = 0;
+    }
 }
+    

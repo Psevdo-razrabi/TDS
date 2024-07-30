@@ -15,13 +15,11 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Debug.Log("Вход в idle state");
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("Выход из idle state");
         }
 
         public override void OnUpdateBehaviour()

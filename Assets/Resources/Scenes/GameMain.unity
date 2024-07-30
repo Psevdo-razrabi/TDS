@@ -2144,6 +2144,7 @@ MonoBehaviour:
   _maxExpandDistance: 1000
   _maxAdditionalExpansion: 300
   _speedExpand: 8
+  _minSize: 1
 --- !u!114 &329907086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4284,9 +4285,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ground:
     serializedVersion: 2
-    m_Bits: 16375
+    m_Bits: 64
   _camera: {fileID: 330585545}
   _crosshair: {fileID: 329907086}
+  _gun: {fileID: 6530375404970805938}
 --- !u!1 &653300009
 GameObject:
   m_ObjectHideFlags: 0

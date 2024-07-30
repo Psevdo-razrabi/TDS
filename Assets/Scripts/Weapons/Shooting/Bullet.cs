@@ -74,7 +74,6 @@ public class Bullet : MonoBehaviour
                     _eventController.OnEnemyHitBullet();
                 }
                 _bullet.SetActive(false);
-                Debug.Log("ПУЛЯ ПОПАЛА");
             }
         }
 

@@ -10,17 +10,24 @@ namespace Game.Player.Weapons.WeaponConfigs
                                   
         [field: SerializeField, Range(0,10)] public float TimeBetweenShoots { get; protected set; }
         
-        [field: Header("Настройки разброса")]
+        /*
         [field: SerializeField, Range(0,100)] public float StartSpread { get; protected set; }
         [field: SerializeField, Range(0,100)] public float MaxSpread { get; protected set; }
         [field: SerializeField, Range(0,100)] public float MaxYSpread { get; protected set; }
-        [field: SerializeField, Range(0,2)] public float TimeToSpreadReduce { get; protected set; }
         [field: SerializeField, Range(0,2)] public float SpreadMultiplier { get; protected set; }
         [field: SerializeField, Range(0,1)] public float MultiplierIncreaseRate { get; protected set; }
         [field: SerializeField, Range(0,5)] public float BaseIncrement { get; protected set; }
+        */
+        
+        [field: Header("Настройки разброса")]
+        [field: SerializeField, Range(0,2)] public float TimeToSpreadReduce { get; protected set; }
+        [field: SerializeField, Range(0,100)] public float MaxSpread { get; protected set; }
         
         [field: Header("Настройки отдачи")]
         [field: SerializeField, Range(0,100)] public float RecoilForce { get; protected set; }
+        
+        [field: Header("Прицел")]
+        [field: SerializeField, Range(0,1000)] public float ReduceCrosshairValue { get; protected set; }
         
         [field: Header("Перезарядка")]
         [field: SerializeField, Range(0,15)] public float ReloadTime { get; protected set; }

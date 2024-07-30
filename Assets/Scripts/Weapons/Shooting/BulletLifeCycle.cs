@@ -92,15 +92,16 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
 
         directionHeight = _aimPoint.HasValue ? (_aimPoint.Value - _weaponData.BulletPoint.position).normalized : directionHeight;
         
-        Vector3 velocity = directionHeight * _weaponConfigs.BulletConfig.BulletSpeed;
-        Vector3 finalVelocity = velocity + _spread.CalculatingSpread(velocity) + _spread.CalculateCrosshairSpread();
         
-        /*
+        Vector3 velocity = directionHeight * _weaponConfigs.BulletConfig.BulletSpeed;
+        Vector3 finalVelocity = velocity + _spread.CalculatingSpread(velocity);
+        
+        
         _bulletRigidbody = bullet.GetComponent<Rigidbody>();
         _bulletRigidbody.velocity = finalVelocity;
-        */
         
-        TestTransform testTransform = new TestTransform(bullet.gameObject, finalVelocity);
+        
+        //TestTransform testTransform = new TestTransform(bullet.gameObject, finalVelocity);
         await ReturnBullet(bullet);
     }
     private void StopBullet()
