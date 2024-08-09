@@ -62,7 +62,6 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
             .AddTo(_compositeDisposable);
     }
     
-    
     public async void BulletSpawn()
     {
         Bullet bullet = _factory.CreateWithPoolObject<Bullet>().Item2;
@@ -75,35 +74,35 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
 
     private async UniTask BulletLaunch(Bullet bullet)
     {
-       
         Vector3? hitPoint = _heightCheck.CheckHeight();
-        
-        Vector3 directionHeight;
-        
+    
+        Vector3 baseDirection = _weaponData.BulletPoint.forward;
+    
         if (hitPoint.HasValue)
         {
             Vector3 adjustedHitPoint = hitPoint.Value + new Vector3(0, 0.5f, 0);
-            directionHeight = (adjustedHitPoint - _weaponData.BulletPoint.position).normalized;
-        }
-        else
-        {
-            directionHeight = _weaponData.BulletPoint.forward;
+            baseDirection = (adjustedHitPoint - _weaponData.BulletPoint.position).normalized;
         }
 
-        directionHeight = _aimPoint.HasValue ? (_aimPoint.Value - _weaponData.BulletPoint.position).normalized : directionHeight;
+        if (_aimPoint.HasValue)
+        {
+            baseDirection = (_aimPoint.Value - _weaponData.BulletPoint.position).normalized;
+        }
         
-        
-        Vector3 velocity = directionHeight * _weaponConfigs.BulletConfig.BulletSpeed;
-        Vector3 finalVelocity = velocity + _spread.CalculatingSpread(velocity);
-        
-        
+        Vector3 spread = new Vector3();
+        Vector3 finalDirection = (baseDirection + spread).normalized;
+
+        Vector3 startPosition = _weaponData.BulletPoint.position;
+        bullet.transform.position = startPosition;
+
+        Vector3 velocity = finalDirection * _weaponConfigs.BulletConfig.BulletSpeed;
+
         _bulletRigidbody = bullet.GetComponent<Rigidbody>();
-        _bulletRigidbody.velocity = finalVelocity;
-        
-        
-        //TestTransform testTransform = new TestTransform(bullet.gameObject, finalVelocity);
+        _bulletRigidbody.velocity = velocity;
+
         await ReturnBullet(bullet);
     }
+    
     private void StopBullet()
     {
         _bulletRigidbody.velocity = Vector3.zero;

@@ -11,6 +11,7 @@ namespace Game.Player
         [SerializeField] private Camera _camera;
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private GameObject _gun;
+        [SerializeField] private LineRenderer _lineRenderer;
 
         private StateMachineData _stateMachineData;
 
@@ -21,33 +22,49 @@ namespace Game.Player
         {
             _stateMachineData = stateMachineData;
         }
-
+        
+        
         public (bool, Vector3) GetMousePosition()
         {
-            var directionCrosshair =
-                new Vector2((_crosshair.CrossHair.anchoredPosition.x - _crosshair.CrossHair.anchoredPosition.x) / Screen.width * 2 - 1,
-                    (_crosshair.CrossHair.anchoredPosition.y - _crosshair.CrossHair.anchoredPosition.y) / Screen.height * 2 - 1);
+            Vector3 screenPosition = new Vector3(_crosshair.Center.position.x, _crosshair.Center.position.y, 0f);
+            Ray ray = _camera.ScreenPointToRay(screenPosition);
+            
+            if (Physics.Raycast(ray, out var hit, 100f, _ground))
+            {
+                return (true, hit.point);
+            }
 
-            _stateMachineData.MouseDirection =
-                new Vector2(Mathf.Clamp(directionCrosshair.x, -1, 1), Mathf.Clamp(directionCrosshair.y, -1, 1));
-
-            Ray ray = _camera.ScreenPointToRay(_crosshair.CrossHair.position);
-            return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
+            return (true, ray.GetPoint(100f));
         }
 
         public void Aim()
         {
-            (bool success, Vector3 position) = GetMousePosition();
+            (bool success, Vector3 targetPosition) = GetMousePosition();
             if (success)
             {
-                Vector3 direction = position - transform.position;
-                direction.y = 0f;
-                var rotation = Quaternion.LookRotation(direction);
-                transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
-                transform.rotation = rotation;
-                _gun.transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
-                _gun.transform.rotation = rotation;
+                Vector3 gunPosition = _gun.transform.position;
+                
+                Vector3 directionToTarget = (targetPosition - gunPosition).normalized;
+                
+                Vector3 flatDirection = new Vector3(directionToTarget.x, 0, directionToTarget.z).normalized;
+                
+                if (flatDirection != Vector3.zero)
+                {
+                    Vector3 lookPosition = transform.position + flatDirection;
+                    transform.LookAt(new Vector3(lookPosition.x, transform.position.y, lookPosition.z));
+                }
+                
+                _gun.transform.rotation = Quaternion.LookRotation(directionToTarget);
+                
+                DebugAimLine(gunPosition, directionToTarget);
             }
+        }
+
+        private void DebugAimLine(Vector3 origin, Vector3 direction)
+        {
+            _lineRenderer.positionCount = 2;
+            _lineRenderer.SetPosition(0, origin);
+            _lineRenderer.SetPosition(1, origin + direction * 100f);
         }
     }
 }

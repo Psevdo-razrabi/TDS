@@ -63,29 +63,39 @@ public class Spread : IConfigRelize, IInitializable
         _changeCrosshair.DecreaseFiredSize();
     }
 
-    public Vector3 CalculatingSpread(Vector3 velocity)
+    public Vector3 CalculatingSpread()
     {
-        float top = _changeCrosshair.CrosshairParts[0].anchoredPosition.y;
-        float bottom = _changeCrosshair.CrosshairParts[1].anchoredPosition.y;
+        RectTransform crosshairTop = _changeCrosshair.CrosshairParts[0];
+        RectTransform crosshairBottom = _changeCrosshair.CrosshairParts[1];
+        RectTransform crosshairLeft = _changeCrosshair.CrosshairParts[2];
+        RectTransform crosshairRight = _changeCrosshair.CrosshairParts[3];
         
-        float left = _changeCrosshair.CrosshairParts[2].anchoredPosition.x;
-        float right = _changeCrosshair.CrosshairParts[3].anchoredPosition.x;
+        float randomX = Random.Range(crosshairLeft.anchoredPosition.x, crosshairRight.anchoredPosition.x);
+        float randomY = Random.Range(crosshairBottom.anchoredPosition.y, crosshairTop.anchoredPosition.y);
         
-        float offsetX = Random.Range(left, right);
-        float offsetY = Random.Range(bottom, top);
+        Vector3 randomScreenPoint = new Vector3(randomX, randomY, 0);
+        Vector3 worldPoint = ConvertScreenToWorld(randomScreenPoint);
         
-        Vector2 screenPoint = new Vector2(offsetX, offsetY);
-        Vector3 worldPoint;
-        RectTransformUtility.ScreenPointToWorldPointInRectangle(_changeCrosshair.CrosshairParts[0].parent as RectTransform, screenPoint, _changeCrosshair.CameraObject, out worldPoint);
-        
-        worldPoint += velocity;
-        
-        _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, 0.3f);
-        _recoil.UpdateSpread(_currentSpread);
-        
-        return worldPoint;
-    }
+        Vector3 spreadDirection = (worldPoint - _weaponData.BulletPoint.position).normalized;
 
+        return spreadDirection;
+    }
+    private Vector3 ConvertScreenToWorld(Vector3 screenPoint)
+    {
+        Camera camera = Camera.main;
+        
+        Ray ray = camera.ScreenPointToRay(screenPoint);
+        
+        Plane plane = new Plane(Vector3.up, _weaponData.BulletPoint.position);
+        float distance;
+
+        if (plane.Raycast(ray, out distance))
+        {
+            return ray.GetPoint(distance);
+        }
+
+        return Vector3.zero;
+    }
     public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
         _currentWeapon.LoadConfig(weaponComponent);
