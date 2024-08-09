@@ -74,6 +74,8 @@ namespace DI
                 .WithArguments(true, "Mesh", 10)
                 .WhenInjectedInto<CreateVFXTrail>()
                 .NonLazy();
+            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().WithArguments(true, "Bullet", 30).WhenInjectedInto<BulletLifeCycle>().NonLazy();
+            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().WithArguments(true, "Mesh", 10).WhenInjectedInto<CreateVFXTrail>().NonLazy();
         }
 
         private void BindEventController() => BindNewInstance<EventController>();

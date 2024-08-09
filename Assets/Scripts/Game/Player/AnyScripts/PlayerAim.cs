@@ -12,7 +12,8 @@ namespace Game.Player
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private GameObject _gun;
         [SerializeField] private LineRenderer _lineRenderer;
-
+        [SerializeField] private Player _player;
+        
         private StateMachineData _stateMachineData;
 
         public Transform CameraTransform => _camera.transform;
@@ -59,7 +60,12 @@ namespace Game.Player
                 DebugAimLine(gunPosition, directionToTarget);
             }
         }
-
+        
+        public void FreezeAim(Quaternion rotation)
+        {
+            _player.transform.rotation = rotation;
+        }
+        
         private void DebugAimLine(Vector3 origin, Vector3 direction)
         {
             _lineRenderer.positionCount = 2;
