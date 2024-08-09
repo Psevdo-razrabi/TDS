@@ -1,6 +1,8 @@
 ﻿using Game.Player.PlayerStateMashine;
 using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
+using Game.Player.States.StateHandle.Faling;
+using Game.Player.States.StateHandle.Parkour;
 using UnityEngine;
 
 namespace Game.Player.States
@@ -14,14 +16,15 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsMove, true, Player.AnimatorController.NameMoveParameter);
+            Data.IsMove.Value = true;
+            Data.IsLockAim = false;
             Debug.Log("Вход в move state");
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsMove, false, Player.AnimatorController.NameMoveParameter);
+            Data.IsMove.Value = false;
             Debug.Log("Выход из move state");
         }
 
@@ -30,13 +33,18 @@ namespace Game.Player.States
             base.OnUpdateBehaviour();
             
             Move();
+            GravityForce();
             
             Debug.Log("обновляю ходьбу без прицела");
             
             UpdateDesiredTargetSpeed(Player.PlayerConfigs.BaseMove);
             
             Player.StateChain.HandleState<PlayerIdleHandler>();
+            Player.StateChain.HandleState<PlayerAimMoveHandler>();
+            Player.StateChain.HandleState<PlayerDashHandle>();
             Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
+            Player.StateChain.HandleState<PlayerClimbToObstacleHandle>();
+            Player.StateChain.HandleState<PlayerFallingHandler>();
         }
     }
 }

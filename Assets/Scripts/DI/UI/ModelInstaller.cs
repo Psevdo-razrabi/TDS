@@ -1,4 +1,5 @@
 ﻿using Game.AsyncWorker;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons;
 using Input;
 using UI.Storage;

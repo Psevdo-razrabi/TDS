@@ -1,14 +1,16 @@
 ﻿using CharacterOrEnemyEffect;
 using CharacterOrEnemyEffect.Factory;
 using FOW;
-using Game.AsyncWorker;
+using Game.AsyncWorker.Interfaces;
 using Game.Player;
 using Game.Player.AnimatorScripts;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
-using Game.Player.States.Subscribers;
+using Game.Player.States.StateHandle.Faling;
+using Game.Player.States.StateHandle.Parkour;
 using Input;
 using UnityEngine;
 
@@ -28,6 +30,7 @@ namespace DI
         [SerializeField] private InputBuffer inputBuffer;
         [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
         [SerializeField] private StorageAssetReference _storageAssetReference;
+        [SerializeField] private LandingColliders _landing;
         
         public override void InstallBindings()
         {
@@ -100,7 +103,8 @@ namespace DI
         {
             BindInstance(player);
             BindInstance(dashTrailEffect);
-            BindNewInstance<CrouchSubscribe>();
+            BindNewInstance<Landing>();
+            BindInstance(_landing);
         }
 
         private void BindLoader()
@@ -126,6 +130,8 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerMoveCrouchHandle>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerSitDownCrouchHandle>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerStandUpCrouchHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerClimbToObstacleHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerFallingHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
         }

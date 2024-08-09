@@ -44,8 +44,6 @@ namespace Game.Player.Weapons.Commands.Invoker
 
             for (int i = 0; i < count; i++)
                 Invoke(weaponComponent);
-            
-            Debug.Log("Completed");
         }
 
         private async void Invoke(WeaponComponent weaponComponent)

@@ -10,38 +10,50 @@ namespace Input
     public class InputSystemMouse : InputSystemBase, IMouse
     {
         public Vector2ReactiveProperty PositionMouse { get; } = new();
-        public Action mouseRightClickUpHandler { get; private set; }
-        public Action mouseRightClickDownHandler { get; private set; }
+
+        private readonly CompositeDisposable _compositeDisposable = new();
+        private IDisposable _disposableRightClickMouseUp;
+        private IDisposable _disposableRightClickMouseDown;
         
-        
-        public void OnSubscribeRightMouseClickDown(Action action)
+        private void SubscribeRightMouse()
         {
-            mouseRightClickUpHandler = action;
-            InputSystemNew.Mouse.Aim.performed += MouseRightClickUpHandler;
-        }
-
-        public void OnSubscribeRightMouseClickUp(Action action)
-        {
-            mouseRightClickDownHandler = action;
-            InputSystemNew.Mouse.Aim.canceled += MouseRightClickDownHandler;
-        }
-
-        public void OnUnsubscribeRightMouseClickDown()
-        {
-            InputSystemNew.Mouse.Aim.performed -= MouseRightClickUpHandler;
-            mouseRightClickUpHandler = null;
-        }
-
-        public void OnUnsubscribeRightMouseClickUp()
-        {
-            InputSystemNew.Mouse.Aim.canceled -= MouseRightClickDownHandler;
-            mouseRightClickDownHandler = null;
+            _disposableRightClickMouseDown = InputObserver
+                .SubscribeMouseRightDown()
+                .Subscribe(OnClickRightDown)
+                .AddTo(_compositeDisposable);
+            
+            _disposableRightClickMouseUp = InputObserver
+                .SubscribeMouseRightUp()
+                .Subscribe(OnClickRightUp)
+                .AddTo(_compositeDisposable);
         }
         
-        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>  mouseRightClickUpHandler?.Invoke();
 
-        private void MouseRightClickDownHandler(InputAction.CallbackContext context) => mouseRightClickDownHandler?.Invoke();
+        private void UnsubscribeRightMouse()
+        {
+            _disposableRightClickMouseDown.Dispose();
+            _disposableRightClickMouseUp.Dispose();
+            _compositeDisposable.Dispose();
+            _compositeDisposable.Clear();
+        }
+
+        private void OnClickRightDown(Unit _)
+        {
+            if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
+            Data.IsAiming.Value = true;
+            Data.IsAim.Value = true;
+            var config = Player.PlayerConfigs.FowConfig;
+            Player.RadiusChanger.ChangerRadius(config.StartValueRadius, config.TimeToMaxRadius);
+        }
         
+        private void OnClickRightUp(Unit _)
+        {
+            if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
+            Data.IsAiming.Value = false;
+            Data.IsAim.Value = false;
+            var config = Player.PlayerConfigs.FowConfig;
+            Player.RadiusChanger.ChangerRadius(config.EndValueRadius, config.TimeToMaxRadius);
+        }
         
         private void MousePosition(InputAction.CallbackContext obj)
         {
@@ -51,11 +63,13 @@ namespace Input
         private void OnEnable()
         {
             InputSystemNew.Mouse.MousePosition.performed += MousePosition;
+            SubscribeRightMouse();
         }
 
         private void OnDisable()
         {
             InputSystemNew.Mouse.MousePosition.performed -= MousePosition;
+            UnsubscribeRightMouse();
         }
     }
 }

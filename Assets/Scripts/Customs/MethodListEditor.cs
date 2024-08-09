@@ -13,7 +13,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using Zenject;
 
-//[CustomEditor(typeof(ChangeModeFire))] - на неопределнный срок
+[CustomEditor(typeof(ChangeModeFire))]
 public class MethodListEditor : Editor
 {
     private ReorderableList _list;

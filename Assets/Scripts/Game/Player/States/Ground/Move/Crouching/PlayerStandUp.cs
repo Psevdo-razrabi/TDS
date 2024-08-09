@@ -9,22 +9,21 @@ namespace Game.Player.States.Crouching
     {
         private CrouchAndStandConfig _standUp;
         public PlayerStandUp(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
-        {
-        }
+        { }
 
-        public override async void OnEnter()
+        public override void OnEnter()
         {
             base.OnEnter();
             _standUp = Player.PlayerConfigs.StandUpCrouch;
             Debug.Log("вошел в crouchStandUp");
-            await PlayerSitDown();
+            PlayerSitDown().Forget();
             Player.StateChain.HandleState();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsCrouch = false;
+            Data.IsCrouch.Value = false;
             Debug.Log("вышел из crouchStandUp");
         }
 
@@ -37,7 +36,11 @@ namespace Game.Player.States.Crouching
         private async UniTask PlayerSitDown()
         {
             var heightChange = InterpolatedFloatWithEase(Player.CharacterController.height,
-                x => Player.CharacterController.height = x,
+                x =>
+                {
+                    Player.CharacterController.height = x;
+                    Player.IKSystem.ChangeColliderInitHeight(x);
+                },
                 _standUp.HeightOfCharacterController, _standUp.TimeToCrouch, _standUp.CurveToCrouch);
             
             var centerChange = InterpolatedVector3WithEase(Player.CharacterController.center,
@@ -45,7 +48,6 @@ namespace Game.Player.States.Crouching
                 _standUp.CenterCharacterController, _standUp.TimeToCrouch, _standUp.CurveToCrouch);
 
             await UniTask.WhenAll(heightChange, centerChange);
-            Data.IsPlayerCrouch = true;
         }
     }
 }

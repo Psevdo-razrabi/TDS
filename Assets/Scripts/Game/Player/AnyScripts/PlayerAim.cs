@@ -3,14 +3,14 @@ using Game.Player.PlayerStateMashine;
 using UnityEngine;
 using Zenject;
 
-namespace Game.Player
+namespace Game.Player.AnyScripts
 {
     public class PlayerAim : MonoBehaviour, ICameraProvider, IPlayerAim
     {
         [SerializeField] private LayerMask _ground;
         [SerializeField] private Camera _camera;
         [SerializeField] private Crosshair _crosshair;
-        
+        [SerializeField] private Player _player;
         private StateMachineData _stateMachineData;
 
         public Transform CameraTransform => _camera.transform;
@@ -43,6 +43,11 @@ namespace Game.Player
                 transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
                 transform.rotation = rotation;
             }
+        }
+
+        public void FreezeAim(Quaternion rotation)
+        {
+            _player.transform.rotation = rotation;
         }
     }
 }

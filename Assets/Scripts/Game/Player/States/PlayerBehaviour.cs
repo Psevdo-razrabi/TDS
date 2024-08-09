@@ -1,4 +1,10 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Interfase;
 using PhysicsWorld;
 using UniRx;
@@ -19,8 +25,8 @@ namespace Game.Player.States
 
         public virtual void OnUpdateBehaviour()
         {
-            Player.PlayerAim.Aim();
             UpdateAnimatorInput();
+            AimIsFreeze(Player.transform.rotation);
         }
         public virtual void OnFixedUpdateBehaviour() {}
 
@@ -44,6 +50,23 @@ namespace Game.Player.States
         {
             Data.XInput = UnityEngine.Input.GetAxis("Horizontal");
             Data.YInput = UnityEngine.Input.GetAxis("Vertical");
+        }
+        
+        protected async UniTask RotatePlayerToObstacle()
+        {
+            await Player.transform.DORotateQuaternion(Data.Rotation, 1f);
+        }
+        
+        protected void AimIsFreeze(Quaternion rotation)
+        {
+            if (Data.IsLockAim)
+            {
+                Player.PlayerAim.FreezeAim(rotation);
+            }
+            else
+            {
+                Player.PlayerAim.Aim();
+            }
         }
     }
 }

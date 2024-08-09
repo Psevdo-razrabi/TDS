@@ -1,5 +1,4 @@
-﻿using System;
-using Game.Player.Weapons;
+﻿using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Invoker;
 
 namespace UI.Storage

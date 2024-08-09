@@ -1,35 +1,63 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
+using Game.Player.AnimatorScripts;
+using Game.Player.PlayerStateMashine.Configs;
+using Game.Player.States;
 using UniRx;
 using UnityEngine;
+using IInitializable = Zenject.IInitializable;
 
 namespace Game.Player.PlayerStateMashine
 {
-    public class StateMachineData
+    public class StateMachineData : IInitializable, IDisposable
     {
         private readonly PlayerConfigs _playerConfigs;
+        private readonly AnimatorController _animatorController;
+        private readonly CompositeDisposable _compositeDisposable = new();
 
-        public StateMachineData(PlayerConfigs configs)
+        public StateMachineData(PlayerConfigs configs, AnimatorController animatorController)
         {
             _playerConfigs = configs ?? throw new ArgumentNullException($"{configs} is null");
+            _animatorController = animatorController ?? throw new ArgumentException($"Animator controller is null");
         }
         
-        public bool IsMove;
-        public bool IsAim;
+        public readonly ReactiveProperty<bool> IsCrouch = new();
+        public readonly ReactiveProperty<bool> IsMove = new();
+        public readonly ReactiveProperty<bool> IsAim = new();
         public readonly ReactiveProperty<bool> IsAiming = new();
         public readonly ReactiveProperty<bool> IsDashing = new();
+        public readonly ReactiveProperty<bool> IsLookAtObstacle = new();
+        public readonly ReactiveProperty<bool> IsClimbing = new();
+        public readonly ReactiveProperty<bool> IsGrounded = new();
+        public readonly ReactiveProperty<bool> IsLanding = new();
         public bool IsAir;
-        public bool IsPlayerSitDown;
-        public bool IsCrouch;
-        public bool IsPlayerCrouch;
+        public bool IsLockAim;
+        public bool IsPlayerInObstacle;
+        public ClimbParameters Climb = new();
+        public ObstacleParametersConfig ObstacleConfig;
+        public Quaternion Rotation;
         
         private float _xInput;
         private float _yInput;
+        private float _speed;
         private float _currentSpeed = 1f;
         private int _dashCount;
         private Vector2 _mouseDirection;
 
         public float TargetDirectionY { get; set; }
 
+        public float Speed
+        {
+            get => _speed;
+            set
+            {
+                if (value < 0 || value > _playerConfigs.CrouchMovement.Speed)
+                    throw new ArgumentOutOfRangeException($"{value} is out of range");
+
+                _speed = value;
+            }
+        }
+        
         public Vector2 MouseDirection
         {
             get => _mouseDirection;
@@ -90,7 +118,41 @@ namespace Game.Player.PlayerStateMashine
         }
 
         public bool IsInputZero() => _xInput == 0 && _yInput == 0;
-        public bool IsInputZeroX() => _xInput == 0;
-        public bool IsInputNotZeroZ() => _yInput > 0;
+        
+        public void Initialize()
+        {
+            IsCrouch
+                .Subscribe(_ =>
+                _animatorController.OnAnimatorStateSet(IsCrouch, _animatorController.NameIsCrouchParameter))
+                .AddTo(_compositeDisposable);
+
+            IsAim
+                .Subscribe(_ => _animatorController.OnAnimatorStateSet(IsAim, _animatorController.NameAimParameter))
+                .AddTo(_compositeDisposable);
+            
+            IsMove
+                .Subscribe(_ => _animatorController.OnAnimatorStateSet(IsMove, _animatorController.NameMoveParameter))
+                .AddTo(_compositeDisposable);
+            IsGrounded
+                .Subscribe(_ =>
+                _animatorController.OnAnimatorStateSet(IsGrounded, _animatorController.NameIsGroundParameter))
+                .AddTo(_compositeDisposable);
+            IsLanding.Subscribe(_ =>
+                    _animatorController.OnAnimatorStateSet(IsLanding, _animatorController.NameIsLandingParameter))
+                .AddTo(_compositeDisposable);
+        }
+
+        public void Dispose()
+        {
+            _compositeDisposable?.Dispose();
+            _compositeDisposable?.Clear();
+        }
+
+        public class ClimbParameters
+        {
+            public float correctionHeight;
+            public string animationTriggerName;
+            public float animationClipDuration;
+        }
     }
 }

@@ -9,7 +9,8 @@ namespace Input
     public class InputObserver
     {
         private InputSystem _inputSystem;
-        private bool _isMouseButtonDown = true;
+        private bool _isMouseLeftButton = true;
+        private bool _isMouseRightButton = true;
         private bool _isButtonCrouchDown = true;
 
         public InputObserver(InputSystem inputSystem)
@@ -17,17 +18,16 @@ namespace Input
             _inputSystem = inputSystem ?? throw new ArgumentNullException();
         }
 
-        public IObservable<Unit> SubscribeMouseUp()
+        public IObservable<Unit> SubscribeMouseLeftUp()
         {
             return Observable.Create<Unit>(observer =>
             {
                 void OnMouseButtonUp(InputAction.CallbackContext ctx)
                 {
-                    if (_isMouseButtonDown)
+                    if (_isMouseLeftButton)
                     {
-                        _isMouseButtonDown = false;
+                        _isMouseLeftButton = false;
                         observer.OnNext(Unit.Default);
-                        Debug.LogWarning("поднял мышь");
                     }
                 }
 
@@ -37,17 +37,16 @@ namespace Input
             });
         }
         
-        public IObservable<Unit> SubscribeMouseDown()
+        public IObservable<Unit> SubscribeMouseLeftDown()
         {
             return Observable.Create<Unit>(observer =>
             {
                 void OnMouseButtonDown(InputAction.CallbackContext ctx)
                 {
-                    if (_isMouseButtonDown == false)
+                    if (_isMouseLeftButton == false)
                     {
-                        _isMouseButtonDown = true;
+                        _isMouseLeftButton = true;
                         observer.OnNext(Unit.Default);
-                        Debug.LogWarning("опустил мышь");
                     }
                 }
 
@@ -56,6 +55,47 @@ namespace Input
                 return Disposable.Create(() =>
                 {
                     _inputSystem.Mouse.Shoot.canceled -= OnMouseButtonDown;
+                });
+            });
+        }
+        
+        public IObservable<Unit> SubscribeMouseRightDown()
+        {
+            return Observable.Create<Unit>(observer =>
+            {
+                void OnMouseButtonUp(InputAction.CallbackContext ctx)
+                {
+                    if (_isMouseRightButton)
+                    {
+                        _isMouseRightButton = false;
+                        observer.OnNext(Unit.Default);
+                    }
+                }
+
+                _inputSystem.Mouse.Aim.performed += OnMouseButtonUp;
+
+                return Disposable.Create(() => _inputSystem.Mouse.Shoot.performed -= OnMouseButtonUp);
+            });
+        }
+        
+        public IObservable<Unit> SubscribeMouseRightUp()
+        {
+            return Observable.Create<Unit>(observer =>
+            {
+                void OnMouseButtonDown(InputAction.CallbackContext ctx)
+                {
+                    if (_isMouseRightButton == false)
+                    {
+                        _isMouseRightButton = true;
+                        observer.OnNext(Unit.Default);
+                    }
+                }
+
+                _inputSystem.Mouse.Aim.canceled += OnMouseButtonDown;
+
+                return Disposable.Create(() =>
+                {
+                    _inputSystem.Mouse.Aim.canceled -= OnMouseButtonDown;
                 });
             });
         }

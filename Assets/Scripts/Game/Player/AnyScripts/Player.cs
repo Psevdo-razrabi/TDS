@@ -11,6 +11,7 @@ using UI.Storage;
 using UniRx;
 using UnityEngine;
 using Zenject;
+using Game.AsyncWorker.Interfaces;
 
 namespace Game.Player
 {
@@ -28,7 +29,7 @@ namespace Game.Player
         [Inject] public PlayerConfigs PlayerConfigs { get; private set; }
         [Inject] public StateHandleChain StateChain { get; private set; }
         [Inject] public StateMachineData StateMachineData { get; private set; }
-        [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
+        [Inject] public AsyncWorker.Interfaces.AsyncWorker AsyncWorker { get; private set; }
         private ValueCountStorage<float> ValueModelHealth { get; set; }
         [Inject] public EventController EventController { get; private set; }
         [field: SerializeField] public GameObject PlayerModelRotate { get; private set; }
@@ -37,6 +38,7 @@ namespace Game.Player
         private InitializationStateMachine _initializationStateMachine;
         private CompositeDisposable _disposable = new();
         [SerializeField] private RagdollHelper ragdollHelper;
+        [field: SerializeField] public IKSystem IKSystem { get; private set; }
 
         [Inject]
         private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement,
@@ -71,14 +73,15 @@ namespace Game.Player
 
         private void Update()
         {
+            if(_initializationStateMachine.PlayerStateMachine == null) return;
             if (!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
 
-            _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
+            _initializationStateMachine.PlayerStateMachine?.currentStates.OnUpdateBehaviour();
         }
 
         private void FixedUpdate()
         {
-            _initializationStateMachine.PlayerStateMachine.currentStates.OnFixedUpdateBehaviour();
+            _initializationStateMachine.PlayerStateMachine?.currentStates.OnFixedUpdateBehaviour();
         }
 
         private void OnDisable()

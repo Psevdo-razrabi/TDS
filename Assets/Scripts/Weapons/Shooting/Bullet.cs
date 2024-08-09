@@ -48,6 +48,4 @@ public class Bullet : MonoBehaviour
     {
         healthObject.HealthStats.SetDamage(_damage);
     }
-
 }
-
