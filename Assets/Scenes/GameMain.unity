@@ -3461,7 +3461,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 488360305}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2d6d58255354a3eae98bf176ad3e0bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 2535296ea3a04488a30273aea2c48851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   triggerColliders:
@@ -4692,7 +4692,7 @@ MonoBehaviour:
   inputBuffer: {fileID: 653300015}
   fogOfWarRevealer3D: {fileID: 371248388}
   _storageAssetReference: {fileID: 267630169}
-  _landing: {fileID: 0}
+  _landing: {fileID: 488360307}
 --- !u!114 &1017338635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6681,7 +6681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1484518127
 Transform:
   m_ObjectHideFlags: 0

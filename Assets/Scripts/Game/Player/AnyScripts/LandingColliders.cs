@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game.Player.AnyScripts
 {
@@ -9,7 +8,7 @@ namespace Game.Player.AnyScripts
 
         private void Awake()
         {
-            ActiveColliders(false);
+            ActiveColliders(true);
         }
 
 
