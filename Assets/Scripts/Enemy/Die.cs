@@ -2,7 +2,6 @@
 using Customs;
 using Cysharp.Threading.Tasks;
 using Enemy.interfaces;
-using UnityEngine;
 
 namespace Enemy
 {

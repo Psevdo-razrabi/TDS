@@ -5,13 +5,16 @@ using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputSystemMovement : InputSystemBase, IMove, IJump
+public class InputSystemMovement : InputSystemBase, IMove
 {
     public Vector2ReactiveProperty Move { get; } = new();
-    public event Action OnJump;
     public Action OnDash;
+    public event Action OnClimb;
     private Action _dashButton;
     private Subject<Unit> _delayedСlick = new();
+    private IDisposable _crouchButtonDown;
+    private IDisposable _crouchButtonUp;
+    private CompositeDisposable _compositeDisposable = new();
     
     public void OnSubscribeDash(Action action)
     {
@@ -19,16 +22,36 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
     }
 
     private void DashClickHandler() => _dashButton?.Invoke();
-    
-    private void Jump(InputAction.CallbackContext obj)
-    {
-        OnJump?.Invoke();
-    }
 
     private void Update()
     {
         Move.Value = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), UnityEngine.Input.GetAxis("Vertical"));
     }
+    
+    private void SubscribeCrouch()
+    {
+        _crouchButtonDown = InputObserver
+            .SubscribeButtonDownCrouch()
+            .Subscribe(OnStartCrouch)
+            .AddTo(_compositeDisposable);
+            
+        _crouchButtonUp = InputObserver
+            .SubscribeButtonUpCrouch()
+            .Subscribe(OnStopCrouch)
+            .AddTo(_compositeDisposable);
+    }
+
+    private void UnsubscribeCrouch()
+    {
+        _crouchButtonDown.Dispose();
+        _crouchButtonUp.Dispose();
+        _compositeDisposable.Dispose();
+        _compositeDisposable.Clear();
+    }
+
+    private void OnStartCrouch(Unit _) => Data.IsCrouch.Value = true;
+
+    private void OnStopCrouch(Unit _) => Data.IsCrouch.Value = false;
     
     private async void OnEnable()
     {
@@ -46,8 +69,9 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
 
     private void Subscribe()
     {
-        InputSystemNew.Movement.Jump.performed += Jump;
+        SubscribeCrouch();
         InputSystemNew.Movement.Dash.performed += _ => _delayedСlick.OnNext(Unit.Default);
+        InputSystemNew.Movement.Clamb.performed += Climbing;
         
         _delayedСlick
             .ThrottleFirst(TimeSpan.FromSeconds(PlayerConfigs.DashConfig.DelayAfterEachDash))
@@ -55,9 +79,15 @@ public class InputSystemMovement : InputSystemBase, IMove, IJump
             .AddTo(CompositeDisposable);
     }
 
+    private void Climbing(InputAction.CallbackContext obj)
+    {
+        OnClimb?.Invoke();
+    }
+
     private void Unsubscribe()
     {
-        InputSystemNew.Movement.Jump.performed -= Jump;
+        UnsubscribeCrouch();
+        InputSystemNew.Movement.Clamb.performed -= Climbing;
         InputSystemNew.Movement.Dash.performed -= _ => _delayedСlick.OnNext(Unit.Default);
         _dashButton = null;
         OnDash -= DashClickHandler;

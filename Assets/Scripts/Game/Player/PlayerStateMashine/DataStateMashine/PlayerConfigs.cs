@@ -23,6 +23,10 @@ namespace Game.Player.PlayerStateMashine
         public CrouchAndStandConfig SitDownCrouch { get; private set; }
         public CrouchMovement CrouchMovement { get; private set; }
         public AnyCrouchParameters CrouchParameters { get; private set; }
+        public PlayerParkourConfig ParkourConfig { get; private set; }
+        public ObstacleParametersConfig SmallObstacle { get; private set; }
+        public ObstacleParametersConfig MiddleObstacle { get; private set; }
+        public ObstacleParametersConfig LargeObstacle { get; private set; }
         public bool IsLoadAllConfig { get; private set; } = false;
         
 
@@ -41,6 +45,7 @@ namespace Game.Player.PlayerStateMashine
            FowConfig = _playerConfigs.FirstOrDefault(x => x is PlayerFogOfWarConfig) as PlayerFogOfWarConfig;
            CrouchMovement = _playerConfigs.FirstOrDefault(x => x is CrouchMovement) as CrouchMovement;
            CrouchParameters = _playerConfigs.FirstOrDefault(x => x is AnyCrouchParameters) as AnyCrouchParameters;
+           ParkourConfig = _playerConfigs.FirstOrDefault(x => x is PlayerParkourConfig) as PlayerParkourConfig;
            IsLoadAllConfig = true;
         }
 
@@ -50,6 +55,9 @@ namespace Game.Player.PlayerStateMashine
             MoveWithAim = await _loader.LoadResourcesUsingReference(_storageAssetReference.PlayerMoveInAim);
             StandUpCrouch = await _loader.LoadResourcesUsingReference(_storageAssetReference.StandUpCrouch);
             SitDownCrouch = await _loader.LoadResourcesUsingReference(_storageAssetReference.SitDownCrouch);
+            SmallObstacle = await _loader.LoadResourcesUsingReference(_storageAssetReference.SmallObstacle);
+            LargeObstacle = await _loader.LoadResourcesUsingReference(_storageAssetReference.LargeObstacle);
+            MiddleObstacle = await _loader.LoadResourcesUsingReference(_storageAssetReference.MiddleObstacle);
             await UniTask.Yield();
         }
     }

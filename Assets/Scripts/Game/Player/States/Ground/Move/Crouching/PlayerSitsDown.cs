@@ -13,38 +13,32 @@ namespace Game.Player.States.Crouching
         {
         }
 
-        public override async void OnEnter()
+        public override void OnEnter()
         {
+            Data.Speed = Player.PlayerConfigs.CrouchMovement.Speed;
             _crouchAndStandConfig = Player.PlayerConfigs.SitDownCrouch;
-            Data.IsPlayerSitDown = true;
+            Data.IsAim.Value = false;
             Debug.Log("вошел в crouchSitDown");
-            Player.InputSystemMouse.mouseRightClickUpHandler?.Invoke();
-            Player.InputSystemMouse.OnUnsubscribeRightMouseClickUp();
-            Player.InputSystemMouse.OnUnsubscribeRightMouseClickDown();
-            await PlayerSitDown();
+            PlayerSitDown().Forget();
             Player.StateChain.HandleState<PlayerMoveCrouchHandle>();
             Player.StateChain.HandleState<PlayerIdleCrouchHandle>();
             Player.StateChain.HandleState<PlayerStandUpCrouchHandler>();
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-            Debug.Log("вышел из crouchSitDown");
-            Data.IsPlayerSitDown = false;
         }
 
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
             GravityForce();
-            Debug.LogWarning(Data.IsAim);
         }
         
         private async UniTask PlayerSitDown()
         {
             var heightChange = InterpolatedFloatWithEase(Player.CharacterController.height,
-                x => Player.CharacterController.height = x,
+                x =>
+                {
+                    Player.CharacterController.height = x;
+                    Player.IKSystem.ChangeColliderInitHeight(x);
+                },
                 _crouchAndStandConfig.HeightOfCharacterController, _crouchAndStandConfig.TimeToCrouch,
                 _crouchAndStandConfig.CurveToCrouch);
             
@@ -54,23 +48,6 @@ namespace Game.Player.States.Crouching
                 _crouchAndStandConfig.CurveToCrouch);
 
             await UniTask.WhenAll(heightChange, centerChange);
-            Data.IsPlayerCrouch = true;
         }
-
-        /*private async UniTask ChangeHeight()
-        {
-            await DOTween
-                .To(() => Player.CharacterController.height, x => Player.CharacterController.height = x, 
-                _crouchAndStandConfig.HeightOfCharacterController, _crouchAndStandConfig.TimeToCrouch)
-                .SetEase(_crouchAndStandConfig.CurveToCrouch);
-        }
-
-        private async UniTask ChangeCenterCharacterController()
-        {
-            await DOTween
-                .To(() => Player.CharacterController.center, x => Player.CharacterController.center = x,
-                    _crouchAndStandConfig.CenterCharacterController, _crouchAndStandConfig.TimeToCrouch)
-                .SetEase(_crouchAndStandConfig.CurveToCrouch);
-        }*/
     }
 }

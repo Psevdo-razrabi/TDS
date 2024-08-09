@@ -1,6 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class BulletSpawnPoint : MonoBehaviour
-{ }
+namespace Weapons
+{
+    public class BulletSpawnPoint : MonoBehaviour
+    { }
+}

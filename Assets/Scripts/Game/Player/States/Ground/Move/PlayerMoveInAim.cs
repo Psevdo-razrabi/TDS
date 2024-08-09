@@ -14,14 +14,17 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsMove, true, Player.AnimatorController.NameMoveParameter);
+            //OnEnterAimState();
+            Data.IsMove.Value = true;
             Debug.Log("зашел в ходьбу в прицеле");
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsMove, false, Player.AnimatorController.NameMoveParameter);
+            if(Data.IsCrouch.Value || Data.IsDashing.Value) 
+                OnExitAimState();
+            Data.IsMove.Value = false;
             Debug.Log("вышел из ходьбы в прицеле");
         }
 
@@ -36,6 +39,8 @@ namespace Game.Player.States
             UpdateDesiredTargetSpeed(Player.PlayerConfigs.MoveWithAim);
             
             Player.StateChain.HandleState<PlayerAimIdleHandler>();
+            Player.StateChain.HandleState<PlayerMoveHandler>();
+            Player.StateChain.HandleState<PlayerDashHandle>();
             Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
         }
     }

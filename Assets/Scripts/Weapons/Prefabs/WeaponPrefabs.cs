@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Weapons;
 using Zenject;
 
 namespace Game.Player.Weapons.Prefabs

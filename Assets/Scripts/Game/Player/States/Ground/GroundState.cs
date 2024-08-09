@@ -1,63 +1,115 @@
 ﻿using System;
 using Game.Player.PlayerStateMashine;
-using UniRx;
+using Game.Player.PlayerStateMashine.Configs;
 using UnityEngine;
 
 namespace Game.Player.States
 {
     public abstract class GroundState : PlayerBehaviour
     {
-        private CompositeDisposable _compositeDisposable = new();
-
-        private IDisposable _crouchButtonDown;
-        private IDisposable _crouchButtonUp;
+        private float _obstacleHeight;
+        protected PlayerConfigs PlayerConfig;
+        protected PlayerParkourConfig ParkourConfig;
+        protected Vector3 TargetPosition;
         
         protected GroundState(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        { }
+        
+        public override void OnEnter()
         {
-            
+            base.OnEnter();
+            ParkourConfig = Player.PlayerConfigs.ParkourConfig;
+            PlayerConfig = Player.PlayerConfigs;
+        }
+
+        public override void OnUpdateBehaviour()
+        {
+            base.OnUpdateBehaviour();
+            CheckObstacle();
+        }
+
+        protected void OnExitAimState()
+        {
+            var config = Player.PlayerConfigs.FowConfig;
+            Player.RadiusChanger.ChangerRadius(config.EndValueRadius, config.TimeToMaxRadius);
         }
         
         protected override void AddActionsCallbacks()
         {
             base.AddActionsCallbacks();
-            SubscribeRightMouseClickUp();
-            SubscribeRightMouseClickDown();
+            Player.InputSystem.OnClimb += OnClimb;
         }
-        
+
         protected override void RemoveActionCallbacks()
         {
             base.RemoveActionCallbacks();
+            Player.InputSystem.OnClimb -= OnClimb;
+        }
+
+        private void CheckObstacle()
+        {
+            bool isRaycast = Physics.Raycast(Player.transform.position,
+                Player.transform.forward, out RaycastHit hit, ParkourConfig.RayCastDistance,
+                ParkourConfig.LayerMask);
             
-            Player.InputSystemMouse.OnUnsubscribeRightMouseClickUp();
-            Player.InputSystemMouse.OnUnsubscribeRightMouseClickDown();
+            if (isRaycast)
+            {
+                _obstacleHeight = hit.collider.bounds.size.y;
+                TargetPosition = GetRaisedEndPoint(hit);
+                Data.Rotation = Quaternion.LookRotation(-hit.normal);
+                Data.IsLookAtObstacle.Value = true;
+                DrawDebugLine(hit.point, TargetPosition, hit.normal);
+            }
+            else
+            {
+                Data.IsLookAtObstacle.Value = false;
+            }
+        }
+        
+        private void DrawDebugLine(Vector3 startPoint, Vector3 endPoint, Vector3 normal)
+        {
+            Debug.DrawLine(Player.transform.position, startPoint, Color.red);
+            Debug.DrawLine(startPoint, endPoint, Color.cyan);
+            Debug.DrawLine(Player.transform.position, Player.transform.rotation * normal, new Color(255,170,32,1));
         }
 
-        private void SubscribeRightMouseClickUp()
+        private Vector3 GetRaisedEndPoint(RaycastHit hit)
         {
-            Player.InputSystemMouse.OnSubscribeRightMouseClickUp(() =>
+            var smallObstacle = PlayerConfig.SmallObstacle;
+            var middleObstacle = PlayerConfig.MiddleObstacle;
+            var largeObstacle = PlayerConfig.LargeObstacle;
+            if (_obstacleHeight >= smallObstacle.RangeAndCorrectionForClimb.From && _obstacleHeight <= smallObstacle.RangeAndCorrectionForClimb.Before)
             {
-                if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
-                Data.IsAiming.Value = false;
-                Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
-                Data.IsAim = false;
-                var config = Player.PlayerConfigs.FowConfig;
-                Player.RadiusChanger.ChangerRadius(config.StartValueRadius, config.EndValueRadius, config.TimeToMaxRadius);
-                Player.StateChain.HandleState();
-            });
+                InitClimbParameters(smallObstacle, Player.AnimatorController.NameIsStepParameter);
+            }
+            else if (_obstacleHeight >= middleObstacle.RangeAndCorrectionForClimb.From && _obstacleHeight <= middleObstacle.RangeAndCorrectionForClimb.Before)
+            {
+                InitClimbParameters(middleObstacle, Player.AnimatorController.NameIsClimbParameter);
+            }
+            else if (_obstacleHeight >= largeObstacle.RangeAndCorrectionForClimb.From && _obstacleHeight <= largeObstacle.RangeAndCorrectionForClimb.Before)
+            {
+                InitClimbParameters(largeObstacle, Player.AnimatorController.NameIsClimbToWallParameter);
+            }
+            else
+            {
+                throw new Exception("Obstacle height out of range");
+            }
+            
+            return hit.point + Vector3.up * (hit.collider.bounds.size.y - Data.Climb.correctionHeight);
         }
 
-        private void SubscribeRightMouseClickDown()
+        private void InitClimbParameters(ObstacleParametersConfig config, string nameAnimation)
         {
-            Player.InputSystemMouse.OnSubscribeRightMouseClickDown(() =>
-            {
-                if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
-                Data.IsAiming.Value = true;
-                Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, true, Player.AnimatorController.NameAimParameter);
-                Data.IsAim = true;
-                var config = Player.PlayerConfigs.FowConfig;
-                Player.RadiusChanger.ChangerRadius(config.EndValueRadius, config.StartValueRadius, config.TimeToMaxRadius);
-                Player.StateChain.HandleState();
-            });
+            Data.ObstacleConfig = config;
+            Data.Climb.correctionHeight = config.RangeAndCorrectionForClimb.HeightCorrection;
+            Data.Climb.animationTriggerName = nameAnimation;
+            Data.Climb.animationClipDuration =
+                Player.AnimatorController.dictionaryAnimationClips[Data.Climb.animationTriggerName].length;
+        }
+        
+        private void OnClimb()
+        {
+            Data.IsClimbing.Value = true;
         }
 
         //private void OnJumpPressedKey() => StateMachine.PlayerStateMachine.SwitchStates<>(); //Jump
