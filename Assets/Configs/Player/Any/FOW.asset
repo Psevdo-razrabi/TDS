@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: FOW
   m_EditorClassIdentifier: 
   <StartValueRadius>k__BackingField: 90
-  <EndValueRadius>k__BackingField: 353
+  <EndValueRadius>k__BackingField: 360
   <TimeToMaxRadius>k__BackingField: 1

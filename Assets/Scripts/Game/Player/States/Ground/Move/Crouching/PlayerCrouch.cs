@@ -1,4 +1,5 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Cysharp.Threading.Tasks;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.StateHandle;
 using UnityEngine;
@@ -7,28 +8,28 @@ namespace Game.Player.States.Crouching
 {
     public class PlayerCrouch : BaseCrouching
     {
-        private float _speed;
         protected CrouchMovement CrouchMovement;
         public PlayerCrouch(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
         {
         }
 
-        public override async void OnEnter()
+        public override void OnEnter()
         {
             base.OnEnter();
             Debug.Log("вошел в crouchMove");
-            Data.IsPlayerCrouch = true;
             CrouchMovement = Player.PlayerConfigs.CrouchMovement;
-            await InterpolatedFloatWithEase(_speed, x => _speed = x, CrouchMovement.Speed,
-                CrouchMovement.TimeToMaxSpeed, CrouchMovement.CurveToMaxSpeed);
+            Data.IsMove.Value = true;
+            
+            InterpolatedFloatWithEase(Data.Speed, x => Data.Speed = x, CrouchMovement.Speed,
+                CrouchMovement.TimeToMaxSpeed, CrouchMovement.CurveToMaxSpeed).Forget();
         }
 
         public override void OnExit()
         {
             base.OnExit();
+            Data.IsMove.Value = false;
             Debug.Log("вышел из crouchMove");
-            Data.IsPlayerCrouch = false;
-            _speed = 0f;
+            Data.Speed = 0f;
         }
 
         public override void OnUpdateBehaviour()
@@ -43,7 +44,7 @@ namespace Game.Player.States.Crouching
         protected override void Move()
         {
             var direction = new Vector3(Movement.x, Data.TargetDirectionY, Movement.z);
-            Player.CharacterController.Move(_speed * Time.deltaTime * direction);
+            Player.CharacterController.Move(Data.Speed * Time.deltaTime * direction);
         }
     }
 }

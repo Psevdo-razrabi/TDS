@@ -2,7 +2,7 @@
 
 namespace Game.Player.Weapons.ChangeWeapon
 {
-    public class WeaponChange
+    public class WeaponChange 
     {
         private readonly IChangeWeapon _changeWeapon;
         

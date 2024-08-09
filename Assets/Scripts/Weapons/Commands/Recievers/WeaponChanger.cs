@@ -6,6 +6,7 @@ using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Sirenix.Utilities;
 using UnityEngine;
+using Weapons;
 using Weapons.InterfaceWeapon;
 using Zenject;
 

@@ -11,6 +11,7 @@ namespace Game.Player.States.Dash
     {
         private bool _isDashing;
         private PlayerDashConfig _dashConfig;
+        
         public PlayerDash(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
         { }
 
@@ -26,7 +27,7 @@ namespace Game.Player.States.Dash
         public override void OnExit()
         {
             base.OnExit();
-            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
+            Data.IsAim.Value = false;
             Debug.LogWarning("ВЫХОД В ДЕШ");
             Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
         }

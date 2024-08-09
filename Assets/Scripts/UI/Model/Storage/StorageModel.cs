@@ -1,5 +1,4 @@
-﻿using System;
-using Game.Player.Weapons;
+﻿using Game.Player.Weapons;
 using Game.Player.Weapons.Commands.Invoker;
 
 namespace UI.Storage
@@ -19,7 +18,7 @@ namespace UI.Storage
         }
         public void ChangeAimWeapon(WeaponComponent weaponComponent)
         {
-            _weaponCommand.OnInvokeCommands(weaponComponent);
+            _weaponCommand.OnInvokeSwitchAimComand(weaponComponent);
         }
     }
 }

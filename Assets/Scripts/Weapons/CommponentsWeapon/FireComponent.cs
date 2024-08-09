@@ -48,6 +48,7 @@ namespace Game.Player.Weapons
         public void ChangeFireMode(FireStrategy fireMediator)
         {
             _fireStrategy = fireMediator ?? throw new ArgumentNullException($"{(FireStrategy)null} is null");
+            _weaponData.FireStrategy = _fireStrategy;
             Debug.LogWarning($"сменил стрельбу на {_fireStrategy.GetType()}");
         }
     }

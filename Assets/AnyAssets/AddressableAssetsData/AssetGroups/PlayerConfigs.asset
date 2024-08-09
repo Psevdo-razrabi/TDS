@@ -67,6 +67,27 @@ MonoBehaviour:
     m_SerializedLabels:
     - PlayerConfig
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16db17cb30242214e948be790a833b25
+    m_Address: Parkour
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerConfig
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 423edbaef513bbe4d8801f4c906167a6
+    m_Address: Large
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cf9e5d847841d348b124469bb4a45a0
+    m_Address: Middle
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e984d88c215ab724b95f3ec05d6d163c
+    m_Address: Small
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a32baf0e5cd480a4ba13a93650c972e4, type: 2}
   m_SchemaSet:

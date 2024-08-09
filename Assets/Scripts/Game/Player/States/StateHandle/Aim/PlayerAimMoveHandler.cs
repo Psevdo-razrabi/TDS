@@ -9,7 +9,7 @@ namespace Game.Player.States.StateHandle
         
         public PlayerAimMoveHandler(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
         
-        public bool CanHandle() => !StateMachine.Data.IsInputZero() && StateMachine.Data.IsAim && !StateMachine.Data.IsDashing.Value;
+        public bool CanHandle() => !StateMachine.Data.IsInputZero() && StateMachine.Data.IsAim.Value && !StateMachine.Data.IsDashing.Value;
 
         public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerMoveInAim>();
     }

@@ -96,15 +96,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             ""id"": ""06a0c42a-48d7-4f58-84d0-946279a6d6d6"",
             ""actions"": [
                 {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""63fc6ae5-9830-4759-aff6-cd5e90037c7e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""db2ac6d7-8bb1-4d36-a08d-c9b6c19654e1"",
@@ -133,17 +124,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""5db3dc92-ba30-42b0-a48b-7dc42de76b92"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""d5cf5d1c-3645-439f-ae62-36b10a1fe88b"",
@@ -305,7 +285,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Mouse_Shoot = m_Mouse.FindAction("Shoot", throwIfNotFound: true);
         // Movement
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
-        m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
         m_Movement_Dash = m_Movement.FindAction("Dash", throwIfNotFound: true);
         m_Movement_Crouching = m_Movement.FindAction("Crouching", throwIfNotFound: true);
         m_Movement_Clamb = m_Movement.FindAction("Clamb", throwIfNotFound: true);
@@ -441,7 +420,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     // Movement
     private readonly InputActionMap m_Movement;
     private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
-    private readonly InputAction m_Movement_Jump;
     private readonly InputAction m_Movement_Dash;
     private readonly InputAction m_Movement_Crouching;
     private readonly InputAction m_Movement_Clamb;
@@ -449,7 +427,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     {
         private @InputSystem m_Wrapper;
         public MovementActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Jump => m_Wrapper.m_Movement_Jump;
         public InputAction @Dash => m_Wrapper.m_Movement_Dash;
         public InputAction @Crouching => m_Wrapper.m_Movement_Crouching;
         public InputAction @Clamb => m_Wrapper.m_Movement_Clamb;
@@ -462,9 +439,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MovementActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MovementActionsCallbackInterfaces.Add(instance);
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
             @Dash.started += instance.OnDash;
             @Dash.performed += instance.OnDash;
             @Dash.canceled += instance.OnDash;
@@ -478,9 +452,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IMovementActions instance)
         {
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
             @Dash.started -= instance.OnDash;
             @Dash.performed -= instance.OnDash;
             @Dash.canceled -= instance.OnDash;
@@ -631,7 +602,6 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     }
     public interface IMovementActions
     {
-        void OnJump(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnCrouching(InputAction.CallbackContext context);
         void OnClamb(InputAction.CallbackContext context);
