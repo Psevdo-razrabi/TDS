@@ -11,6 +11,7 @@ namespace Game.Player.States.Dash
     {
         private bool _isDashing;
         private PlayerDashConfig _dashConfig;
+        
         public PlayerDash(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
         { }
 

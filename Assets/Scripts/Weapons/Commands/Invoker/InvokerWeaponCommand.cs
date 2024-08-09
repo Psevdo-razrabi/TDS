@@ -11,7 +11,7 @@ namespace Game.Player.Weapons.Commands.Invoker
         private readonly ConcurrentQueue<Command> _weaponCommands = new();
         private readonly FactoryComponent _factoryCommands;
         private event Action<WeaponComponent> InvokeCommands;
-
+        private event Action<WeaponComponent> InvokeAimCommands;
         public InvokerWeaponCommand(FactoryComponent factoryCommands)
         {
             _factoryCommands = factoryCommands;
@@ -20,11 +20,13 @@ namespace Game.Player.Weapons.Commands.Invoker
         public void Dispose()
         {
             InvokeCommands -= CreateCommands;
+            InvokeAimCommands -= CreateAimCommands;
         }
 
         public void Initialize()
         {
             InvokeCommands += CreateCommands;
+            InvokeAimCommands += CreateAimCommands;
         }
         
         public void OnInvokeCommands(WeaponComponent weaponComponent) 
@@ -32,6 +34,10 @@ namespace Game.Player.Weapons.Commands.Invoker
             InvokeCommands?.Invoke(weaponComponent);
         }
 
+        public void OnInvokeSwitchAimComand(WeaponComponent weaponComponent)
+        {
+            InvokeAimCommands?.Invoke(weaponComponent);
+        }
         private void CreateCommands(WeaponComponent weaponComponent)
         {
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<InitializeConfigCommand>());
@@ -39,13 +45,21 @@ namespace Game.Player.Weapons.Commands.Invoker
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<ChangePrefabWeapon>());
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<CommandSetFireMode>());
             _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<AudioWeaponCommand>());
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<ParticleWeaponComand>());
+            var count = _weaponCommands.Count;
+
+            for (int i = 0; i < count; i++)
+                Invoke(weaponComponent);
+        }
+        private void CreateAimCommands(WeaponComponent weaponComponent)
+        {
+            _weaponCommands.Enqueue(_factoryCommands.CreateWithDiContainer<InitializeConfigCommand>());
 
             var count = _weaponCommands.Count;
 
             for (int i = 0; i < count; i++)
                 Invoke(weaponComponent);
         }
-
         private async void Invoke(WeaponComponent weaponComponent)
         {
             if (_weaponCommands.TryDequeue(out var command))

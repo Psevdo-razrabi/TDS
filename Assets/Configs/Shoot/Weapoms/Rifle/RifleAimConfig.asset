@@ -15,14 +15,16 @@ MonoBehaviour:
   <Name>k__BackingField: RifleAim
   <TotalAmmo>k__BackingField: 30
   <TimeBetweenShoots>k__BackingField: 0.05
-  <StartSpread>k__BackingField: 5
-  <MaxSpread>k__BackingField: 5
   <TimeToSpreadReduce>k__BackingField: 0.05
-  <SpreadMultiplier>k__BackingField: 0.8
-  <MultiplierIncreaseRate>k__BackingField: 0.05
-  <BaseIncrement>k__BackingField: 2
+  <MaxSpread>k__BackingField: 5
   <RecoilForce>k__BackingField: 15
+  <ReduceCrosshairValue>k__BackingField: 250
   <ReloadTime>k__BackingField: 2
+  <DamageSettings>k__BackingField:
+  - BodyType: 0
+    Damage: 0
+  - BodyType: 0
+    Damage: 0
   <SingleFire>k__BackingField: 1
   <BurstFire>k__BackingField: 1
   <BurstReloadTime>k__BackingField: 0.12

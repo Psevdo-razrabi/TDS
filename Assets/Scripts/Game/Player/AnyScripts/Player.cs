@@ -1,4 +1,4 @@
-﻿using Customs;
+using Customs;
 using Enemy;
 using Game.Core.Health;
 using Game.Player.AnimatorScripts;

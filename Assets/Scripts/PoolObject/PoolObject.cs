@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sirenix.Utilities;
+using UniRx;
 using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
@@ -59,7 +60,11 @@ public class PoolObject
     {
         var prefab = _container.InstantiatePrefab(prefabObjectObject);
         
-        typesComponent.ForEach(x => prefab.AddComponent(x));
+        typesComponent
+            .ToObservable()
+            .Where(type => prefab.GetComponent(type) == null)
+            .Subscribe(type => prefab.AddComponent(type));
+        
         return prefab;
     }
 

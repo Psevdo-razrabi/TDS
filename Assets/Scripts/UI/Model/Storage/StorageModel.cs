@@ -18,7 +18,7 @@ namespace UI.Storage
         }
         public void ChangeAimWeapon(WeaponComponent weaponComponent)
         {
-            _weaponCommand.OnInvokeCommands(weaponComponent);
+            _weaponCommand.OnInvokeSwitchAimComand(weaponComponent);
         }
     }
 }
