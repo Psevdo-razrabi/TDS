@@ -16,7 +16,7 @@ public class ParticleWeaponComand : Command
         
     public override async UniTask Execute(WeaponComponent weaponComponent)
     {
-        _weaponParticle.ChangeAudioWeapon(weaponComponent);
+        _weaponParticle.ChangeParticleWeapon(weaponComponent);
         await UniTask.Yield();
     }
 }

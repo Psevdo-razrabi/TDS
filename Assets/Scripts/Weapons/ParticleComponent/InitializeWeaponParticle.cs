@@ -12,7 +12,7 @@ public class InitializeWeaponParticle
         _storage = storage;
     }
 
-    public void ChangeAudioWeapon(WeaponComponent weaponComponent)
+    public void ChangeParticleWeapon(WeaponComponent weaponComponent)
     {
         _storage.AddOrUpdateWeaponParticle(weaponComponent);
     }
