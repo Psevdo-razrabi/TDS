@@ -24,7 +24,8 @@ namespace Game.Player.AnimatorScripts
         [field: SerializeField] public string NameIsClimbParameter { get; private set; }
         [field: SerializeField] public string NameIsClimbToWallParameter { get; private set; }
         [field: SerializeField] public string NameIsGroundParameter { get; private set; }
-        [field: SerializeField] public string NameIsLandingParameter { get; private set; }
+        [field: SerializeField] public string NameIsLandingLarge { get; private set; }
+        [field: SerializeField] public string NameIsLandingMiddle { get; private set; }
         private AnimationClip[] AnimationClips => PlayerAnimatorController.animationClips;
         public IReadOnlyDictionary<string, AnimationClip> dictionaryAnimationClips { get; private set; }
         

@@ -5,6 +5,6 @@ namespace Input.Interface
 {
     public interface IMove
     {
-        Vector2ReactiveProperty Move { get; }
+        Vector2ReactiveProperty MoveNonInterpolated { get; }
     }
 }

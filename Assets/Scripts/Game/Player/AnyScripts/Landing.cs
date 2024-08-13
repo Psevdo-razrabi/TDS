@@ -1,5 +1,7 @@
 ﻿using System;
 using Game.Player.PlayerStateMashine;
+using Game.Player.PlayerStateMashine.Configs;
+using Input.Interface;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -10,74 +12,63 @@ namespace Game.Player.AnyScripts
     {
         private StateMachineData _stateMachineData;
         private Player _player;
-        private readonly LandingColliders _landingColliders;
+        private readonly PlayerInLandingConfig _playerInLandingConfig;
+        private readonly IMove _move;
         private CompositeDisposable _compositeDisposable = new();
+        private Vector3 _direction;
 
-        public Landing(Player player, LandingColliders landingColliders)
+        public Landing(Player player, PlayerInLandingConfig playerInLandingConfig, IMove move)
         {
             _player = player;
-            _landingColliders = landingColliders;
+            _playerInLandingConfig = playerInLandingConfig;
+            _move = move;
             _stateMachineData = player.StateMachineData;
         }
-
-
+        
         public void Initialize()
+        {
+            Subscribes();
+        }
+        
+        public void Dispose()
+        {
+            _compositeDisposable?.Dispose();
+            _compositeDisposable?.Clear();
+        }
+        
+        private void Subscribes()
         {
             Observable
                 .EveryUpdate()
-                .Subscribe(_ =>
-                {
-                    CheckGround();
-                })
+                .Subscribe(_ => CheckGround())
+                .AddTo(_compositeDisposable);
+
+            _move.MoveNonInterpolated
+                .Subscribe(vector2 => _direction = new Vector3(vector2.x, 0f, vector2.y))
                 .AddTo(_compositeDisposable);
         }
         
         private void CheckGround()
         {
-            if(Physics.Raycast(_player.transform.position, Vector3.down, 0.5f, LayerMask.GetMask("Ground")))
+            var checkClampingObject = CheckPlane(_playerInLandingConfig.ClambingObject.LayerMask, Vector3.down, _playerInLandingConfig.ClambingObject.CastDistance);
+            if (checkClampingObject.isGround)
             {
-                _stateMachineData.IsPlayerInObstacle = false;
-            }
-            
-            if(Physics.Raycast(_player.transform.position, Vector3.down, 0.5f, LayerMask.GetMask("ClambingObject")))
-            {
-                _landingColliders.ActiveColliders(true);
-                
-                if (Physics.Raycast(_player.transform.position,Vector3.left, out RaycastHit hit, 0.7f, LayerMask.GetMask("LandingObject")))
-                {
-                    _stateMachineData.Rotation = Quaternion.LookRotation(-hit.normal);
-                    _stateMachineData.IsGrounded.Value = false;
-                }
-                else if(Physics.Raycast(_player.transform.position, Vector3.right, out RaycastHit hit1, 0.7f, LayerMask.GetMask("LandingObject")))
-                {
-                    _stateMachineData.Rotation = Quaternion.LookRotation(-hit1.normal);
-                    _stateMachineData.IsGrounded.Value = false;
-                }
-                else if (Physics.Raycast(_player.transform.position, Vector3.forward, out RaycastHit hit2, 0.7f, LayerMask.GetMask("LandingObject")))
-                {
-                    _stateMachineData.Rotation = Quaternion.LookRotation(-hit2.normal);
-                    _stateMachineData.IsGrounded.Value = false;
-                }
-                else if(Physics.Raycast(_player.transform.position, Vector3.back, out RaycastHit hit3, 0.7f, LayerMask.GetMask("LandingObject")))
-                {
-                    _stateMachineData.Rotation = Quaternion.LookRotation(-hit3.normal);
-                    _stateMachineData.IsGrounded.Value = false;
-                }
-                else
-                {
-                    _stateMachineData.IsGrounded.Value = true;
-                }
+                var checkLandingObject =
+                    CheckPlane(_playerInLandingConfig.LandingObject.LayerMask, _direction, _playerInLandingConfig.LandingObject.CastDistance);
+                _stateMachineData.Rotation = Quaternion.LookRotation(-checkLandingObject.hit.normal);
+                _stateMachineData.IsGrounded.Value = !checkLandingObject.isGround;
             }
             else
             {
-                _stateMachineData.IsGrounded.Value = true;
+                _stateMachineData.IsGrounded.Value = CheckPlane(_playerInLandingConfig.Ground.LayerMask, Vector3.down, _playerInLandingConfig.Ground.CastDistance).isGround;
             }
+            
         }
 
-        public void Dispose()
+        private (bool isGround, RaycastHit hit) CheckPlane(LayerMask layerMask, Vector3 direction, float castDistance)
         {
-            _compositeDisposable?.Dispose();
-            _compositeDisposable?.Clear();
+            return (Physics.Raycast(_player.transform.position, direction, out RaycastHit hit,
+                castDistance, layerMask), hit);
         }
     }
 }

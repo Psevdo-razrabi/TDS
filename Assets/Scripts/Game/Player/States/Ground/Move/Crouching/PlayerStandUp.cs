@@ -16,6 +16,7 @@ namespace Game.Player.States.Crouching
             base.OnEnter();
             _standUp = Player.PlayerConfigs.StandUpCrouch;
             Debug.Log("вошел в crouchStandUp");
+            CreateTokenAndDelete();
             PlayerSitDown().Forget();
             Player.StateChain.HandleState();
         }
@@ -41,11 +42,11 @@ namespace Game.Player.States.Crouching
                     Player.CharacterController.height = x;
                     Player.IKSystem.ChangeColliderInitHeight(x);
                 },
-                _standUp.HeightOfCharacterController, _standUp.TimeToCrouch, _standUp.CurveToCrouch);
+                _standUp.HeightOfCharacterController, _standUp.TimeToCrouch, _standUp.CurveToCrouch, Cancellation.Token);
             
             var centerChange = InterpolatedVector3WithEase(Player.CharacterController.center,
                 x => Player.CharacterController.center = x,
-                _standUp.CenterCharacterController, _standUp.TimeToCrouch, _standUp.CurveToCrouch);
+                _standUp.CenterCharacterController, _standUp.TimeToCrouch, _standUp.CurveToCrouch, Cancellation.Token);
 
             await UniTask.WhenAll(heightChange, centerChange);
         }

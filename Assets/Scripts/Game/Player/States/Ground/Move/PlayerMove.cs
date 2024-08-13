@@ -18,6 +18,7 @@ namespace Game.Player.States
             base.OnEnter();
             Data.IsMove.Value = true;
             Data.IsLockAim = false;
+            PlayerMoveConfig = Player.PlayerConfigs.BaseMove;
             Debug.Log("Вход в move state");
         }
 
@@ -36,9 +37,11 @@ namespace Game.Player.States
             GravityForce();
             
             Debug.Log("обновляю ходьбу без прицела");
-            
-            UpdateDesiredTargetSpeed(Player.PlayerConfigs.BaseMove);
-            
+            ChangeState();
+        }
+
+        private void ChangeState()
+        {
             Player.StateChain.HandleState<PlayerIdleHandler>();
             Player.StateChain.HandleState<PlayerAimMoveHandler>();
             Player.StateChain.HandleState<PlayerDashHandle>();

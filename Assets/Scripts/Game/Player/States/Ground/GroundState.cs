@@ -85,10 +85,12 @@ namespace Game.Player.States
             else if (_obstacleHeight >= middleObstacle.RangeAndCorrectionForClimb.From && _obstacleHeight <= middleObstacle.RangeAndCorrectionForClimb.Before)
             {
                 InitClimbParameters(middleObstacle, Player.AnimatorController.NameIsClimbParameter);
+                InitLandingParameters(Player.AnimatorController.NameIsLandingMiddle);
             }
             else if (_obstacleHeight >= largeObstacle.RangeAndCorrectionForClimb.From && _obstacleHeight <= largeObstacle.RangeAndCorrectionForClimb.Before)
             {
                 InitClimbParameters(largeObstacle, Player.AnimatorController.NameIsClimbToWallParameter);
+                InitLandingParameters(Player.AnimatorController.NameIsLandingLarge);
             }
             else
             {
@@ -106,6 +108,12 @@ namespace Game.Player.States
             Data.Climb.animationClipDuration =
                 Player.AnimatorController.dictionaryAnimationClips[Data.Climb.animationTriggerName].length;
         }
+
+        private void InitLandingParameters(string nameTriggerParameters)
+        {
+            Data.Landing.animationTriggerName = nameTriggerParameters;
+            Data.Landing.animationClipDuration = 2f;
+        }
         
         private void OnClimb()
         {
@@ -114,4 +122,5 @@ namespace Game.Player.States
 
         //private void OnJumpPressedKey() => StateMachine.PlayerStateMachine.SwitchStates<>(); //Jump
     }
+    
 }

@@ -17,8 +17,8 @@ TagManager:
   - Obstacle
   - Bullet
   - Wall
+  - 
   - ClambingObject
-  - CrouchingObject
   - LandingObject
   - 
   - 
