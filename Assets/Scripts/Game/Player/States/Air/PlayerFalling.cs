@@ -16,15 +16,9 @@ namespace Game.Player.States.Air
         {
             base.OnEnter();
             Debug.Log("зашел в падение");
-            Data.IsLockAim = true;
-            await RotatePlayerToObstacle();
-            Player.AnimatorController.PlayerAnimator.applyRootMotion = true;
-            Player.AnimatorController.SetTriggerParameters(Player.AnimatorController.NameIsLandingParameter);
-            await UniTask.Delay(TimeSpan.FromSeconds(2f));
-            
-            Player.AnimatorController.PlayerAnimator.applyRootMotion = false;
-            Player.StateChain.HandleState<PlayerIdleHandler>();
-            Player.StateChain.HandleState<PlayerMoveHandler>();
+            await RotatePlayer();
+            await PlayerAnimationPlay();
+            ChangeState();
         }
 
         public override void OnUpdateBehaviour()
@@ -38,6 +32,27 @@ namespace Game.Player.States.Air
             base.OnExit();
             Debug.Log("вышел из падения");
             Data.IsLockAim = false;
+        }
+
+        private void ChangeState()
+        {
+            Player.StateChain.HandleState<PlayerIdleHandler>();
+            Player.StateChain.HandleState<PlayerMoveHandler>();
+        }
+
+        private async UniTask RotatePlayer()
+        {
+            Data.IsLockAim = true;
+            await RotatePlayerToObstacle();
+        }
+
+        private async UniTask PlayerAnimationPlay()
+        {
+            Player.AnimatorController.PlayerAnimator.applyRootMotion = true;
+            Player.AnimatorController.SetTriggerParameters(Data.Landing.animationTriggerName);
+            await UniTask.Delay(TimeSpan.FromSeconds(Data.Landing.animationClipDuration));
+            
+            Player.AnimatorController.PlayerAnimator.applyRootMotion = false;
         }
     }
 }

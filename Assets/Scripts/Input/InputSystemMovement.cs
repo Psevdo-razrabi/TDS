@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class InputSystemMovement : InputSystemBase, IMove
 {
     public Vector2ReactiveProperty Move { get; } = new();
+    public Vector2ReactiveProperty MoveNonInterpolated { get; } = new();
     public Action OnDash;
     public event Action OnClimb;
     private Action _dashButton;
@@ -26,6 +27,7 @@ public class InputSystemMovement : InputSystemBase, IMove
     private void Update()
     {
         Move.Value = new Vector2(UnityEngine.Input.GetAxis("Horizontal"), UnityEngine.Input.GetAxis("Vertical"));
+        MoveNonInterpolated.Value = InputSystemNew.Movement.Move.ReadValue<Vector2>();
     }
     
     private void SubscribeCrouch()

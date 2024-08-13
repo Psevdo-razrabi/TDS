@@ -1,9 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
-using UnityEngine;
 
 namespace Game.Player.States.Parkour
 {
@@ -18,11 +16,9 @@ namespace Game.Player.States.Parkour
             base.OnEnter();
             Data.IsLockAim = true;
             await RotatePlayerToObstacle();
-            PlayClimbAnimation(Data.Climb.animationClipDuration).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(Data.Climb.animationClipDuration + 0.5f));
+            await AnimationPlayClip();
             Data.IsPlayerInObstacle = true;
-            Player.StateChain.HandleState<PlayerIdleHandler>();
-            Player.StateChain.HandleState<PlayerMoveHandler>();
+            ChangeState();
         }
 
         public override void OnExit()
@@ -45,11 +41,21 @@ namespace Game.Player.States.Parkour
              Player.AnimatorController.SetTriggerParameters(Data.Climb.animationTriggerName);
              Player.AnimatorController.PlayerAnimator.applyRootMotion = true;
              
-             Player.transform.rotation = Data.Rotation;
-
              await UniTask.Delay(TimeSpan.FromSeconds(durationAnimation));
             
             Player.AnimatorController.PlayerAnimator.applyRootMotion = false;
+        }
+
+        private void ChangeState()
+        {
+            Player.StateChain.HandleState<PlayerIdleHandler>();
+            Player.StateChain.HandleState<PlayerMoveHandler>();
+        }
+
+        private async UniTask AnimationPlayClip()
+        {
+            PlayClimbAnimation(Data.Climb.animationClipDuration).Forget();
+            await UniTask.Delay(TimeSpan.FromSeconds(Data.Climb.animationClipDuration + 0.5f));
         }
     }
 }

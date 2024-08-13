@@ -1,12 +1,7 @@
-﻿using System;
-using System.Threading;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Interfase;
-using PhysicsWorld;
 using UniRx;
 using UnityEngine;
 

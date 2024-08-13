@@ -26,6 +26,11 @@ namespace Game.Player.States.Crouching
         {
             base.OnUpdateBehaviour();
             Debug.Log("обновляю crouchIdle");
+            ChangeState();
+        }
+
+        private void ChangeState()
+        {
             Player.StateChain.HandleState<PlayerMoveCrouchHandle>();
             Player.StateChain.HandleState<PlayerStandUpCrouchHandler>();
         }

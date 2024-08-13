@@ -13,17 +13,8 @@ namespace Game.Player
         [SerializeField] private GameObject _gun;
         [SerializeField] private LineRenderer _lineRenderer;
         [SerializeField] private Player _player;
-        
-        private StateMachineData _stateMachineData;
 
         public Transform CameraTransform => _camera.transform;
-
-        [Inject]
-        private void Construct(StateMachineData stateMachineData)
-        {
-            _stateMachineData = stateMachineData;
-        }
-        
         
         public (bool, Vector3) GetMousePosition()
         {

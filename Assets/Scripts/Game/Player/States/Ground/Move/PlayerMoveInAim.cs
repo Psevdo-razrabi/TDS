@@ -16,6 +16,7 @@ namespace Game.Player.States
             base.OnEnter();
             //OnEnterAimState();
             Data.IsMove.Value = true;
+            PlayerMoveConfig = Player.PlayerConfigs.MoveWithAim;
             Debug.Log("зашел в ходьбу в прицеле");
         }
 
@@ -31,13 +32,13 @@ namespace Game.Player.States
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
-            
             Move();
-            
             Debug.Log("обновляю ходьбу в прицеле");
-            
-            UpdateDesiredTargetSpeed(Player.PlayerConfigs.MoveWithAim);
-            
+            ChangeState();
+        }
+
+        private void ChangeState()
+        {
             Player.StateChain.HandleState<PlayerAimIdleHandler>();
             Player.StateChain.HandleState<PlayerMoveHandler>();
             Player.StateChain.HandleState<PlayerDashHandle>();

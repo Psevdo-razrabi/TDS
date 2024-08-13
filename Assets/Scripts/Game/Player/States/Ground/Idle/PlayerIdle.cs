@@ -33,6 +33,11 @@ namespace Game.Player.States
             base.OnUpdateBehaviour();
             GravityForce();
             Debug.Log("обновляю idle");
+            ChangeState();
+        }
+        
+        private void ChangeState()
+        {
             Player.StateChain.HandleState<PlayerMoveHandler>();
             Player.StateChain.HandleState<PlayerAimIdleHandler>();
             Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();

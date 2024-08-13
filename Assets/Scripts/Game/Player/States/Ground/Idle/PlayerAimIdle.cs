@@ -29,6 +29,11 @@ namespace Game.Player.States
         {
             base.OnUpdateBehaviour();
             Debug.Log("обновляю idle"); ;
+            ChangeState();
+        }
+
+        private void ChangeState()
+        {
             Player.StateChain.HandleState<PlayerAimMoveHandler>();
             Player.StateChain.HandleState<PlayerIdleHandler>();
             Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();

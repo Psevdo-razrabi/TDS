@@ -19,10 +19,9 @@ namespace Game.Player.States.Crouching
             _crouchAndStandConfig = Player.PlayerConfigs.SitDownCrouch;
             Data.IsAim.Value = false;
             Debug.Log("вошел в crouchSitDown");
+            CreateTokenAndDelete();
             PlayerSitDown().Forget();
-            Player.StateChain.HandleState<PlayerMoveCrouchHandle>();
-            Player.StateChain.HandleState<PlayerIdleCrouchHandle>();
-            Player.StateChain.HandleState<PlayerStandUpCrouchHandler>();
+            ChangeState();
         }
 
         public override void OnUpdateBehaviour()
@@ -40,14 +39,21 @@ namespace Game.Player.States.Crouching
                     Player.IKSystem.ChangeColliderInitHeight(x);
                 },
                 _crouchAndStandConfig.HeightOfCharacterController, _crouchAndStandConfig.TimeToCrouch,
-                _crouchAndStandConfig.CurveToCrouch);
+                _crouchAndStandConfig.CurveToCrouch, Cancellation.Token);
             
             var centerChange = InterpolatedVector3WithEase(Player.CharacterController.center,
                 x => Player.CharacterController.center = x,
                 _crouchAndStandConfig.CenterCharacterController, _crouchAndStandConfig.TimeToCrouch,
-                _crouchAndStandConfig.CurveToCrouch);
+                _crouchAndStandConfig.CurveToCrouch, Cancellation.Token);
 
             await UniTask.WhenAll(heightChange, centerChange);
+        }
+
+        private void ChangeState()
+        {
+            Player.StateChain.HandleState<PlayerMoveCrouchHandle>();
+            Player.StateChain.HandleState<PlayerIdleCrouchHandle>();
+            Player.StateChain.HandleState<PlayerStandUpCrouchHandler>(); 
         }
     }
 }

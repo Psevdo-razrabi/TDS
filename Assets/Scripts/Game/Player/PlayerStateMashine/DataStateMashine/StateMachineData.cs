@@ -29,11 +29,11 @@ namespace Game.Player.PlayerStateMashine
         public readonly ReactiveProperty<bool> IsLookAtObstacle = new();
         public readonly ReactiveProperty<bool> IsClimbing = new();
         public readonly ReactiveProperty<bool> IsGrounded = new();
-        public readonly ReactiveProperty<bool> IsLanding = new();
         public bool IsAir;
         public bool IsLockAim;
         public bool IsPlayerInObstacle;
         public ClimbParameters Climb = new();
+        public LandingParameters Landing = new();
         public ObstacleParametersConfig ObstacleConfig;
         public Quaternion Rotation;
         
@@ -137,9 +137,6 @@ namespace Game.Player.PlayerStateMashine
                 .Subscribe(_ =>
                 _animatorController.OnAnimatorStateSet(IsGrounded, _animatorController.NameIsGroundParameter))
                 .AddTo(_compositeDisposable);
-            IsLanding.Subscribe(_ =>
-                    _animatorController.OnAnimatorStateSet(IsLanding, _animatorController.NameIsLandingParameter))
-                .AddTo(_compositeDisposable);
         }
 
         public void Dispose()
@@ -151,6 +148,12 @@ namespace Game.Player.PlayerStateMashine
         public class ClimbParameters
         {
             public float correctionHeight;
+            public string animationTriggerName;
+            public float animationClipDuration;
+        }
+        
+        public class LandingParameters
+        {
             public string animationTriggerName;
             public float animationClipDuration;
         }

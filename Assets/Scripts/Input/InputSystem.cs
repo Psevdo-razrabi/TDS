@@ -121,6 +121,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""4818bc64-50d3-4fab-8b2d-d58eaf397963"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -156,6 +165,61 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Clamb"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""25aed0eb-1df9-48ed-892f-0fc856111f91"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""ebdf156c-6e73-4a74-b6ad-bd510c1da4d4"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""593a9850-109a-4c9e-b8ca-5bcd5fe071c9"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a912bf62-47a0-410c-b5c4-40a4ac2cb82a"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""7447f81b-4122-4356-a905-345a8217d6f3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -288,6 +352,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Movement_Dash = m_Movement.FindAction("Dash", throwIfNotFound: true);
         m_Movement_Crouching = m_Movement.FindAction("Crouching", throwIfNotFound: true);
         m_Movement_Clamb = m_Movement.FindAction("Clamb", throwIfNotFound: true);
+        m_Movement_Move = m_Movement.FindAction("Move", throwIfNotFound: true);
         // Weapon
         m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
         m_Weapon_Reload = m_Weapon.FindAction("Reload", throwIfNotFound: true);
@@ -423,6 +488,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_Movement_Dash;
     private readonly InputAction m_Movement_Crouching;
     private readonly InputAction m_Movement_Clamb;
+    private readonly InputAction m_Movement_Move;
     public struct MovementActions
     {
         private @InputSystem m_Wrapper;
@@ -430,6 +496,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Movement_Dash;
         public InputAction @Crouching => m_Wrapper.m_Movement_Crouching;
         public InputAction @Clamb => m_Wrapper.m_Movement_Clamb;
+        public InputAction @Move => m_Wrapper.m_Movement_Move;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -448,6 +515,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Clamb.started += instance.OnClamb;
             @Clamb.performed += instance.OnClamb;
             @Clamb.canceled += instance.OnClamb;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -461,6 +531,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Clamb.started -= instance.OnClamb;
             @Clamb.performed -= instance.OnClamb;
             @Clamb.canceled -= instance.OnClamb;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -605,6 +678,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnCrouching(InputAction.CallbackContext context);
         void OnClamb(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
     public interface IWeaponActions
     {

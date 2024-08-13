@@ -19,9 +19,10 @@ namespace Game.Player.States.Crouching
             Debug.Log("вошел в crouchMove");
             CrouchMovement = Player.PlayerConfigs.CrouchMovement;
             Data.IsMove.Value = true;
+            CreateTokenAndDelete();
             
             InterpolatedFloatWithEase(Data.Speed, x => Data.Speed = x, CrouchMovement.Speed,
-                CrouchMovement.TimeToMaxSpeed, CrouchMovement.CurveToMaxSpeed).Forget();
+                CrouchMovement.TimeToMaxSpeed, CrouchMovement.CurveToMaxSpeed, Cancellation.Token).Forget();
         }
 
         public override void OnExit()
@@ -37,14 +38,19 @@ namespace Game.Player.States.Crouching
             base.OnUpdateBehaviour();
             Debug.Log("обновляю crouchMove");
             Move();
-            Player.StateChain.HandleState<PlayerIdleCrouchHandle>();
-            Player.StateChain.HandleState<PlayerStandUpCrouchHandler>();
+            ChangeState();
         }
 
         protected override void Move()
         {
             var direction = new Vector3(Movement.x, Data.TargetDirectionY, Movement.z);
             Player.CharacterController.Move(Data.Speed * Time.deltaTime * direction);
+        }
+
+        private void ChangeState()
+        {
+            Player.StateChain.HandleState<PlayerIdleCrouchHandle>();
+            Player.StateChain.HandleState<PlayerStandUpCrouchHandler>();
         }
     }
 }

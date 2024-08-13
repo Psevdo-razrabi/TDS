@@ -30,7 +30,6 @@ namespace DI
         [SerializeField] private InputBuffer inputBuffer;
         [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
         [SerializeField] private StorageAssetReference _storageAssetReference;
-        [SerializeField] private LandingColliders _landing;
         
         public override void InstallBindings()
         {
@@ -104,7 +103,6 @@ namespace DI
             BindInstance(player);
             BindInstance(dashTrailEffect);
             BindNewInstance<Landing>();
-            BindInstance(_landing);
         }
 
         private void BindLoader()

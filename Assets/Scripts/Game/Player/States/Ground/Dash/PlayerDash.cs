@@ -32,7 +32,7 @@ namespace Game.Player.States.Dash
             Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
         }
 
-        protected async override void Move()
+        protected override async void Move()
         {
             await Dash();
         }

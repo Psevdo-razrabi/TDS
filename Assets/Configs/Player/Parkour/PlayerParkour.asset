@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <LayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 4096
-  <Step>k__BackingField: {fileID: 0}
+    m_Bits: 8192
   <RayCastDistance>k__BackingField: 0.5
