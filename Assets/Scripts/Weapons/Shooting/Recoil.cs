@@ -18,10 +18,10 @@ public class Recoil : IConfigRelize, IInitializable
     private BaseWeaponConfig _gunConfig;
     private WeaponData _weaponData;
 
-    public Recoil(Crosshair crosshair, WeaponConfigs weaponConfigs, DistributionConfigs distributionConfigs, WeaponData weaponData)
+    public Recoil(Crosshair crosshair, Weapon weapon, DistributionConfigs distributionConfigs, WeaponData weaponData)
     {
         _crosshair = crosshair;
-        _currentWeapon = new CurrentWeapon(weaponConfigs);
+        _currentWeapon = new CurrentWeapon(weapon);
         _distributionConfigs = distributionConfigs;
         _weaponData = weaponData;
     }

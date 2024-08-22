@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 
@@ -7,7 +8,7 @@ namespace Game.Player.States.Parkour
 {
     public class PlayerClimbToObstacle : BaseParkour
     {
-        public PlayerClimbToObstacle(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        public PlayerClimbToObstacle(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
 
@@ -18,6 +19,7 @@ namespace Game.Player.States.Parkour
             await RotatePlayerToObstacle();
             await AnimationPlayClip();
             Data.IsPlayerInObstacle = true;
+            ZeroingRotation();
             ChangeState();
         }
 
@@ -38,18 +40,18 @@ namespace Game.Player.States.Parkour
 
         private async UniTaskVoid PlayClimbAnimation(float durationAnimation)
         {
-             Player.AnimatorController.SetTriggerParameters(Data.Climb.animationTriggerName);
-             Player.AnimatorController.PlayerAnimator.applyRootMotion = true;
+             Player.PlayerAnimation.AnimatorController.SetTriggerParameters(Data.Climb.animationTriggerName);
+             Player.PlayerAnimation.AnimatorController.PlayerAnimator.applyRootMotion = true;
              
              await UniTask.Delay(TimeSpan.FromSeconds(durationAnimation));
             
-            Player.AnimatorController.PlayerAnimator.applyRootMotion = false;
+            Player.PlayerAnimation.AnimatorController.PlayerAnimator.applyRootMotion = false;
         }
 
         private void ChangeState()
         {
-            Player.StateChain.HandleState<PlayerIdleHandler>();
-            Player.StateChain.HandleState<PlayerMoveHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerIdleHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerMoveHandler>();
         }
 
         private async UniTask AnimationPlayClip()

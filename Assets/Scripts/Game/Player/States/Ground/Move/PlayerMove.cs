@@ -1,15 +1,14 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
 using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
 using Game.Player.States.StateHandle.Faling;
 using Game.Player.States.StateHandle.Parkour;
-using UnityEngine;
 
 namespace Game.Player.States
 {
     public class PlayerMove : PlayerOrientation
     {
-        public PlayerMove(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        public PlayerMove(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
 
@@ -18,15 +17,13 @@ namespace Game.Player.States
             base.OnEnter();
             Data.IsMove.Value = true;
             Data.IsLockAim = false;
-            PlayerMoveConfig = Player.PlayerConfigs.BaseMove;
-            Debug.Log("Вход в move state");
+            Data.PlayerMoveConfig = Player.PlayerConfigs.MovementConfigsProvider.BaseMove;
         }
 
         public override void OnExit()
         {
             base.OnExit();
             Data.IsMove.Value = false;
-            Debug.Log("Выход из move state");
         }
 
         public override void OnUpdateBehaviour()
@@ -36,18 +33,17 @@ namespace Game.Player.States
             Move();
             GravityForce();
             
-            Debug.Log("обновляю ходьбу без прицела");
             ChangeState();
         }
 
         private void ChangeState()
         {
-            Player.StateChain.HandleState<PlayerIdleHandler>();
-            Player.StateChain.HandleState<PlayerAimMoveHandler>();
-            Player.StateChain.HandleState<PlayerDashHandle>();
-            Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
-            Player.StateChain.HandleState<PlayerClimbToObstacleHandle>();
-            Player.StateChain.HandleState<PlayerFallingHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerIdleHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerAimMoveHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerDashHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerSitDownCrouchHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerClimbToObstacleHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerFallingHandler>();
         }
     }
 }

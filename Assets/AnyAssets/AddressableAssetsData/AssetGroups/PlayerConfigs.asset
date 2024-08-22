@@ -17,76 +17,29 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ff44a24afac6d5b4da488c04a05b2967
   m_SerializeEntries:
-  - m_GUID: 3d835d45c9442634cb6d041a7f70908c
-    m_Address: Dash
+  - m_GUID: bb1f0aa1534f4fb4987952103fa059c1
+    m_Address: ObstacleProvider
     m_ReadOnly: 0
     m_SerializedLabels:
     - PlayerConfig
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ec66aea65483a71488f8c3dba11b98d2
-    m_Address: Move
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cb9fa2ba8d3f74a4b886b1955c0d45f8
-    m_Address: MoveStateAim
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e388e097296248d4d8680a9e2d123eb8
-    m_Address: HealthPlayer
+  - m_GUID: 002e356bea364ee4b8aa10675b6743d2
+    m_Address: MovementProvider
     m_ReadOnly: 0
     m_SerializedLabels:
     - PlayerConfig
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3302f840d842556448190f3a202561b2
-    m_Address: FOWConfig
+  - m_GUID: 66bdc16a5febff24ead9954c68fe32e8
+    m_Address: CrouchProvider
     m_ReadOnly: 0
     m_SerializedLabels:
     - PlayerConfig
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b5cbeb14e16a49442ae6a3d8d29ae37c
-    m_Address: SitDown
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 593b14639ed0d1b47a273c875f790e55
-    m_Address: StandUp
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: df0b7fe4b833f4a448495c4b6b719b3c
-    m_Address: CrouchingMovement
+  - m_GUID: accc5edff9a55e743838cfea49fbeab9
+    m_Address: AnyPlayerConfig
     m_ReadOnly: 0
     m_SerializedLabels:
     - PlayerConfig
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 691298c4432841145a5ca79e23aa248e
-    m_Address: CrouchParameters
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PlayerConfig
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 16db17cb30242214e948be790a833b25
-    m_Address: Parkour
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - PlayerConfig
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 423edbaef513bbe4d8801f4c906167a6
-    m_Address: Large
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 0cf9e5d847841d348b124469bb4a45a0
-    m_Address: Middle
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e984d88c215ab724b95f3ec05d6d163c
-    m_Address: Small
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a32baf0e5cd480a4ba13a93650c972e4, type: 2}

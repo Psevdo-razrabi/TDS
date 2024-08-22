@@ -1,15 +1,16 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.Crouching;
 
 namespace Game.Player.States.StateHandle
 {
     public class PlayerMoveCrouchHandle : IStateHandle
     {
-        public InitializationStateMachine StateMachine { get; }
-        public PlayerMoveCrouchHandle(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
+        public PlayerStateMachine StateMachine { get; private set; }
+        public PlayerMoveCrouchHandle(PlayerStateMachine stateMachine) => StateMachine = stateMachine;
 
         public bool CanHandle() => StateMachine.Data.IsCrouch.Value && !StateMachine.Data.IsInputZero();
 
-        public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerCrouch>();
+        public void Handle() => StateMachine.StateMachine.SwitchStates<PlayerCrouch>();
     }
 }

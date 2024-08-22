@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Interfase;
 using UniRx;
@@ -9,7 +10,6 @@ namespace Game.Player.States
 {
     public abstract class PlayerBehaviour : IState
     {
-        protected readonly InitializationStateMachine StateMachine;
         protected CompositeDisposable Disposable = new();
         protected readonly Player Player;
         protected readonly StateMachineData Data;
@@ -21,15 +21,14 @@ namespace Game.Player.States
         public virtual void OnUpdateBehaviour()
         {
             UpdateAnimatorInput();
-            AimIsFreeze(Player.transform.rotation);
+            AimIsFreeze(Player.PlayerComponents.transform.rotation);
         }
         public virtual void OnFixedUpdateBehaviour() {}
 
-        protected PlayerBehaviour(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData)
+        protected PlayerBehaviour(PlayerStateMachine stateMachine)
         {
-            StateMachine = stateMachine;
-            Player = player;
-            Data = stateMachineData;
+            Player = stateMachine.Player;
+            Data = stateMachine.Data;
         }
 
         protected virtual void AddActionsCallbacks() {}
@@ -38,7 +37,7 @@ namespace Game.Player.States
 
         protected virtual void GravityForce()
         {
-            Player.CharacterController.Move(new Vector3(0f, Data.TargetDirectionY, 0f));
+            Player.PlayerComponents.CharacterController.Move(new Vector3(0f, Data.TargetDirectionY, 0f));
         }
 
         private void UpdateAnimatorInput()
@@ -48,19 +47,27 @@ namespace Game.Player.States
         }
         
         protected async UniTask RotatePlayerToObstacle()
+        { 
+            var rotateModel =  Player.PlayerView.ModelRotate.transform.DORotateQuaternion(Data.Rotation, 1f);
+            var rotatePlayer = Player.PlayerComponents.transform.DORotateQuaternion(Data.Rotation, 1f);
+
+            await UniTask.WhenAll(rotatePlayer.ToUniTask(), rotateModel.ToUniTask());
+        }
+
+        protected void ZeroingRotation()
         {
-            await Player.transform.DORotateQuaternion(Data.Rotation, 1f);
+            Player.PlayerComponents.transform.rotation = Quaternion.identity;
         }
         
         protected void AimIsFreeze(Quaternion rotation)
         {
             if (Data.IsLockAim)
             {
-                Player.PlayerAim.FreezeAim(rotation);
+                Player.PlayerComponents.PlayerAim.FreezeAim(rotation, Player);
             }
             else
             {
-                Player.PlayerAim.Aim();
+                Player.PlayerComponents.PlayerAim.Aim();
             }
         }
     }

@@ -1,15 +1,16 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.Crouching;
 
 namespace Game.Player.States.StateHandle
 {
     public class PlayerSitDownCrouchHandle : IStateHandle
     {
-        public InitializationStateMachine StateMachine { get; }
-        public PlayerSitDownCrouchHandle(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
+        public PlayerStateMachine StateMachine { get; private set; }
+        public PlayerSitDownCrouchHandle(PlayerStateMachine stateMachine) => StateMachine = stateMachine;
 
         public bool CanHandle() => StateMachine.Data.IsCrouch.Value;
 
-        public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerSitsDown>();
+        public void Handle() => StateMachine.StateMachine.SwitchStates<PlayerSitsDown>();
     }
 }

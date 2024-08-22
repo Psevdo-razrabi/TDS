@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Game.Player.PlayerStateMashine;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine.Configs;
 using UniRx;
 using UnityEngine;
@@ -10,13 +10,10 @@ namespace Game.Player.States
 {
     public abstract class BaseMove : GroundState
     {
-        protected Vector3 Movement;
-        protected PlayerMoveConfig PlayerMoveConfig;
         private Vector3 _speed;
         private CancellationTokenSource _token = new ();
 
-        protected BaseMove(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) :
-            base(stateMachine, player, stateMachineData)
+        protected BaseMove(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
 
@@ -24,20 +21,20 @@ namespace Game.Player.States
         {
             base.AddActionsCallbacks();
 
-            Player.InputSystem.Move
+            Player.PlayerInputStorage.InputSystem.Move.SkipLatestValueOnSubscribe()
                 .Subscribe(vector =>
                 {
-                    Movement = new Vector3(vector.x, 0f, vector.y).normalized;
-                    UpdateDesiredTargetSpeed(PlayerMoveConfig);
+                    Data.Movement = new Vector3(vector.x, 0f, vector.y).normalized;
+                    UpdateDesiredTargetSpeed(Data.PlayerMoveConfig);
                 })
                 .AddTo(Disposable);
 
-            Player.InputSystem.OnSubscribeDash(() =>
+            Player.PlayerInputStorage.InputSystem.OnSubscribeDash(() =>
             {
                 if (Data.DashCount == 0) return;
 
-                Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
-                Player.StateChain.HandleState();
+                Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.PlayerAnimation.AnimatorController.NameDashParameter);
+                Player.PlayerStateMachine.StateChain.HandleState();
             });
         }
 
@@ -71,12 +68,12 @@ namespace Game.Player.States
         }
 
         private async UniTask InterpolateSpeed(float currentSpeed, float endValue, float duration, CancellationToken cancellationToken)
-        { 
+        {
             await DOTween
                 .To(() => currentSpeed, x => Data.CurrentSpeed = x, endValue, duration)
                 .WithCancellation(cancellationToken: cancellationToken);
         }
-
+        
         private void ClearToken(CancellationTokenSource cancellationToken)
         {
             cancellationToken?.Cancel();
@@ -90,9 +87,9 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Movement;
+            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Data.Movement;
             targetSpeed.y = Data.TargetDirectionY;
-            Player.CharacterController.Move(targetSpeed);
+            Player.PlayerComponents.CharacterController.Move(targetSpeed);
         }
     }
 }

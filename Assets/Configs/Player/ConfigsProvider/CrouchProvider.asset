@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb583d17888d42efb0b45e6e6dfee8eb, type: 3}
+  m_Name: CrouchProvider
+  m_EditorClassIdentifier: 
+  <StandUpCrouch>k__BackingField: {fileID: 11400000, guid: 593b14639ed0d1b47a273c875f790e55,
+    type: 2}
+  <SitDownCrouch>k__BackingField: {fileID: 11400000, guid: b5cbeb14e16a49442ae6a3d8d29ae37c,
+    type: 2}
+  <CrouchMovement>k__BackingField: {fileID: 11400000, guid: df0b7fe4b833f4a448495c4b6b719b3c,
+    type: 2}
+  <CrouchParameters>k__BackingField: {fileID: 11400000, guid: 691298c4432841145a5ca79e23aa248e,
+    type: 2}

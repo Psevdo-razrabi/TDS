@@ -16,7 +16,7 @@ using Zenject;
 public class BulletLifeCycle : IConfigRelize, IInitializable
 {
     private const float BULLET_LIFE_TIME = 2f;
-    private readonly WeaponConfigs _weaponConfigs;
+    private readonly Weapon _weapon;
     private CompositeDisposable _compositeDisposable = new();
     private FactoryComponentWithMonoBehaviour _factory;
     private Spread _spread;
@@ -31,11 +31,11 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     private Vector3? _hitPoint;
     private Vector3? _aimPoint;
     
-    public BulletLifeCycle(WeaponConfigs weaponConfigs, FactoryComponentWithMonoBehaviour factory,
+    public BulletLifeCycle(Weapon weapon, FactoryComponentWithMonoBehaviour factory,
         Spread spread, DistributionConfigs distributionConfigs, CurrentWeapon currentWeapon, WeaponData weaponData, HeightCheck heightCheck, AimRay aimRay)
     {
         _factory = factory;
-        _weaponConfigs = weaponConfigs;
+        _weapon = weapon;
         _spread = spread;
         _distributionConfigs = distributionConfigs;
         _currentWeapon = currentWeapon;
@@ -48,7 +48,7 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
     {
         _currentWeapon.LoadConfig(weaponComponent);
         _gunConfig = _currentWeapon.CurrentWeaponConfig;
-        _factory.CreatePool<Bullet>(_weaponConfigs.BulletConfig.BulletPrefab);
+        _factory.CreatePool<Bullet>(_weapon.BulletConfig.BulletPrefab);
     }
 
     public void Initialize()
@@ -95,7 +95,7 @@ public class BulletLifeCycle : IConfigRelize, IInitializable
         Vector3 startPosition = _weaponData.BulletPoint.position;
         bullet.transform.position = startPosition;
 
-        Vector3 velocity = finalDirection * _weaponConfigs.BulletConfig.BulletSpeed;
+        Vector3 velocity = finalDirection * _weapon.BulletConfig.BulletSpeed;
 
         _bulletRigidbody = bullet.GetComponent<Rigidbody>();
         _bulletRigidbody.velocity = velocity;

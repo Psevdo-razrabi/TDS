@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Customs;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using UnityEngine;
 
@@ -15,13 +16,13 @@ namespace Game.Player.States.Orientation
         private readonly Queue<Vector3> _speedBuffer = new ();
         private const int BufferSize = 10;
 
-        protected PlayerOrientation(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        protected PlayerOrientation(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         { }
 
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
-            AimIsFreeze(Player.transform.rotation);
+            AimIsFreeze(Player.PlayerComponents.transform.rotation);
             KalmanFilter();
             ComputeRelativeSpeed();
             ComputeRelativeSpeeds();
@@ -30,26 +31,26 @@ namespace Game.Player.States.Orientation
 
         protected virtual void ComputeRelativeSpeeds()
         {
-            _relativeMaximum = Player.transform.TransformVector(Vector3.one);
+            _relativeMaximum = Player.PlayerComponents.transform.TransformVector(Vector3.one);
             
             _remappedSpeed.x = MathfExtensions.Remap(_relativeSpeed.x, 0f, Data.CurrentSpeed, 0f, _relativeMaximum.x);
             _remappedSpeed.y = MathfExtensions.Remap(_relativeSpeed.y, 0f, Data.CurrentSpeed, 0f, _relativeMaximum.y);
             _remappedSpeed.z = MathfExtensions.Remap(_relativeSpeed.z, 0f, Data.CurrentSpeed, 0f, _relativeMaximum.z);
             _remappedSpeed.Normalize();
             
-            _positionLastFrame = Player.transform.position;
+            _positionLastFrame = Player.PlayerComponents.transform.position;
         }
 
         private void ComputeRelativeSpeed()
         {
-            _relativeSpeed = Player.PlayerModelRotate.transform.InverseTransformVector(_newSpeed);
+            _relativeSpeed = Player.PlayerComponents.PlayerModelRotate.transform.InverseTransformVector(_newSpeed);
         }
 
         private void KalmanFilter()
         {
             if (Time.deltaTime == 0f) return;
             
-            _speedBuffer.Enqueue((Player.transform.position - _positionLastFrame) / Time.deltaTime);
+            _speedBuffer.Enqueue((Player.PlayerComponents.transform.position - _positionLastFrame) / Time.deltaTime);
             while (_speedBuffer.Count > BufferSize)
                 _speedBuffer.Dequeue();
             _newSpeed = Vector3.zero;
@@ -63,9 +64,9 @@ namespace Game.Player.States.Orientation
 
         private void UpdateAnimatorParameters()
         {
-            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameRemappedForwardSpeedNormalizedParameter, _remappedSpeed.z);
-            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameRemappedLateralSpeedNormalizedParameter, _remappedSpeed.x);
-            Player.AnimatorController.SetFloatParameters(Player.AnimatorController.NameRemappedSpeedNormalizedParameter, _remappedSpeed.magnitude);
+            Player.PlayerAnimation.AnimatorController.SetFloatParameters(Player.PlayerAnimation.AnimatorController.NameRemappedForwardSpeedNormalizedParameter, _remappedSpeed.z);
+            Player.PlayerAnimation.AnimatorController.SetFloatParameters(Player.PlayerAnimation.AnimatorController.NameRemappedLateralSpeedNormalizedParameter, _remappedSpeed.x);
+            Player.PlayerAnimation.AnimatorController.SetFloatParameters(Player.PlayerAnimation.AnimatorController.NameRemappedSpeedNormalizedParameter, _remappedSpeed.magnitude);
         }
     }
 }

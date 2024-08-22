@@ -1,4 +1,5 @@
-﻿using Game.AsyncWorker;
+﻿using Game.AsyncOperation;
+using Game.AsyncWorker;
 using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons;
 using Input;
@@ -40,7 +41,7 @@ namespace DI
         private void BindValue()
         {
             var valueFromReload = CreateStorage();
-            var valueFromAmmo =new ValueCountStorage<int>();
+            var valueFromAmmo = new ValueCountStorage<int>();
             var valueFromDash = new ValueCountStorage<int>();
             
             Container.Bind<ValueCountStorage<float>>().To<ValueCountStorage<float>>().FromInstance(valueFromReload)

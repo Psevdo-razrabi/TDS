@@ -1,11 +1,10 @@
-﻿using Game.Player.PlayerStateMashine;
-using Zenject;
+﻿using Game.Player.AnyScripts;
 
 namespace Game.Player.States.StateHandle
 {
     public interface IStateHandle
     {
-        InitializationStateMachine StateMachine { get; }
+        PlayerStateMachine StateMachine { get; }
         bool CanHandle();
         void Handle();
     }

@@ -1,3 +1,4 @@
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
@@ -7,7 +8,7 @@ namespace Game.Player.States
 {
     public class PlayerMoveInAim : PlayerOrientation
     {
-        public PlayerMoveInAim(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        public PlayerMoveInAim(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
 
@@ -16,8 +17,7 @@ namespace Game.Player.States
             base.OnEnter();
             //OnEnterAimState();
             Data.IsMove.Value = true;
-            PlayerMoveConfig = Player.PlayerConfigs.MoveWithAim;
-            Debug.Log("зашел в ходьбу в прицеле");
+            Data.PlayerMoveConfig = Player.PlayerConfigs.MovementConfigsProvider.MoveWithAim;
         }
 
         public override void OnExit()
@@ -26,23 +26,21 @@ namespace Game.Player.States
             if(Data.IsCrouch.Value || Data.IsDashing.Value) 
                 OnExitAimState();
             Data.IsMove.Value = false;
-            Debug.Log("вышел из ходьбы в прицеле");
         }
 
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
             Move();
-            Debug.Log("обновляю ходьбу в прицеле");
             ChangeState();
         }
 
         private void ChangeState()
         {
-            Player.StateChain.HandleState<PlayerAimIdleHandler>();
-            Player.StateChain.HandleState<PlayerMoveHandler>();
-            Player.StateChain.HandleState<PlayerDashHandle>();
-            Player.StateChain.HandleState<PlayerSitDownCrouchHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerAimIdleHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerMoveHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerDashHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerSitDownCrouchHandle>();
         }
     }
 }

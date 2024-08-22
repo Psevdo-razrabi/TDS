@@ -15,7 +15,7 @@ public class ShootComponent : IInitializable, IConfigRelize
     private readonly BulletLifeCycle _bulletLifeCycle;
     private readonly Recoil _recoil;
     private readonly Spread _spread;
-    private readonly WeaponConfigs _weaponConfigs;
+    private readonly Weapon _weapon;
     private readonly WeaponData _weaponData;
     private readonly DistributionConfigs _distributionConfigs;
     private readonly CurrentWeapon _currentWeapon;
@@ -23,14 +23,14 @@ public class ShootComponent : IInitializable, IConfigRelize
     public readonly ValueCountStorage<int> AmmoReloadValue;
     
     public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread,
-        WeaponConfigs weaponConfigs, WeaponData weaponData, DistributionConfigs distributionConfigs, FireComponent fireComponent, CurrentWeapon currentWeapon
+        Weapon weapon, WeaponData weaponData, DistributionConfigs distributionConfigs, FireComponent fireComponent, CurrentWeapon currentWeapon
         , ValueCountStorage<int> ammoReloadValue)
     {
         _cameraShake = cameraShake;
         _bulletLifeCycle = bulletLifeCycle;
         _recoil = recoil;
         _spread = spread;
-        _weaponConfigs = weaponConfigs;
+        _weapon = weapon;
         _weaponData = weaponData;
         _distributionConfigs = distributionConfigs;
         _currentWeapon = currentWeapon;

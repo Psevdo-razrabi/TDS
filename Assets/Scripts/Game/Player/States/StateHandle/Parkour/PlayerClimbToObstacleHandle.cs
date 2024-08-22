@@ -1,16 +1,17 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.Parkour;
 
 namespace Game.Player.States.StateHandle.Parkour
 {
     public class PlayerClimbToObstacleHandle : IStateHandle
     {
-        public InitializationStateMachine StateMachine { get; set; }
+        public PlayerStateMachine StateMachine { get; private set; }
         
-        public PlayerClimbToObstacleHandle(InitializationStateMachine stateMachine) => StateMachine = stateMachine;
+        public PlayerClimbToObstacleHandle(PlayerStateMachine stateMachine) => StateMachine = stateMachine;
 
         public bool CanHandle() => StateMachine.Data.IsClimbing.Value && StateMachine.Data.IsLookAtObstacle.Value;
 
-        public void Handle() => StateMachine.PlayerStateMachine.SwitchStates<PlayerClimbToObstacle>();
+        public void Handle() => StateMachine.StateMachine.SwitchStates<PlayerClimbToObstacle>();
     }
 }
