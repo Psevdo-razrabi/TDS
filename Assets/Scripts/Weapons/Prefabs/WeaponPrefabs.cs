@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Game.AsyncWorker.Interfaces;
 using UnityEngine;
 using Weapons;
 using Zenject;
 
 namespace Game.Player.Weapons.Prefabs
 {
-    public class WeaponPrefabs
+    public class WeaponPrefabs : ILoadable
     {
         public IReadOnlyDictionary<string, (GameObject weapon, GameObject bulletSpawnPoint)> PrefabsWeapon { get;
             private set;
@@ -14,7 +15,7 @@ namespace Game.Player.Weapons.Prefabs
         
         public Dictionary<string, GameObject> InitPrefab { get; set; }
         
-        public bool IsLoadConfigs { get; private set; }
+        public bool IsLoaded { get; private set; }
 
         public readonly string NameLoadPistolPrefab = "Pistol";
         public readonly string NameLoadRiflePrefab = "Rifle";
@@ -36,9 +37,9 @@ namespace Game.Player.Weapons.Prefabs
             var pistolPrefab = await _loader.LoadResources<GameObject>(NameLoadPistolPrefab);
             var riflePrefab = await _loader.LoadResources<GameObject>(NameLoadRiflePrefab);
             var shotgunPrefab = await _loader.LoadResources<GameObject>(NameLoadShotgunPrefab);
-            InitDictionary(new [] { pistolPrefab, riflePrefab, shotgunPrefab });
+            InitDictionary(new [] { pistolPrefab.resources, riflePrefab.resources, shotgunPrefab.resources });
             
-            IsLoadConfigs = true;
+            IsLoaded = true;
         }
 
         private void InitDictionary(IReadOnlyList<GameObject> prefabsWeapon)

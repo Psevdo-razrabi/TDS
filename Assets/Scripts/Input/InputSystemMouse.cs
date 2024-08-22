@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using Game.AsyncWorker.Interfaces;
+using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Input.Interface;
 using UniRx;
 using UnityEngine;
@@ -15,8 +17,30 @@ namespace Input
         private IDisposable _disposableRightClickMouseUp;
         private IDisposable _disposableRightClickMouseDown;
         
-        private void SubscribeRightMouse()
+        public InputSystemMouse(PlayerComponents playerComponents, StateMachineData data, InputObserver inputObserver, 
+            IAwaiter asyncWorker, PlayerConfigs playerConfigs, InputSystem inputSystemNew) 
+            : base(playerComponents, data, inputObserver, asyncWorker, playerConfigs, inputSystemNew)
         {
+        }
+
+        protected override void AddActionsCallbacks()
+        {
+            base.AddActionsCallbacks();
+            InputSystemNew.Mouse.MousePosition.performed += MousePosition;
+            SubscribeRightMouse();
+        }
+
+        protected override void RemoveActionCallbacks()
+        {
+            base.RemoveActionCallbacks();
+            InputSystemNew.Mouse.MousePosition.performed -= MousePosition;
+            UnsubscribeRightMouse();
+        }
+
+        private async void SubscribeRightMouse()
+        {
+            await AsyncWorker.AwaitLoadConfigs(PlayerConfigs);
+            
             _disposableRightClickMouseDown = InputObserver
                 .SubscribeMouseRightDown()
                 .Subscribe(OnClickRightDown)
@@ -27,7 +51,6 @@ namespace Input
                 .Subscribe(OnClickRightUp)
                 .AddTo(_compositeDisposable);
         }
-        
 
         private void UnsubscribeRightMouse()
         {
@@ -39,37 +62,23 @@ namespace Input
 
         private void OnClickRightDown(Unit _)
         {
-            if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
             Data.IsAiming.Value = true;
             Data.IsAim.Value = true;
-            var config = Player.PlayerConfigs.FowConfig;
-            Player.RadiusChanger.ChangerRadius(config.StartValueRadius, config.TimeToMaxRadius);
+            var config = PlayerConfigs.AnyPlayerConfigs.FowConfig;
+            PlayerComponents.RadiusChanger.ChangerRadius(config.StartValueRadius, config.TimeToMaxRadius);
         }
         
         private void OnClickRightUp(Unit _)
         {
-            if(Player.PlayerConfigs.IsLoadAllConfig == false) return;
             Data.IsAiming.Value = false;
             Data.IsAim.Value = false;
-            var config = Player.PlayerConfigs.FowConfig;
-            Player.RadiusChanger.ChangerRadius(config.EndValueRadius, config.TimeToMaxRadius);
+            var config = PlayerConfigs.AnyPlayerConfigs.FowConfig;
+            PlayerComponents.RadiusChanger.ChangerRadius(config.EndValueRadius, config.TimeToMaxRadius);
         }
         
         private void MousePosition(InputAction.CallbackContext obj)
         {
             PositionMouse.Value = obj.ReadValue<Vector2>();
-        }
-
-        private void OnEnable()
-        {
-            InputSystemNew.Mouse.MousePosition.performed += MousePosition;
-            SubscribeRightMouse();
-        }
-
-        private void OnDisable()
-        {
-            InputSystemNew.Mouse.MousePosition.performed -= MousePosition;
-            UnsubscribeRightMouse();
         }
     }
 }

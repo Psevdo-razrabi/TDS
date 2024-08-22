@@ -316,6 +316,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "FF",
+            "id": "f0949488-7af5-49fd-aaaa-625d85fb9593",
+            "actions": [
+                {
+                    "name": "Puk",
+                    "type": "Button",
+                    "id": "54fabe73-2944-4420-a6c7-d0a4008252e8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8e53fbf6-5542-46b3-9e35-aab01be3c621",
+                    "path": "<Keyboard>/h",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Puk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

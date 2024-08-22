@@ -1,7 +1,5 @@
 using Game.Player.Interfaces;
-using Game.Player.PlayerStateMashine;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Player
 {
@@ -12,22 +10,8 @@ namespace Game.Player
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private GameObject _gun;
         [SerializeField] private LineRenderer _lineRenderer;
-        [SerializeField] private Player _player;
 
         public Transform CameraTransform => _camera.transform;
-        
-        public (bool, Vector3) GetMousePosition()
-        {
-            Vector3 screenPosition = new Vector3(_crosshair.Center.position.x, _crosshair.Center.position.y, 0f);
-            Ray ray = _camera.ScreenPointToRay(screenPosition);
-            
-            if (Physics.Raycast(ray, out var hit, 100f, _ground))
-            {
-                return (true, hit.point);
-            }
-
-            return (true, ray.GetPoint(100f));
-        }
 
         public void Aim()
         {
@@ -52,9 +36,9 @@ namespace Game.Player
             }
         }
         
-        public void FreezeAim(Quaternion rotation)
+        public void FreezeAim(Quaternion rotation, Player player)
         {
-            _player.transform.rotation = rotation;
+            player.PlayerComponents.transform.rotation = rotation;
         }
         
         private void DebugAimLine(Vector3 origin, Vector3 direction)
@@ -62,6 +46,19 @@ namespace Game.Player
             _lineRenderer.positionCount = 2;
             _lineRenderer.SetPosition(0, origin);
             _lineRenderer.SetPosition(1, origin + direction * 100f);
+        }
+        
+        private (bool, Vector3) GetMousePosition()
+        {
+            Vector3 screenPosition = new Vector3(_crosshair.Center.position.x, _crosshair.Center.position.y, 0f);
+            Ray ray = _camera.ScreenPointToRay(screenPosition);
+            
+            if (Physics.Raycast(ray, out var hit, 100f, _ground))
+            {
+                return (true, hit.point);
+            }
+
+            return (true, ray.GetPoint(100f));
         }
     }
 }

@@ -13,7 +13,7 @@ public class CurrentWeapon : IVisitWeaponType
 {
     public WeaponComponent WeaponComponent { get; private set; }
     public WeaponPrefabs WeaponPrefabs { get; private set; }
-    private readonly WeaponConfigs _weaponConfigs;
+    private readonly Weapon _weapon;
     private InputSystemMouse _inputSystemMouse;
     private BaseWeaponConfig _weaponConfig;
     private BaseWeaponConfig _aimWeaponConfig;
@@ -24,9 +24,9 @@ public class CurrentWeapon : IVisitWeaponType
 
     private bool _isAiming;
     
-    public CurrentWeapon(WeaponConfigs weaponConfigs)
+    public CurrentWeapon(Weapon weapon)
     {
-        _weaponConfigs = weaponConfigs;
+        _weapon = weapon;
     }
     
     [Inject]
@@ -50,20 +50,20 @@ public class CurrentWeapon : IVisitWeaponType
 
     public void Visit(Pistol pistol)
     {
-        _weaponConfig = _weaponConfigs.PistolConfig;
-        _aimWeaponConfig = _weaponConfigs.PistolAimConfig;
+        _weaponConfig = _weapon.PistolConfig;
+        _aimWeaponConfig = _weapon.PistolAimConfig;
     }
 
     public void Visit(Rifle rifle)
     {
-        _weaponConfig = _weaponConfigs.RifleConfig;
-        _aimWeaponConfig = _weaponConfigs.RifleAimConfig;
+        _weaponConfig = _weapon.RifleConfig;
+        _aimWeaponConfig = _weapon.RifleAimConfig;
     }
 
     public void Visit(Shotgun shotgun)
     {
-        _weaponConfig = _weaponConfigs.ShotgunConfig;
-        _aimWeaponConfig = _weaponConfigs.ShotgunAimConfig;
+        _weaponConfig = _weapon.ShotgunConfig;
+        _aimWeaponConfig = _weapon.ShotgunAimConfig;
     }
 
     private void SwitchAim()

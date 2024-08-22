@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -9,87 +10,114 @@ using Object = UnityEngine.Object;
 public class Loader
 {
     public bool IsLoad { get; private set; } = false;
-    public async UniTask<T> LoadResources<T>(string nameResources)
-    {   
-        UniTaskCompletionSource<T> isTaskCompletion = new ();
-        
-        try
+    public async UniTask<UploadedResources<T>> LoadResources<T>(string nameResources)
         {
-            AsyncOperationHandle<T> operationHandle = Addressables.LoadAssetAsync<T>(nameResources);
-            await operationHandle.Task.AsUniTask();
+            UniTaskCompletionSource<T> isTaskCompletion = new();
+            AsyncOperationHandle<T> operationHandle = default;
 
-            if (operationHandle.Status == AsyncOperationStatus.Succeeded)
+            try
             {
-                isTaskCompletion.TrySetResult(operationHandle.Result);
-                IsLoad = true;
+                operationHandle = Addressables.LoadAssetAsync<T>(nameResources);
+                await operationHandle.Task.AsUniTask();
+
+                if (operationHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    isTaskCompletion.TrySetResult(operationHandle.Result);
+                    IsLoad = true;
+                }
+                else isTaskCompletion.TrySetException(new Exception("Failed load asset"));
             }
-            else isTaskCompletion.TrySetException(new Exception("Failed load asset"));
-        }
-        catch (Exception exception)
-        {
-            isTaskCompletion.TrySetException(exception);
-        }
-
-        return await isTaskCompletion.Task;
-    }
-
-    public async UniTask<T> LoadResourcesUsingReference<T>(AssetReferenceT<T> resource) where T : Object
-    {
-        UniTaskCompletionSource<T> isTaskComplete = new();
-
-        try
-        {
-            var operationHandle = resource.LoadAssetAsync();
-            await operationHandle;
-
-            if (operationHandle.Status == AsyncOperationStatus.Succeeded)
+            catch (Exception exception)
             {
-                isTaskComplete.TrySetResult(operationHandle.Result);
+                isTaskCompletion.TrySetException(exception);
             }
 
-            isTaskComplete.TrySetException(new Exception("Failed load asset"));
-        }
-        catch (Exception e)
-        {
-            isTaskComplete.TrySetException(e);
+            return new UploadedResources<T>(operationHandle, await isTaskCompletion.Task);
         }
 
-        return await isTaskComplete.Task;
-    }
-
-    public async UniTask<List<T>> LoadAllResourcesUseLabel<T>(AssetLabelReference labelReference) where T : Object
-    {
-        UniTaskCompletionSource<List<T>> isTaskCompletionSource = new();
-
-        try
+        public async UniTask<UploadedResources<T>> LoadResourcesUsingReference<T>(AssetReferenceT<T> resource) where T : Object
         {
-            var operationHandler = Addressables.LoadAssetsAsync<T>(labelReference,
-                (objectLoad) => { Debug.Log($"{objectLoad.GetType()} is load"); });
+            UniTaskCompletionSource<T> isTaskCompletion = new();
+            AsyncOperationHandle<T> operationHandle = default;
 
-            await operationHandler;
-
-            if (operationHandler.Status == AsyncOperationStatus.Succeeded)
+            try
             {
-                isTaskCompletionSource.TrySetResult((List<T>)operationHandler.Result);
+                operationHandle = resource.LoadAssetAsync();
+                await operationHandle;
+
+                if (operationHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    isTaskCompletion.TrySetResult(operationHandle.Result);
+                }
+
+                isTaskCompletion.TrySetException(new Exception("Failed load asset"));
+            }
+            catch (Exception e)
+            {
+                isTaskCompletion.TrySetException(e);
             }
 
-            isTaskCompletionSource.TrySetException(new Exception("Failed load asset"));
+            return new UploadedResources<T>(operationHandle, await isTaskCompletion.Task);
         }
-        catch (Exception e)
+
+        public async UniTask<UploadedResourcesList<T>> LoadAllResourcesUseLabel<T>(AssetLabelReference labelReference) where T : Object
         {
-            isTaskCompletionSource.TrySetException(e);
+            UniTaskCompletionSource<List<T>> isTaskCompletionSource = new();
+            AsyncOperationHandle<IList<T>> operationHandle = default;
+
+            try
+            {
+                operationHandle = Addressables.LoadAssetsAsync<T>(labelReference,
+                    (objectLoad) => { Debug.Log($"{objectLoad.GetType()} is load"); });
+
+                await operationHandle;
+
+                if (operationHandle.Status == AsyncOperationStatus.Succeeded)
+                {
+                    isTaskCompletionSource.TrySetResult((List<T>)operationHandle.Result);
+                }
+
+                isTaskCompletionSource.TrySetException(new Exception("Failed load asset"));
+            }
+            catch (Exception e)
+            {
+                isTaskCompletionSource.TrySetException(e);
+            }
+
+            return new UploadedResourcesList<T>(operationHandle, await isTaskCompletionSource.Task);
         }
 
-        return await isTaskCompletionSource.Task;
-    } 
-    
-    public void ClearMemory<T>(T objectClear)
-    {
-        Addressables.Release(objectClear);
-    }
+        public void ClearMemory<T>(AsyncOperationHandle<T> handle)
+        {
+            Addressables.Release(handle);
+        }
 
-    public void ClearMemoryInstance(GameObject objectClear)
+        public void ClearMemoryInstance(GameObject objectClear)
+        {
+            Addressables.ReleaseInstance(objectClear);
+        }
+}
+
+public struct UploadedResources<T>
+{
+    public T resources;
+    public AsyncOperationHandle<T> operationHandle;
+
+    public UploadedResources(AsyncOperationHandle<T> operationHandle, T resources)
     {
-        Addressables.ReleaseInstance(objectClear);
+        this.operationHandle = operationHandle;
+        this.resources = resources;
+    }
+}
+
+public struct UploadedResourcesList<T>
+{
+    public List<T> resources;
+    public AsyncOperationHandle<IList<T>> operationHandle;
+
+    public UploadedResourcesList(AsyncOperationHandle<IList<T>> operationHandle, List<T> resources)
+    {
+        this.operationHandle = operationHandle;
+        this.resources = resources;
     }
 }

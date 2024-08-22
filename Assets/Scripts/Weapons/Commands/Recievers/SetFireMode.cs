@@ -16,15 +16,15 @@ namespace Customs
     {
         private readonly ISetFireModes _changeModeFire;
         private readonly Type _typeFireMode = typeof(ChangeModeFire);
-        private readonly WeaponConfigs _weaponConfigs;
+        private readonly Weapon _weapon;
         private List<MethodInfo> _methodInfos;
         private MethodInfo[] _allMethodUseAttribute;
         private int _index;
 
-        public SetFireMode(ISetFireModes changeModeFire,WeaponConfigs weaponConfigs)
+        public SetFireMode(ISetFireModes changeModeFire, Weapon weapon)
         {
             _changeModeFire = changeModeFire;
-            _weaponConfigs = weaponConfigs;
+            _weapon = weapon;
         }
 
         public void Initialize()
@@ -37,17 +37,17 @@ namespace Customs
 
         public void Visit(Pistol pistol)
         {
-            AddFireModes(_weaponConfigs.PistolConfig);
+            AddFireModes(_weapon.PistolConfig);
         }
 
         public void Visit(Rifle rifle)
         {
-            AddFireModes(_weaponConfigs.RifleConfig);
+            AddFireModes(_weapon.RifleConfig);
         }
 
         public void Visit(Shotgun shotgun)
         {
-            AddFireModes(_weaponConfigs.ShotgunConfig);
+            AddFireModes(_weapon.ShotgunConfig);
         }
         
         

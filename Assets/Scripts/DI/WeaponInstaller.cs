@@ -96,7 +96,7 @@ namespace DI
         
         private void BindConfigs()
         {
-            BindNewInstance<WeaponConfigs>();
+            BindNewInstance<Weapon>();
             BindNewInstance<CameraShakeConfigs>();
         }
 

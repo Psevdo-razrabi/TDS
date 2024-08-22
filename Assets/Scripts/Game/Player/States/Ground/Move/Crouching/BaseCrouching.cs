@@ -2,7 +2,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Game.Player.PlayerStateMashine;
+using Game.Player.AnyScripts;
 using Game.Player.States.Orientation;
 using UnityEngine;
 
@@ -11,7 +11,7 @@ namespace Game.Player.States.Crouching
     public class BaseCrouching : PlayerOrientation
     {
         protected CancellationTokenSource Cancellation = new();
-        public BaseCrouching(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        public BaseCrouching(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         { }
         
         protected async UniTask InterpolatedFloatWithEase(float startValue, Action<float> setter, float endValue, float duration, AnimationCurve curve, CancellationToken token)

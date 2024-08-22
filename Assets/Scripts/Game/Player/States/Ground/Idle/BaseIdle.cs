@@ -1,10 +1,10 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
 
 namespace Game.Player.States
 {
     public class BaseIdle : GroundState
     {
-        public BaseIdle(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        public BaseIdle(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
     }

@@ -10,7 +10,6 @@ public class Bullet : MonoBehaviour
     {
         [SerializeField] private GameObject _bullet;
         
-        private EventController _eventController;
         private float _damage;
         private IDisposable _particleCompletionSubscription;
         private CompositeDisposable _compositeDisposable = new();
@@ -18,9 +17,8 @@ public class Bullet : MonoBehaviour
         private WeaponData _weaponData;
         
         [Inject]
-        public void Construct(EventController eventController,WeaponData weaponData)
+        public void Construct(WeaponData weaponData)
         {
-            _eventController = eventController;
             _weaponData = weaponData;
         }
 
@@ -38,21 +36,6 @@ public class Bullet : MonoBehaviour
                 .Subscribe(_ => CheckRaycastHit())
                 .AddTo(_compositeDisposable);
         }
-        
-        /*
-        private void OnCollisionEnter(Collision other)
-        {  
-            if (other.collider.TryGetComponent(out BodyAim bodyAim))
-            {
-                if (bodyAim.Enemy.TryGetComponent(out IHealth healthObject))
-                {
-                    ApplyDamage(healthObject, bodyAim);
-                }
-                _eventController.OnEnemyHitBullet();
-            }
-            _bullet.SetActive(false);
-        }
-        */
             
         private void CheckRaycastHit()
         {
@@ -71,7 +54,7 @@ public class Bullet : MonoBehaviour
                     {
                         ApplyDamage(healthObject, bodyAim);
                     }
-                    _eventController.OnEnemyHitBullet();
+                    bodyAim.Enemy.Hit.OnNext(Unit.Default);
                 }
                 _bullet.SetActive(false);
             }

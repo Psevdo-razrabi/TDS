@@ -1,8 +1,6 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Game.Player.AnimatorScripts;
 using Game.Player.PlayerStateMashine.Configs;
-using Game.Player.States;
 using UniRx;
 using UnityEngine;
 using IInitializable = Zenject.IInitializable;
@@ -11,13 +9,13 @@ namespace Game.Player.PlayerStateMashine
 {
     public class StateMachineData : IInitializable, IDisposable
     {
-        private readonly PlayerConfigs _playerConfigs;
+        public PlayerConfigs PlayerConfigs { get; private set; }
         private readonly AnimatorController _animatorController;
         private readonly CompositeDisposable _compositeDisposable = new();
 
         public StateMachineData(PlayerConfigs configs, AnimatorController animatorController)
         {
-            _playerConfigs = configs ?? throw new ArgumentNullException($"{configs} is null");
+            PlayerConfigs = configs ?? throw new ArgumentNullException($"{configs} is null");
             _animatorController = animatorController ?? throw new ArgumentException($"Animator controller is null");
         }
         
@@ -29,20 +27,20 @@ namespace Game.Player.PlayerStateMashine
         public readonly ReactiveProperty<bool> IsLookAtObstacle = new();
         public readonly ReactiveProperty<bool> IsClimbing = new();
         public readonly ReactiveProperty<bool> IsGrounded = new();
-        public bool IsAir;
         public bool IsLockAim;
         public bool IsPlayerInObstacle;
         public ClimbParameters Climb = new();
         public LandingParameters Landing = new();
         public ObstacleParametersConfig ObstacleConfig;
+        public PlayerMoveConfig PlayerMoveConfig;
         public Quaternion Rotation;
+        public Vector3 Movement { get; set; }
         
         private float _xInput;
         private float _yInput;
         private float _speed;
         private float _currentSpeed = 1f;
         private int _dashCount;
-        private Vector2 _mouseDirection;
 
         public float TargetDirectionY { get; set; }
 
@@ -51,22 +49,10 @@ namespace Game.Player.PlayerStateMashine
             get => _speed;
             set
             {
-                if (value < 0 || value > _playerConfigs.CrouchMovement.Speed)
+                if (value < 0 || value > PlayerConfigs.CrouchConfigsProvider.CrouchMovement.Speed)
                     throw new ArgumentOutOfRangeException($"{value} is out of range");
 
                 _speed = value;
-            }
-        }
-        
-        public Vector2 MouseDirection
-        {
-            get => _mouseDirection;
-            set
-            {
-                if (value.x + float.Epsilon < -1 || value.x + float.Epsilon > 1 || value.y + float.Epsilon < -1 || value.y + float.Epsilon > 1)
-                    throw new ArgumentOutOfRangeException();
-
-                _mouseDirection = value;
             }
         }
         
@@ -110,7 +96,7 @@ namespace Game.Player.PlayerStateMashine
             get => _dashCount;
             set
             {
-                if (value < 0 - 1 || value > _playerConfigs.DashConfig.NumberChargesDash + 1)
+                if (value < 0 - 1 || value > PlayerConfigs.MovementConfigsProvider.DashConfig.NumberChargesDash + 1)
                     throw new ArgumentOutOfRangeException();
 
                 _dashCount = value;

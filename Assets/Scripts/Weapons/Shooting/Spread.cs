@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class Spread : IConfigRelize, IInitializable
 {
-    private readonly WeaponConfigs _weaponConfigs;
+    private readonly Weapon _weapon;
     private BaseWeaponConfig _gunConfig;
     private readonly CompositeDisposable _compositeDisposable = new();
     private IDisposable _reductionSubscription;
@@ -31,9 +31,9 @@ public class Spread : IConfigRelize, IInitializable
     private int _initialBulletsCount;
     
     
-    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs, WeaponData weaponData)
+    public Spread(Weapon weapon, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs, WeaponData weaponData)
     {
-        _weaponConfigs = weaponConfigs;
+        _weapon = weapon;
         _changeCrosshair = changeCrosshair;
         _recoil = recoil;
         _currentWeapon = currentWeapon;

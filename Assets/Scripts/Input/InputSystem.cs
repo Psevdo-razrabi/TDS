@@ -338,6 +338,34 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""FF"",
+            ""id"": ""f0949488-7af5-49fd-aaaa-625d85fb9593"",
+            ""actions"": [
+                {
+                    ""name"": ""Puk"",
+                    ""type"": ""Button"",
+                    ""id"": ""54fabe73-2944-4420-a6c7-d0a4008252e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8e53fbf6-5542-46b3-9e35-aab01be3c621"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Puk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -362,6 +390,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_HideStorage = m_UI.FindAction("HideStorage", throwIfNotFound: true);
+        // FF
+        m_FF = asset.FindActionMap("FF", throwIfNotFound: true);
+        m_FF_Puk = m_FF.FindAction("Puk", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -667,6 +698,52 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // FF
+    private readonly InputActionMap m_FF;
+    private List<IFFActions> m_FFActionsCallbackInterfaces = new List<IFFActions>();
+    private readonly InputAction m_FF_Puk;
+    public struct FFActions
+    {
+        private @InputSystem m_Wrapper;
+        public FFActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Puk => m_Wrapper.m_FF_Puk;
+        public InputActionMap Get() { return m_Wrapper.m_FF; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FFActions set) { return set.Get(); }
+        public void AddCallbacks(IFFActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FFActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FFActionsCallbackInterfaces.Add(instance);
+            @Puk.started += instance.OnPuk;
+            @Puk.performed += instance.OnPuk;
+            @Puk.canceled += instance.OnPuk;
+        }
+
+        private void UnregisterCallbacks(IFFActions instance)
+        {
+            @Puk.started -= instance.OnPuk;
+            @Puk.performed -= instance.OnPuk;
+            @Puk.canceled -= instance.OnPuk;
+        }
+
+        public void RemoveCallbacks(IFFActions instance)
+        {
+            if (m_Wrapper.m_FFActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IFFActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FFActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FFActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public FFActions @FF => new FFActions(this);
     public interface IMouseActions
     {
         void OnMousePosition(InputAction.CallbackContext context);
@@ -690,5 +767,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnHideStorage(InputAction.CallbackContext context);
+    }
+    public interface IFFActions
+    {
+        void OnPuk(InputAction.CallbackContext context);
     }
 }

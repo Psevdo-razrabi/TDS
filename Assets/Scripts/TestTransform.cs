@@ -26,6 +26,4 @@ public class TestTransform
     {
         _bullet.transform.position += _velocity * Time.deltaTime;
     }
-    
-    
 }

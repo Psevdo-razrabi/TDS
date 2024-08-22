@@ -1,6 +1,7 @@
 ﻿using System;
+using Cysharp.Threading.Tasks;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.PlayerStateMashine;
-using Game.Player.PlayerStateMashine.Configs;
 using Input.Interface;
 using UniRx;
 using UnityEngine;
@@ -10,19 +11,19 @@ namespace Game.Player.AnyScripts
 {
     public class Landing : IInitializable, IDisposable
     {
-        private StateMachineData _stateMachineData;
-        private Player _player;
-        private readonly PlayerInLandingConfig _playerInLandingConfig;
+        private readonly StateMachineData _stateMachineData;
+        private readonly PlayerComponents _playerComponents;
         private readonly IMove _move;
-        private CompositeDisposable _compositeDisposable = new();
+        private readonly CompositeDisposable _compositeDisposable = new();
+        private readonly IAwaiter _awaiter;
         private Vector3 _direction;
 
-        public Landing(Player player, PlayerInLandingConfig playerInLandingConfig, IMove move)
+        public Landing(IMove move, StateMachineData data, PlayerComponents playerComponents, IAwaiter awaiter)
         {
-            _player = player;
-            _playerInLandingConfig = playerInLandingConfig;
             _move = move;
-            _stateMachineData = player.StateMachineData;
+            _stateMachineData = data;
+            _playerComponents = playerComponents;
+            _awaiter = awaiter;
         }
         
         public void Initialize()
@@ -36,11 +37,12 @@ namespace Game.Player.AnyScripts
             _compositeDisposable?.Clear();
         }
         
-        private void Subscribes()
+        private async void Subscribes()
         {
+            await _awaiter.AwaitLoadConfigs(_stateMachineData.PlayerConfigs);
             Observable
                 .EveryUpdate()
-                .Subscribe(_ => CheckGround())
+                .Subscribe(_ => CheckLandingOrGround())
                 .AddTo(_compositeDisposable);
 
             _move.MoveNonInterpolated
@@ -48,26 +50,26 @@ namespace Game.Player.AnyScripts
                 .AddTo(_compositeDisposable);
         }
         
-        private void CheckGround()
+        private void CheckLandingOrGround()
         {
-            var checkClampingObject = CheckPlane(_playerInLandingConfig.ClambingObject.LayerMask, Vector3.down, _playerInLandingConfig.ClambingObject.CastDistance);
+            var playerLandingConfig = _stateMachineData.PlayerConfigs.ObstacleConfigsProvider.LandingConfig;
+            var checkClampingObject = CheckPlane(playerLandingConfig.ClambingObject.LayerMask, Vector3.down, playerLandingConfig.ClambingObject.CastDistance);
             if (checkClampingObject.isGround)
             {
                 var checkLandingObject =
-                    CheckPlane(_playerInLandingConfig.LandingObject.LayerMask, _direction, _playerInLandingConfig.LandingObject.CastDistance);
+                    CheckPlane(playerLandingConfig.LandingObject.LayerMask, _direction, playerLandingConfig.LandingObject.CastDistance);
                 _stateMachineData.Rotation = Quaternion.LookRotation(-checkLandingObject.hit.normal);
                 _stateMachineData.IsGrounded.Value = !checkLandingObject.isGround;
             }
             else
             {
-                _stateMachineData.IsGrounded.Value = CheckPlane(_playerInLandingConfig.Ground.LayerMask, Vector3.down, _playerInLandingConfig.Ground.CastDistance).isGround;
+                _stateMachineData.IsGrounded.Value = CheckPlane(playerLandingConfig.Ground.LayerMask, Vector3.down, playerLandingConfig.Ground.CastDistance).isGround;
             }
-            
         }
 
         private (bool isGround, RaycastHit hit) CheckPlane(LayerMask layerMask, Vector3 direction, float castDistance)
         {
-            return (Physics.Raycast(_player.transform.position, direction, out RaycastHit hit,
+            return (Physics.Raycast(_playerComponents.transform.position, direction, out RaycastHit hit,
                 castDistance, layerMask), hit);
         }
     }

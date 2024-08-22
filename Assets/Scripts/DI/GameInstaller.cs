@@ -1,7 +1,7 @@
 ﻿using CharacterOrEnemyEffect;
 using CharacterOrEnemyEffect.Factory;
 using FOW;
-using Game.AsyncWorker.Interfaces;
+using Game.AsyncOperation;
 using Game.Player;
 using Game.Player.AnimatorScripts;
 using Game.Player.AnyScripts;
@@ -18,31 +18,26 @@ namespace DI
 {
     public sealed class GameInstaller : BaseBindings
     {
-        [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
-        [SerializeField] private Player player;
-        [SerializeField] private DashTrailEffect dashTrailEffect;
         [SerializeField] private ChangeModeFire fireMode;
-        [SerializeField] private InputSystemMouse inputSystemMouse;
-        [SerializeField] private InputSystemWeapon inputSystemWeapon;
-        [SerializeField] private InputSystemUi inputSystemUi;
-        [SerializeField] private InputBuffer inputBuffer;
         [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
         [SerializeField] private StorageAssetReference _storageAssetReference;
-        
+        [SerializeField] private PlayerComponents _playerComponents;
+        [SerializeField] private IKSystem _ikSystem;
+        [SerializeField] private PlayerView _playerView;
+
+
         public override void InstallBindings()
         {
-            BindEventController();
             BindInput();
             BindAnimator();
             BindPlayerAim();
+            BindPlayerConfig();
+            BindStateMachineData();
             BindPlayer();
             BindLoader();
-            BindPlayerConfig();
-            BindInitStateMachine();
             BindHandlesState();
-            BindStateMachineData();
             BindAsyncWorker();
             BindEffect();
             BindFactory();
@@ -75,18 +70,16 @@ namespace DI
             Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().WithArguments(true, "Bullet", 30).WhenInjectedInto<BulletLifeCycle>().NonLazy();
         }
 
-        private void BindEventController() => BindNewInstance<EventController>();
-
         private void BindInput()
         {
             BindNewInstance<InputSystem>();
-            BindInstance(inputSystemMovement);
-            BindInstance(inputSystemMouse);
-            BindInstance(inputSystemWeapon);
-            BindInstance(inputSystemUi);
+            BindNewInstance<InputSystemMovement>();
+            BindNewInstance<InputSystemMouse>();
+            BindNewInstance<InputSystemWeapon>();
+            BindNewInstance<InputSystemUi>();
             BindNewInstance<InputObserver>();
             BindNewInstance<BufferAction>();
-            BindInstance(inputBuffer);
+            BindNewInstance<InputBuffer>();
         }
 
         private void BindEffect()
@@ -100,8 +93,14 @@ namespace DI
 
         private void BindPlayer()
         {
-            BindInstance(player);
-            BindInstance(dashTrailEffect);
+            BindNewInstance<Player>();
+            BindNewInstance<PlayerAnimation>();
+            BindInstance(_playerComponents);
+            BindInstance(_ikSystem);
+            BindNewInstance<PlayerInputStorage>();
+            BindNewInstance<PlayerStateMachine>();
+            BindInstance(_playerView);
+            BindNewInstance<PlayerIK>();
             BindNewInstance<Landing>();
         }
 
@@ -111,9 +110,7 @@ namespace DI
             BindInstance(_storageAssetReference);
         }
 
-        private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
-
-        private void BindPlayerConfig() => BindNewInstance<PlayerConfigs>();
+        private void BindPlayerConfig() => BindNewInstance<Game.Player.PlayerStateMashine.PlayerConfigs>();
 
         private void BindStateMachineData() => BindNewInstance<StateMachineData>();
 
