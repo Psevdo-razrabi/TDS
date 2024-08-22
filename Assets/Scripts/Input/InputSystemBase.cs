@@ -1,28 +1,44 @@
 ﻿using System;
-using Game.AsyncWorker;
 using Game.AsyncWorker.Interfaces;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using UniRx;
-using UnityEngine;
 using Zenject;
 
 namespace Input
 {
-    public class InputSystemBase : MonoBehaviour
+    public class InputSystemBase : IInitializable, IDisposable
     {
-        protected InputSystem InputSystemNew;
         protected readonly CompositeDisposable CompositeDisposable = new();
+        protected InputSystem InputSystemNew;
         protected PlayerConfigs PlayerConfigs;
         protected IAwaiter AsyncWorker;
-        
-        
-        [Inject]
-        private void Construct(InputSystem input, PlayerConfigs playerConfigs, IAwaiter worker)
+        protected InputObserver InputObserver;
+        protected StateMachineData Data;
+        protected PlayerComponents PlayerComponents;
+
+        public InputSystemBase(PlayerComponents playerComponents, StateMachineData data, InputObserver inputObserver, IAwaiter asyncWorker, PlayerConfigs playerConfigs, InputSystem inputSystemNew)
         {
-            InputSystemNew = input ?? throw new ArgumentNullException($"{nameof(input)} is null");
-            InputSystemNew.Enable();
+            inputSystemNew.Enable();
+            PlayerComponents = playerComponents;
+            Data = data;
+            InputObserver = inputObserver;
+            AsyncWorker = asyncWorker;
             PlayerConfigs = playerConfigs;
-            AsyncWorker = worker;
+            InputSystemNew = inputSystemNew;
         }
+
+        public void Initialize()
+        {
+            AddActionsCallbacks();
+        }
+
+        public void Dispose()
+        {
+            RemoveActionCallbacks();
+        }
+        
+        protected virtual void AddActionsCallbacks() {}
+        protected virtual void RemoveActionCallbacks() {}
     }
 }

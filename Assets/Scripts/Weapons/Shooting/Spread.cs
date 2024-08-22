@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class Spread : IConfigRelize, IInitializable
 {
-    private readonly WeaponConfigs _weaponConfigs;
+    private readonly Weapon _weapon;
     private BaseWeaponConfig _gunConfig;
     private readonly CompositeDisposable _compositeDisposable = new();
     private IDisposable _reductionSubscription;
@@ -23,6 +23,7 @@ public class Spread : IConfigRelize, IInitializable
     private float _baseIncrement;
     private int _currentBulletCount;
     private Vector3 _crosshairSpread;
+    private WeaponData _weaponData;
     
     private float _spreadMultiplier;
     private float _multiplierIncreaseRate;
@@ -30,31 +31,16 @@ public class Spread : IConfigRelize, IInitializable
     private int _initialBulletsCount;
     
     
-    public Spread(WeaponConfigs weaponConfigs, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs)
+    public Spread(Weapon weapon, ChangeCrosshair changeCrosshair, Recoil recoil, CurrentWeapon currentWeapon, DistributionConfigs distributionConfigs, WeaponData weaponData)
     {
-        _weaponConfigs = weaponConfigs;
+        _weapon = weapon;
         _changeCrosshair = changeCrosshair;
         _recoil = recoil;
         _currentWeapon = currentWeapon;
         _distributionConfigs = distributionConfigs;
+        _weaponData = weaponData;
     }
     
-    private void CalculateBaseIncrement()
-    {
-        _baseIncrement = _gunConfig.BaseIncrement;
-        _currentSpread = _gunConfig.StartSpread;
-    }
-    
-    public Vector3 CalculateCrosshairSpread()
-    {
-        float randomX = Random.Range(-_changeCrosshair.TotalExpansion, _changeCrosshair.TotalExpansion);
-        Debug.Log(randomX);
-        Vector2 firePointScreenPosition = RectTransformUtility.WorldToScreenPoint(_changeCrosshair.CameraObject, _changeCrosshair.Crosshair.position);
-        Vector2 targetScreenPosition = new Vector2(firePointScreenPosition.x + randomX, firePointScreenPosition.y);
-        Ray ray = _changeCrosshair.CameraObject.ScreenPointToRay(targetScreenPosition);
-
-        return ray.direction;
-    }
     
     public void StartSpreadReduction()
     {
@@ -68,49 +54,52 @@ public class Spread : IConfigRelize, IInitializable
             .Subscribe(_ =>
             {
                 SpreadReduce();
-                if (_currentSpread <= _gunConfig.StartSpread)
-                {
-                    _currentSpread =  _gunConfig.StartSpread;
-                    _reductionSubscription.Dispose();
-                }
+                _reductionSubscription.Dispose();
             }).AddTo(_compositeDisposable);
     }
 
     private void SpreadReduce()
     {
-        float reductionAmount = _baseIncrement;
-        _currentSpread = Mathf.Max(0, _currentSpread - reductionAmount);
-        _spreadMultiplier -= _multiplierIncreaseRate;
         _changeCrosshair.DecreaseFiredSize();
     }
 
-    public Vector3 CalculatingSpread(Vector3 velocity)
+    public Vector3 CalculatingSpread()
     {
-        float spreadX = Random.Range(-_currentSpread, _currentSpread);
-        Vector3 velocityWithSpread = velocity + new Vector3(spreadX, 0, 0);
+        RectTransform crosshairTop = _changeCrosshair.CrosshairParts[0];
+        RectTransform crosshairBottom = _changeCrosshair.CrosshairParts[1];
+        RectTransform crosshairLeft = _changeCrosshair.CrosshairParts[2];
+        RectTransform crosshairRight = _changeCrosshair.CrosshairParts[3];
         
-        _currentSpread *= _spreadMultiplier;
-        _spreadMultiplier += _multiplierIncreaseRate;
+        float randomX = Random.Range(crosshairLeft.anchoredPosition.x, crosshairRight.anchoredPosition.x);
+        float randomY = Random.Range(crosshairBottom.anchoredPosition.y, crosshairTop.anchoredPosition.y);
+        
+        Vector3 randomScreenPoint = new Vector3(randomX, randomY, 0);
+        Vector3 worldPoint = ConvertScreenToWorld(randomScreenPoint);
+        
+        Vector3 spreadDirection = (worldPoint - _weaponData.BulletPoint.position).normalized;
 
-        _currentSpread = Mathf.Clamp(_currentSpread, 0, _gunConfig.MaxSpread);
-        Debug.Log($"ан конфиг макс спреад {_gunConfig.MaxSpread} ");
-        Debug.Log(_currentSpread);
-        float stepsToReduce = _currentSpread / _baseIncrement;
-
-        _changeCrosshair.IncreaseFiredSize(_gunConfig.RecoilForce, stepsToReduce);
-        _recoil.UpdateSpread(_currentSpread);
-
-        return velocityWithSpread;
+        return spreadDirection;
     }
+    private Vector3 ConvertScreenToWorld(Vector3 screenPoint)
+    {
+        Camera camera = Camera.main;
+        
+        Ray ray = camera.ScreenPointToRay(screenPoint);
+        
+        Plane plane = new Plane(Vector3.up, _weaponData.BulletPoint.position);
+        float distance;
 
+        if (plane.Raycast(ray, out distance))
+        {
+            return ray.GetPoint(distance);
+        }
+
+        return Vector3.zero;
+    }
     public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
         _currentWeapon.LoadConfig(weaponComponent);
         _gunConfig = _currentWeapon.CurrentWeaponConfig;
-
-        _spreadMultiplier = _gunConfig.SpreadMultiplier;
-        _multiplierIncreaseRate = _gunConfig.MultiplierIncreaseRate;
-        CalculateBaseIncrement();
     }
 
     public void Initialize()

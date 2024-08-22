@@ -1,6 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
-using Game.Player.PlayerStateMashine;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Orientation;
 using UnityEngine;
@@ -11,34 +11,33 @@ namespace Game.Player.States.Dash
     {
         private bool _isDashing;
         private PlayerDashConfig _dashConfig;
-        public PlayerDash(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        
+        public PlayerDash(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         { }
 
         public override void OnEnter()
         {
             base.OnEnter();
-            _dashConfig = Player.PlayerConfigs.DashConfig;
-            Player.DashTrailEffect.ActivateVFXEffectDash();
-            Debug.LogWarning("ВХОД В ДЕШ");
+            _dashConfig = Player.PlayerConfigs.MovementConfigsProvider.DashConfig;
+            Player.PlayerView.DashTrailEffect.ActivateVFXEffectDash();
             Move();
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Player.AnimatorController.OnAnimatorStateSet(ref Data.IsAim, false, Player.AnimatorController.NameAimParameter);
-            Debug.LogWarning("ВЫХОД В ДЕШ");
-            Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
+            Data.IsAim.Value = false;
+            Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.PlayerAnimation.AnimatorController.NameDashParameter);
         }
 
-        protected async override void Move()
+        protected override async void Move()
         {
             await Dash();
         }
 
         private void SwitchState()
         {
-            Player.StateChain.HandleState();
+            Player.PlayerStateMachine.StateChain.HandleState();
         }
 
         private void AwaitDash()
@@ -48,11 +47,11 @@ namespace Game.Player.States.Dash
 
         private async UniTask Dash()
         {
-            var startPosition = Player.transform.position;
+            var startPosition = Player.PlayerComponents.transform.position;
 
-            var endPosition = startPosition + Movement.normalized * _dashConfig.DashDistance;
+            var endPosition = startPosition + Data.Movement.normalized * _dashConfig.DashDistance;
 
-            if (Physics.Raycast(startPosition, Movement.normalized, out var raycastHit,
+            if (Physics.Raycast(startPosition, Data.Movement.normalized, out var raycastHit,
                     _dashConfig.DashDistance, _dashConfig.LayerObstacle))
             {
                 endPosition = raycastHit.point;
@@ -63,19 +62,18 @@ namespace Game.Player.States.Dash
             while (elapsedTime < _dashConfig.DashDuration)
             {
                 var currentPosition = Vector3.Lerp(startPosition, endPosition, elapsedTime / _dashConfig.DashDuration);
-                Player.CharacterController.Move(currentPosition - Player.transform.position);
+                Player.PlayerComponents.CharacterController.Move(currentPosition - Player.PlayerComponents.transform.position);
                 
                 elapsedTime += Time.deltaTime;
 
                 await UniTask.Yield();
             }
 
-            Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.AnimatorController.NameDashParameter);
+            Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.PlayerAnimation.AnimatorController.NameDashParameter);
             SwitchState();
             AwaitDash();
             
             await UniTask.Delay(TimeSpan.FromSeconds(_dashConfig.DelayAfterEachDash));
-            Debug.LogWarning("ДОШЕЛ ДО КОНЦА");
         }
     }
 }

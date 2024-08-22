@@ -1,93 +1,80 @@
-﻿using Customs;
+using System;
 using Enemy;
 using Game.Core.Health;
-using Game.Player.AnimatorScripts;
-using Game.Player.Interfaces;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
-using Input;
-using PhysicsWorld;
-using UI.Storage;
 using UniRx;
 using UnityEngine;
 using Zenject;
+    
 
 namespace Game.Player
 {
-    [RequireComponent(typeof(CharacterController))]
-    public class Player : MonoBehaviour, IStateDataWorker, IHealth, IInitialaize, IGravity
+    public class Player : IDisposable, ITickable, IHit, IInitializable<Player>
     {
-        public InputSystemMovement InputSystem { get; private set; }
-        public InputSystemMouse InputSystemMouse { get; private set; }
-        public IPlayerAim PlayerAim { get; private set; }
-        public AnimatorController AnimatorController { get; private set; }
-        public CharacterController CharacterController { get; private set; }
-        public IHealthStats HealthStats { get; private set; }
-        public FOWRadiusChanger RadiusChanger { get; private set; }
-        [Inject] public PlayerConfigs PlayerConfigs { get; private set; }
-        [Inject] public StateHandleChain StateChain { get; private set; }
-        [Inject] public StateMachineData StateMachineData { get; private set; }
-        [Inject] public AsyncWorker.AsyncWorker AsyncWorker { get; private set; }
-        private ValueCountStorage<float> ValueModelHealth { get; set; }
-        [Inject] public EventController EventController { get; private set; }
-        [field: SerializeField] public GameObject PlayerModelRotate { get; private set; } 
-        public DashTrailEffect DashTrailEffect { get; private set; }
+        public PlayerConfigs PlayerConfigs { get; private set; }
+        public Subject<Unit> Hit { get; private set; } = new();
+        public AsyncOperation.AsyncWorker AsyncWorker { get; private set; }
+        public readonly PlayerInputStorage PlayerInputStorage;
+        public readonly PlayerComponents PlayerComponents;
+        public readonly PlayerView PlayerView;
+        public readonly PlayerStateMachine PlayerStateMachine;
+        public readonly PlayerIK PlayerIK;
+        public readonly PlayerAnimation PlayerAnimation;
+        private readonly CompositeDisposable _disposable = new();
 
-        private InitializationStateMachine _initializationStateMachine;
-        private CompositeDisposable _disposable = new();
-        [SerializeField] private RagdollHelper ragdollHelper;
-
-        [Inject]
-        private void Construct(IPlayerAim playerAim, InputSystemMovement inputSystemMovement, 
-            InputSystemMouse inputSystemMouse, AnimatorController animatorController, 
-            InitializationStateMachine stateMachine, DashTrailEffect trailEffect, FOWRadiusChanger radiusChanger)
+        public Player(PlayerConfigs playerConfigs, AsyncOperation.AsyncWorker asyncWorker, PlayerInputStorage playerInputStorage, 
+            PlayerComponents playerComponents, PlayerView playerView, 
+            PlayerStateMachine playerStateMachine, PlayerIK playerIK, PlayerAnimation playerAnimation, StateHandleChain stateHandleChain)
         {
-            PlayerAim = playerAim;
-            InputSystem = inputSystemMovement;
-            InputSystemMouse = inputSystemMouse;
-            AnimatorController = animatorController;
-            _initializationStateMachine = stateMachine;
-            DashTrailEffect = trailEffect;
-            RadiusChanger = radiusChanger;
+            PlayerConfigs = playerConfigs;
+            AsyncWorker = asyncWorker;
+            PlayerInputStorage = playerInputStorage;
+            PlayerComponents = playerComponents;
+            PlayerView = playerView;
+            PlayerStateMachine = playerStateMachine;
+            PlayerIK = playerIK;
+            PlayerAnimation = playerAnimation;
+
+            PlayerStateMachine.InitStateChain(stateHandleChain);
+            PlayerStateMachine.InitPlayer(this);
         }
 
-        private async void Start()
+        public void Dispose()
         {
-            CharacterController = GetComponent<CharacterController>();
-            await AsyncWorker.AwaitLoadPlayerConfig(PlayerConfigs);
-            StateMachineData.DashCount = PlayerConfigs.DashConfig.NumberChargesDash;
-            
-            HealthStats =
-                new RestoringHealth(
-                    new Health<Player>(PlayerConfigs.HealthConfig.MaxHealth, ValueModelHealth, 
-                        new Die<Player>(gameObject, EventController, ragdollHelper)),
-                    PlayerConfigs.HealthConfig, EventController, ValueModelHealth);
-            
-            HealthStats.Subscribe();
-        }
-
-        private void Update()
-        {
-            if(!_initializationStateMachine.PlayerStateMachine.isUpdate) return;
-            
-            _initializationStateMachine.PlayerStateMachine.currentStates.OnUpdateBehaviour();
-        }
-
-        private void FixedUpdate()
-        {
-            _initializationStateMachine.PlayerStateMachine.currentStates.OnFixedUpdateBehaviour();
-        }
-
-        private void OnDisable()
-        {
-            HealthStats.Unsubscribe();
             _disposable.Clear();
             _disposable.Dispose();
         }
-        
-        public void InitModel(ValueCountStorage<float> valueCountStorage)
+
+        public async void Initialize()
         {
-            ValueModelHealth = valueCountStorage;
+            await AsyncWorker.AwaitLoadConfigs(PlayerConfigs);
+            PlayerStateMachine.Data.DashCount = PlayerConfigs.MovementConfigsProvider.DashConfig.NumberChargesDash;
+
+            var die = new Die(PlayerComponents.RagdollHelper);
+
+            var restoringHealth = new RestoringHealth<PlayerComponents>(
+                new Health<Player>(PlayerConfigs.AnyPlayerConfigs.HealthConfig.MaxHealth, PlayerView.ValueModelHealth,
+                    die),
+                PlayerConfigs.AnyPlayerConfigs.HealthConfig, PlayerView.ValueModelHealth);
+
+            HealthResoringConstyl._playerRestoring = restoringHealth;
+            
+            PlayerComponents.InitHealth(restoringHealth);
         }
+
+        public void Tick()
+        {
+            if(PlayerStateMachine.StateMachine == null) return;
+            if (!PlayerStateMachine.StateMachine.isUpdate) return;
+
+            PlayerStateMachine.StateMachine?.currentStates.OnUpdateBehaviour();
+        }
+    }
+
+    public interface IInitializable<T>
+    {
+        void Initialize();
     }
 }

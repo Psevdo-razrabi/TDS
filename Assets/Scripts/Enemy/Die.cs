@@ -2,29 +2,23 @@
 using Customs;
 using Cysharp.Threading.Tasks;
 using Enemy.interfaces;
-using UnityEngine;
+using UniRx;
 
 namespace Enemy
 {
-    public class Die<T> : IDie<T>
+    public class Die : IDie
     {
-        private readonly GameObject _gameObject;
-        private readonly EventController _eventController;
+        public Subject<Unit> DieAction { get; private set; } = new ();
         private readonly RagdollHelper _ragdollHelper;
 
-        public Die(GameObject gameObject, EventController eventController, RagdollHelper ragdollHelper)
+        public Die(RagdollHelper ragdollHelper)
         {
-            _gameObject = gameObject;
-            _eventController = eventController;
             _ragdollHelper = ragdollHelper;
         }
-        
+
         public async UniTask Died()
         {
-            if (typeof(T) == typeof(Enemy))
-            {
-                _eventController.OnEnemyDie();
-            }
+            DieAction.OnNext(Unit.Default);
             _ragdollHelper.SetActive();
             await UniTask.Delay(TimeSpan.FromMinutes(2f));
             _ragdollHelper.SetNotActive();

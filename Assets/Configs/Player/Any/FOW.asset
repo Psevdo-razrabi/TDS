@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78112b5d878b4d73b7f22e9a09f90100, type: 3}
+  m_Name: FOW
+  m_EditorClassIdentifier: 
+  <StartValueRadius>k__BackingField: 90
+  <EndValueRadius>k__BackingField: 360
+  <TimeToMaxRadius>k__BackingField: 1

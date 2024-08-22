@@ -126,7 +126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1072056332967586887}
-  - component: {fileID: 2661547053089309974}
+  - component: {fileID: 6766173662263126431}
   m_Layer: 0
   m_Name: BulletPivot
   m_TagString: Untagged
@@ -149,7 +149,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2737304448700652688}
   m_LocalEulerAnglesHint: {x: 97.86401, y: 0, z: 0}
---- !u!114 &2661547053089309974
+--- !u!114 &6766173662263126431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,6 +158,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5448454384840204490}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10718a18aaa21b64cb7ba6dd9bb2ceed, type: 3}
+  m_Script: {fileID: 11500000, guid: 5012c702f90e49a3b1556a50a76e7b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

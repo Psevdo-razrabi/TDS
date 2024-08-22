@@ -9,7 +9,7 @@ using Zenject;
 
 public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
 { 
-    private CameraShakeConfigs _cameraShakeConfigs;
+    private CameraShakeConfigs _cameraShake;
     private CameraShakeConfig _shakeConfig;
     private ICameraProvider _cameraProvider;
     private DistributionConfigs _distributionConfigs;
@@ -17,10 +17,10 @@ public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
     private Vector3 _shakeOffset = Vector3.zero;
     private bool _isShaking = false;
 
-    public CameraShake(CameraShakeConfigs shakeConfigs, ICameraProvider cameraProvider, DistributionConfigs distributionConfigs)
+    public CameraShake(CameraShakeConfigs shake, ICameraProvider cameraProvider, DistributionConfigs distributionConfigs)
     {
-        _cameraShakeConfigs = shakeConfigs;
-        _shakeConfig = _cameraShakeConfigs.RifleShakeConfig;
+        _cameraShake = shake;
+        _shakeConfig = _cameraShake.RifleShakeConfig;
         _cameraProvider = cameraProvider;
         _distributionConfigs = distributionConfigs;
     }
@@ -56,26 +56,21 @@ public class CameraShake : IConfigRelize, IVisitWeaponType, IInitializable
 
     public void GetWeaponConfig(WeaponComponent weaponComponent)
     {
-        VisitWeapon(weaponComponent);
+        weaponComponent.Accept(this);
     }
 
     public void Visit(Pistol pistol)
     {
-        _shakeConfig = _cameraShakeConfigs.PistolShakeConfig;
+        _shakeConfig = _cameraShake.PistolShakeConfig;
     }
 
     public void Visit(Rifle rifle)
     {
-        _shakeConfig = _cameraShakeConfigs.RifleShakeConfig;
+        _shakeConfig = _cameraShake.RifleShakeConfig;
     }
 
     public void Visit(Shotgun shotgun)
     {
-        _shakeConfig = _cameraShakeConfigs.ShotGunShakeConfig;
-    }
-
-    public void VisitWeapon(WeaponComponent component)
-    {
-        Visit((dynamic)component);
+        _shakeConfig = _cameraShake.ShotGunShakeConfig;
     }
 }

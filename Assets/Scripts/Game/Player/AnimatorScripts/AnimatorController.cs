@@ -1,11 +1,15 @@
-﻿        using UniRx;
-        using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UniRx;
+using UnityEngine;
 
 namespace Game.Player.AnimatorScripts
 {
     public class AnimatorController : MonoBehaviour
     {
         [field: SerializeField] public Animator PlayerAnimator { get; private set; }
+        [field: SerializeField] public UnityEditor.Animations.AnimatorController PlayerAnimatorController { get; private set; }
         [field: SerializeField] public string NameHorizontalParameter { get; private set; }
         [field: SerializeField] public string NameVerticalParameter { get; private set; }
         [field: SerializeField] public string NameMoveParameter { get; private set; }
@@ -15,8 +19,16 @@ namespace Game.Player.AnimatorScripts
         [field: SerializeField] public string NameRemappedLateralSpeedNormalizedParameter { get; private set; }
         [field: SerializeField] public string NameRemappedForwardSpeedNormalizedParameter { get; private set; }
         [field: SerializeField] public string NameRemappedSpeedNormalizedParameter { get; private set; }
-
-
+        [field: SerializeField] public string NameIsCrouchParameter { get; private set; }
+        [field: SerializeField] public string NameIsStepParameter { get; private set; }
+        [field: SerializeField] public string NameIsClimbParameter { get; private set; }
+        [field: SerializeField] public string NameIsClimbToWallParameter { get; private set; }
+        [field: SerializeField] public string NameIsGroundParameter { get; private set; }
+        [field: SerializeField] public string NameIsLandingLarge { get; private set; }
+        [field: SerializeField] public string NameIsLandingMiddle { get; private set; }
+        private AnimationClip[] AnimationClips => PlayerAnimatorController.animationClips;
+        public IReadOnlyDictionary<string, AnimationClip> dictionaryAnimationClips { get; private set; }
+        
         public void SetFloatParameters(string nameParameters, float value)
         {
             PlayerAnimator.SetFloat(nameParameters, value);
@@ -36,6 +48,21 @@ namespace Game.Player.AnimatorScripts
         {
             parameters.Value = state;
             SetBoolParameters(nameStateAnimator, parameters.Value);
+        }
+        
+        public void OnAnimatorStateSet(ReactiveProperty<bool> parameters, string nameStateAnimator)
+        {
+            SetBoolParameters(nameStateAnimator, parameters.Value);
+        }
+
+        private void Start()
+        {
+            dictionaryAnimationClips = new Dictionary<string, AnimationClip>
+            {
+                {NameIsStepParameter, AnimationClips.FirstOrDefault(clip => clip.name == NameIsStepParameter)},
+                {NameIsClimbParameter, AnimationClips.FirstOrDefault(clip => clip.name == NameIsClimbParameter)}, 
+                {NameIsClimbToWallParameter, AnimationClips.FirstOrDefault(clip => clip.name == NameIsClimbToWallParameter)}
+            };
         }
     }
 }

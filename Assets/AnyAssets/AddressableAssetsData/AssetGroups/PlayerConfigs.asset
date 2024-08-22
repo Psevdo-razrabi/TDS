@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PlayerConfigs
+  m_EditorClassIdentifier: 
+  m_GroupName: PlayerConfigs
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ff44a24afac6d5b4da488c04a05b2967
+  m_SerializeEntries:
+  - m_GUID: bb1f0aa1534f4fb4987952103fa059c1
+    m_Address: ObstacleProvider
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerConfig
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 002e356bea364ee4b8aa10675b6743d2
+    m_Address: MovementProvider
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerConfig
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 66bdc16a5febff24ead9954c68fe32e8
+    m_Address: CrouchProvider
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerConfig
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: accc5edff9a55e743838cfea49fbeab9
+    m_Address: AnyPlayerConfig
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - PlayerConfig
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a32baf0e5cd480a4ba13a93650c972e4, type: 2}
+  m_SchemaSet:
+    m_Schemas: []

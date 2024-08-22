@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Game.Player.PlayerStateMashine;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine.Configs;
-using Game.Player.States.DirectionStrategy;
 using UniRx;
 using UnityEngine;
 
@@ -12,19 +10,10 @@ namespace Game.Player.States
 {
     public abstract class BaseMove : GroundState
     {
-        protected Vector3 Movement;
         private Vector3 _speed;
+        private CancellationTokenSource _token = new ();
 
-        private Dictionary<Vector3, IDirectionCalculator> _dictionarySpeed = new()
-        {
-            { Vector3.forward, new ForwardCalculator() },
-            { Vector3.back, new BackwardCalculator() },
-            { Vector3.right, new StrafeCalculator() },
-            { Vector3.left, new StrafeCalculator() }
-        };
-
-        protected BaseMove(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) :
-            base(stateMachine, player, stateMachineData)
+        protected BaseMove(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
         }
 
@@ -32,16 +21,20 @@ namespace Game.Player.States
         {
             base.AddActionsCallbacks();
 
-            Player.InputSystem.Move
-                .Subscribe(vector => Movement = new Vector3(vector.x, 0f, vector.y).normalized)
+            Player.PlayerInputStorage.InputSystem.Move.SkipLatestValueOnSubscribe()
+                .Subscribe(vector =>
+                {
+                    Data.Movement = new Vector3(vector.x, 0f, vector.y).normalized;
+                    UpdateDesiredTargetSpeed(Data.PlayerMoveConfig);
+                })
                 .AddTo(Disposable);
 
-            Player.InputSystem.OnSubscribeDash(() =>
+            Player.PlayerInputStorage.InputSystem.OnSubscribeDash(() =>
             {
                 if (Data.DashCount == 0) return;
 
-                Player.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.AnimatorController.NameDashParameter);
-                Player.StateChain.HandleState();
+                Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.PlayerAnimation.AnimatorController.NameDashParameter);
+                Player.PlayerStateMachine.StateChain.HandleState();
             });
         }
 
@@ -50,39 +43,53 @@ namespace Game.Player.States
             base.RemoveActionCallbacks();
             Disposable.Clear();
         }
-
+        
         protected async void UpdateDesiredTargetSpeed(PlayerMoveConfig configs)
         {
+            CreateToken();
             switch (Data.XInput, Data.YInput)
             {
                 case (var xInput, 0) when xInput != 0:
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedStrafe, configs.TimeInterpolateSpeed);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedStrafe, configs.TimeInterpolateSpeed, _token.Token);
                     break;
                 case (0, > 0):
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.Speed, configs.TimeInterpolateSpeed);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.Speed, configs.TimeInterpolateSpeed, _token.Token);
                     break;
                 case (0, < 0):
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedBackwards, configs.TimeInterpolateSpeed);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedBackwards, configs.TimeInterpolateSpeed, _token.Token);
                     break; 
                 case (var xInput, > 0) when xInput != 0:
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleForward, configs.TimeInterpolateSpeed);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleForward, configs.TimeInterpolateSpeed, _token.Token);
                     break;
                 case (var xInput,< 0) when xInput != 0:
-                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleBackwards, configs.TimeInterpolateSpeed);
+                    await InterpolateSpeed(Data.CurrentSpeed, configs.SpeedAngleBackwards, configs.TimeInterpolateSpeed, _token.Token);
                     break;
             }
         }
 
-        private async UniTask InterpolateSpeed(float currentSpeed, float endValue, float duration)
+        private async UniTask InterpolateSpeed(float currentSpeed, float endValue, float duration, CancellationToken cancellationToken)
         {
-            await DOTween.To(() => currentSpeed, x => Data.CurrentSpeed = x, endValue, duration);
+            await DOTween
+                .To(() => currentSpeed, x => Data.CurrentSpeed = x, endValue, duration)
+                .WithCancellation(cancellationToken: cancellationToken);
+        }
+        
+        private void ClearToken(CancellationTokenSource cancellationToken)
+        {
+            cancellationToken?.Cancel();
+        }
+
+        private void CreateToken()
+        {
+            ClearToken(_token);
+            _token = new CancellationTokenSource();
         }
 
         protected virtual void Move()
         {
-            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Movement;
+            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Data.Movement;
             targetSpeed.y = Data.TargetDirectionY;
-            Player.CharacterController.Move(targetSpeed);
+            Player.PlayerComponents.CharacterController.Move(targetSpeed);
         }
     }
 }

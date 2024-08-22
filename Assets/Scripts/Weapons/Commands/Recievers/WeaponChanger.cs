@@ -6,6 +6,7 @@ using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Sirenix.Utilities;
 using UnityEngine;
+using Weapons;
 using Weapons.InterfaceWeapon;
 using Zenject;
 
@@ -31,12 +32,12 @@ namespace Game.Player.Weapons.Commands.Recievers
         public void WeaponChange(WeaponComponent weaponComponent)
         {
             _weaponPrefabs.InitPrefab.ForEach(x => x.Value.SetActive(false));
-            VisitWeapon(weaponComponent);
+            weaponComponent.Accept(this);
         }
 
         public async void Initialize()
         {
-            await _awaiter.AwaitLoadPrefabConfigs(_weaponPrefabs);
+            await _awaiter.AwaitLoadConfigs(_weaponPrefabs);
 
             _weaponPrefabs.InitPrefab = new Dictionary<string, GameObject>
             {
@@ -63,26 +64,26 @@ namespace Game.Player.Weapons.Commands.Recievers
 
         public void Visit(Pistol pistol)    
         {
-            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].SetActive(true);
+            var pistolPrefab = _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab];
+            pistolPrefab.SetActive(true);
+            _weaponPrefabs.CurrentPrefabWeapon = pistolPrefab;
             _weaponData.BulletPoint =  _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadPistolPrefab].GetComponentInChildren<BulletSpawnPoint>().gameObject.transform;
         }
 
         public void Visit(Rifle rifle)
         {
-            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].SetActive(true);
+            var riflePrefab = _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab];
+            riflePrefab.SetActive(true);
+            _weaponPrefabs.CurrentPrefabWeapon = riflePrefab;
             _weaponData.BulletPoint =  _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadRiflePrefab].GetComponentInChildren<BulletSpawnPoint>().gameObject.transform;
         }
 
         public void Visit(Shotgun shotgun)
         {
-            _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].SetActive(true);
+            var shotgunPrefab = _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab];
+            shotgunPrefab.SetActive(true);
+            _weaponPrefabs.CurrentPrefabWeapon = shotgunPrefab;
             _weaponData.BulletPoint =  _weaponPrefabs.InitPrefab[_weaponPrefabs.NameLoadShotgunPrefab].GetComponentInChildren<BulletSpawnPoint>().gameObject.transform;
         }
-
-        public void VisitWeapon(WeaponComponent component)
-        {
-            Visit((dynamic)component);
-        }
-        
     }
 }

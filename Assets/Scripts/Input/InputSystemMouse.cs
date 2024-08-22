@@ -1,5 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using Game.AsyncWorker.Interfaces;
+using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Input.Interface;
 using UniRx;
 using UnityEngine;
@@ -10,52 +12,73 @@ namespace Input
     public class InputSystemMouse : InputSystemBase, IMouse
     {
         public Vector2ReactiveProperty PositionMouse { get; } = new();
-        private Action _mouseRightClickUpHandler;
-        private Action _mouseRightClickDownHandler;
+
+        private readonly CompositeDisposable _compositeDisposable = new();
+        private IDisposable _disposableRightClickMouseUp;
+        private IDisposable _disposableRightClickMouseDown;
         
-        
-        public void OnSubscribeRightMouseClickUp(Action action)
+        public InputSystemMouse(PlayerComponents playerComponents, StateMachineData data, InputObserver inputObserver, 
+            IAwaiter asyncWorker, PlayerConfigs playerConfigs, InputSystem inputSystemNew) 
+            : base(playerComponents, data, inputObserver, asyncWorker, playerConfigs, inputSystemNew)
         {
-            _mouseRightClickUpHandler = action;
-            InputSystemNew.Mouse.Aim.performed += MouseRightClickUpHandler;
         }
 
-        public void OnSubscribeRightMouseClickDown(Action action)
+        protected override void AddActionsCallbacks()
         {
-            _mouseRightClickDownHandler = action;
-            InputSystemNew.Mouse.Aim.canceled += MouseRightClickDownHandler;
+            base.AddActionsCallbacks();
+            InputSystemNew.Mouse.MousePosition.performed += MousePosition;
+            SubscribeRightMouse();
         }
 
-        public void OnUnsubscribeRightMouseClickUp()
+        protected override void RemoveActionCallbacks()
         {
-            InputSystemNew.Mouse.Aim.performed -= MouseRightClickUpHandler;
-            _mouseRightClickUpHandler = null;
+            base.RemoveActionCallbacks();
+            InputSystemNew.Mouse.MousePosition.performed -= MousePosition;
+            UnsubscribeRightMouse();
         }
 
-        public void OnUnsubscribeRightMouseClickDown()
+        private async void SubscribeRightMouse()
         {
-            InputSystemNew.Mouse.Aim.canceled -= MouseRightClickDownHandler;
-            _mouseRightClickDownHandler = null;
+            await AsyncWorker.AwaitLoadConfigs(PlayerConfigs);
+            
+            _disposableRightClickMouseDown = InputObserver
+                .SubscribeMouseRightDown()
+                .Subscribe(OnClickRightDown)
+                .AddTo(_compositeDisposable);
+            
+            _disposableRightClickMouseUp = InputObserver
+                .SubscribeMouseRightUp()
+                .Subscribe(OnClickRightUp)
+                .AddTo(_compositeDisposable);
+        }
+
+        private void UnsubscribeRightMouse()
+        {
+            _disposableRightClickMouseDown.Dispose();
+            _disposableRightClickMouseUp.Dispose();
+            _compositeDisposable.Dispose();
+            _compositeDisposable.Clear();
+        }
+
+        private void OnClickRightDown(Unit _)
+        {
+            Data.IsAiming.Value = true;
+            Data.IsAim.Value = true;
+            var config = PlayerConfigs.AnyPlayerConfigs.FowConfig;
+            PlayerComponents.RadiusChanger.ChangerRadius(config.StartValueRadius, config.TimeToMaxRadius);
         }
         
-        private void MouseRightClickUpHandler(InputAction.CallbackContext context) =>  _mouseRightClickUpHandler?.Invoke();
-
-        private void MouseRightClickDownHandler(InputAction.CallbackContext context) => _mouseRightClickDownHandler?.Invoke();
-        
+        private void OnClickRightUp(Unit _)
+        {
+            Data.IsAiming.Value = false;
+            Data.IsAim.Value = false;
+            var config = PlayerConfigs.AnyPlayerConfigs.FowConfig;
+            PlayerComponents.RadiusChanger.ChangerRadius(config.EndValueRadius, config.TimeToMaxRadius);
+        }
         
         private void MousePosition(InputAction.CallbackContext obj)
         {
             PositionMouse.Value = obj.ReadValue<Vector2>();
-        }
-
-        private void OnEnable()
-        {
-            InputSystemNew.Mouse.MousePosition.performed += MousePosition;
-        }
-
-        private void OnDisable()
-        {
-            InputSystemNew.Mouse.MousePosition.performed -= MousePosition;
         }
     }
 }

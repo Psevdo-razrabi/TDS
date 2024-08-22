@@ -1,44 +1,43 @@
-﻿using CharacterOrEnemyEffect.Factory;
+﻿using CharacterOrEnemyEffect;
+using CharacterOrEnemyEffect.Factory;
 using FOW;
-using Game.AsyncWorker;
+using Game.AsyncOperation;
 using Game.Player;
 using Game.Player.AnimatorScripts;
+using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
+using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Buffer;
 using Game.Player.States.StateHandle;
+using Game.Player.States.StateHandle.Faling;
+using Game.Player.States.StateHandle.Parkour;
 using Input;
-using MVVM;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DI
 {
     public sealed class GameInstaller : BaseBindings
     {
-        [SerializeField] private InputSystemMovement inputSystemMovement;
         [SerializeField] private AnimatorController animatorController;
         [SerializeField] private PlayerAim playerAim;
-        [SerializeField] private Player player;
-        [SerializeField] private DashTrailEffect dashTrailEffect;
         [SerializeField] private ChangeModeFire fireMode;
-        [SerializeField] private InputSystemMouse inputSystemMouse;
-        [SerializeField] private InputSystemWeapon inputSystemWeapon;
-        [SerializeField] private InputSystemUi inputSystemUi;
-        [SerializeField] private InputBuffer inputBuffer;
         [SerializeField] private FogOfWarRevealer3D fogOfWarRevealer3D;
-        
+        [SerializeField] private StorageAssetReference _storageAssetReference;
+        [SerializeField] private PlayerComponents _playerComponents;
+        [SerializeField] private IKSystem _ikSystem;
+        [SerializeField] private PlayerView _playerView;
+
+
         public override void InstallBindings()
         {
-            BindEventController();
             BindInput();
             BindAnimator();
             BindPlayerAim();
+            BindPlayerConfig();
+            BindStateMachineData();
             BindPlayer();
             BindLoader();
-            BindPlayerConfig();
-            BindInitStateMachine();
             BindHandlesState();
-            BindStateMachineData();
             BindAsyncWorker();
             BindEffect();
             BindFactory();
@@ -62,21 +61,25 @@ namespace DI
         {
             BindNewInstance<FactoryComponent>();
             BindNewInstance<FactoryGameObject>();
-            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().AsSingle().WithArguments(true, "Mesh", 10).NonLazy();
+            Container
+                .Bind<FactoryComponentWithMonoBehaviour>()
+                .To<FactoryComponentWithMonoBehaviour>()
+                .WithArguments(true, "Mesh", 10)
+                .WhenInjectedInto<CreateVFXTrail>()
+                .NonLazy();
+            Container.Bind<FactoryComponentWithMonoBehaviour>().To<FactoryComponentWithMonoBehaviour>().WithArguments(true, "Bullet", 30).WhenInjectedInto<BulletLifeCycle>().NonLazy();
         }
-
-        private void BindEventController() => BindNewInstance<EventController>();
 
         private void BindInput()
         {
             BindNewInstance<InputSystem>();
-            BindInstance(inputSystemMovement);
-            BindInstance(inputSystemMouse);
-            BindInstance(inputSystemWeapon);
-            BindInstance(inputSystemUi);
-            BindNewInstance<MouseInputObserver>();
+            BindNewInstance<InputSystemMovement>();
+            BindNewInstance<InputSystemMouse>();
+            BindNewInstance<InputSystemWeapon>();
+            BindNewInstance<InputSystemUi>();
+            BindNewInstance<InputObserver>();
             BindNewInstance<BufferAction>();
-            BindInstance(inputBuffer);
+            BindNewInstance<InputBuffer>();
         }
 
         private void BindEffect()
@@ -90,15 +93,24 @@ namespace DI
 
         private void BindPlayer()
         {
-            BindInstance(player);
-            BindInstance(dashTrailEffect);
+            BindNewInstance<Player>();
+            BindNewInstance<PlayerAnimation>();
+            BindInstance(_playerComponents);
+            BindInstance(_ikSystem);
+            BindNewInstance<PlayerInputStorage>();
+            BindNewInstance<PlayerStateMachine>();
+            BindInstance(_playerView);
+            BindNewInstance<PlayerIK>();
+            BindNewInstance<Landing>();
         }
-        
-        private void BindLoader() => BindNewInstance<Loader>();
 
-        private void BindInitStateMachine() => BindNewInstance<InitializationStateMachine>();
+        private void BindLoader()
+        {
+            BindNewInstance<Loader>();
+            BindInstance(_storageAssetReference);
+        }
 
-        private void BindPlayerConfig() => BindNewInstance<PlayerConfigs>();
+        private void BindPlayerConfig() => BindNewInstance<Game.Player.PlayerStateMashine.PlayerConfigs>();
 
         private void BindStateMachineData() => BindNewInstance<StateMachineData>();
 
@@ -109,6 +121,12 @@ namespace DI
             Container.Bind<IStateHandle>().To<PlayerDashHandle>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerIdleHandler>().AsSingle();
             Container.Bind<IStateHandle>().To<PlayerMoveHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerIdleCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerMoveCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerSitDownCrouchHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerStandUpCrouchHandler>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerClimbToObstacleHandle>().AsSingle();
+            Container.Bind<IStateHandle>().To<PlayerFallingHandler>().AsSingle();
             
             BindNewInstance<StateHandleChain>();
         }

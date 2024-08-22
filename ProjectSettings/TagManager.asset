@@ -18,8 +18,8 @@ TagManager:
   - Bullet
   - Wall
   - 
-  - 
-  - 
+  - ClambingObject
+  - LandingObject
   - 
   - 
   - 

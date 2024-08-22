@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9653060eb6c4eba8f2c1f1e1982b6b7, type: 3}
+  m_Name: ObstacleProvider
+  m_EditorClassIdentifier: 
+  <SmallObstacle>k__BackingField: {fileID: 11400000, guid: e984d88c215ab724b95f3ec05d6d163c,
+    type: 2}
+  <MiddleObstacle>k__BackingField: {fileID: 11400000, guid: 0cf9e5d847841d348b124469bb4a45a0,
+    type: 2}
+  <LargeObstacle>k__BackingField: {fileID: 11400000, guid: 423edbaef513bbe4d8801f4c906167a6,
+    type: 2}
+  <LandingConfig>k__BackingField: {fileID: 11400000, guid: 458204346b79d854aac88c551bc13461,
+    type: 2}

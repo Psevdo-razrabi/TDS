@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading;
-using Customs;
 using Cysharp.Threading.Tasks;
 using Enemy.interfaces;
 using UI.Storage;
@@ -13,13 +12,12 @@ namespace Game.Core.Health
         public float MaxHealth { get; }
         public float CurrentHealth { get; private set; }
         private readonly ValueCountStorage<float> _healthValue;
-        private readonly IDie<T> _objectHealth;
-        private readonly EventController _eventController;
+        private readonly IDie _objectHealth;
         private float _amountHealthPercentage = 1f;
         private const float TransferFromInterest = 100f;
         public CancellationTokenSource CancellationTokenSource { get; private set; }
 
-        public Health(float health, ValueCountStorage<float> healthValue, IDie<T> objectHealth)
+        public Health(float health, ValueCountStorage<float> healthValue, IDie objectHealth)
         {
             MaxHealth = CurrentHealth = health;
             _healthValue = healthValue;

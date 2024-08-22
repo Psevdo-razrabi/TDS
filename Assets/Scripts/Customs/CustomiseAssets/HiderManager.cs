@@ -26,7 +26,6 @@ public class HiderManager : ITickable, IInitializable, IDisposable
             {
                 if(fog.Value != key) return;
                 _dictionary[key].OnReveal();
-                Debug.LogWarning($"Появился {_dictionary[key].gameObject}");
             });
         }).AddTo(_compositeDisposable);
 
@@ -38,7 +37,6 @@ public class HiderManager : ITickable, IInitializable, IDisposable
             {
                 if(fog.Value != key) return;
                 _dictionary[key].OnHide();
-                Debug.LogWarning($"Пропал {_dictionary[key].gameObject}");
             });
         }).AddTo(_compositeDisposable);
     }

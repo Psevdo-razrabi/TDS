@@ -1,13 +1,16 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
+using Game.Player.States.StateHandle.Faling;
+using Game.Player.States.StateHandle.Parkour;
 using UnityEngine;
 
 namespace Game.Player.States
 {
     public class PlayerIdle : BaseIdle
     {
-        public PlayerIdle(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) 
-            : base(stateMachine, player, stateMachineData)
+        public PlayerIdle(PlayerStateMachine stateMachine) 
+            : base(stateMachine)
         {
             
         }
@@ -15,20 +18,24 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Debug.Log("Вход в idle state");
-        }
-
-        public override void OnExit()
-        {
-            base.OnExit();
-            Debug.Log("Выход из idle state");
+            Data.IsMove.Value = false;
+            Data.IsLockAim = false;
         }
 
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
-            
-            Player.StateChain.HandleState<PlayerMoveHandler>();
+            GravityForce();
+            ChangeState();
+        }
+        
+        private void ChangeState()
+        {
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerMoveHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerAimIdleHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerSitDownCrouchHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerClimbToObstacleHandle>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerFallingHandler>();
         }
     }
 }

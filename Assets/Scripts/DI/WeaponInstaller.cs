@@ -1,5 +1,7 @@
 ﻿using Game.Player.Weapons;
+using Game.Player.Weapons.AudioWeapon;
 using Game.Player.Weapons.ChangeWeapon;
+using Game.Player.Weapons.Commands;
 using Game.Player.Weapons.Mediators;
 using Game.Player.Weapons.Prefabs;
 using Game.Player.Weapons.ReloadStrategy;
@@ -8,6 +10,7 @@ using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Input;
 using UnityEngine;
+using Weapons.Commands.Recievers;
 
 namespace DI
 {
@@ -17,7 +20,12 @@ namespace DI
         [SerializeField] private Crosshair _crosshair;
         [SerializeField] private ChangeCrosshair _changeCrosshair;
         [SerializeField] private WeaponPivots _weaponPivots;
-
+        [SerializeField] private WeaponAudio _weaponAudio;
+        [SerializeField] private WeaponParticle _weaponParticle;
+        [SerializeField] private HeightCheck _heightCheck;
+        [SerializeField] private AimRay _aimRay;
+        [SerializeField] private CrosshairRaycast _crosshairRaycast;
+        
         public override void InstallBindings()
         {
             BindCursor();
@@ -31,6 +39,38 @@ namespace DI
             BindConfigs();
             BindCurrentWeapon();
             BindWeaponPrefab();
+            BindWeaponAudio();
+            BindRaycast();
+            BindWeaponParticle();
+        }
+        
+        private void BindRaycast()
+        {
+            BindInstance(_heightCheck);
+            BindInstance(_aimRay);
+            BindInstance(_crosshairRaycast);
+        }
+
+        private void BindWeaponParticle()
+        {
+            BindInstance(_weaponParticle);
+            BindNewInstance<ParticleStorage>();
+            BindNewInstance<InitializeWeaponParticle>();
+            BindNewInstance<ParticleWeaponComand>();
+            BindNewInstance<ParticleComponent>();
+        }
+        
+        private void BindWeaponAudio()
+        {
+            BindInstance(_weaponAudio);
+            BindNewInstance<AudioStorage>();
+            BindNewInstance<InitializeWeaponAudio>();
+            BindNewInstance<AudioWeaponCommand>();
+            BindNewInstance<AudioComponent>();
+            
+            BindNewInstance<PistolAudioType>();
+            BindNewInstance<RifleAudioType>();
+            BindNewInstance<ShotgunAudioType>();
         }
 
         private void BindWeaponPrefab()
@@ -56,7 +96,7 @@ namespace DI
         
         private void BindConfigs()
         {
-            BindNewInstance<WeaponConfigs>();
+            BindNewInstance<Weapon>();
             BindNewInstance<CameraShakeConfigs>();
         }
 

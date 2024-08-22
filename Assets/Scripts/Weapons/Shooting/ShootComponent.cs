@@ -15,7 +15,7 @@ public class ShootComponent : IInitializable, IConfigRelize
     private readonly BulletLifeCycle _bulletLifeCycle;
     private readonly Recoil _recoil;
     private readonly Spread _spread;
-    private readonly WeaponConfigs _weaponConfigs;
+    private readonly Weapon _weapon;
     private readonly WeaponData _weaponData;
     private readonly DistributionConfigs _distributionConfigs;
     private readonly CurrentWeapon _currentWeapon;
@@ -23,14 +23,14 @@ public class ShootComponent : IInitializable, IConfigRelize
     public readonly ValueCountStorage<int> AmmoReloadValue;
     
     public ShootComponent(CameraShake cameraShake, BulletLifeCycle bulletLifeCycle, Recoil recoil, Spread spread,
-        WeaponConfigs weaponConfigs, WeaponData weaponData, DistributionConfigs distributionConfigs, FireComponent fireComponent, CurrentWeapon currentWeapon
+        Weapon weapon, WeaponData weaponData, DistributionConfigs distributionConfigs, FireComponent fireComponent, CurrentWeapon currentWeapon
         , ValueCountStorage<int> ammoReloadValue)
     {
         _cameraShake = cameraShake;
         _bulletLifeCycle = bulletLifeCycle;
         _recoil = recoil;
         _spread = spread;
-        _weaponConfigs = weaponConfigs;
+        _weapon = weapon;
         _weaponData = weaponData;
         _distributionConfigs = distributionConfigs;
         _currentWeapon = currentWeapon;
@@ -38,6 +38,19 @@ public class ShootComponent : IInitializable, IConfigRelize
         fireComponent.ShotFired += ShotFired;
     }
 
+    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    {
+        _currentWeapon.LoadConfig(weaponComponent);
+        _gunConfig = _currentWeapon.CurrentWeaponConfig;
+        OperationWithWeaponData();
+        InitDamageForType();
+    }
+
+    public void Initialize()
+    {
+        _distributionConfigs.ClassesWantConfig.Add(this);
+    }
+    
     private void HandleShoot()
     {
         _bulletLifeCycle.BulletSpawn();
@@ -49,21 +62,24 @@ public class ShootComponent : IInitializable, IConfigRelize
     }
 
     private void ShotFired()
-    {
-        if(_weaponData.AmmoInMagazine.Value > 0)
-            HandleShoot();
+    { 
+        HandleShoot();
     }
-
-    public void GetWeaponConfig(WeaponComponent weaponComponent)
+    private void InitDamageForType()
     {
-        _currentWeapon.LoadConfig(weaponComponent);
-        _gunConfig = _currentWeapon.CurrentWeaponConfig;
+        foreach (var bodyTypeDamage in _gunConfig.DamageSettings)
+        {
+            _weaponData.DamageForType[bodyTypeDamage.BodyType] = bodyTypeDamage.Damage;
+        }
+    }
+    private void OperationWithWeaponData()
+    {
         _weaponData.AmmoInMagazine = new ReactiveProperty<int>(_gunConfig.TotalAmmo);
-    }
-
-    public void Initialize()
-    {
-        _distributionConfigs.ClassesWantConfig.Add(this);
+        _weaponData.Dispose();
+        var currentWeaponAudio = _currentWeapon.WeaponComponent.AudioComponent;
+        var currentWeapon = _currentWeapon.WeaponComponent;
+        _weaponData.Subscribe(() => currentWeaponAudio.PlayOneShot(currentWeapon.WeaponAudioType.WeaponOutAmmo(),
+            _currentWeapon.WeaponPrefabs.CurrentPrefabWeapon.transform.position));
     }
 }
  

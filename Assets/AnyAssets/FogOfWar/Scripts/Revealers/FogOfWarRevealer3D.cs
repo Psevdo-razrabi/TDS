@@ -97,8 +97,6 @@ namespace FOW
 			ApplyData();
 
 #if UNITY_EDITOR
-			if (LogNumRaycasts)
-				Debug.Log($"Number of raycasts this update: {NumRayCasts}");
 			Profiler.EndSample();
 #endif
 		}

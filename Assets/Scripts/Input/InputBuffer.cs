@@ -8,9 +8,8 @@ using Zenject;
 
 namespace Input
 {
-    public class InputBuffer : MonoBehaviour
+    public class InputBuffer : IInitializable, IDisposable
     {
-        private InputSystemMouse _inputSystemMouse;
         private InputSystemMovement _inputSystemMovement;
         private InputSystemWeapon _inputSystemWeapon;
         private InputSystem _inputSystemNew;
@@ -22,16 +21,14 @@ namespace Input
         private readonly Subject<Unit> _weaponShotClick = new();
         private readonly Subject<Unit> _weaponReloadClick = new();
 
-        [Inject]
-        private void Construct(InputSystemWeapon inputSystemWeapon, InputSystemMovement inputSystemMovement, 
-            InputSystemMouse inputSystemMouse, InputSystem inputSystemNew, StateHandleChain stateHandleChain, BufferAction bufferAction)
+        public InputBuffer(InputSystemMovement inputSystemMovement, InputSystemWeapon inputSystemWeapon, InputSystem inputSystemNew, 
+            BufferAction bufferAction, StateHandleChain stateHandleChain)
         {
-            _inputSystemWeapon = inputSystemWeapon;
             _inputSystemMovement = inputSystemMovement;
-            _inputSystemMouse = inputSystemMouse;
+            _inputSystemWeapon = inputSystemWeapon;
             _inputSystemNew = inputSystemNew;
-            _stateHandleChain = stateHandleChain;
             _bufferAction = bufferAction;
+            _stateHandleChain = stateHandleChain;
         }
 
         private void SubscribeActionBuffer(Subject<Unit> subject, Action inputAction)
@@ -42,7 +39,6 @@ namespace Input
                 {
                     _bufferAction.lastStateAction = inputAction;
                     _bufferAction.IsBufferAlready.Value = true;
-                    Debug.LogWarning("сколько раз я вызвался2?");
                 })
                 .AddTo(_compositeDisposable);
         }
@@ -50,19 +46,15 @@ namespace Input
         private void RegisterActionsBuffer()
         {
             SubscribeActionBuffer(_dashClick, _inputSystemMovement.OnDash);
-            SubscribeActionBuffer(_weaponShotClick, _inputSystemWeapon.WeaponComponent.fireComponent.Fire);
-            SubscribeActionBuffer(_weaponReloadClick, _inputSystemWeapon.WeaponComponent.reloadComponent.Reload);
-        }
-        
-        private void OnEnable()
-        {
-            RegisterActionsBuffer();
-            _inputSystemNew.Movement.Dash.performed += DashSubject;
-            _inputSystemNew.Weapon.Fire.performed += WeaponShotSubject;
-            _inputSystemNew.Weapon.Reload.performed += WeaponReloadSubject;
+            SubscribeActionBuffer(_weaponShotClick, _inputSystemWeapon.WeaponComponent.FireComponent.Fire);
+            SubscribeActionBuffer(_weaponReloadClick, _inputSystemWeapon.WeaponComponent.ReloadComponent.Reload);
         }
 
-        private void OnDisable()
+        private void DashSubject(InputAction.CallbackContext obj) => _dashClick.OnNext(Unit.Default);
+        private void WeaponShotSubject(InputAction.CallbackContext obj) => _weaponShotClick.OnNext(Unit.Default);
+        private void WeaponReloadSubject(InputAction.CallbackContext obj) => _weaponReloadClick.OnNext(Unit.Default);
+
+        public void Dispose()
         {
             _inputSystemNew.Movement.Dash.performed -= DashSubject;
             _inputSystemNew.Weapon.Fire.performed -= WeaponShotSubject;
@@ -72,8 +64,12 @@ namespace Input
             _compositeDisposable.Clear();
         }
 
-        private void DashSubject(InputAction.CallbackContext obj) => _dashClick.OnNext(Unit.Default);
-        private void WeaponShotSubject(InputAction.CallbackContext obj) => _weaponShotClick.OnNext(Unit.Default);
-        private void WeaponReloadSubject(InputAction.CallbackContext obj) => _weaponReloadClick.OnNext(Unit.Default);
+        public void Initialize()
+        {
+            RegisterActionsBuffer();
+            _inputSystemNew.Movement.Dash.performed += DashSubject;
+            _inputSystemNew.Weapon.Fire.performed += WeaponShotSubject;
+            _inputSystemNew.Weapon.Reload.performed += WeaponReloadSubject;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Game.Player.PlayerStateMashine;
+﻿using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 using UnityEngine;
 
@@ -6,27 +7,28 @@ namespace Game.Player.States
 {
     public class PlayerAimIdle : BaseIdle
     {
-        public PlayerAimIdle(InitializationStateMachine stateMachine, Player player, StateMachineData stateMachineData) : base(stateMachine, player, stateMachineData)
+        public PlayerAimIdle(PlayerStateMachine playerStateMachine) : base(playerStateMachine)
         {
-        }
-
-        public override void OnEnter()
-        {
-            base.OnEnter();
-            Debug.Log("Вход в idleAim state");
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Debug.Log("Выход из idleAim state");
+            if(Data.IsCrouch.Value || Data.IsDashing.Value) 
+                OnExitAimState();
         }
 
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
-            
-            Player.StateChain.HandleState<PlayerAimMoveHandler>();
+            ChangeState();
+        }
+
+        private void ChangeState()
+        {
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerAimMoveHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerIdleHandler>();
+            Player.PlayerStateMachine.StateChain.HandleState<PlayerSitDownCrouchHandle>();
         }
     }
 }

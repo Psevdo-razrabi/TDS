@@ -2,7 +2,7 @@
 
 namespace Game.Player.Weapons.WeaponConfigs
 {
-    [CreateAssetMenu(fileName = "WeaponConfigs", menuName = "WeaponConfigs/Shotgun")]
+    [CreateAssetMenu(fileName = "Weapon", menuName = "Weapon/Shotgun")]
     public class ShotgunConfig : BaseWeaponConfig
     {
         

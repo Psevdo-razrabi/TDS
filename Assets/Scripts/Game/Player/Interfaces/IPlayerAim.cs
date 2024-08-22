@@ -5,6 +5,6 @@ namespace Game.Player.Interfaces
     public interface IPlayerAim
     {
         void Aim();
-        (bool, Vector3) GetMousePosition();
+        void FreezeAim(Quaternion rotation, Player player);
     }
 }
