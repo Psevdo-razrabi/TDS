@@ -1,15 +1,22 @@
 ﻿using System;
 
-namespace AnyAi.Blackboard
+namespace BlackboardScripts
 {
     [Serializable]
     public class BlackboardEntry<T>
     {
-        public BlackboardKey Key { get; }
-        public T Value { get; }
-        public Type ValueType { get; }
+        public BlackboardKey Key { get; private set; }
+        public T Value { get; private set; }
+        public Type ValueType { get; private set; }
         
         public BlackboardEntry(BlackboardKey key, T value)
+        {
+            Key = key;
+            Value = value;
+            ValueType = typeof(T);
+        }
+
+        public void SetProperty(BlackboardKey key, T value)
         {
             Key = key;
             Value = value;

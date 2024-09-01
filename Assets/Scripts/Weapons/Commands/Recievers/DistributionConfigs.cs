@@ -24,9 +24,9 @@ namespace Game.Player.Weapons.Commands.Recievers
         
         public async UniTask Distribution(WeaponComponent weaponComponent)
         {
-            await UniTask.WhenAll(new[] { _awaiter.AwaitLoadConfigs(_weapon),
-                _awaiter.AwaitLoadConfigs(_shake),
-                _awaiter.AwaitLoadConfigs(_weaponPrefabs)
+            await UniTask.WhenAll(new[] { _awaiter.AwaitLoadOrInitializeParameter(_weapon),
+                _awaiter.AwaitLoadOrInitializeParameter(_shake),
+                _awaiter.AwaitLoadOrInitializeParameter(_weaponPrefabs)
             });
             
             ClassesWantConfig

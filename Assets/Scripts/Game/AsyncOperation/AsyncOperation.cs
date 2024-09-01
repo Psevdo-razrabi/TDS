@@ -26,7 +26,7 @@ namespace Game.AsyncOperation
 
         public async void Initialize()
         {
-            await AwaitLoadConfigs(_data.PlayerConfigs);
+            await AwaitLoadOrInitializeParameter(_data.PlayerConfigs);
             
             _maxQueueSize = _data.PlayerConfigs.MovementConfigsProvider.DashConfig.NumberChargesDash;
 
@@ -38,7 +38,7 @@ namespace Game.AsyncOperation
             ThreadPool.QueueUserWorkItem(async (state) => { await ProcessQueue(); });
         }
 
-        public async UniTask AwaitLoadConfigs(ILoadable loadable)
+        public async UniTask AwaitLoadOrInitializeParameter(ILoadable loadable)
         {
             await UniTask.WaitUntil(() => loadable.IsLoaded);
         }

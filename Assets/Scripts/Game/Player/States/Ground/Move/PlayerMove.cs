@@ -1,8 +1,10 @@
 ﻿using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
 using Game.Player.States.StateHandle.Faling;
 using Game.Player.States.StateHandle.Parkour;
+using UniRx;
 
 namespace Game.Player.States
 {
@@ -15,15 +17,15 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Data.IsMove.Value = true;
-            Data.IsLockAim = false;
-            Data.PlayerMoveConfig = Player.PlayerConfigs.MovementConfigsProvider.BaseMove;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = true;
+            Data.SetValue(Name.IsLockAim, false);
+            Data.SetValue(Name.PlayerMoveConfig, Player.PlayerConfigs.MovementConfigsProvider.BaseMove);
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsMove.Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = false;
         }
 
         public override void OnUpdateBehaviour()

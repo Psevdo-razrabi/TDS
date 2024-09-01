@@ -2,6 +2,7 @@
 using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.States.Crouching
@@ -24,7 +25,7 @@ namespace Game.Player.States.Crouching
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsCrouch.Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsCrouch).Value = false;
         }
 
         public override void OnUpdateBehaviour()

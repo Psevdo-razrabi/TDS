@@ -1,4 +1,5 @@
-﻿using CharacterOrEnemyEffect;
+﻿using BehaviourTree;
+using CharacterOrEnemyEffect;
 using CharacterOrEnemyEffect.Factory;
 using FOW;
 using Game.AsyncOperation;
@@ -43,6 +44,12 @@ namespace DI
             BindFactory();
             BindPool();
             BindRevealer();
+            BindDebugger();
+        }
+
+        private void BindDebugger()
+        {
+            BindNewInstance<BTDebugger>();
         }
 
         private void BindRevealer()

@@ -25,7 +25,7 @@ namespace Game.Player.AnyScripts
         
         public async void Initialize()
         {
-            await Player.AsyncWorker.AwaitLoadConfigs(Player.PlayerConfigs);
+            await Player.AsyncWorker.AwaitLoadOrInitializeParameter(Player.PlayerConfigs);
             StateMachine = new StateMachine(new PlayerIdle(this), new PlayerAimIdle(this),
                 new PlayerMove(this), new PlayerMoveInAim(this), new PlayerDash(this),
                 new PlayerCrouch(this), new PlayerCrouchIdle(this), new PlayerSitsDown(this),

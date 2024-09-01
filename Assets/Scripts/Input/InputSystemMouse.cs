@@ -39,7 +39,7 @@ namespace Input
 
         private async void SubscribeRightMouse()
         {
-            await AsyncWorker.AwaitLoadConfigs(PlayerConfigs);
+            await AsyncWorker.AwaitLoadOrInitializeParameter(PlayerConfigs);
             
             _disposableRightClickMouseDown = InputObserver
                 .SubscribeMouseRightDown()
@@ -62,16 +62,16 @@ namespace Input
 
         private void OnClickRightDown(Unit _)
         {
-            Data.IsAiming.Value = true;
-            Data.IsAim.Value = true;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsAiming).Value = true;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsAim).Value = true;
             var config = PlayerConfigs.AnyPlayerConfigs.FowConfig;
             PlayerComponents.RadiusChanger.ChangerRadius(config.StartValueRadius, config.TimeToMaxRadius);
         }
         
         private void OnClickRightUp(Unit _)
         {
-            Data.IsAiming.Value = false;
-            Data.IsAim.Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsAiming).Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsAim).Value = false;
             var config = PlayerConfigs.AnyPlayerConfigs.FowConfig;
             PlayerComponents.RadiusChanger.ChangerRadius(config.EndValueRadius, config.TimeToMaxRadius);
         }

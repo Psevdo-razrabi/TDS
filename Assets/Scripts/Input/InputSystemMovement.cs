@@ -42,7 +42,7 @@ public class InputSystemMovement : InputSystemBase, IMove, ITickable
     {
         base.AddActionsCallbacks();
         OnDash += DashClickHandler;
-        await AsyncWorker.AwaitLoadConfigs(PlayerConfigs);
+        await AsyncWorker.AwaitLoadOrInitializeParameter(PlayerConfigs);
         Subscribe();
     }
 
@@ -77,9 +77,9 @@ public class InputSystemMovement : InputSystemBase, IMove, ITickable
         _compositeDisposable.Clear();
     }
 
-    private void OnStartCrouch(Unit _) => Data.IsCrouch.Value = true;
+    private void OnStartCrouch(Unit _) => Data.GetValue<ReactiveProperty<bool>>(Name.IsCrouch).Value = true;
 
-    private void OnStopCrouch(Unit _) => Data.IsCrouch.Value = false;
+    private void OnStopCrouch(Unit _) => Data.GetValue<ReactiveProperty<bool>>(Name.IsCrouch).Value = false;
 
     private void Subscribe()
     {

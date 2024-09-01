@@ -1,4 +1,5 @@
 using System;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class ChangeCrosshair : MonoBehaviour
     private float _aimingExpansion;
     private StateMachineData _stateMachineData;
     private CurrentWeapon _currentWeapon;
+    private IAwaiter _awaiter;
     
     public RectTransform[] CrosshairParts => _crosshairParts;
     public float TotalExpansion => _totalExpansion;
@@ -34,17 +36,19 @@ public class ChangeCrosshair : MonoBehaviour
     public Transform Crosshair => _crosshair.transform;
 
     [Inject]
-    private void Cunstruct(StateMachineData stateMachineData, CurrentWeapon currentWeapon)
+    private void Construct(StateMachineData stateMachineData, CurrentWeapon currentWeapon, IAwaiter awaiter)
     {
         _stateMachineData = stateMachineData;
         _currentWeapon = currentWeapon;
-        SubscribeAim();
-        SubscribeUpdate();
+        _awaiter = awaiter;
     }
     
-    private void Start()
+    private async void Start()
     {
+        await _awaiter.AwaitLoadOrInitializeParameter(_stateMachineData);
         _canMove = true; 
+        SubscribeAim();
+        SubscribeUpdate();
         
         _initialPositions = new Vector2[_crosshairParts.Length];
         for (int i = 0; i < _crosshairParts.Length; i++)
@@ -66,7 +70,7 @@ public class ChangeCrosshair : MonoBehaviour
 
     private void SubscribeAim()
     {
-        _stateMachineData.IsAiming
+        _stateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsAiming)
             .Subscribe(isAiming =>
             {
                 if (isAiming == true)

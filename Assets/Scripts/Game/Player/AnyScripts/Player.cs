@@ -49,7 +49,7 @@ namespace Game.Player
 
         public async void Initialize()
         {
-            await AsyncWorker.AwaitLoadConfigs(PlayerConfigs);
+            await AsyncWorker.AwaitLoadOrInitializeParameter(PlayerConfigs);
             PlayerStateMachine.Data.DashCount = PlayerConfigs.MovementConfigsProvider.DashConfig.NumberChargesDash;
 
             var die = new Die(PlayerComponents.RagdollHelper);

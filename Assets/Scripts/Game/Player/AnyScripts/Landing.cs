@@ -39,7 +39,7 @@ namespace Game.Player.AnyScripts
         
         private async void Subscribes()
         {
-            await _awaiter.AwaitLoadConfigs(_stateMachineData.PlayerConfigs);
+            await _awaiter.AwaitLoadOrInitializeParameter(_stateMachineData.PlayerConfigs);
             Observable
                 .EveryUpdate()
                 .Subscribe(_ => CheckLandingOrGround())
@@ -58,12 +58,12 @@ namespace Game.Player.AnyScripts
             {
                 var checkLandingObject =
                     CheckPlane(playerLandingConfig.LandingObject.LayerMask, _direction, playerLandingConfig.LandingObject.CastDistance);
-                _stateMachineData.Rotation = Quaternion.LookRotation(-checkLandingObject.hit.normal);
-                _stateMachineData.IsGrounded.Value = !checkLandingObject.isGround;
+                _stateMachineData.SetValue(Name.Rotation, Quaternion.LookRotation(-checkLandingObject.hit.normal));
+                _stateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsGrounded).Value = !checkLandingObject.isGround;
             }
             else
             {
-                _stateMachineData.IsGrounded.Value = CheckPlane(playerLandingConfig.Ground.LayerMask, Vector3.down, playerLandingConfig.Ground.CastDistance).isGround;
+                _stateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsGrounded).Value = CheckPlane(playerLandingConfig.Ground.LayerMask, Vector3.down, playerLandingConfig.Ground.CastDistance).isGround;
             }
         }
 

@@ -2,6 +2,7 @@ using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.Orientation;
 using Game.Player.States.StateHandle;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.States
@@ -16,16 +17,16 @@ namespace Game.Player.States
         {
             base.OnEnter();
             //OnEnterAimState();
-            Data.IsMove.Value = true;
-            Data.PlayerMoveConfig = Player.PlayerConfigs.MovementConfigsProvider.MoveWithAim;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = true;
+            Data.SetValue(Name.PlayerMoveConfig, Player.PlayerConfigs.MovementConfigsProvider.MoveWithAim);
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            if(Data.IsCrouch.Value || Data.IsDashing.Value) 
+            if(Data.GetValue<ReactiveProperty<bool>>(Name.IsCrouch).Value || Data.GetValue<ReactiveProperty<bool>>(Name.IsDashing).Value) 
                 OnExitAimState();
-            Data.IsMove.Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = false;
         }
 
         public override void OnUpdateBehaviour()
