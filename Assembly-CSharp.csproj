@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AnyAssets\FogOfWar\Scripts\URP\FogOfWarRenderFeature.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\GOAP\Any\Setuppers.cs" />
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Strategy\MoveStrategy.cs" />
     <Compile Include="Assets\Scripts\Game\Player\PlayerStateMashine\Configs\PlayerInLandingConfig.cs" />
     <Compile Include="Assets\Scripts\Game\Player\PlayerStateMashine\Configs\ObstacleParametersConfig.cs" />
@@ -157,6 +156,7 @@
     <Compile Include="Assets\Scripts\Weapons\WeaponConfigs\WeaponData.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Enums\BTNodeStatus.cs" />
     <Compile Include="Assets\Scripts\SaveSystem\DataContext.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Any\Setuppers.cs" />
     <Compile Include="Assets\AnyAssets\FogOfWar\Scripts\Hiders\HiderBehavior.cs" />
     <Compile Include="Assets\Scripts\Enums\BodyType.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\Demo\FPS_RigidbodyFirstPersonController.cs" />
