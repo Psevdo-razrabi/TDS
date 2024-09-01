@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
@@ -13,24 +14,27 @@ public class AimRay : MonoBehaviour
     
     private StateMachineData _stateMachineData;
     private CrosshairRaycast _crosshairRaycast;
-    
+    private IAwaiter _awaiter;
+
     public IObservable<Vector3?> AimPointUpdates => _aimPointSubject.AsObservable();
     
     [Inject]
-    private void Construct(StateMachineData stateMachineData, CrosshairRaycast crosshairRaycast)
+    private void Construct(StateMachineData stateMachineData, CrosshairRaycast crosshairRaycast, IAwaiter awaiter)
     {
         _stateMachineData = stateMachineData;
         _crosshairRaycast = crosshairRaycast;
+        _awaiter = awaiter;
     }
 
-    private void Awake()
+    private async void Start()
     {
-       SubscribeCalculateAim();
+        await _awaiter.AwaitLoadOrInitializeParameter(_stateMachineData);
+        SubscribeCalculateAim();
     }
 
     private void SubscribeCalculateAim()
     {
-        var isAimingStream = _stateMachineData.IsAiming
+        var isAimingStream = _stateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsAiming)
             .DistinctUntilChanged();
 
         Observable

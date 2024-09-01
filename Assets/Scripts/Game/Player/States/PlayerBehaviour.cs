@@ -37,7 +37,7 @@ namespace Game.Player.States
 
         protected virtual void GravityForce()
         {
-            Player.PlayerComponents.CharacterController.Move(new Vector3(0f, Data.TargetDirectionY, 0f));
+            Player.PlayerComponents.CharacterController.Move(new Vector3(0f, Data.GetValue<float>(Name.TargetDirectionY), 0f));
         }
 
         private void UpdateAnimatorInput()
@@ -48,8 +48,8 @@ namespace Game.Player.States
         
         protected async UniTask RotatePlayerToObstacle()
         { 
-            var rotateModel =  Player.PlayerView.ModelRotate.transform.DORotateQuaternion(Data.Rotation, 1f);
-            var rotatePlayer = Player.PlayerComponents.transform.DORotateQuaternion(Data.Rotation, 1f);
+            var rotateModel =  Player.PlayerView.ModelRotate.transform.DORotateQuaternion(Data.GetValue<Quaternion>(Name.Rotation), 1f);
+            var rotatePlayer = Player.PlayerComponents.transform.DORotateQuaternion(Data.GetValue<Quaternion>(Name.Rotation), 1f);
 
             await UniTask.WhenAll(rotatePlayer.ToUniTask(), rotateModel.ToUniTask());
         }
@@ -61,7 +61,7 @@ namespace Game.Player.States
         
         protected void AimIsFreeze(Quaternion rotation)
         {
-            if (Data.IsLockAim)
+            if (Data.GetValue<bool>(Name.IsLockAim))
             {
                 Player.PlayerComponents.PlayerAim.FreezeAim(rotation, Player);
             }

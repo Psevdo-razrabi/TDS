@@ -2,7 +2,9 @@
 using Cysharp.Threading.Tasks;
 using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
+using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.StateHandle;
+using UniRx;
 
 namespace Game.Player.States.Parkour
 {
@@ -15,10 +17,10 @@ namespace Game.Player.States.Parkour
         public override async void OnEnter()
         {
             base.OnEnter();
-            Data.IsLockAim = true;
+            Data.SetValue(Name.IsLockAim, true);
             await RotatePlayerToObstacle();
             await AnimationPlayClip();
-            Data.IsPlayerInObstacle = true;
+            Data.SetValue(Name.IsPlayerInObstacle, true);
             ZeroingRotation();
             ChangeState();
         }
@@ -26,21 +28,21 @@ namespace Game.Player.States.Parkour
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsClimbing.Value = false;
-            Data.IsLockAim = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsClimbing).Value = false;
+            Data.SetValue(Name.IsLockAim, false);
         }
 
         public override void OnUpdateBehaviour()
         {
             base.OnUpdateBehaviour();
-            MatchAnimatorState(Data.Climb.animationTriggerName, Data.ObstacleConfig.AvatarTargetForClimb,
-                Data.ObstacleConfig.WeightMask, Data.ObstacleConfig.AnimationClip.start,
-                Data.ObstacleConfig.AnimationClip.end);
+            MatchAnimatorState(Data.GetValue<ClimbParameters>(Name.Climb).animationTriggerName, Data.GetValue<ObstacleParametersConfig>(Name.ObstacleConfig).AvatarTargetForClimb,
+                Data.GetValue<ObstacleParametersConfig>(Name.ObstacleConfig).WeightMask, Data.GetValue<ObstacleParametersConfig>(Name.ObstacleConfig).AnimationClip.start,
+                Data.GetValue<ObstacleParametersConfig>(Name.ObstacleConfig).AnimationClip.end);
         }
 
         private async UniTaskVoid PlayClimbAnimation(float durationAnimation)
         {
-             Player.PlayerAnimation.AnimatorController.SetTriggerParameters(Data.Climb.animationTriggerName);
+             Player.PlayerAnimation.AnimatorController.SetTriggerParameters(Data.GetValue<ClimbParameters>(Name.Climb).animationTriggerName);
              Player.PlayerAnimation.AnimatorController.PlayerAnimator.applyRootMotion = true;
              
              await UniTask.Delay(TimeSpan.FromSeconds(durationAnimation));
@@ -56,8 +58,8 @@ namespace Game.Player.States.Parkour
 
         private async UniTask AnimationPlayClip()
         {
-            PlayClimbAnimation(Data.Climb.animationClipDuration).Forget();
-            await UniTask.Delay(TimeSpan.FromSeconds(Data.Climb.animationClipDuration + 0.5f));
+            PlayClimbAnimation(Data.GetValue<ClimbParameters>(Name.Climb).animationClipDuration).Forget();
+            await UniTask.Delay(TimeSpan.FromSeconds(Data.GetValue<ClimbParameters>(Name.Climb).animationClipDuration + 0.5f));
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Game.Player;
 using Game.Player.Interfaces;
+using Game.Player.PlayerStateMashine;
 using PhysicsWorld;
 using UnityEngine;
 using Zenject;
@@ -33,11 +34,11 @@ public class Gravity : ISetGravityForce, ITickable
         
     private void GravityHandling()
     {
-        _stateData.Data.TargetDirectionY = _characterController.CharacterController.isGrounded switch
+        _stateData.Data.SetValue(Name.TargetDirectionY, _characterController.CharacterController.isGrounded switch
         {
             false => -_gravityForce * Time.deltaTime,
             true when _characterController.CharacterController.velocity.y <= 0 => -0.02f,
-            _ => _stateData.Data.TargetDirectionY
-        };
+            _ => _stateData.Data.GetValue<float>(Name.TargetDirectionY)
+        });
     }
 }

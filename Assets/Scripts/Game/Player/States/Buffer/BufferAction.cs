@@ -1,5 +1,6 @@
 ﻿using System;
 using CharacterOrEnemyEffect.Interfaces;
+using Game.AsyncWorker.Interfaces;
 using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
@@ -10,24 +11,27 @@ namespace Game.Player.States.Buffer
     public class BufferAction : IInitializable, IDisposable
     {
         private readonly IIsTrailActive _dashEffect;
+        private readonly IAwaiter _awaiter;
         public Action lastStateAction;
         public readonly ReactiveProperty<bool> IsBufferAlready = new();
         private readonly CompositeDisposable _compositeDisposable = new();
         private StateMachineData StateMachineData { get; }
 
-        public BufferAction(StateMachineData stateMachineData, IIsTrailActive dashEffect)
+        public BufferAction(StateMachineData stateMachineData, IIsTrailActive dashEffect, IAwaiter awaiter)
         {
             _dashEffect = dashEffect;
+            _awaiter = awaiter;
             StateMachineData = stateMachineData;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            await _awaiter.AwaitLoadOrInitializeParameter(StateMachineData);
             IsBufferAlready
                 .Subscribe(_ => InvokeActionBuffer())
                 .AddTo(_compositeDisposable);
 
-            StateMachineData.IsDashing
+            StateMachineData.GetValue<ReactiveProperty<bool>>("IsDashing")
                 .Subscribe(_ => InvokeActionBuffer())
                 .AddTo(_compositeDisposable);
             
@@ -40,7 +44,7 @@ namespace Game.Player.States.Buffer
         {
             MainThreadDispatcher.Post(_ =>
             {
-                if (!IsBufferAlready.Value || StateMachineData.IsDashing.Value 
+                if (!IsBufferAlready.Value || StateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsDashing).Value 
                                            || _dashEffect.IsTrailActive.Value) return;
                 InvokeState();
                 IsBufferAlready.Value = false;

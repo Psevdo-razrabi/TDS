@@ -1,7 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.StateHandle;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.States.Crouching
@@ -17,7 +19,7 @@ namespace Game.Player.States.Crouching
         {
             base.OnEnter();
             CrouchMovement = Player.PlayerConfigs.CrouchConfigsProvider.CrouchMovement;
-            Data.IsMove.Value = true;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = true;
             CreateTokenAndDelete();
             
             InterpolatedFloatWithEase(Data.Speed, x => Data.Speed = x, CrouchMovement.Speed,
@@ -27,7 +29,7 @@ namespace Game.Player.States.Crouching
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsMove.Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = false;
             Data.Speed = 0f;
         }
 
@@ -40,7 +42,7 @@ namespace Game.Player.States.Crouching
 
         protected override void Move()
         {
-            var direction = new Vector3(Data.Movement.x, Data.TargetDirectionY, Data.Movement.z);
+            var direction = new Vector3(Data.GetValue<Vector3>(Name.Movement).x, Data.GetValue<float>(Name.TargetDirectionY), Data.GetValue<Vector3>(Name.Movement).z);
             Player.PlayerComponents.CharacterController.Move(Data.Speed * Time.deltaTime * direction);
         }
 

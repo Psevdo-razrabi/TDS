@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using UniRx;
 using UnityEngine;
@@ -24,8 +25,8 @@ namespace Game.Player.States
             Player.PlayerInputStorage.InputSystem.Move.SkipLatestValueOnSubscribe()
                 .Subscribe(vector =>
                 {
-                    Data.Movement = new Vector3(vector.x, 0f, vector.y).normalized;
-                    UpdateDesiredTargetSpeed(Data.PlayerMoveConfig);
+                    Data.SetValue(Name.Movement, new Vector3(vector.x, 0f, vector.y).normalized);
+                    UpdateDesiredTargetSpeed(Data.GetValue<PlayerMoveConfig>(Name.PlayerMoveConfig));
                 })
                 .AddTo(Disposable);
 
@@ -33,7 +34,8 @@ namespace Game.Player.States
             {
                 if (Data.DashCount == 0) return;
 
-                Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, true, Player.PlayerAnimation.AnimatorController.NameDashParameter);
+                Player.PlayerAnimation.AnimatorController
+                    .OnAnimatorStateSet(Data.GetValue<ReactiveProperty<bool>>(Name.IsDashing), true, Player.PlayerAnimation.AnimatorController.NameDashParameter);
                 Player.PlayerStateMachine.StateChain.HandleState();
             });
         }
@@ -87,8 +89,8 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Data.Movement;
-            targetSpeed.y = Data.TargetDirectionY;
+            var targetSpeed = Data.CurrentSpeed * Time.deltaTime * Data.GetValue<Vector3>(Name.Movement);
+            targetSpeed.y = Data.GetValue<float>(Name.TargetDirectionY);
             Player.PlayerComponents.CharacterController.Move(targetSpeed);
         }
     }

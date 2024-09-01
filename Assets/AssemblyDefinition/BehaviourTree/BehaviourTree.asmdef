@@ -1,0 +1,17 @@
+{
+    "name": "BehaviourTree",
+    "rootNamespace": "",
+    "references": [
+        "GUID:844b7acba6e8dd5459051139bce82251",
+        "GUID:e243dd570265b4742bca38b929d33823"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

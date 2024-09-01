@@ -37,7 +37,7 @@ namespace Game.Player.Weapons.Commands.Recievers
 
         public async void Initialize()
         {
-            await _awaiter.AwaitLoadConfigs(_weaponPrefabs);
+            await _awaiter.AwaitLoadOrInitializeParameter(_weaponPrefabs);
 
             _weaponPrefabs.InitPrefab = new Dictionary<string, GameObject>
             {

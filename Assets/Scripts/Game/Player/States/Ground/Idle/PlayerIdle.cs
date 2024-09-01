@@ -3,6 +3,7 @@ using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 using Game.Player.States.StateHandle.Faling;
 using Game.Player.States.StateHandle.Parkour;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.States
@@ -18,8 +19,8 @@ namespace Game.Player.States
         public override void OnEnter()
         {
             base.OnEnter();
-            Data.IsMove.Value = false;
-            Data.IsLockAim = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsMove).Value = false;
+            Data.SetValue(Name.IsLockAim, false);
         }
 
         public override void OnUpdateBehaviour()

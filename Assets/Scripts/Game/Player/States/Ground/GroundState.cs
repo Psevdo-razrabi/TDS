@@ -2,6 +2,7 @@
 using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.States
@@ -57,13 +58,13 @@ namespace Game.Player.States
             {
                 _obstacleHeight = hit.collider.bounds.size.y;
                 TargetPosition = GetRaisedEndPoint(hit);
-                Data.Rotation = Quaternion.LookRotation(-hit.normal);
-                Data.IsLookAtObstacle.Value = true;
+                Data.SetValue(Name.Rotation, Quaternion.LookRotation(-hit.normal));
+                Data.GetValue<ReactiveProperty<bool>>(Name.IsLookAtObstacle).Value = true;
                 DrawDebugLine(hit.point, TargetPosition, hit.normal);
             }
             else
             {
-                Data.IsLookAtObstacle.Value = false;
+                Data.GetValue<ReactiveProperty<bool>>(Name.IsLookAtObstacle).Value = false;
             }
         }
         
@@ -98,27 +99,27 @@ namespace Game.Player.States
                 throw new Exception("Obstacle height out of range");
             }
             
-            return hit.point + Vector3.up * (hit.collider.bounds.size.y - Data.Climb.correctionHeight);
+            return hit.point + Vector3.up * (hit.collider.bounds.size.y - Data.GetValue<ClimbParameters>(Name.Climb).correctionHeight);
         }
 
         private void InitClimbParameters(ObstacleParametersConfig config, string nameAnimation)
         {
-            Data.ObstacleConfig = config;
-            Data.Climb.correctionHeight = config.RangeAndCorrectionForClimb.HeightCorrection;
-            Data.Climb.animationTriggerName = nameAnimation;
-            Data.Climb.animationClipDuration =
-                Player.PlayerAnimation.AnimatorController.dictionaryAnimationClips[Data.Climb.animationTriggerName].length;
+            Data.SetValue(Name.ObstacleConfig, config);
+            Data.GetValue<ClimbParameters>(Name.Climb).correctionHeight = config.RangeAndCorrectionForClimb.HeightCorrection;
+            Data.GetValue<ClimbParameters>(Name.Climb).animationTriggerName = nameAnimation;
+            Data.GetValue<ClimbParameters>(Name.Climb).animationClipDuration =
+                Player.PlayerAnimation.AnimatorController.dictionaryAnimationClips[Data.GetValue<ClimbParameters>(Name.Climb).animationTriggerName].length;
         }
 
         private void InitLandingParameters(string nameTriggerParameters)
         {
-            Data.Landing.animationTriggerName = nameTriggerParameters;
-            Data.Landing.animationClipDuration = 2f;
+            Data.GetValue<LandingParameters>(Name.Landing).animationTriggerName = nameTriggerParameters;
+            Data.GetValue<LandingParameters>(Name.Landing).animationClipDuration = 2f;
         }
         
         private void OnClimb()
         {
-            Data.IsClimbing.Value = true;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsClimbing).Value = true;
         }
 
         //private void OnJumpPressedKey() => StateMachine.PlayerStateMachine.SwitchStates<>(); //Jump
