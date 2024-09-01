@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/3DContent/UndergroundFloorTile/FlatKit/[Render Pipeline] Built-In.unitypackage.meta
 guid: dff3115769991544980f79ab817fa5d3
+========
+guid: a950d205032cef4479ecd38b92274918
+>>>>>>>> main:Assets/3DContent/UndergroundFloorTile/FlatKit/[Render Pipeline] Universal (URP).unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
