@@ -1,7 +1,7 @@
 ﻿using System;
 using Customs;
 
-namespace AnyAi.Blackboard
+namespace BlackboardScripts
 {
     [Serializable]
     public readonly struct BlackboardKey : IEquatable<BlackboardKey>

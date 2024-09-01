@@ -1,8 +1,10 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.Orientation;
+using UniRx;
 using UnityEngine;
 
 namespace Game.Player.States.Dash
@@ -26,8 +28,8 @@ namespace Game.Player.States.Dash
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsAim.Value = false;
-            Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.PlayerAnimation.AnimatorController.NameDashParameter);
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsAim).Value = false;
+            Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.GetValue<ReactiveProperty<bool>>(Name.IsDashing), false, Player.PlayerAnimation.AnimatorController.NameDashParameter);
         }
 
         protected override async void Move()
@@ -49,9 +51,9 @@ namespace Game.Player.States.Dash
         {
             var startPosition = Player.PlayerComponents.transform.position;
 
-            var endPosition = startPosition + Data.Movement.normalized * _dashConfig.DashDistance;
+            var endPosition = startPosition + Data.GetValue<Vector3>(Name.Movement).normalized * _dashConfig.DashDistance;
 
-            if (Physics.Raycast(startPosition, Data.Movement.normalized, out var raycastHit,
+            if (Physics.Raycast(startPosition, Data.GetValue<Vector3>(Name.Movement).normalized, out var raycastHit,
                     _dashConfig.DashDistance, _dashConfig.LayerObstacle))
             {
                 endPosition = raycastHit.point;
@@ -69,7 +71,8 @@ namespace Game.Player.States.Dash
                 await UniTask.Yield();
             }
 
-            Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.IsDashing, false, Player.PlayerAnimation.AnimatorController.NameDashParameter);
+            Player.PlayerAnimation.AnimatorController.OnAnimatorStateSet(Data.GetValue<ReactiveProperty<bool>>(Name.IsDashing), 
+                false, Player.PlayerAnimation.AnimatorController.NameDashParameter);
             SwitchState();
             AwaitDash();
             

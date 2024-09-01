@@ -1,6 +1,7 @@
 ﻿using Game.Player.AnyScripts;
 using Game.Player.PlayerStateMashine;
 using Game.Player.States.Parkour;
+using UniRx;
 
 namespace Game.Player.States.StateHandle.Parkour
 {
@@ -10,7 +11,7 @@ namespace Game.Player.States.StateHandle.Parkour
         
         public PlayerClimbToObstacleHandle(PlayerStateMachine stateMachine) => StateMachine = stateMachine;
 
-        public bool CanHandle() => StateMachine.Data.IsClimbing.Value && StateMachine.Data.IsLookAtObstacle.Value;
+        public bool CanHandle() => StateMachine.Data.GetValue<ReactiveProperty<bool>>(Name.IsClimbing).Value && StateMachine.Data.GetValue<ReactiveProperty<bool>>(Name.IsLookAtObstacle).Value;
 
         public void Handle() => StateMachine.StateMachine.SwitchStates<PlayerClimbToObstacle>();
     }

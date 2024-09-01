@@ -1,6 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.States.StateHandle;
 
 namespace Game.Player.States.Air
@@ -29,7 +30,7 @@ namespace Game.Player.States.Air
         public override void OnExit()
         {
             base.OnExit();
-            Data.IsLockAim = false;
+            Data.SetValue(Name.IsLockAim, false);
         }
 
         private void ChangeState()
@@ -40,15 +41,15 @@ namespace Game.Player.States.Air
 
         private async UniTask RotatePlayer()
         {
-            Data.IsLockAim = true;
+            Data.SetValue(Name.IsLockAim, true);
             await RotatePlayerToObstacle();
         }
 
         private async UniTask PlayerAnimationPlay()
         {
             Player.PlayerAnimation.AnimatorController.PlayerAnimator.applyRootMotion = true;
-            Player.PlayerAnimation.AnimatorController.SetTriggerParameters(Data.Landing.animationTriggerName);
-            await UniTask.Delay(TimeSpan.FromSeconds(Data.Landing.animationClipDuration));
+            Player.PlayerAnimation.AnimatorController.SetTriggerParameters(Data.GetValue<LandingParameters>(Name.Landing).animationTriggerName);
+            await UniTask.Delay(TimeSpan.FromSeconds(Data.GetValue<LandingParameters>(Name.Landing).animationClipDuration));
             
             Player.PlayerAnimation.AnimatorController.PlayerAnimator.applyRootMotion = false;
         }

@@ -1,7 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using Game.Player.AnyScripts;
+using Game.Player.PlayerStateMashine;
 using Game.Player.PlayerStateMashine.Configs;
 using Game.Player.States.StateHandle;
+using UniRx;
 
 namespace Game.Player.States.Crouching
 {
@@ -16,7 +18,7 @@ namespace Game.Player.States.Crouching
         {
             Data.Speed = Player.PlayerConfigs.CrouchConfigsProvider.CrouchMovement.Speed;
             _crouchAndStandConfig = Player.PlayerConfigs.CrouchConfigsProvider.SitDownCrouch;
-            Data.IsAim.Value = false;
+            Data.GetValue<ReactiveProperty<bool>>(Name.IsAim).Value = false;
             CreateTokenAndDelete();
             PlayerSitDown().Forget();
             ChangeState();

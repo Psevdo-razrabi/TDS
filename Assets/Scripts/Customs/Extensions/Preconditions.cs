@@ -17,5 +17,15 @@ namespace Customs
             if (reference == null) throw new AggregateException(message);
             return reference;
         }
+
+        public static void CheckValidateData(float data)
+        {
+            if (data < 0) throw new FormatException("Format Exception");
+        }
+        
+        public static void CheckValidateData(int data)
+        {
+            if (data < 0) throw new FormatException("Format Exception");
+        }
     }
 }

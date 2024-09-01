@@ -4,6 +4,6 @@ namespace Game.AsyncWorker.Interfaces
 {
     public interface IAwaiter
     {
-        UniTask AwaitLoadConfigs(ILoadable load);
+        UniTask AwaitLoadOrInitializeParameter(ILoadable load);
     }
 }

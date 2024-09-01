@@ -1,3 +1,4 @@
+using Game.AsyncWorker.Interfaces;
 using Game.Player.Weapons.WeaponClass;
 using Game.Player.Weapons.WeaponConfigs;
 using Game.Player.Weapons;
@@ -9,7 +10,7 @@ using UI.Storage;
 using UniRx;
 using Zenject;
 
-public class CurrentWeapon : IVisitWeaponType
+public class CurrentWeapon : IVisitWeaponType, IInitializable
 {
     public WeaponComponent WeaponComponent { get; private set; }
     public WeaponPrefabs WeaponPrefabs { get; private set; }
@@ -21,6 +22,7 @@ public class CurrentWeapon : IVisitWeaponType
     private CompositeDisposable _compositeDisposable = new();
     private StorageModel _storageModel;
     private WeaponPrefabs _weaponPrefabs;
+    private IAwaiter _awaiter;
 
     private bool _isAiming;
     
@@ -30,13 +32,17 @@ public class CurrentWeapon : IVisitWeaponType
     }
     
     [Inject]
-    public void Construct(StateMachineData stateMachineData, StorageModel storageViewModel, WeaponPrefabs weaponPrefabs)
+    public void Construct(StateMachineData stateMachineData, StorageModel storageViewModel, WeaponPrefabs weaponPrefabs, IAwaiter awaiter)
     {
         _stateMachineData = stateMachineData;
         _storageModel = storageViewModel;
         WeaponPrefabs = weaponPrefabs;
-        
-        _isAiming = _stateMachineData.IsAiming.Value;
+        _awaiter = awaiter;
+    }
+    
+    public async void Initialize()
+    {
+        await _awaiter.AwaitLoadOrInitializeParameter(_stateMachineData);
         SubscribeAim();
     }
     
@@ -68,13 +74,13 @@ public class CurrentWeapon : IVisitWeaponType
 
     private void SwitchAim()
     {
-        _isAiming = _stateMachineData.IsAiming.Value;
+        _isAiming = _stateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsAiming).Value;
         _storageModel.ChangeAimWeapon(WeaponComponent);
     }
 
     private void SubscribeAim()
     {
-        _stateMachineData.IsAiming
+        _stateMachineData.GetValue<ReactiveProperty<bool>>(Name.IsAiming)
             .Subscribe(_ =>
             {
                 SwitchAim();
