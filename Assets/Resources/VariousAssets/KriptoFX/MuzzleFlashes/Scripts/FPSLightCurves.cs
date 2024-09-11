@@ -18,14 +18,14 @@ public class FPSLightCurves : MonoBehaviour
 
     private void OnEnable()
     {
-        startTime = Time.time;
+        startTime = UnityEngine.Time.time;
         canUpdate = true;
         lightSource.enabled = true;
     }
 
     private void Update()
     {
-        var time = Time.time - startTime;
+        var time = UnityEngine.Time.time - startTime;
         if (canUpdate) {
             var eval = LightCurve.Evaluate(time / GraphTimeMultiplier) * GraphIntensityMultiplier;
             lightSource.intensity = eval;

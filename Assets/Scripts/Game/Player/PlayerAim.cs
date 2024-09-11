@@ -41,7 +41,7 @@ namespace Game.Player
                 Vector3 direction = position - transform.position;
                 direction.y = 0f;
                 var rotation = Quaternion.LookRotation(direction);
-                transform.forward = Vector3.Lerp(transform.forward, direction, 5f * Time.deltaTime);
+                transform.forward = Vector3.Lerp(transform.forward, direction, 5f * UnityEngine.Time.deltaTime);
                 transform.rotation = rotation;
             }
         }

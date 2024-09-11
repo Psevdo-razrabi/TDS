@@ -34,7 +34,7 @@ public class FPSShaderColorGradient : MonoBehaviour
 
     private void OnEnable()
     {
-        startTime = Time.time;
+        startTime = UnityEngine.Time.time;
         canUpdate = true;
 
         rend.GetPropertyBlock(props);
@@ -49,7 +49,7 @@ public class FPSShaderColorGradient : MonoBehaviour
     {
         rend.GetPropertyBlock(props);
 
-        var time = Time.time - startTime;
+        var time = UnityEngine.Time.time - startTime;
         if (canUpdate)
         {
             var eval = Color.Evaluate(time / TimeMultiplier);
@@ -57,7 +57,7 @@ public class FPSShaderColorGradient : MonoBehaviour
         }
         if (time >= TimeMultiplier)
         {
-            if (IsLoop) startTime = Time.time;
+            if (IsLoop) startTime = UnityEngine.Time.time;
             else canUpdate = false;
         }
 

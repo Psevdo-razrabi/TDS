@@ -1,9 +1,10 @@
 using ModestTree;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.Controls;
 
 public class NavGrid : MonoBehaviour
 {
@@ -11,157 +12,204 @@ public class NavGrid : MonoBehaviour
     public Vector3 _lastMainPosition;
     public GameObject _debugPrefab;
     private NavMeshSurface _navMesh;
-    private List<GridPoint> _navGrid = new();
-    private static float _pointDist = 2f;
-    private static  float _generateDistance = 60f;
-    private float _regenDistance = MathF.Pow(200, 2);
-    private bool _debug = false;
+    private bool _debug = true;
     private string _debugTag = "NavGridDebugSphere";
-    private static float _nearestDistance = Mathf.Pow(Mathf.Sqrt(_pointDist * _pointDist + _pointDist * _pointDist)/2, 2);
+    private GameObject _debugText;
+    private TextMeshProUGUI _debugTMP;
+    private GameObject _debugContainer;
+    public PointMap _pointMap;
+    private GeneratorChunksRound _generatorChunksRound;
 
-    void Start()
+    private HashSet<CIndex> _createdDebugPoints = new HashSet<CIndex>();
+
+    private int _obstaclesLayers = 0;
+
+    public class GridCallback : IGenerateCallback
     {
+        private readonly int layer;
+        private readonly float maxDistanceToFloor = 1.5F;
+        private readonly Collider[] _tempColliders = new Collider[6];
+        private Collider[] allColliders = null;
+
+        public GridCallback()
+        {
+            layer = 1 << LayerMask.NameToLayer("Ground");
+        }
+
+        public int GetChunkHeight(Vector2 position, Vector2 size)
+        {
+            if (allColliders == null)
+            {
+                allColliders = Physics.OverlapBox(Vector3.zero, new Vector3(int.MaxValue, int.MaxValue, int.MaxValue));
+            }
+            return 10;
+        }
+
+        public bool PointIsPossibleGenerate(Vector3 position, out float distanceToFloor)
+        {
+            distanceToFloor = -1;
+            int countColliders = Physics.OverlapSphereNonAlloc(position, 0.2F, _tempColliders, layer);
+            if (countColliders > 0)
+            {
+                return false;
+            }
+            Ray ray = new(position, Vector3.down);
+            RaycastHit raycastHit = new RaycastHit();
+            if (Physics.Raycast(ray, out raycastHit, maxDistanceToFloor, layer))
+            {
+                distanceToFloor = raycastHit.distance;
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool PointsIsNotVisible(Vector3 positionA, Vector3 positionB)
+        {
+            Ray ray = new Ray(positionA, positionB - positionA);
+            if (Physics.Raycast(ray, (positionB - positionA).magnitude, layer))
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public NavGrid()
+    {
+
+    }
+
+    public void AddObstaclesLayer(int layer)
+    {
+        _obstaclesLayers = (1 << layer) | _obstaclesLayers;
+    }
+
+    public void AddObstaclesLayer(string layer)
+    {
+        AddObstaclesLayer(LayerMask.NameToLayer(layer));
+    }
+
+    public void RemoveObstaclesLayer(int layer)
+    {
+        _obstaclesLayers = (~(1 << layer)) & _obstaclesLayers;
+    }
+
+    public void RemoveObstaclesLayer(string layer)
+    {
+        RemoveObstaclesLayer(LayerMask.NameToLayer(layer));
+    }
+
+    void Awake()
+    {
+        _pointMap = new PointMap(new GridCallback());
+
+        _generatorChunksRound = new GeneratorChunksRound(_pointMap, _mainPoint, 25);
+
+        if (_debug)
+        {
+            _debugContainer = GameObject.Find("DebugContainer");
+            _debugText = GameObject.Find("Text (TMP)");
+            _debugTMP = _debugText.GetComponent<TextMeshProUGUI>();
+            _debugTMP.enableAutoSizing = true;
+            _debugTMP.enableWordWrapping = true;
+        }
+
         _navMesh = GetComponent<NavMeshSurface>();
         _lastMainPosition = _mainPoint.position;
-        CreateGrid();
+    }
+
+    private void OnEnable()
+    {
+
+    }
+
+    private void OnDisable()
+    {
+
     }
 
     void Update()
     {
+        _pointMap.Update();
+        _generatorChunksRound.Update();
+
+        //_debugTMP.text = Counter.AllCounterToStringTimeNS();
+
         if (_debug)
         {
-            foreach (GridPoint p in _navGrid)
+            if (UnityEngine.Input.GetKey(KeyCode.Space))
             {
-                if ((p._position - _mainPoint.position).sqrMagnitude < 1)
-                {
-                    foreach (GridPoint gp in p._pointsNotVisible)
-                    {
-                        Debug.DrawLine(p._position, gp._position);
-                    }
-                    break;
-                }
+                var point = _pointMap.GetPointAtPosition(_mainPoint.transform.position);
+
             }
-        }
 
-        if((_mainPoint.position - _lastMainPosition).sqrMagnitude > _regenDistance)
-        {
-            _lastMainPosition = _mainPoint.position;
-            RegenNavGrid();
-        }
+            var v = _pointMap.GetPointAtPosition(_mainPoint.transform.position + new Vector3(0, 0.0F, 0));
+            if (v == null)
+            {
+                _debugTMP.text = "NULL";
+            }
+            else
+            {
+                _debugTMP.text = v.ToString() + "\n" + _pointMap.GetCountGenerateTask() + "\n NVP:" + v.notVisiblePoints.Count;
+                foreach (var p in v.notVisiblePoints)
+                {
+                    UnityEngine.Debug.DrawLine(p.position, v.position, Color.green);
+                }
 
+            }
+            DrawRects(1);
+        }
     }
 
-    private void RegenNavGrid()
+    private void DrawRects(int r)
     {
-        
-        CreateGrid();
+        //UnityEngine.Debug.
     }
 
-    private void CreateGrid()
+    private void FixedUpdate()
     {
-
-        if (_navMesh == null)
-        {
-            throw new Exception("NavMeshSurface == null");
-        }
         if (_debug)
         {
-            GameObject[] sphereObjects = GameObject.FindGameObjectsWithTag(_debugTag);
-            if (sphereObjects != null)
+            foreach (CIndex cindex in _pointMap.map.Keys)
             {
-                foreach (GameObject so in sphereObjects)
+                if (!_createdDebugPoints.Contains(cindex) && _pointMap.map[cindex].PointsIsCreated())
                 {
-                    GameObject.Destroy(so);
+                    ChunkCreatePoints(_pointMap.map[cindex]);
+                    _createdDebugPoints.Add(cindex);
                 }
-            }
-        }
-        _navGrid.Clear();
-        for (float x = _mainPoint.position.x - _generateDistance / 2; x < _mainPoint.position.x + _generateDistance / 2; x += _pointDist)
-        {
-            for (float z = _mainPoint.position.z - _generateDistance / 2; z < _mainPoint.position.z + _generateDistance / 2; z += _pointDist)
-            {
-                Vector3 pos = new(x, 0, z);
-                GridPoint gridPoint = new()
-                {
-                    _position = pos
-                };
-                if (_debug)
-                {
-                    CreateDebugPoint(pos);
-                }
-                CalculateVisiblePoints(gridPoint);
-                _navGrid.Add(gridPoint);
+
             }
         }
     }
 
-    private void CreateDebugPoint(Vector3 pos)
+    private GameObject CreateDebugPoint(Vector3 pos)
     {
-        GameObject p = Instantiate(_debugPrefab, transform, true);
+        GameObject p = Instantiate(_debugPrefab, _debugContainer.transform, true);
         p.transform.position = pos;
         p.layer = 0;
         p.tag = _debugTag;
+        return p;
     }
 
-    private void CalculateVisiblePoints(GridPoint gridPoint)
+    private void CreateDebugPoint(Vector3 pos, Color color)
     {
-        Ray ray = new Ray();
-        ray.origin = gridPoint._position;
-        int layer = 1 << LayerMask.NameToLayer("Ground");
-        foreach (GridPoint p in _navGrid)
+        var p = CreateDebugPoint(pos);
+        var m = p.GetComponent<MeshRenderer>();
+        m.material.color = color;
+    }
+
+    public void ChunkCreatePoints(Chunk chunk)
+    {
+        foreach (var i in chunk.indices)
         {
-            Vector3 dir = p._position - gridPoint._position;
-            dir.y = 0;
-            ray.direction = dir;
-            Collider[] colliders = Physics.OverlapSphere(p._position, 0.2F, layer);
-            if (colliders == null || colliders.IsEmpty())
-            {
-                if (Physics.Raycast(ray, Vector3.Distance(p._position, gridPoint._position), layer))
-                {
-                    Log.Info("HIT " + ray.ToShortString());
-                    gridPoint._pointsNotVisible.Add(p);
-                    p._pointsNotVisible.Add(gridPoint);
-                }
-            }
+            var p = chunk.points.Get(i);
+            CreateDebugPoint(p.position);
         }
     }
 
-    public Vector3 FindHiddenMinPosition(Vector3 position)
+    public PointMap GetPointMap()
     {
-        GridPoint gridPoint = FindNearestPoint(position);
-        if(gridPoint == null || gridPoint._pointsNotVisible.IsEmpty())
-        {
-            return new(0, 0, 0);
-        }
-        GridPoint nearestPoint = FindNearestPointMinDistane(position, gridPoint._pointsNotVisible);
-        return nearestPoint._position;
-    }
-
-    private GridPoint FindNearestPointMinDistane(Vector3 position, List<GridPoint> pointsNotVisible)
-    {
-        float dist2 = float.MaxValue;
-        GridPoint res = new GridPoint();
-        foreach(GridPoint point in pointsNotVisible)
-        {
-            float d2 = (point._position - position).sqrMagnitude;
-            if(d2 < dist2)
-            {
-                dist2 = d2;
-                res = point;
-            }
-        }
-        return res;
-    }
-
-    private GridPoint FindNearestPoint(Vector3 position)
-    {
-        foreach(GridPoint p in _navGrid)
-        {
-            if((position - p._position).sqrMagnitude < _nearestDistance)
-            {
-                return p;
-            }
-        }
-        return null;
+        return _pointMap;
     }
 }

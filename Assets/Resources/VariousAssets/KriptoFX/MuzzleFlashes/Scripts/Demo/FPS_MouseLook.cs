@@ -40,9 +40,9 @@ using UnityEngine;
             if(smooth)
             {
                 character.localRotation = Quaternion.Slerp (character.localRotation, m_CharacterTargetRot,
-                    smoothTime * Time.deltaTime);
+                    smoothTime * UnityEngine.Time.deltaTime);
                 camera.localRotation = Quaternion.Slerp (camera.localRotation, m_CameraTargetRot,
-                    smoothTime * Time.deltaTime);
+                    smoothTime * UnityEngine.Time.deltaTime);
             }
             else
             {

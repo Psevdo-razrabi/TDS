@@ -16,7 +16,7 @@ public class TestGun : MonoBehaviour
                 _time = 0;
             }
 
-            _time += Time.deltaTime;
+            _time += UnityEngine.Time.deltaTime;
 
         }
     }

@@ -63,7 +63,7 @@ namespace Game.Player.States.Dash
                 var currentPosition = Vector3.Lerp(startPosition, endPosition, elapsedTime / _dashConfig.DashDuration);
                 Player.CharacterController.Move(currentPosition - Player.transform.position);
                 
-                elapsedTime += Time.deltaTime;
+                elapsedTime += UnityEngine.Time.deltaTime;
 
                 await UniTask.Yield();
             }

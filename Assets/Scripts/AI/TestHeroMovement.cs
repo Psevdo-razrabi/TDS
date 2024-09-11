@@ -1,3 +1,4 @@
+using ModestTree;
 using UnityEngine;
 
 public class TestHeroMovement : MonoBehaviour
@@ -27,13 +28,13 @@ public class TestHeroMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += _moveDir * _speed * Time.deltaTime;
+        transform.position += _moveDir * _speed * UnityEngine.Time.deltaTime;
         _camera.transform.position = new Vector3(transform.position.x, _camera.transform.position.y, transform.position.z - 10);
     }
 }

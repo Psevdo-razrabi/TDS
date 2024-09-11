@@ -221,7 +221,7 @@ using UnityEngine;
         private void RotateView()
         {
             //avoids the mouse looking if the game is effectively paused
-            if (Mathf.Abs(Time.timeScale) < float.Epsilon) return;
+            if (Mathf.Abs(UnityEngine.Time.timeScale) < float.Epsilon) return;
 
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;

@@ -40,13 +40,13 @@ public class FPSShaderFloatCurves : MonoBehaviour
 
     private void OnEnable()
     {
-        startTime = Time.time;
+        startTime = UnityEngine.Time.time;
         canUpdate = true;
     }
 
     private void Update()
     {
-        var time = Time.time - startTime;
+        var time = UnityEngine.Time.time - startTime;
         if (canUpdate) {
             var eval = FloatPropertyCurve.Evaluate(time / GraphTimeMultiplier) * GraphScaleMultiplier;
             matInstance.SetFloat(propertyID, eval);

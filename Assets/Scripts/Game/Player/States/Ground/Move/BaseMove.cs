@@ -52,7 +52,7 @@ namespace Game.Player.States
 
         protected virtual void Move()
         {
-            var speed = Data.CurrentSpeed * Time.deltaTime;
+            var speed = Data.CurrentSpeed * UnityEngine.Time.deltaTime;
 
             Player.CharacterController.Move(speed * Movement);
         }
