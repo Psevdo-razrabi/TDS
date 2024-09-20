@@ -1,16 +1,20 @@
-﻿using Zenject;
+﻿using System;
+using UniRx;
+using Zenject;
 
 namespace BlackboardScripts
 {
-    public class BlackboardController : ITickable
+    public class BlackboardController : IDisposable
     {
-        private readonly Blackboard _blackboard;
-        private readonly Arbiter _arbiter;
-
-        public BlackboardController(Blackboard blackboard, Arbiter arbiter)
+        private Blackboard _blackboard;
+        private Arbiter _arbiter;
+        private IDisposable _disposable;
+        
+        public void Initialize()
         {
-            _blackboard = blackboard;
-            _arbiter = arbiter;
+            _blackboard = new Blackboard();
+            _arbiter = new Arbiter();
+            SubscribeUpdate();
         }
 
         public Blackboard GetBlackboard() => _blackboard;
@@ -27,13 +31,21 @@ namespace BlackboardScripts
         {
             _blackboard.SetValue(_blackboard.GetOrRegisterKey(key), value);
         }
-        
-        public void Tick()
+
+        public void Dispose()
         {
-            foreach (var action in _arbiter.BlackboardIteration(_blackboard))
+            _disposable.Dispose();
+        }
+        
+        private void SubscribeUpdate()
+        {
+            _disposable = Observable.EveryUpdate().Subscribe(_ =>
             {
-                action();
-            }
+                foreach (var action in _arbiter.BlackboardIteration(_blackboard))
+                {
+                    action();
+                }
+            });
         }
     }
 }

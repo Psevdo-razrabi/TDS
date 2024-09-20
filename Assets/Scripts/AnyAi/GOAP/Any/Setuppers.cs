@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using BlackboardScripts;
 using CharacterOrEnemyEffect.Factory;
+using Game.Player.PlayerStateMashine;
 
 namespace GOAP
 {
@@ -9,15 +11,18 @@ namespace GOAP
         private readonly Dictionary<string, AgentBelief> _agentBeliefs;
         private readonly HashSet<AgentGoal> _goals;
         private readonly GoapAgent _goapAgent;
+        private readonly BlackboardController _blackboard;
 
         private StrategyFactory _strategyFactory = new();
         
-        public Setuppers(HashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs, HashSet<AgentGoal> goals, GoapAgent goapAgent)
+        public Setuppers(HashSet<AgentAction> actions, Dictionary<string, AgentBelief> agentBeliefs,
+            HashSet<AgentGoal> goals, GoapAgent goapAgent, BlackboardController blackboardController)
         {
             _actions = actions;
             _agentBeliefs = agentBeliefs;
             _goals = goals;
             _goapAgent = goapAgent;
+            _blackboard = blackboardController;
         }
         
         public void SetupGoals()
@@ -27,65 +32,93 @@ namespace GOAP
             factory.AddGoalAgent("Idle", 1, _agentBeliefs["Nothing"]);
             factory.AddGoalAgent("Walking", 1, _agentBeliefs["AgentMoving"]);
             factory.AddGoalAgent("Health", 2, _agentBeliefs["AgentIsHealthy"]);
-            factory.AddGoalAgent("Stamin", 2, _agentBeliefs["AgentIsRested"]);
             factory.AddGoalAgent("Attack", 3, _agentBeliefs["AttackingPlayer"]);
         }
 
         public void SetupActions()
         {
             _actions.Add(new ActionBuilder("Chill")
-                .WithActionStrategy(_strategyFactory.CreateIdleStrategy(3f, _goapAgent.transform))
+                .WithActionStrategy(_strategyFactory.CreateIdleStrategy(3f, _blackboard))
                 .WithEffect(_agentBeliefs["Nothing"])
+                .WithPreconditionUse(() => HasPath() == false)
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("Walk")
-                .WithActionStrategy(_strategyFactory.CreatePatrolStrategy(_goapAgent.patrolPoints, _goapAgent._navMeshAgent, _goapAgent.transform, 15f))
+                .WithActionStrategy(_strategyFactory.CreatePatrolStrategy(_blackboard, 10f))
                 .WithEffect(_agentBeliefs["AgentMoving"])
+                .WithPreconditionUse(HasPath)
                 .BuildAgentAction());
-
+ 
             _actions.Add(new ActionBuilder("MoveToEat")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_goapAgent._navMeshAgent, () => _goapAgent.foodCort.transform.position))
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _goapAgent.foodCort.transform.position))
                 .WithEffect(_agentBeliefs["AgentAtFoodPosition"])
                 .BuildAgentAction());
 
             _actions.Add(new ActionBuilder("Heal")
-                .WithActionStrategy(_strategyFactory.CreateIdleStrategy(5f, _goapAgent.transform))
+                .WithActionStrategy(_strategyFactory.CreateIdleStrategy(5f, _blackboard))
                 .WithPrecondition(_agentBeliefs["AgentAtFoodPosition"])
                 .WithEffect(_agentBeliefs["AgentIsHealthy"])
+                .WithPreconditionUse(() => HasHealth() < 30)
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("PlayerLook")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_goapAgent._navMeshAgent, () => _agentBeliefs["PlayerInEyeSensor"].Location))
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInEyeSensor"].Location))
                 .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
                 .WithEffect(_agentBeliefs["AttackingPlayer"])
+                .WithPreconditionUse(() => HasSensor().IsTargetInSensor)
                 .BuildAgentAction());
 
             _actions.Add(new ActionBuilder("PlayerAttack")
                 .WithActionStrategy(_strategyFactory.CreateAttackStrategy())
                 .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
                 .WithEffect(_agentBeliefs["AttackingPlayer"])
+                .WithPreconditionUse(() => HasSensor().IsTargetInSensor)
                 .BuildAgentAction());
         }
 
         public void SetupBeliefs()
         {
             var factory = new BeliefFactory(_agentBeliefs);
+            //var getData = GetData();
             
             factory.AddBeliefCondition("Nothing", () => false);
-            factory.AddBeliefCondition("AgentIdle", () => _goapAgent._navMeshAgent.hasPath == false);
-            factory.AddBeliefCondition("AgentMoving", () => _goapAgent._navMeshAgent.hasPath);
+            factory.AddBeliefCondition("AgentIdle", () => HasPath() == false);
+            factory.AddBeliefCondition("AgentMoving", HasPath);
             
             //TEST
-            factory.AddBeliefCondition("AgentIsHealthLow", () => _goapAgent._health < 30);
-            factory.AddBeliefCondition("AgentIsHealthy", () => _goapAgent._health >= 50);
-            factory.AddBeliefCondition("AgentStaminaLow", () => _goapAgent._stamina < 10);
-            factory.AddBeliefCondition("AgentIsRested", () => _goapAgent._stamina >= 50);
+            factory.AddBeliefCondition("AgentIsHealthLow", () => HasHealth() < 30);
+            factory.AddBeliefCondition("AgentIsHealthy", () => HasHealth() >= 50);
             
-            factory.AddLocationBelief("AgentAtFoodPosition", _goapAgent.foodCort.transform.position, () => !_goapAgent.InRangeOf(_goapAgent.foodCort.transform.position, 3f));
-            factory.AddLocationBelief("AgentAtRestingPosition", _goapAgent.chilZone.transform.position, () => !_goapAgent.InRangeOf(_goapAgent.chilZone.transform.position, 3f));
+            factory.AddLocationBelief("AgentAtFoodPosition", _goapAgent.foodCort.transform.position, HasLocationFood);
+            factory.AddLocationBelief("AgentAtRestingPosition", _goapAgent.chilZone.transform.position, HasLocationChill);
             
-            factory.AddSensorBelief("PlayerInEyeSensor", _goapAgent._eyesSensor);
+            factory.AddSensorBelief("PlayerInEyeSensor", HasSensor());
             factory.AddBeliefCondition("AttackingPlayer", () => false);
+        }
+
+        private bool HasPath()
+        {
+            return _blackboard.GetValue<bool>(NameExperts.Movement);
+        }
+
+        private float HasHealth()
+        {
+            return _blackboard.GetValue<float>(NameExperts.HealthStats);
+        }
+
+        private ISensor HasSensor()
+        {
+            return _blackboard.GetValue<ISensor>(NameExperts.EyesSensor);
+        }
+
+        private bool HasLocationFood()
+        {
+            return _blackboard.GetValue<bool>(NameExperts.LocationFood);
+        }
+        
+        private bool HasLocationChill()
+        {
+            return _blackboard.GetValue<bool>(NameExperts.LocationChillZone);
         }
     }
 }

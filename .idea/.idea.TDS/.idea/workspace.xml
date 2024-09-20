@@ -5,163 +5,64 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/BTDebugger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/BTDebugger.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/IBTDebugger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/IBTDebugger.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/IDebuggable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/IDebuggable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Enums.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Enums/BTNodeStatus.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Enums/BTNodeStatus.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces/INode.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces/INode.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces/IStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces/IStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/BehaviourTree.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/BehaviourTree.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Inverter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Inverter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Leaf.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/PrioritySelector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/PrioritySelector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Selector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Selector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Sequence.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Sequence.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/UnitlFail.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/UnitlFail.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/ActionStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/ActionStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/Conditions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/Conditions.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/PartrolStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/PartrolStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Arbiter.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Arbiter/Arbiter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Arbiter/Arbiter.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Interfaces.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Interfaces/IExpert.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Interfaces/IExpert.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Action.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Action/AgentAction.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Action/AgentAction.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/AgentBelief.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/AgentBelief.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/ActionBuilder.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/ActionBuilder.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/BeliefBuilder.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/BeliefBuilder.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/GoalBuilder.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/GoalBuilder.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Goal.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Goal/AgentGoal.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Goal/AgentGoal.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/AgentPlan.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/AgentPlan.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/IGoapPlanner.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/IGoapPlanner.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/Nodes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/Nodes.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/EyesSensor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/EyesSensor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/ISensor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/ISensor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/WedgeMeshBuilder.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/WedgeMeshBuilder.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/AttackStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/AttackStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IActionStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IActionStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IdleStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IdleStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/PatrolStrategy.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/PatrolStrategy.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/BeliefFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/BeliefFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/GoalFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/GoalFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DI/UI/Debugger(Remove).meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DI/UI/Debugger(Remove)/DebuggerView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DI/UI/Debugger(Remove)/DebuggerView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/LocationExpert.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/LocationExpert.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/MovementExpert.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/MovementExpert.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/RegisterExperts.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/RegisterExperts.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/StatsExpert.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Expert/StatsExpert.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller/CancelGoal.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller/CancelGoal.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DI/AIInstaller.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/DI/AIInstaller.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Prefabs/Enemy.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Model/Prefabs/Enemy.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Scenes/GameMain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scenes/GameMain.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AimRay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AimRay.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Blackboard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Blackboard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardEntry.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardEntry.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardKey.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardKey.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CurrentWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CurrentWeapon.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/Preconditions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/Preconditions.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DI/GameInstaller.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DI/UI/ViewInstaller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DI/UI/ViewInstaller.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/BTDebugger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/BTDebugger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/IBTDebugger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Debagger/IBTDebugger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces/INode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Interfaces/INode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/BehaviourTree.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/BehaviourTree.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Inverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Inverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Leaf.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Leaf.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Node.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Node.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/PrioritySelector.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/PrioritySelector.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Selector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Selector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Sequence.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/Sequence.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/UnitlFail.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Nodes/UnitlFail.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/ActionStrategy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/ActionStrategy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/Conditions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/Conditions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/PartrolStrategy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/PartrolStrategy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Arbiter/Arbiter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Arbiter/Arbiter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/BlackboardController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Interfaces/IExpert.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Interfaces/IExpert.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Action/AgentAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Action/AgentAction.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/ActionBuilder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Builder/ActionBuilder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/AgentPlan.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/AgentPlan.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/IGoapPlanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/IGoapPlanner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/Nodes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/Nodes.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/AttackStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/AttackStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IActionStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IActionStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IdleStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/IdleStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/PatrolStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/PatrolStrategy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DI/UI/Debugger(Remove)/DebuggerView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DI/UI/Debugger(Remove)/DebuggerView.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/AsyncOperation/AsyncOperation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/AsyncOperation/AsyncOperation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/AsyncOperation/Interfaces/IAwaiter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/AsyncOperation/Interfaces/IAwaiter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/Landing.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/Landing.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/PlayerStateMachine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/AnyScripts/PlayerStateMachine.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/StateMachineData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/StateMachineData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Air/PlayerFalling.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Air/PlayerFalling.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Buffer/BufferAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Buffer/BufferAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Dash/PlayerDash.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Dash/PlayerDash.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/GroundState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/GroundState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Idle/PlayerAimIdle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Idle/PlayerAimIdle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Idle/PlayerIdle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Idle/PlayerIdle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/Crouching/PlayerCrouch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/Crouching/PlayerCrouch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/Crouching/PlayerSitsDown.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/Crouching/PlayerSitsDown.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/Crouching/PlayerStandUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/Crouching/PlayerStandUp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/PlayerMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/PlayerMoveInAim.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/PlayerMoveInAim.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Parkour/PlayerClimbToObstacle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Parkour/PlayerClimbToObstacle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/PlayerBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/PlayerBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Aim/PlayerAimIdleHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Aim/PlayerAimIdleHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Aim/PlayerAimMoveHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Aim/PlayerAimMoveHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerIdleCrouchHandle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerIdleCrouchHandle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerMoveCrouchHandle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerMoveCrouchHandle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerSitDownCrouchHandle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerSitDownCrouchHandle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerStandUpCrouchHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Crouch/PlayerStandUpCrouchHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Dash/PlayerDashHandle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Dash/PlayerDashHandle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Faling/PlayerFallingHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Faling/PlayerFallingHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Idle/PlayerIdleHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Idle/PlayerIdleHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Move/PlayerMoveHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Move/PlayerMoveHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Parkour/PlayerClimbToObstacleHandle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/States/StateHandle/Parkour/PlayerClimbToObstacleHandle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystemMouse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystemMouse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystemMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Input/InputSystemMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PhysicsWorld/Gravity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PhysicsWorld/Gravity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Factory.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Recievers/DistributionConfigs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Recievers/DistributionConfigs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Recievers/WeaponChanger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Commands/Recievers/WeaponChanger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Weapons/Legasy/OldWeapon/WeaponStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Weapons/Legasy/OldWeapon/WeaponStats.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +79,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/34/0e274cf5/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/3c/6c33c507/Debug.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/b0/b91e5516/Object.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnyAi/BehaviourTree/Strategy/PartrolStrategy.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Arkanoid/Assets/Scripts/Ball/BallSpawner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AnyAi/Blackboard/Blackboard.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Customs/CustomiseAssets/HiderManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/StringExtension.cs" root0="FORCE_HIGHLIGHTING" />
@@ -218,12 +119,13 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/InputModules/BaseInput.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Layout/LayoutRebuilder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Core/Serialization/Serialization.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.visualscripting@1.9.1/Runtime/VisualScripting.Core/Utilities/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/io.backtrace.unity@2b166a77ea/Runtime/BacktraceClient.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -238,7 +140,7 @@
     "Attach to Unity Editor.Attach to Unity Editor.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.17064847",
+    "XThreadsFramesViewSplitterKey": "0.13170163",
     "git-widget-placeholder": "BeamProger",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -291,10 +193,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14620">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="14056">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="14620" />
+      <option name="pid" value="14056" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -415,7 +317,15 @@
       <workItem from="1724589747458" duration="26609000" />
       <workItem from="1724688455340" duration="89591000" />
       <workItem from="1725031909043" duration="8777000" />
-      <workItem from="1725121969460" duration="17678000" />
+      <workItem from="1725121969460" duration="29319000" />
+      <workItem from="1725606386044" duration="3386000" />
+      <workItem from="1725799267641" duration="5782000" />
+      <workItem from="1725947705672" duration="3000000" />
+      <workItem from="1725950734358" duration="66773000" />
+      <workItem from="1726156327155" duration="20899000" />
+      <workItem from="1726486656648" duration="27377000" />
+      <workItem from="1726732987493" duration="1328000" />
+      <workItem from="1726735206701" duration="26312000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
@@ -558,6 +468,19 @@
           </properties>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs</url>
+          <line>155</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\AnyAi\GOAP\Agent\GoapAgent.cs" containingFunctionPresentation="Method 'EntryPoint'">
+            <startOffsets>
+              <option value="5731" />
+            </startOffsets>
+            <endOffsets>
+              <option value="5807" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="132" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -565,9 +488,12 @@
         <PinnedItemInfo parentTag="Type#Game.Player.States.Buffer.BufferAction" memberName="lastStateAction" />
         <PinnedItemInfo parentTag="Type#UnityEngine.RaycastHit" memberName="collider" />
         <PinnedItemInfo parentTag="Type#System.Collections.Generic.KeyValuePair`2" memberName="Value" />
+        <PinnedItemInfo parentTag="Type#GOAP.AgentAction" memberName="Effects" />
+        <PinnedItemInfo parentTag="Type#BehaviourTree.Leaf" memberName="RequiredEffects" />
         <PinnedItemInfo parentTag="Type#Game.Player.Weapons.WeaponConfigs.BaseWeaponConfig" memberName="BulletPoint" />
         <PinnedItemInfo parentTag="Type#Customs.MethodList" memberName="methods" />
         <PinnedItemInfo parentTag="Type#SaveSystem.GameData" memberName="MethodName" />
+        <PinnedItemInfo parentTag="Type#GOAP.AgentGoal" memberName="DesiredEffects" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

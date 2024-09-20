@@ -1,4 +1,7 @@
-﻿using Customs;
+﻿using System.Collections.Generic;
+using Customs;
+using GOAP;
+using UnityEngine;
 
 namespace BehaviourTree
 {
@@ -6,25 +9,33 @@ namespace BehaviourTree
     {
         public override BTNodeStatus Status { get; protected set; }
         public sealed override string Name { get; protected set; }
-        private readonly IStrategy _action;
+        public bool IsLeafDead => Nodes.Count == 0 && AgentAction == null;
+        public readonly AgentAction AgentAction;
+        public readonly HashSet<AgentBelief> RequiredEffects;
         
         public override void AddChild(INode node) => _nodes.Add(node);
 
         public override BTNodeStatus Process()
         {
-            Status = _action.Process();
-            Debug(this);
+            DebugStatus();
+            Status = AgentAction.Update(Time.deltaTime);
             return Status;
         }
 
-        public override void Reset() => _action.Reset();
+        public override void Stop() => AgentAction.Stop();
 
-        public Leaf(IBTDebugger debugger, IStrategy action, string name, int priority) : base(debugger)
+        public override void Start()
         {
-            Preconditions.CheckNotNull(action);
+            base.Start();
+            Debug(this, Name);
+            AgentAction.Start();
+        }
+
+        public Leaf(AgentAction agentAction, HashSet<AgentBelief> requiredEffects, float cost, string name, IBTDebugger btDebugger) : base(cost, btDebugger)
+        {
+            AgentAction = agentAction;
+            RequiredEffects = new HashSet<AgentBelief>(requiredEffects);
             Name = name;
-            _action = action;
-            Priority = priority;
         }
     }
 }

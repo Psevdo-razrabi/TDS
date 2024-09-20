@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
+using BehaviourTree;
 
-namespace GOAP.Plan
+namespace GOAP
 {
     public class AgentPlan
     {
-        public AgentGoal AgentGoal { get; }
-        public Stack<AgentAction> Actions { get; }
+        public Stack<Leaf> Actions { get; }
         public float TotalCost { get; set; }
         
-        public AgentPlan(float totalCost, Stack<AgentAction> actions, AgentGoal agentGoal)
+        public AgentPlan(float totalCost, Stack<Leaf> actions)
         {
             TotalCost = totalCost;
             Actions = actions;
-            AgentGoal = agentGoal;
         }
     }
 }

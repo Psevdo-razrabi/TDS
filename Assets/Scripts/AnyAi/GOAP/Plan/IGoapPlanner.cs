@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace GOAP.Plan
+namespace GOAP
 {
     public interface IGoapPlanner
     {
-        AgentPlan GetPlan(GoapAgent agent, HashSet<AgentGoal> goals, AgentGoal mostRecentGoal);
+        (AgentPlan plan, AgentGoal goal) GetPlan(GoapAgent agent, HashSet<AgentGoal> goals, AgentGoal mostRecentGoal);
     }
 }

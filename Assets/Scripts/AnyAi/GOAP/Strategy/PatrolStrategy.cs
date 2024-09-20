@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using BlackboardScripts;
+using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,12 +20,13 @@ namespace GOAP
         private IDisposable _disposable;
         public bool CanPerform => !Complete;
         public bool Complete { get; private set; }
+        public CancellationTokenSource CancellationTokenSource { get; private set; } = null;
 
-        public PatrolStrategy(Transform[] points, NavMeshAgent agent, Transform entry, float duration)
+        public PatrolStrategy(BlackboardController blackboardController, float duration)
         {
-            _points = points;
-            _agent = agent;
-            _entry = entry;
+            _points = blackboardController.GetValue<Transform[]>(NameAIKeys.PatrolPoints);
+            _agent = blackboardController.GetValue<NavMeshAgent>(NameAIKeys.Agent);;
+            _entry = blackboardController.GetValue<Transform>(NameAIKeys.TransformAI);
             _duration = duration;
         }
 

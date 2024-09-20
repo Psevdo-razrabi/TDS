@@ -5,9 +5,10 @@ namespace BehaviourTree
     {
         BTNodeStatus Status { get; }
         string Name { get; }
+        float Cost { get; }
         int CurrentChild { get; }
-        int Priority { get; }
         BTNodeStatus Process();
-        void Reset();
+        void Stop();
+        void Start();
     }
 }

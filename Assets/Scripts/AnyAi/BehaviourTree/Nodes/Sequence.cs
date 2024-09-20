@@ -5,29 +5,33 @@
         public override BTNodeStatus Status { get; protected set; }
         public sealed override string Name { get; protected set; }
 
-        public Sequence(string name, int priority, IBTDebugger debugger) : base(debugger)
+        public Sequence(string name, int cost, IBTDebugger debugger) : base(cost, debugger)
         {
             Name = name;
-            Priority = priority;
         }
 
         public override BTNodeStatus Process()
         {
             if (CurrentChild < Nodes.Count)
             {
-                Debug(this);
                 switch (Nodes[CurrentChild].Process())
                 {
                     case BTNodeStatus.Running: return Status = BTNodeStatus.Running;
-                    case BTNodeStatus.Failure: Reset();
+                    case BTNodeStatus.Failure: Stop();
                         return Status = BTNodeStatus.Failure;
                     default: CurrentChild++;
                         return Status = CurrentChild == _nodes.Count ? BTNodeStatus.Success : BTNodeStatus.Running;
                 }
             }
             
-            Reset();
+            Stop();
             return Status = BTNodeStatus.Success;
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            Debug(this, Name);
         }
 
 
