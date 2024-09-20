@@ -27,7 +27,7 @@ namespace BlackboardScripts
 
             foreach (var expert in _experts)
             {
-                var priority = expert.GetBlackboard(blackboard);
+                var priority = expert.GetInsistence(blackboard);
 
                 if (priority > highPriority)
                 {
@@ -38,7 +38,7 @@ namespace BlackboardScripts
 
             bestExpert?.Execute(blackboard);
 
-            var action = blackboard.PassedActions;
+            var action = new List<Action>(blackboard.PassedActions);
             blackboard.ClearAction();
 
             return action;

@@ -1,8 +1,10 @@
-﻿namespace BlackboardScripts
+﻿using System;
+
+namespace BlackboardScripts
 {
     public interface IExpert
     {
-        int GetBlackboard(Blackboard blackboard);
+        int GetInsistence(Blackboard blackboard);
         void Execute(Blackboard blackboard);
     }
 }

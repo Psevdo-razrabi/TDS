@@ -1,18 +1,19 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using UniRx;
 
 namespace BehaviourTree
 {
     public interface IBTDebugger
     {
-        ReactiveProperty<string> NameNode { get; }
-        ReactiveProperty<string> TypeNode { get; }
+        ReactiveCollection<string> NameNode { get; }
+        ReactiveCollection<string> TypeNode { get; }
         ReactiveProperty<BTNodeStatus> NodeStatus { get; }
 
         string GetStatusDebug(BTNodeStatus btNodeStatus);
 
-        string GetNameNode(string nameNode);
+        public List<string> GetNameNode();
 
-        string GetTypeNode<T>(T typeNode);
+        public List<string> GetTypeNode();
     }
 }

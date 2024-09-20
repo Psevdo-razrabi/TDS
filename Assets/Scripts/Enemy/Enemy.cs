@@ -32,9 +32,6 @@ namespace Enemy
         private IBTDebugger _debugger;
         private readonly Blackboard _blackboard = new();
 
-        [Inject]
-        public void Construct(IBTDebugger debugger) => _debugger = debugger;
-
         public void InitModel(ValueCountStorage<float> valueCountStorage)
         {
             _valueCountStorage = valueCountStorage;
@@ -60,9 +57,9 @@ namespace Enemy
             _points.Add(new Vector3(Random.Range(-10f, 10f), 0f, Random.Range(-10f, 10f)));
             _points.Add(new Vector3(Random.Range(-15f, 15f), 0f, Random.Range(-15f, 15f)));
             
-            _behaviourTree = new BehaviourTree.BehaviourTree("Enemy", _debugger);
+            //_behaviourTree = new BehaviourTree.BehaviourTree("Enemy", _debugger);
             
-            Sequence sequence = new Sequence("", 20, _debugger);
+            /*Sequence sequence = new Sequence("", 20, _debugger);
             
             //_behaviourTree.AddChild(new Leaf("Patrul", new PatrolStrategy(transform, _navMeshAgent, _points, 2f)));
             Leaf isPlayerPresent = new Leaf(_debugger, new Conditions(() => PlayerIsActive(sequence)),"PlayerIsActive", 20);
@@ -81,9 +78,9 @@ namespace Enemy
 
             PrioritySelector goToPlayer = new PrioritySelector("MoveToPlayer", 10, _debugger);
             goToPlayer.AddChild(sequence);
-            goToPlayer.AddChild(sequence1);
+            goToPlayer.AddChild(sequence1);*/
             
-            _behaviourTree.AddChild(goToPlayer);
+            //_behaviourTree.AddChild(goToPlayer);
 
         }
 

@@ -8,35 +8,64 @@ namespace BehaviourTree
         public IReadOnlyList<INode> Nodes => _nodes;
         public abstract BTNodeStatus Status { get; protected set; }
         public int CurrentChild { get; protected set; }
-        public int Priority { get; protected set; }
         public IBTDebugger Debugger { get; }
+        public float Cost { get; }
+        
         protected readonly List<INode> _nodes = new();
         public abstract void AddChild(INode node);
 
         public virtual BTNodeStatus Process()
         {
             Status = Nodes[CurrentChild].Process();
-            Debug(this);
             return Status;
         }
         
-        public virtual void Reset()
+        public virtual void Stop()
         {
             CurrentChild = 0;
             foreach (var node in _nodes)
             {
-                node.Reset();
+                node.Stop();
             }
-
         }
 
-        protected Node(IBTDebugger debugger) => Debugger = debugger;
-        protected void Debug<T>(T node)
+        public virtual void Start()
+        {
+            foreach (var node in _nodes)
+            {
+                node.Start();
+            }
+        }
+
+        public void Reset()
+        {
+            CurrentChild = 0;
+            _nodes.Clear();
+            DebugReset();
+        }
+
+        private void DebugReset()
         {
             Debugger.NodeStatus.Value = Status;
-            Debugger.NameNode.Value = Name;
-            Debugger.TypeNode.Value = node.GetType().ToString();
+            Debugger.NameNode.Clear();
+            Debugger.TypeNode.Clear();
         }
-        
+
+        protected void Debug<T>(T node, string nameNode)
+        {
+            Debugger.NameNode.Add(nameNode);
+            Debugger.TypeNode.Add(node.GetType().ToString());
+        }
+
+        protected void DebugStatus()
+        {
+            Debugger.NodeStatus.Value = Status;
+        }
+
+        protected Node(float cost, IBTDebugger debugger)
+        {
+            Cost = cost;
+            Debugger = debugger;
+        }
     }
 }
