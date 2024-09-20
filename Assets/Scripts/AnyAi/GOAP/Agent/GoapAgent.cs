@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using CharacterOrEnemyEffect.Factory;
-using GOAP.Plan;
+using BehaviourTree;
+using BlackboardScripts;
+using BlackboardScripts.Expert;
+using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 
 namespace GOAP
 {
@@ -23,30 +25,43 @@ namespace GOAP
         [SerializeField] public Transform chilZone;
         [SerializeField] public Transform[] patrolPoints;
 
-        [Header("Stats")] 
+        [Header("HealthStats")] 
         [SerializeField] public float _health;
         [SerializeField] public float _stamina;
         
-        private Animator _animator;
-        public NavMeshAgent _navMeshAgent;
-        private AgentGoal _lastGoal;
-        private CompositeDisposable _disposable = new();
-        private IGoapPlanner _goapPlanner = new GoapPlanner();
-
-        private AgentGoal _currentGoal;
+        
+        [Header("Goap Scripts")]
+        private IGoapPlanner _goapPlanner;
         private AgentPlan _actionPlan;
-        private AgentAction _currentAction;
-
+        private Setuppers _setuppers;
+        private BehaviourTree.BehaviourTree _behaviourTree;
+        private BlackboardController _blackboardController;
+        private AgentGoal _agentGoal;
+        private RegisterExperts _registerExperts;
         private readonly Dictionary<string, AgentBelief> _agentBeliefs = new();
         private readonly HashSet<AgentGoal> _goals = new();
-        private Setuppers _setuppers;
+        private CancelGoal _cancelGoal;
+        
+        
+        private CompositeDisposable _disposable = new();
+        private IBTDebugger _debugger;
 
+        [Inject]
+        public void Construct(IBTDebugger debugger)
+        {
+            _debugger = debugger;
+        }
 
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
-            _navMeshAgent = GetComponent<NavMeshAgent>();
-            _setuppers = new Setuppers(_action, _agentBeliefs, _goals, this);
+            _blackboardController = new BlackboardController();
+            _blackboardController.Initialize();
+            _registerExperts = new RegisterExperts(_blackboardController);
+            _registerExperts.Initialize((currentHealth) => _health >= currentHealth, (currentHealth) => _health < currentHealth);
+            SetupDataToBlackboard(GetComponent<Animator>(), GetComponent<NavMeshAgent>());
+            _goapPlanner = new GoapPlanner(_debugger);
+            _behaviourTree = new BehaviourTree.BehaviourTree("Agent Tree", 0, _debugger);
+            _setuppers = new Setuppers(_action, _agentBeliefs, _goals, this, _blackboardController);
         }
 
         private void OnEnable()
@@ -58,6 +73,7 @@ namespace GOAP
         {
             _disposable.Clear();
             _disposable.Dispose();
+            _blackboardController.Dispose();
         }
 
         private void Start()
@@ -65,13 +81,36 @@ namespace GOAP
             _setuppers.SetupBeliefs();
             _setuppers.SetupGoals();
             _setuppers.SetupActions();
+            _cancelGoal = new CancelGoal(_goals, _action);
+        }
+
+        private void SetupDataToBlackboard(Animator animator, NavMeshAgent navMeshAgent)
+        {
+            _blackboardController.SetValue(NameAIKeys.Animator, animator);
+            _blackboardController.SetValue(NameAIKeys.Agent, navMeshAgent);
+            _blackboardController.SetValue(NameAIKeys.HealthAI, _health);
+            _blackboardController.SetValue(NameAIKeys.FoodPoint, foodCort);
+            _blackboardController.SetValue(NameAIKeys.PatrolPoints, patrolPoints);
+            _blackboardController.SetValue(NameAIKeys.ChillPoint, chilZone);
+            _blackboardController.SetValue(NameAIKeys.TransformAI, transform);
+            _blackboardController.SetValue<Func<bool>>(NameExperts.MovementPredicate, 
+                () => _blackboardController.GetValue<NavMeshAgent>(NameAIKeys.Agent).hasPath);
+            _blackboardController.SetValue<Func<float>>(NameExperts.HealthStatsPredicate, 
+                () => _health);
+            _blackboardController.SetValue<Func<bool>>(NameExperts.StaminaStatsPredicate, 
+                () => _stamina > 50);
+            _blackboardController.SetValue<Func<bool>>(NameExperts.LocationFoodPredicate, 
+                () => !InRangeOf(foodCort.transform.position, 3f));
+            _blackboardController.SetValue<Func<bool>>(NameExperts.LocationChillZonePredicate, 
+                () => !InRangeOf(chilZone.transform.position, 3f));
+            _blackboardController.SetValue<ISensor>(NameExperts.EyesSensor, _eyesSensor);
         }
 
         private void SetupTimers()
         {
             Observable
                 .EveryUpdate()
-                .Subscribe(_ => UpdatePlan())
+                .Subscribe(_ => EntryPoint())
                 .AddTo(_disposable); 
             
             Observable
@@ -91,65 +130,55 @@ namespace GOAP
 
         public bool InRangeOf(Vector3 pos, float range) => Vector3.Distance(transform.position, pos) > range;
 
-        private void Reset()
+        private void InitBehaviourTree(Stack<Leaf> leafs)
         {
-            _currentGoal = null;
-            _currentAction = null;
+            var sequencePlan = new Sequence("Sequence Leafs", 0, _debugger);
+
+            for (int i = 0; i < leafs.Count; i++)
+            {
+                sequencePlan.AddChild(leafs.Pop());
+            }
+            
+            _behaviourTree.AddChild(sequencePlan);
+            _behaviourTree.Start();
         }
 
-        private void UpdatePlan()
+        private void EntryPoint()
         {
-            if (_currentAction == null)
+            if (_actionPlan == null)
             {
-                Debug.LogWarning("Create a Plan");
                 CreatePlan();
-            
-                if (_actionPlan != null && _actionPlan.Actions.Count > 0)
-                {
-                    _navMeshAgent.ResetPath();
+            }
 
-                    _currentGoal = _actionPlan.AgentGoal;
-                    _currentAction = _actionPlan.Actions.Pop();
-                    _currentAction.Start();
-                    
-                    
-                    Debug.LogWarning($"Goal: {_currentGoal} with {_actionPlan.Actions.Count}");
-                    Debug.LogWarning($"Poppet action: {_currentAction.Name}");
-                }
+            if (_actionPlan != null)
+            {
+                _cancelGoal.CancelCurrentStateAndComputeNewPlan(_behaviourTree, _agentGoal);
             }
             
             CompletePlan();
         }
-
+        
         private void CompletePlan()
         {
-            if (_actionPlan == null || _currentAction == null) return;
-            _currentAction.Update(Time.deltaTime);
+            _behaviourTree.Process();
 
-            if (_currentAction.Complete == false) return;
-            _currentAction.Stop();
-            _currentAction = null;
-
-            if (_actionPlan.Actions.Count != 0) return;
-            Debug.LogWarning("Plan complete");
-            _lastGoal = _currentGoal;
-            _currentGoal = null;
+            if (_behaviourTree.Status != BTNodeStatus.Success) return;
+            
+            _behaviourTree.Reset();
+            _behaviourTree.SetGoalsState(null, _agentGoal);
+            _actionPlan = null;
         }
 
         private void CreatePlan()
         {
-            var priorityLevel = _currentGoal?.Priority ?? 0;
             var goalsToCheck = _goals;
-
-            if (_currentGoal != null)
-            {
-                goalsToCheck = new HashSet<AgentGoal>(_goals.Where(goal => goal.Priority > priorityLevel));
-            }
+            var plan = _goapPlanner.GetPlan(this, goalsToCheck, _behaviourTree.LastGoal);
+            if (plan.plan == null) return;
             
-            var plan = _goapPlanner.GetPlan(this, goalsToCheck, _lastGoal);
-
-            if (plan != null)
-                _actionPlan = plan;
+            _actionPlan = plan.plan;
+            _agentGoal = plan.goal;
+            _behaviourTree.SetGoalsState(_agentGoal, null);
+            InitBehaviourTree(plan.plan.Actions);
         }
     }
 }

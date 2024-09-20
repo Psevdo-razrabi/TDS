@@ -52,7 +52,6 @@
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\Crouching\PlayerCrouch.cs" />
     <Compile Include="Assets\Scripts\Customs\Factory\FactoryComponent.cs" />
     <Compile Include="Assets\Scripts\Input\Interface\IMove.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Strategy\PartrolStrategy.cs" />
     <Compile Include="Assets\Scripts\Weapons\ParticleComponent\ParticleComponent.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponConfigs\ShotgunConfig.cs" />
     <Compile Include="Assets\Scripts\Input\InputObserver.cs" />
@@ -145,7 +144,6 @@
     <Compile Include="Assets\Scripts\UI\View\GameObjectView.cs" />
     <Compile Include="Assets\Scripts\Game\Player\Interfaces\ICameraProvider.cs" />
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Sensors\WedgeMeshBuilder.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Strategy\ActionStrategy.cs" />
     <Compile Include="Assets\Scripts\Weapons\InterfaceWeapon\IConfigRelize.cs" />
     <Compile Include="Assets\Scripts\Customs\CustomiseAssets\HiderManager.cs" />
     <Compile Include="Assets\AnyAssets\FogOfWar\Demo\scripts\FowCharacterDemo.cs" />
@@ -157,6 +155,7 @@
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Enums\BTNodeStatus.cs" />
     <Compile Include="Assets\Scripts\SaveSystem\DataContext.cs" />
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Any\Setuppers.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\Blackboard\Expert\MovementExpert.cs" />
     <Compile Include="Assets\AnyAssets\FogOfWar\Scripts\Hiders\HiderBehavior.cs" />
     <Compile Include="Assets\Scripts\Enums\BodyType.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\Demo\FPS_RigidbodyFirstPersonController.cs" />
@@ -170,8 +169,8 @@
     <Compile Include="Assets\Scripts\Game\Player\PlayerStateMashine\Configs\PlayerFogOfWarConfig.cs" />
     <Compile Include="Assets\Scripts\AnyAi\Blackboard\BlackboardController.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\Recievers\DistributionConfigs.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Strategy\Conditions.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Debagger\IDebuggable.cs" />
+    <Compile Include="Assets\Scripts\DI\AIInstaller.cs" />
     <Compile Include="Assets\Scripts\Input\InputSystem.cs" />
     <Compile Include="Assets\Scripts\Game\Player\Interfaces\IStateData.cs" />
     <Compile Include="Assets\Scripts\AnyAi\Blackboard\Arbiter\Arbiter.cs" />
@@ -219,8 +218,8 @@
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\Demo\FPSDemoGUI.cs" />
     <Compile Include="Assets\Scripts\Weapons\AudioWeapon\AudioType\WeaponAudioType.cs" />
     <Compile Include="Assets\Scripts\Game\Player\PlayerStateMashine\Configs\Providers\ObstacleConfigProvider.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\GOAP\Plan\Nodes.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\Rendering\FPS_PerPlatformSettings.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Canseller\CancelGoal.cs" />
     <Compile Include="Assets\Scripts\Customs\Factory\FactoryGameObject.cs" />
     <Compile Include="Assets\Scripts\Input\InputSystemMovement.cs" />
     <Compile Include="Assets\Scripts\Customs\Factory\GoalFactory.cs" />
@@ -241,7 +240,6 @@
     <Compile Include="Assets\Scripts\Game\Core\Health\Configs\PlayerHealthConfig.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\StateHandle\Dash\PlayerDashHandle.cs" />
     <Compile Include="Assets\Scripts\Game\Player\AnimatorScripts\AnimatorController.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Nodes\PrioritySelector.cs" />
     <Compile Include="Assets\AnyAssets\Opsive\OmniAnimation\Packs\Shared\Scripts\Spawner.cs" />
     <Compile Include="Assets\AnyAssets\FogOfWar\Scripts\GenerateInvertedCollider.cs" />
     <Compile Include="Assets\AnyAssets\FogOfWar\Scripts\Hiders\FogOfWarHider.cs" />
@@ -271,6 +269,7 @@
     <Compile Include="Assets\Scripts\Customs\Factory\StrategyFactory.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Nodes\Node.cs" />
     <Compile Include="Assets\Scripts\Weapons\CommponentsWeapon\AudioComponent.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\Blackboard\Expert\LocationExpert.cs" />
     <Compile Include="Assets\Scripts\Weapons\Legasy\OldWeapon\Suriken\Suriken.cs" />
     <Compile Include="Assets\Scripts\Game\AsyncOperation\Interfaces\IAwaiter.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\Crouching\PlayerCrouchIdle.cs" />
@@ -312,6 +311,7 @@
     <Compile Include="Assets\Scripts\Customs\Data\MethodName.cs" />
     <Compile Include="Assets\Scripts\Weapons\StrategyFire\BurstFire.cs" />
     <Compile Include="Assets\Scripts\UI\ViewModel\AmmoInMagazineViewModel.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\Blackboard\Expert\StatsExpert.cs" />
     <Compile Include="Assets\AnyAssets\Opsive\OmniAnimation\Packs\Shared\Scripts\FollowCam.cs" />
     <Compile Include="Assets\Scripts\Weapons\ParticleComponent\IParticleWeapon.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\DirectionStrategy\IDirectionCalculator.cs" />
@@ -341,6 +341,7 @@
     <Compile Include="Assets\Scripts\UI\Binders\TextBinder.cs" />
     <Compile Include="Assets\Scripts\Game\Core\Health\IHealthStats.cs" />
     <Compile Include="Assets\Scripts\Weapons\StrategyFire\SingleFire.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\Blackboard\Expert\RegisterExperts.cs" />
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Builder\GoalBuilder.cs" />
     <Compile Include="Assets\Scripts\UI\ViewModel\StorageViewModel.cs" />
     <Compile Include="Assets\Scripts\Game\Player\AnyScripts\FOWRadiusChanger.cs" />
@@ -364,7 +365,6 @@
     <Compile Include="Assets\AnyAssets\FogOfWar\Scripts\FogOfWarWorld.cs" />
     <Compile Include="Assets\Scripts\Game\Player\AnyScripts\HealthResoringConstyl.cs" />
     <Compile Include="Assets\Scripts\UI\Binders\BinderPrimitives.cs" />
-    <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Nodes\UnitlFail.cs" />
     <Compile Include="Assets\Scripts\AnyAi\Blackboard\Interfaces\IExpert.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\FPSRandomRotateAngle.cs" />
     <Compile Include="Assets\Scripts\Weapons\Mediators\MediatorFireStrategy.cs" />

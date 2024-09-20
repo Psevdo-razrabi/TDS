@@ -1,12 +1,14 @@
-﻿using UniRx;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UniRx;
 using UnityEngine;
 
 namespace BehaviourTree
 {
     public class BTDebugger : IBTDebugger
     {
-        public ReactiveProperty<string> NameNode { get; private set; } = new();
-        public ReactiveProperty<string> TypeNode { get; private set; } = new();
+        public ReactiveCollection<string> NameNode { get; private set; } = new(new List<string>());
+        public ReactiveCollection<string> TypeNode { get; private set; } = new(new List<string>());
         public ReactiveProperty<BTNodeStatus> NodeStatus { get; private set; } = new();
 
         private CompositeDisposable _compositeDisposable = new();
@@ -14,17 +16,17 @@ namespace BehaviourTree
 
         public string GetStatusDebug(BTNodeStatus btNodeStatus)
         {
-            return $"Status Node: {btNodeStatus}";
+            return $"{btNodeStatus}";
         }
 
-        public string GetNameNode(string nameNode)
+        public List<string> GetNameNode()
         {
-            return $"Current Node: {NameNode}";
+            return NameNode.ToList();
         }
 
-        public string GetTypeNode<T>(T typeNode)
+        public List<string> GetTypeNode()
         {
-            return $"Current TypeNode: {typeNode}";
+            return TypeNode.ToList();
         }
     }
 }

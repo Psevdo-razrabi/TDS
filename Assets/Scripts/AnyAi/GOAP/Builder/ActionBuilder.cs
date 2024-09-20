@@ -1,4 +1,6 @@
-﻿namespace GOAP
+﻿using System;
+
+namespace GOAP
 {
     public class ActionBuilder
     {
@@ -12,6 +14,12 @@
         public ActionBuilder WithCost(float cost)
         {
             agentAction.SetCost(cost);
+            return this;
+        }
+        
+        public ActionBuilder WithPreconditionUse(Func<bool> precondition)
+        {
+            agentAction.SetConditionActionWork(precondition);
             return this;
         }
 

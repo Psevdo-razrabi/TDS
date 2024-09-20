@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using BehaviourTree;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -42,16 +44,26 @@ namespace DI.Debugger_Remove_
         private void ShowName()
         {
             _debugger.NameNode
-                .SkipLatestValueOnSubscribe()
-                .Subscribe(_ => Name.text = _debugger.GetNameNode(_debugger.NameNode.Value))
+                .ObserveAdd()
+                .Subscribe(_ =>
+                {
+                    var list = _debugger.GetNameNode();
+                    list.Reverse();
+                    Name.text = string.Join("-", list);
+                })
                 .AddTo(_compositeDisposable);
         }
 
         private void ShowType()
         {
             _debugger.TypeNode
-                .SkipLatestValueOnSubscribe()
-                .Subscribe(_ => Type.text = _debugger.GetTypeNode(_debugger.TypeNode.Value))
+                .ObserveAdd()
+                .Subscribe(_ =>
+                {
+                    var list = _debugger.GetTypeNode();
+                    list.Reverse();
+                    Type.text = string.Join("-", list);
+                })
                 .AddTo(_compositeDisposable);
         }
 

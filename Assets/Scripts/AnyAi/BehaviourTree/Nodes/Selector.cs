@@ -5,17 +5,16 @@
         public override BTNodeStatus Status { get; protected set; }
         public sealed override string Name { get; protected set; }
 
-        protected Selector(string name, int priority, IBTDebugger debugger) : base(debugger)
+        protected Selector(string name, int cost, IBTDebugger debugger) : base(cost, debugger)
         {
             Name = name;
-            Priority = priority;
         }
 
         public override BTNodeStatus Process()
         {
             if (CurrentChild < Nodes.Count)
             {
-                Debug(this);
+                Debug(this, Name);
                 switch (Nodes[CurrentChild].Process())
                 {
                     case BTNodeStatus.Running : return Status = BTNodeStatus.Running;
