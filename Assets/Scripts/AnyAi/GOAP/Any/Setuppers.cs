@@ -65,34 +65,41 @@ namespace GOAP
                 .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInEyeSensor"].Location))
                 .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
                 .WithEffect(_agentBeliefs["AttackingPlayer"])
-                .WithPreconditionUse(() => HasSensor().IsTargetInSensor)
+                .WithPreconditionUse(() => HasSensor(NameExperts.EyesSensor).IsTargetInSensor)
+                .BuildAgentAction());
+            
+            _actions.Add(new ActionBuilder("PlayerHit")
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInHitSensor"].Location))
+                .WithPrecondition(_agentBeliefs["PlayerInHitSensor"])
+                .WithEffect(_agentBeliefs["AttackingPlayer"])
+                .WithPreconditionUse(() => HasSensor(NameExperts.HitSensor).IsTargetInSensor)
                 .BuildAgentAction());
 
-            _actions.Add(new ActionBuilder("PlayerAttack")
+            _actions.Add(new ActionBuilder("PlayerAttackAfterHit")
                 .WithActionStrategy(_strategyFactory.CreateAttackStrategy())
+                .WithPrecondition(_agentBeliefs["PlayerInHitSensor"])
                 .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
                 .WithEffect(_agentBeliefs["AttackingPlayer"])
-                .WithPreconditionUse(() => HasSensor().IsTargetInSensor)
+                .WithPreconditionUse(() => HasSensor(NameExperts.EyesSensor).IsTargetInSensor)
                 .BuildAgentAction());
         }
 
         public void SetupBeliefs()
         {
             var factory = new BeliefFactory(_agentBeliefs);
-            //var getData = GetData();
             
             factory.AddBeliefCondition("Nothing", () => false);
             factory.AddBeliefCondition("AgentIdle", () => HasPath() == false);
             factory.AddBeliefCondition("AgentMoving", HasPath);
             
-            //TEST
             factory.AddBeliefCondition("AgentIsHealthLow", () => HasHealth() < 30);
             factory.AddBeliefCondition("AgentIsHealthy", () => HasHealth() >= 50);
             
             factory.AddLocationBelief("AgentAtFoodPosition", _goapAgent.foodCort.transform.position, HasLocationFood);
             factory.AddLocationBelief("AgentAtRestingPosition", _goapAgent.chilZone.transform.position, HasLocationChill);
             
-            factory.AddSensorBelief("PlayerInEyeSensor", HasSensor());
+            factory.AddSensorBelief("PlayerInEyeSensor", HasSensor(NameExperts.EyesSensor));
+            factory.AddSensorBelief("PlayerInHitSensor", HasSensor(NameExperts.HitSensor));
             factory.AddBeliefCondition("AttackingPlayer", () => false);
         }
 
@@ -106,9 +113,9 @@ namespace GOAP
             return _blackboard.GetValue<float>(NameExperts.HealthStats);
         }
 
-        private ISensor HasSensor()
+        private ISensor HasSensor(string nameSensor)
         {
-            return _blackboard.GetValue<ISensor>(NameExperts.EyesSensor);
+            return _blackboard.GetValue<ISensor>(nameSensor);
         }
 
         private bool HasLocationFood()

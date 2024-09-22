@@ -108,6 +108,7 @@
     <Compile Include="Assets\Scripts\DI\GameInstaller.cs" />
     <Compile Include="Assets\Scripts\Input\Interface\IMouse.cs" />
     <Compile Include="Assets\Scripts\Weapons\AudioWeapon\AudioType\RifleAudioType.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Sensors\HitSensor.cs" />
     <Compile Include="Assets\Scripts\CrosshairRaycast.cs" />
     <Compile Include="Assets\Scripts\Game\Core\Health\IHealthRestoring.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\Recievers\SetFireMode.cs" />

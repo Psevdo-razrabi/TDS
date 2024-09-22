@@ -44,6 +44,7 @@
         public static readonly string StaminaStats = "StaminaStats";
         public static readonly string StaminaStatsPredicate = "StaminaPredicate";
         public static readonly string EyesSensor = "Eyes";
+        public static readonly string HitSensor = "Hit";
         public static readonly string LocationFood = "LocationFood";
         public static readonly string LocationFoodPredicate = "LocationFoodPredicate";
         public static readonly string LocationChillZone = "LocationChill";

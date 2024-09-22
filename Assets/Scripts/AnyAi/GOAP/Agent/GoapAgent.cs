@@ -17,8 +17,9 @@ namespace GOAP
     {
         public readonly HashSet<AgentAction> _action = new();
         
-        [Header("Sensor")] 
+        [Header("Sensors")] 
         [SerializeField] public EyesSensor _eyesSensor;
+        [SerializeField] public HitSensor _hitSensor;
 
         [Header("Locations")] 
         [SerializeField] public Transform foodCort;
@@ -28,7 +29,6 @@ namespace GOAP
         [Header("HealthStats")] 
         [SerializeField] public float _health;
         [SerializeField] public float _stamina;
-        
         
         [Header("Goap Scripts")]
         private IGoapPlanner _goapPlanner;
@@ -104,6 +104,7 @@ namespace GOAP
             _blackboardController.SetValue<Func<bool>>(NameExperts.LocationChillZonePredicate, 
                 () => !InRangeOf(chilZone.transform.position, 3f));
             _blackboardController.SetValue<ISensor>(NameExperts.EyesSensor, _eyesSensor);
+            _blackboardController.SetValue<ISensor>(NameExperts.HitSensor, _hitSensor);
         }
 
         private void SetupTimers()
