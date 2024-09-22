@@ -30,7 +30,7 @@ namespace GOAP
             for (int i = 0; i < 3; i++)
             {
                 await _enemy.DORotateQuaternion(Quaternion.Euler(0f, Random.Range(0f, 360f), 0f), _duration / 3)
-                    .WithCancellation(CancellationTokenSource.Token);
+                    .WithCancellation(CancellationTokenSource.Token).SuppressCancellationThrow();
                 await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: CancellationTokenSource.Token).SuppressCancellationThrow();
             }
 
