@@ -16,7 +16,12 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: b41f6bef5b7c42f45aedc3708cdf593d
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 733ce69f9b4b61d41bab43807bee40a8
+    m_Address: Assets/Scripts/CharacterOrEnemyEffect/IK
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a32baf0e5cd480a4ba13a93650c972e4, type: 2}
   m_SchemaSet:

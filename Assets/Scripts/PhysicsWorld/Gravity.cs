@@ -27,11 +27,13 @@ public class Gravity : ISetGravityForce, ITickable
         
     private void GravityHandling()
     {
+        /*
         _playerComponents.StateMachineData.TargetDirectionY = _playerComponents.CharacterController.isGrounded switch
         {
             false => -_gravityForce * Time.deltaTime,
             true when _playerComponents.CharacterController.velocity.y <= 0 => -0.02f,
             _ => _playerComponents.StateMachineData.TargetDirectionY
         };
+        */
     }
 }

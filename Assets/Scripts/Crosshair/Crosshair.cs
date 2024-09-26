@@ -5,11 +5,13 @@ public class Crosshair : MonoBehaviour
     [SerializeField] private RectTransform _crosshair;
     [SerializeField] private float _movementSpeed;
     [SerializeField] private float _recoilSmoothingSpeed;
-
+    [SerializeField] private RectTransform _center;
+    
     private Vector2 _targetCrosshairPos;
 
-    public Transform CrossHair => _crosshair.transform;
-
+    public RectTransform CrossHair => _crosshair;
+    public RectTransform Center => _center;
+    
     private void Awake()
     {
         Cursor.visible = false;
@@ -39,6 +41,7 @@ public class Crosshair : MonoBehaviour
     public void RecoilPlus(Vector2 recoil)
     {
         _targetCrosshairPos += recoil;
+        
         _targetCrosshairPos = ClampCrosshairPosition(_targetCrosshairPos);
     }
 

@@ -26,7 +26,7 @@ namespace Game.Player
             var directionCrosshair = new Vector2((_crosshair.transform.position.x - transform.position.x) / Screen.width * 2 - 1, (_crosshair.transform.position.y - transform.position.y) / Screen.height * 2 - 1);
 
             _stateMachineData.MouseDirection =
-                new Vector2(Mathf.Clamp(directionCrosshair.x, -1, 1), Mathf.Clamp(directionCrosshair.y, -1, 1));
+                new Vector3(Mathf.Clamp(directionCrosshair.x, -1, 1), Mathf.Clamp(directionCrosshair.y, -1, 1));
             
             Ray ray = _camera.ScreenPointToRay(_crosshair.transform.position);
             return Physics.Raycast(ray, out var hit, 100f, _ground) ? (true, hit.point) : (false, Vector3.zero);
