@@ -6,16 +6,25 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class HitSensor : MonoBehaviour, ISensor
+    public class HitSensor : MonoBehaviour, ISensor, ISensorTriggerCommander
     {
-        public Vector3? Target { get; private set; }
-
-        public bool IsTargetInSensor { get; private set; }
-
         [SerializeField] private PlayerComponents _playerComponents;
         [SerializeField] private float _timeAggression;
+        [SerializeField] private CommanderAIGroup commanderAI;
+        public Vector3? Target { get; private set; }
+        public bool IsTargetInSensor { get; private set; }
         private CompositeDisposable _compositeDisposable = new();
         private CompositeDisposable _compositeDisposableRemoved = new();
+
+        public void SetTarget(Vector3 target)
+        {
+            SubscribeTimer();
+        }
+
+        public void SetIsTargetTrigger(bool isTargetDetected)
+        {
+            SubscribeTimer();
+        }
 
         private void OnEnable()
         {
@@ -26,6 +35,7 @@ namespace GOAP
         {
             Target = _playerComponents.transform.position;
             IsTargetInSensor = true;
+            commanderAI.IsTargetDetect.OnNext(Unit.Default);
 
             Observable.Timer(TimeSpan.FromSeconds(_timeAggression)).Subscribe(_ =>
             {

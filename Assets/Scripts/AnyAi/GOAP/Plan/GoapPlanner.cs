@@ -18,10 +18,8 @@ namespace GOAP
         {
             var orderedGoals = goals
                 .Where(goal => goal.DesiredEffects.Any(belief => !belief.CheckCondition()))
-                .OrderByDescending(goal => goal == mostRecentGoal? goal.Priority - 0.01 : goal.Priority)
-                .ToList();
-
-
+                .OrderByDescending(goal => goal == mostRecentGoal ? goal.Priority - 0.01 : goal.Priority);
+            
             foreach (var goal in orderedGoals)
             {
                 var goalNode = new Leaf(null, goal.DesiredEffects, 0f, "Nothing", _debugger);

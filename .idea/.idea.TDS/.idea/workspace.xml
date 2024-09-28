@@ -5,16 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/AttackSensor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/AttackSensor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/CommanderAIGroup.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/CommanderAIGroup.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/ISensorTriggerCommander.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/ISensorTriggerCommander.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/A.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/A.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/Vector3Extensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/Vector3Extensions.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor-firstpass.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Scenes/GameMain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scenes/GameMain.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller/CancelGoal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller/CancelGoal.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/EyesSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/EyesSensor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BzKovSoft.RagdollHelper.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BzKovSoft.RagdollHelper.Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FMODUnity.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnity.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FMODUnityEditor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnityEditor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FMODUnityResonance.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnityResonance.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FMODUnityResonanceEditor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnityResonanceEditor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MVVM.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MVVM.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sirenix.OdinInspector.Modules.UnityMathematics.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Sirenix.OdinInspector.Modules.UnityMathematics.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniRx.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniRx.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniTask.Addressables.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.Addressables.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniTask.DOTween.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.DOTween.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniTask.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniTask.Linq.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.Linq.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniTask.TextMeshPro.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.TextMeshPro.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniTask.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-PoolMonitor-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-PoolMonitor-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-ReflectionBaking-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-ReflectionBaking-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-TestFramework.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-TestFramework.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-UnitTests-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-UnitTests-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +60,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/388cbae2d6f74d9e93f2a786bd7b2c4917a648/2d/27447f0c/HashSet`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e585f5e2b21741c8a3a65b4f9abfa5e8572e20/55/a8566eda/GC.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e585f5e2b21741c8a3a65b4f9abfa5e8572e20/c5/9c9a7116/IDisposable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f5b293c74049457cabc28437c5a763925a00/44/d5a4aeb2/IInitializable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/f7237cf7abef49bfbb552d7eb076e422174200/34/0e274cf5/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -92,7 +127,7 @@
     &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.13170163&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.3135198&quot;,
     &quot;git-widget-placeholder&quot;: &quot;BeamProger&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -145,10 +180,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="37564">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="40804">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="37564" />
+      <option name="pid" value="40804" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -278,7 +313,8 @@
       <workItem from="1726486656648" duration="27377000" />
       <workItem from="1726732987493" duration="1328000" />
       <workItem from="1726735206701" duration="32584000" />
-      <workItem from="1727001307313" duration="9708000" />
+      <workItem from="1727001307313" duration="46482000" />
+      <workItem from="1727522342596" duration="18846000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
@@ -383,32 +419,6 @@
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/BaseMove.cs</url>
-          <line>28</line>
-          <properties documentPath="Z:\TDS\Assets\Scripts\Game\Player\States\Ground\Move\BaseMove.cs" containingFunctionPresentation="Lambda expression inside Method 'AddActionsCallbacks'">
-            <startOffsets>
-              <option value="873" />
-            </startOffsets>
-            <endOffsets>
-              <option value="954" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Game/Player/States/Ground/Move/PlayerMove.cs</url>
-          <line>21</line>
-          <properties documentPath="Z:\TDS\Assets\Scripts\Game\Player\States\Ground\Move\PlayerMove.cs" containingFunctionPresentation="Method 'OnEnter'">
-            <startOffsets>
-              <option value="663" />
-            </startOffsets>
-            <endOffsets>
-              <option value="755" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Scripts/Crosshair/ChangeCrosshair.cs</url>
           <line>76</line>
           <properties documentPath="Z:\TDS\Assets\Scripts\Crosshair\ChangeCrosshair.cs" containingFunctionPresentation="Lambda expression inside Method 'SubscribeAim'">
@@ -421,6 +431,32 @@
           </properties>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs</url>
+          <line>66</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\AnyAi\GOAP\Sensors\HitSensor.cs" containingFunctionPresentation="Lambda expression inside Method 'SubscribeTriggers'">
+            <startOffsets>
+              <option value="2078" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2095" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/NavGrid.cs</url>
+          <line>106</line>
+          <properties documentPath="Z:\TDS\Assets\Scripts\AnyAi\GOAP\NavGrid\NavGrid.cs" containingFunctionPresentation="Method 'Awake'">
+            <startOffsets>
+              <option value="3026" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3102" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
@@ -429,12 +465,11 @@
         <PinnedItemInfo parentTag="Type#UnityEngine.RaycastHit" memberName="collider" />
         <PinnedItemInfo parentTag="Type#System.Collections.Generic.KeyValuePair`2" memberName="Value" />
         <PinnedItemInfo parentTag="Type#GOAP.AgentAction" memberName="Effects" />
-        <PinnedItemInfo parentTag="Type#GOAP.AgentBelief" memberName="ObservedLocation" />
         <PinnedItemInfo parentTag="Type#BehaviourTree.Leaf" memberName="RequiredEffects" />
         <PinnedItemInfo parentTag="Type#Game.Player.Weapons.WeaponConfigs.BaseWeaponConfig" memberName="BulletPoint" />
+        <PinnedItemInfo parentTag="Type#GOAP.AgentBelief" memberName="Conditions" />
         <PinnedItemInfo parentTag="Type#Customs.MethodList" memberName="methods" />
         <PinnedItemInfo parentTag="Type#SaveSystem.GameData" memberName="MethodName" />
-        <PinnedItemInfo parentTag="Type#GOAP.AgentGoal" memberName="DesiredEffects" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

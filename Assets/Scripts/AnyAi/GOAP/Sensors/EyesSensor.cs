@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace GOAP
 {
-    public class EyesSensor : MonoBehaviour, ISensor
+    public class EyesSensor : MonoBehaviour, ISensor, ISensorTriggerCommander
     {
         public IReadOnlyList<GameObject> Objects => _objects;
         [field: SerializeField] private float distance;
@@ -16,11 +16,10 @@ namespace GOAP
         [field: SerializeField] private LayerMask playerMask;
         [field: SerializeField] private LayerMask occlusionLayers;
         [field: SerializeField] private float delayScan;
+        [field: SerializeField] private CommanderAIGroup commanderAI;
 
-        public Vector3? Target => Objects.FirstOrDefault(x => x.TryGetComponent(out PlayerComponents component))
-            ?.gameObject.transform.position;
-
-        public bool IsTargetInSensor => Objects.Any(x => x.TryGetComponent(out PlayerComponents component));
+        public Vector3? Target { get; private set; }
+        public bool IsTargetInSensor { get; private set; }
 
         private readonly Collider[] _colliders = new Collider[50];
         private readonly WedgeMeshBuilder _wedgeMeshBuilder = new();
@@ -29,7 +28,9 @@ namespace GOAP
         private Mesh _eyesSensor;
         private IDisposable _disposable;
         
-
+        public void SetTarget(Vector3 target) => Target = target;
+        public void SetIsTargetTrigger(bool isTargetDetected) => IsTargetInSensor = isTargetDetected;
+        
         private void OnEnable()
         {
             _disposable = Observable
@@ -44,10 +45,11 @@ namespace GOAP
 
         private void Scan()
         {
+            _objects.Clear();
+            ClearTarget();
+            
             var countObject = Physics.OverlapSphereNonAlloc(transform.position, distance, _colliders, playerMask,
                 QueryTriggerInteraction.Collide);
-            
-            _objects.Clear();
 
             for (int i = 0; i < countObject; i++)
             {
@@ -56,6 +58,23 @@ namespace GOAP
                     _objects.Add(_colliders[i].gameObject);
                 }
             }
+            
+            SetTarget();
+        }
+
+        private void ClearTarget()
+        {
+            Target = null;
+            IsTargetInSensor = false;
+        }
+
+        private void SetTarget()
+        {
+            Target = Objects.FirstOrDefault(x => x.TryGetComponent(out PlayerComponents component))
+                ?.gameObject.transform.position;
+            IsTargetInSensor = Objects.Any(x => x.TryGetComponent(out PlayerComponents component));
+            
+            if(IsTargetInSensor) commanderAI.IsTargetDetect.OnNext(Unit.Default);
         }
 
         private bool IsInSight(GameObject obj)

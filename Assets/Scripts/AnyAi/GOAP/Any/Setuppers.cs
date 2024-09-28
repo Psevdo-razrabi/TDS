@@ -50,7 +50,7 @@ namespace GOAP
                 .BuildAgentAction());
  
             _actions.Add(new ActionBuilder("MoveToEat")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _goapAgent.foodCort.transform.position))
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _goapAgent.foodCort.transform.position, false))
                 .WithEffect(_agentBeliefs["AgentAtFoodPosition"])
                 .BuildAgentAction());
 
@@ -62,25 +62,24 @@ namespace GOAP
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("PlayerLook")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInEyeSensor"].Location))
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInEyeSensor"].Location, true))
                 .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
-                .WithEffect(_agentBeliefs["AttackingPlayer"])
+                .WithEffect(_agentBeliefs["PlayerToAttackSensor"])
                 .WithPreconditionUse(() => HasSensor(NameExperts.EyesSensor).IsTargetInSensor)
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("PlayerHit")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInHitSensor"].Location))
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInHitSensor"].Location, true))
                 .WithPrecondition(_agentBeliefs["PlayerInHitSensor"])
-                .WithEffect(_agentBeliefs["AttackingPlayer"])
+                .WithEffect(_agentBeliefs["PlayerToAttackSensor"])
                 .WithPreconditionUse(() => HasSensor(NameExperts.HitSensor).IsTargetInSensor)
                 .BuildAgentAction());
 
-            _actions.Add(new ActionBuilder("PlayerAttackAfterHit")
+            _actions.Add(new ActionBuilder("PlayerAttack")
                 .WithActionStrategy(_strategyFactory.CreateAttackStrategy())
-                .WithPrecondition(_agentBeliefs["PlayerInHitSensor"])
-                .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
+                .WithPrecondition(_agentBeliefs["PlayerToAttackSensor"])
                 .WithEffect(_agentBeliefs["AttackingPlayer"])
-                .WithPreconditionUse(() => HasSensor(NameExperts.EyesSensor).IsTargetInSensor)
+                .WithPreconditionUse(() => HasSensor(NameExperts.AttackSensor).IsTargetInSensor)
                 .BuildAgentAction());
         }
 
@@ -100,32 +99,38 @@ namespace GOAP
             
             factory.AddSensorBelief("PlayerInEyeSensor", HasSensor(NameExperts.EyesSensor));
             factory.AddSensorBelief("PlayerInHitSensor", HasSensor(NameExperts.HitSensor));
+            factory.AddSensorBelief("PlayerToAttackSensor", HasSensor(NameExperts.AttackSensor));
             factory.AddBeliefCondition("AttackingPlayer", () => false);
         }
 
         private bool HasPath()
         {
-            return _blackboard.GetValue<bool>(NameExperts.Movement);
+            var isWhat = _blackboard.GetValue<bool>(NameExperts.Movement);
+            return isWhat;
         }
 
         private float HasHealth()
         {
-            return _blackboard.GetValue<float>(NameExperts.HealthStats);
+            var isWhat = _blackboard.GetValue<float>(NameExperts.HealthStats);
+            return isWhat;
         }
 
         private ISensor HasSensor(string nameSensor)
         {
-            return _blackboard.GetValue<ISensor>(nameSensor);
+            var isWhat = _blackboard.GetValue<ISensor>(nameSensor);
+            return isWhat;
         }
 
         private bool HasLocationFood()
         {
-            return _blackboard.GetValue<bool>(NameExperts.LocationFood);
+            var isWhat = _blackboard.GetValue<bool>(NameExperts.LocationFood);
+            return isWhat;
         }
         
         private bool HasLocationChill()
         {
-            return _blackboard.GetValue<bool>(NameExperts.LocationChillZone);
+            var isWhat = _blackboard.GetValue<bool>(NameExperts.LocationChillZone);
+            return isWhat;
         }
     }
 }

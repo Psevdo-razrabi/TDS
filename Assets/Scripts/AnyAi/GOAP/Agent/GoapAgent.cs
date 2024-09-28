@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BehaviourTree;
 using BlackboardScripts;
 using BlackboardScripts.Expert;
+using Customs;
 using Game.Player.PlayerStateMashine;
 using UniRx;
 using UnityEngine;
@@ -20,11 +21,13 @@ namespace GOAP
         [Header("Sensors")] 
         [SerializeField] public EyesSensor _eyesSensor;
         [SerializeField] public HitSensor _hitSensor;
+        [SerializeField] public AttackSensor _attackSensor;
 
         [Header("Locations")] 
         [SerializeField] public Transform foodCort;
         [SerializeField] public Transform chilZone;
         [SerializeField] public Transform[] patrolPoints;
+        [SerializeField] public Transform target;
 
         [Header("HealthStats")] 
         [SerializeField] public float _health;
@@ -41,8 +44,6 @@ namespace GOAP
         private readonly Dictionary<string, AgentBelief> _agentBeliefs = new();
         private readonly HashSet<AgentGoal> _goals = new();
         private CancelGoal _cancelGoal;
-        
-        
         private CompositeDisposable _disposable = new();
         private IBTDebugger _debugger;
 
@@ -93,6 +94,7 @@ namespace GOAP
             _blackboardController.SetValue(NameAIKeys.PatrolPoints, patrolPoints);
             _blackboardController.SetValue(NameAIKeys.ChillPoint, chilZone);
             _blackboardController.SetValue(NameAIKeys.TransformAI, transform);
+            _blackboardController.SetValue(NameAIKeys.PlayerTarget, target);
             _blackboardController.SetValue<Func<bool>>(NameExperts.MovementPredicate, 
                 () => _blackboardController.GetValue<NavMeshAgent>(NameAIKeys.Agent).hasPath);
             _blackboardController.SetValue<Func<float>>(NameExperts.HealthStatsPredicate, 
@@ -100,11 +102,12 @@ namespace GOAP
             _blackboardController.SetValue<Func<bool>>(NameExperts.StaminaStatsPredicate, 
                 () => _stamina > 50);
             _blackboardController.SetValue<Func<bool>>(NameExperts.LocationFoodPredicate, 
-                () => !InRangeOf(foodCort.transform.position, 3f));
+                () => !chilZone.position.InRangeOf(transform.position, 3f));
             _blackboardController.SetValue<Func<bool>>(NameExperts.LocationChillZonePredicate, 
-                () => !InRangeOf(chilZone.transform.position, 3f));
+                () => !foodCort.position.InRangeOf(transform.position, 2f));
             _blackboardController.SetValue<ISensor>(NameExperts.EyesSensor, _eyesSensor);
             _blackboardController.SetValue<ISensor>(NameExperts.HitSensor, _hitSensor);
+            _blackboardController.SetValue<ISensor>(NameExperts.AttackSensor, _attackSensor);
         }
 
         private void SetupTimers()
@@ -118,18 +121,26 @@ namespace GOAP
                 .Timer(TimeSpan.FromSeconds(2f), TimeSpan.FromSeconds(2f))
                 .Subscribe(_ => UpdateStats())
                 .AddTo(_disposable);
+
+            Observable.Timer(TimeSpan.FromSeconds(1f), TimeSpan.FromSeconds(1f)).Subscribe(_ =>
+            {
+                if (_actionPlan != null)
+                {
+                    Debug.Log("НИГГЕР");
+                    _cancelGoal.CancelCurrentStateAndComputeNewPlan(_behaviourTree, _agentGoal);
+                }
+                
+            }).AddTo(_disposable);
         }
 
         private void UpdateStats()
         {
-            _stamina += InRangeOf(chilZone.position, 3f) ? -10 : 20;
-            _health += InRangeOf(foodCort.position, 2f) ? -10 : 20;
+            _stamina += chilZone.position.InRangeOf(transform.position, 3f) ? -10 : 20;
+            _health += foodCort.position.InRangeOf(transform.position, 2f) ? -10 : 20;
 
             _stamina = Math.Clamp(_stamina, 0f, 150f);
             _health = Math.Clamp(_health, 0f, 150f);
         }
-
-        public bool InRangeOf(Vector3 pos, float range) => Vector3.Distance(transform.position, pos) > range;
 
         private void InitBehaviourTree(Stack<Leaf> leafs)
         {
@@ -149,11 +160,6 @@ namespace GOAP
             if (_actionPlan == null)
             {
                 CreatePlan();
-            }
-
-            if (_actionPlan != null)
-            {
-                _cancelGoal.CancelCurrentStateAndComputeNewPlan(_behaviourTree, _agentGoal);
             }
             
             CompletePlan();

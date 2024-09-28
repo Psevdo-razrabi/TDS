@@ -52,6 +52,7 @@
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\Crouching\PlayerCrouch.cs" />
     <Compile Include="Assets\Scripts\Customs\Factory\FactoryComponent.cs" />
     <Compile Include="Assets\Scripts\Input\Interface\IMove.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\PointMap.cs" />
     <Compile Include="Assets\Scripts\Weapons\ParticleComponent\ParticleComponent.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponConfigs\ShotgunConfig.cs" />
     <Compile Include="Assets\Scripts\Input\InputObserver.cs" />
@@ -78,11 +79,13 @@
     <Compile Include="Assets\Scripts\Weapons\WeaponClass\Rifle.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Parkour\BaseParkour.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\Recievers\InitializeWeaponAudio.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Sensors\CommanderAIGroup.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Dash\PlayerDash.cs" />
     <Compile Include="Assets\Scripts\UI\View\HealthBarView.cs" />
     <Compile Include="Assets\Scripts\Weapons\ParticleComponent\ParticleWeapon.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\StateHandle\Crouch\PlayerIdleCrouchHandle.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Idle\PlayerAimIdle.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\NavGrid.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Idle\PlayerIdle.cs" />
     <Compile Include="Assets\Scripts\Input\InputSystemBase.cs" />
     <Compile Include="Assets\Scripts\UI\View\TextView.cs" />
@@ -102,6 +105,8 @@
     <Compile Include="Assets\Scripts\DI\BindCommands.cs" />
     <Compile Include="Assets\Scripts\DI\PhysicsBinder.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\DirectionStrategy\StrafeCalculator.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\Chunk.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\GeneratorChunksRound.cs" />
     <Compile Include="Assets\Scripts\Game\Player\AnyScripts\PlayerView.cs" />
     <Compile Include="Assets\Scripts\Weapons\CommponentsWeapon\ReloadComponent.cs" />
     <Compile Include="Assets\Scripts\DI\EffectInstaller.cs" />
@@ -113,6 +118,7 @@
     <Compile Include="Assets\Scripts\Game\Core\Health\IHealthRestoring.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\Recievers\SetFireMode.cs" />
     <Compile Include="Assets\Scripts\Weapons\AudioWeapon\AudioType\ShotgunAudioType.cs" />
+    <Compile Include="Assets\Scripts\Customs\Extensions\Vector3Extensions.cs" />
     <Compile Include="Assets\AnyAssets\Opsive\OmniAnimation\Packs\Shared\Scripts\MotionController.cs" />
     <Compile Include="Assets\Scripts\UI\ViewModel\DashViewModel.cs" />
     <Compile Include="Assets\Scripts\Weapons\InterfaceWeapon\IReloadStrategy.cs" />
@@ -136,6 +142,7 @@
     <Compile Include="Assets\Scripts\Game\Core\RandomSpawnPoint.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Debagger\IBTDebugger.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\PlayerMoveInAim.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\CIndex.cs" />
     <Compile Include="Assets\Scripts\Customs\ContextMenuAttribute.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scripts\DI\UI\Debugger(Remove)\DebuggerView.cs" />
@@ -182,12 +189,15 @@
     <Compile Include="Assets\Scripts\Weapons\InterfaceWeapon\IFire.cs" />
     <Compile Include="Assets\Scripts\Input\InputSystemMouse.cs" />
     <Compile Include="Assets\AnyAssets\FogOfWar\Demo\scripts\BlinkingRevealer.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Strategy\A.cs" />
     <Compile Include="Assets\Scripts\UI\Presenter\HealthBarPresenter.cs" />
     <Compile Include="Assets\Scripts\DI\WeaponInstaller.cs" />
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Builder\BeliefBuilder.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\Invoker\InvokerWeaponCommand.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Sensors\AttackSensor.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\BaseMove.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\Crouching\PlayerSitsDown.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\IGenerateCallback.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\CommandSetFireMode.cs" />
     <Compile Include="Assets\Scripts\PoolObject\PoolObject.cs" />
     <Compile Include="Assets\Scripts\Weapons\AudioWeapon\AudioWeapon.cs" />
@@ -198,6 +208,7 @@
     <Compile Include="Assets\Scripts\Weapons\InterfaceWeapon\IFireMediator.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\StateHandle\Crouch\PlayerMoveCrouchHandle.cs" />
     <Compile Include="Assets\Scripts\CharacterOrEnemyEffect\CustomHideInFOG.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\Array3d.cs" />
     <Compile Include="Assets\Scripts\Game\Core\Health\Configs\EnemyHealthConfig.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Interfaces\INode.cs" />
     <Compile Include="Assets\Scripts\Customs\Factory\BeliefFactory.cs" />
@@ -236,6 +247,7 @@
     <Compile Include="Assets\Scripts\Weapons\ChangeWeapon\WeaponChange.cs" />
     <Compile Include="Assets\AnyAssets\Opsive\OmniAnimation\Packs\Shared\Scripts\Element.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Move\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\GridPoint.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Interfaces\IStrategy.cs" />
     <Compile Include="Assets\Scripts\UI\Model\Storage\ValueCountStorage.cs" />
     <Compile Include="Assets\Scripts\Game\Core\Health\Configs\PlayerHealthConfig.cs" />
@@ -332,6 +344,7 @@
     <Compile Include="Assets\Scripts\CharacterOrEnemyEffect\DashTrailEffect.cs" />
     <Compile Include="Assets\Scripts\DI\UI\ViewModelsInstaller.cs" />
     <Compile Include="Assets\Scripts\Weapons\ParticleComponent\InitializeWeaponParticle.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\NavGrid\SimpleSheduler.cs" />
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Strategy\AttackStrategy.cs" />
     <Compile Include="Assets\Scripts\Weapons\Shooting\Recoil.cs" />
     <Compile Include="Assets\Scripts\Game\Player\PlayerStateMashine\Configs\Providers\CrouchConfigProvider.cs" />
@@ -391,6 +404,7 @@
     <Compile Include="Assets\Scripts\CharacterOrEnemyEffect\InverseKinematics\IKSystem.cs" />
     <Compile Include="Assets\Scripts\Weapons\StrategyFire\ActionsCleaner.cs" />
     <Compile Include="Assets\Scripts\CurrentWeapon.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Sensors\ISensorTriggerCommander.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\Demo\FPSDemoReactivator.cs" />
     <Compile Include="Assets\Scripts\Crosshair\ChangeCrosshair.cs" />
