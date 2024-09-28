@@ -14,8 +14,8 @@ namespace CharacterOrEnemyEffect.Factory
         public IActionStrategy CreatePatrolStrategy(BlackboardController blackboardController, float duration)
             => new PatrolStrategy(blackboardController, duration);
 
-        public IActionStrategy CreateMoveToPointStrategy(BlackboardController blackboardController, Func<Vector3> destination) 
-            => new MoveStrategy(blackboardController, destination);
+        public IActionStrategy CreateMoveToPointStrategy(BlackboardController blackboardController, Func<Vector3> destination, bool isUpdate) 
+            => new MoveStrategy(blackboardController, destination, isUpdate);
 
         public IActionStrategy CreateAttackStrategy() => new AttackStrategy();
     }

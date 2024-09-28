@@ -16,17 +16,22 @@ namespace GOAP
 
         public void CancelCurrentStateAndComputeNewPlan(BehaviourTree.BehaviourTree currentTree, AgentGoal currentGoal = null)
         {
-            if (!FindMorePriorityGoal(currentGoal)) return;
+            if (!FindNewGoal(currentGoal)) return;
             currentTree.Stop();
             currentTree.Reset();
         }
         
-        private bool FindMorePriorityGoal(AgentGoal currentGoal = null)
+        private bool FindNewGoal(AgentGoal currentGoal = null)
         {
             var orderedGoals = _agentGoals
-                .Where(goal => goal.DesiredEffects.Any(belief => !belief.CheckCondition()))
-                .Where(goal => goal.Priority > currentGoal?.Priority)
-                .OrderByDescending(goal => goal.Priority);
+                .Where(goal => goal.DesiredEffects.Any(belief => !belief.CheckCondition()) && goal != currentGoal && goal.Priority > currentGoal?.Priority)
+                .OrderByDescending(goal => goal == currentGoal ? goal.Priority - 0.01 : goal.Priority);
+
+            if (orderedGoals.Any() == false)
+            {
+                orderedGoals = _agentGoals.Where(goal => goal.DesiredEffects.Any(belief => !belief.CheckCondition()) && goal != currentGoal)
+                    .OrderByDescending(goal => goal == currentGoal ? goal.Priority - 0.01 : goal.Priority);
+            }
 
             var actionsList = (from action in _agentActions from goal in orderedGoals where action.Effects.Any(goal.DesiredEffects.Contains) select action)
                 .ToList();
