@@ -31,7 +31,7 @@ public class RangerStateRun : FSMStateAdapter
         var point = _navGrid._pointMap.GetPointAtPosition(_targetGameObject.transform.position);
         if (point == null)
         {
-            point = _navGrid._pointMap.FindFreeNearestPoint(_targetGameObject.transform.position);
+            point = _navGrid._pointMap.FindFreePointAtPointMinDist(point);
             if (point == null) return _currentGameObject.transform.position;
         }
         if (currPoint != null)
