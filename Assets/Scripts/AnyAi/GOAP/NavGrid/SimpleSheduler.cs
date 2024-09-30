@@ -1,14 +1,13 @@
-using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 public class SimpleSheduler
 {
-    public readonly int millisecondsPerFrame;
-    private Stopwatch sw = new Stopwatch();
+    public readonly int MillisecondsPerFrame;
+    private readonly Stopwatch sw = new Stopwatch();
 
     public SimpleSheduler(int millisecondsPerFrame)
     {
-        this.millisecondsPerFrame = millisecondsPerFrame;
+        MillisecondsPerFrame = millisecondsPerFrame;
     }
 
     public void Start()
@@ -18,6 +17,6 @@ public class SimpleSheduler
 
     public bool IsEnd()
     {
-        return sw.ElapsedMilliseconds >= millisecondsPerFrame;
+        return sw.ElapsedMilliseconds >= MillisecondsPerFrame;
     }
 }

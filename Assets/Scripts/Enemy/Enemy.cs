@@ -1,17 +1,16 @@
-﻿using System.Collections.Generic;
-using BehaviourTree;
+﻿using BehaviourTree;
 using BlackboardScripts;
 using Customs;
 using Game.Core.Health;
 using Game.Player;
 using Game.Player.AnyScripts;
 using Game.Player.Interfaces;
+using ModestTree;
+using System.Collections.Generic;
 using UI.Storage;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
-using Leaf = BehaviourTree.Leaf;
 using Random = UnityEngine.Random;
 
 namespace Enemy
@@ -32,6 +31,10 @@ namespace Enemy
         private IBTDebugger _debugger;
         private readonly Blackboard _blackboard = new();
 
+        //AI start
+        public GeneratorChunksRound _generatorChunksRound;
+        //AI  end
+
         public void InitModel(ValueCountStorage<float> valueCountStorage)
         {
             _valueCountStorage = valueCountStorage;
@@ -46,6 +49,15 @@ namespace Enemy
             
             operationWithHealth.SubscribeDead(operationWithHealth.EnemyDie);
             operationWithHealth.SubscribeHit(operationWithHealth.EnemyHitBullet);
+        }
+
+        public void Awake()
+        {
+            //AI start
+            //var ground = GameObject.Find("Ground");
+            //var navGrid = ground?.GetComponent<NavGrid>();
+           // _generatorChunksRound = new GeneratorChunksRound(navGrid?.GetPointMap(), transform, 10);
+            //AI  end
         }
 
         public void Start()
@@ -87,9 +99,13 @@ namespace Enemy
         public void Update()
         {
             //_behaviourTree.Process();
-        }
 
-        public bool PlayerIsActive(Sequence sequence)
+            //AI start
+            //_generatorChunksRound.Update();
+            //AI  end
+    }
+
+    public bool PlayerIsActive(Sequence sequence)
         {
             if (_blackboard.TryGetValue(_blackboard.GetOrRegisterKey("IsPlayerActive"), out bool active))
             {

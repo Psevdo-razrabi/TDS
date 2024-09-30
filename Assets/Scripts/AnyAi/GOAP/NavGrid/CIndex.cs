@@ -3,33 +3,33 @@ using UnityEngine;
 
 public readonly struct CIndex
 {
-    public static readonly CIndex NULL = new CIndex(int.MaxValue, int.MinValue);
+    public static readonly CIndex NULL = new (int.MaxValue, int.MinValue);
 
-    public readonly int x;
-    public readonly int z;
+    public readonly int X;
+    public readonly int Z;
 
 
     public CIndex(int x, int z)
     {
-        this.x = x;
-        this.z = z;
+        X = x;
+        Z = z;
     }
 
     public override bool Equals(object obj)
     {
         return obj is CIndex index &&
-               x == index.x &&
-               z == index.z;
+               X == index.X &&
+               Z == index.Z;
     }
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(x, z);
+        return HashCode.Combine(X, Z);
     }
 
     public override string ToString()
     {
-        return x + ", " + z;
+        return X + ", " + Z;
     }
 
     public Vector2 GetSize()
@@ -39,21 +39,21 @@ public readonly struct CIndex
 
     public Vector2 GetPosition()
     {
-        return new Vector2(x, z);
+        return new Vector2(X, Z);
     }
 
     public Vector3Int GetPosition(int sxz, float y)
     {
-        return new Vector3Int(x * sxz, (int)y, z * sxz);
+        return new Vector3Int(X * sxz, (int)y, Z * sxz);
     }
 
     public static bool operator ==(CIndex a, CIndex b)
     {
-        return a.x == b.x && a.z == b.z;
+        return a.X == b.X && a.Z == b.Z;
     }
 
     public static bool operator !=(CIndex a, CIndex b)
     {
-        return a.x != b.x || a.z != b.z;
+        return a.X != b.X || a.Z != b.Z;
     }
 }

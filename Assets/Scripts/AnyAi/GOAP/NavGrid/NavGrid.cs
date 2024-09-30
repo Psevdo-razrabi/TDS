@@ -1,16 +1,14 @@
-using ModestTree;
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 public class NavGrid : MonoBehaviour
 {
-    public Transform _mainPoint;
-    public Vector3 _lastMainPosition;
-    public GameObject _debugPrefab;
+    [SerializeField] private Transform _mainPoint;
+    [SerializeField] private Vector3 _lastMainPosition;
+    [SerializeField] private GameObject _debugPrefab;
     private NavMeshSurface _navMesh;
     private bool _debug = true;
     private string _debugTag = "NavGridDebugSphere";
@@ -20,79 +18,54 @@ public class NavGrid : MonoBehaviour
     public PointMap _pointMap;
     private GeneratorChunksRound _generatorChunksRound;
 
-    private HashSet<CIndex> _createdDebugPoints = new HashSet<CIndex>();
+    private HashSet<CIndex> _createdDebugPoints = new ();
 
     private int _obstaclesLayers = 0;
 
-    public class GridCallback : IGenerateCallback
+    private class GridCallback : IGenerateCallback
     {
-        private readonly int layer;
-        private readonly float maxDistanceToFloor = 1.5F;
+        private readonly int _layer;
+        private readonly float _maxDistanceToFloor = 1.5F;
         private readonly Collider[] _tempColliders = new Collider[6];
-        private Collider[] allColliders = null;
+        private readonly Collider[] _allColliders = null;
 
-        public GridCallback()
+        public GridCallback(int layers)
         {
-            layer = 1 << LayerMask.NameToLayer("Ground");
+            _layer = layers; //1 << LayerMask.NameToLayer("Ground");
         }
 
         public int GetChunkHeight(Vector2 position, Vector2 size)
         {
-            if (allColliders == null)
+            if (_allColliders == null)
             {
-                allColliders = Physics.OverlapBox(Vector3.zero, new Vector3(int.MaxValue, int.MaxValue, int.MaxValue));
+                 Physics.OverlapBoxNonAlloc(Vector3.zero, new Vector3(int.MaxValue, int.MaxValue, int.MaxValue), _allColliders);
             }
+            
             return 10;
         }
 
         public bool PointIsPossibleGenerate(Vector3 position, out float distanceToFloor)
         {
             distanceToFloor = -1;
-            int countColliders = Physics.OverlapSphereNonAlloc(position, 0.2F, _tempColliders, layer);
+            var countColliders = Physics.OverlapSphereNonAlloc(position, 0.2F, _tempColliders, _layer);
             if (countColliders > 0)
             {
                 return false;
             }
+            
             Ray ray = new(position, Vector3.down);
-            RaycastHit raycastHit = new RaycastHit();
-            if (Physics.Raycast(ray, out raycastHit, maxDistanceToFloor, layer))
-            {
-                distanceToFloor = raycastHit.distance;
-                return true;
-            }
 
-            return false;
+            if (!Physics.Raycast(ray, out var raycastHit, _maxDistanceToFloor, _layer)) return false;
+            distanceToFloor = raycastHit.distance;
+            return true;
+
         }
 
         public bool PointsIsNotVisible(Vector3 positionA, Vector3 positionB)
         {
             Ray ray = new Ray(positionA, positionB - positionA);
-            if (Physics.Raycast(ray, (positionB - positionA).magnitude, layer))
-            {
-                return true;
-            }
-            return false;
+            return Physics.Raycast(ray, (positionB - positionA).magnitude, _layer);
         }
-    }
-
-    public NavGrid()
-    {
-
-    }
-
-    public void AddObstaclesLayer(int layer)
-    {
-        _obstaclesLayers = (1 << layer) | _obstaclesLayers;
-    }
-
-    public void AddObstaclesLayer(string layer)
-    {
-        AddObstaclesLayer(LayerMask.NameToLayer(layer));
-    }
-
-    public void RemoveObstaclesLayer(int layer)
-    {
-        _obstaclesLayers = (~(1 << layer)) & _obstaclesLayers;
     }
 
     public void RemoveObstaclesLayer(string layer)
@@ -100,11 +73,16 @@ public class NavGrid : MonoBehaviour
         RemoveObstaclesLayer(LayerMask.NameToLayer(layer));
     }
 
-    void Awake()
+    private void Awake()
     {
-        _pointMap = new PointMap(new GridCallback());
+        AddObstaclesLayer("Wall");
+        AddObstaclesLayer("Ground");
+        AddObstaclesLayer("Obstacle");
 
-        _generatorChunksRound = new GeneratorChunksRound(_pointMap, _mainPoint, 25);
+
+        _pointMap = new PointMap(new GridCallback(_obstaclesLayers));
+
+        _generatorChunksRound = new GeneratorChunksRound(_pointMap, _mainPoint, 5);
 
         if (_debug)
         {
@@ -119,54 +97,40 @@ public class NavGrid : MonoBehaviour
         _lastMainPosition = _mainPoint.position;
     }
 
-    void Update()
+    private void Update()
     {
         _pointMap.Update();
         _generatorChunksRound.Update();
 
         if (_debug)
         {
-            if (UnityEngine.Input.GetKey(KeyCode.Space))
-            {
-                var point = _pointMap.GetPointAtPosition(_mainPoint.transform.position);
-            }
-
             var v = _pointMap.GetPointAtPosition(_mainPoint.transform.position + new Vector3(0, 0.0F, 0));
-            if (v == null)
-            {
-                _debugTMP.text = "NULL";
-            }
-            else
-            {
-                _debugTMP.text = v.ToString() + "\n" + _pointMap.GetCountGenerateTask() + "\n NVP:" + v.notVisiblePoints.Count;
-                foreach (var p in v.notVisiblePoints)
-                {
-                    UnityEngine.Debug.DrawLine(p.position, v.position, Color.green);
-                }
-
-            }
-            DrawRects(1);
         }
     }
-
-    private void DrawRects(int r)
+    
+    private void AddObstaclesLayer(int layer)
     {
-        //UnityEngine.Debug.
+        _obstaclesLayers |= (1 << layer);
+    }
+
+    private void AddObstaclesLayer(string layer)
+    {
+        AddObstaclesLayer(LayerMask.NameToLayer(layer));
+    }
+
+    private void RemoveObstaclesLayer(int layer)
+    {
+        _obstaclesLayers &= ~(1 << layer);
     }
 
     private void FixedUpdate()
     {
-        if (_debug)
-        {
-            foreach (CIndex cindex in _pointMap.map.Keys)
-            {
-                if (!_createdDebugPoints.Contains(cindex) && _pointMap.map[cindex].PointsIsCreated())
-                {
-                    ChunkCreatePoints(_pointMap.map[cindex]);
-                    _createdDebugPoints.Add(cindex);
-                }
+        if (!_debug) return;
 
-            }
+        foreach (var index in _pointMap.map.Keys.Where(index => !_createdDebugPoints.Contains(index) && _pointMap.map[index].PointsIsCreated()))
+        {
+            _createdDebugPoints.Add(index);
+            ChunkCreatePoints(_pointMap.map[index]);
         }
     }
 
@@ -186,12 +150,12 @@ public class NavGrid : MonoBehaviour
         m.material.color = color;
     }
 
-    public void ChunkCreatePoints(Chunk chunk)
+    private void ChunkCreatePoints(Chunk chunk)
     {
-        foreach (var i in chunk.indices)
+        foreach (var i in chunk.Indices)
         {
-            var p = chunk.points.Get(i);
-            CreateDebugPoint(p.position);
+            var p = chunk.Points.Get(i);
+            CreateDebugPoint(p.Position);
         }
     }
 

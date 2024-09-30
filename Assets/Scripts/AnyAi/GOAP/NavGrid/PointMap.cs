@@ -1,26 +1,19 @@
-using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Cryptography;
-using Unity.Mathematics;
 using UnityEngine;
 
-public partial class PointMap
+public class PointMap
 {
     private abstract class GenerateBase
     {
-        protected Chunk chunk;
-        protected IGenerateCallback callback;
+        protected readonly Chunk Chunk;
+        protected readonly IGenerateCallback Callback;
 
         protected GenerateBase(Chunk chunk, IGenerateCallback callback)
         {
-            this.chunk = chunk;
-            this.callback = callback;
+            Chunk = chunk;
+            Callback = callback;
         }
-
-        /**
-         *  return true if Task is not void
-        */
+        
         public abstract bool Execute();
     }
 
@@ -32,7 +25,7 @@ public partial class PointMap
 
         public override bool Execute()
         {
-            return chunk.GeneratePoints(callback);
+            return Chunk.GeneratePoints(Callback);
         }
     }
 
@@ -49,10 +42,11 @@ public partial class PointMap
 
         public override bool Execute()
         {
-            if (map.map.ContainsKey(chunkB))
+            if (map.map.TryGetValue(chunkB, out var value))
             {
-                return chunk.CalculateNotVisiblePoints(callback, map.map[chunkB]);
+                return Chunk.CalculateNotVisiblePoints(Callback, value);
             }
+            
             return false;
         }
     }
@@ -86,9 +80,9 @@ public partial class PointMap
             tasks.AddFirst(new GeneratePoints(chunk, GenerateCallback));
         }
 
-        for (int z = chunk.cIndex.z - round; z <= cIndex.z + round; z++)
+        for (int z = chunk.cIndex.Z - round; z <= cIndex.Z + round; z++)
         {
-            for (int x = chunk.cIndex.x - round; x <= cIndex.x + round; x++)
+            for (int x = chunk.cIndex.X - round; x <= cIndex.X + round; x++)
             {
                 CIndex cindex = new CIndex(x, z);
                 if (!chunk.NVPIsGenerated(cindex))
@@ -121,9 +115,9 @@ public partial class PointMap
 
     private Chunk GetOrCreateChunk(CIndex c)
     {
-        if (map.ContainsKey(c))
+        if (map.TryGetValue(c, out var createChunk))
         {
-            return map[c];
+            return createChunk;
         }
         Chunk chunk = new Chunk(c, GetChunkHeight(c));
         map[c] = chunk;
@@ -137,27 +131,16 @@ public partial class PointMap
 
     public GridPoint GetPointAtPosition(Vector3 position)
     {
-        /*if (!VectorInMap(position))
-        {
-            return null;
-        }
-        var cindex = GetCIndexAtPosition(position);
-        Vector3Int posInChunk = new Vector3Int((int)position.x, (int)position.y, (int)position.z) - cindex.GetPosition(Chunk.SXZ, 0);
-        if (position.x < 0) posInChunk.x--;
-        if (position.z < 0) posInChunk.z--;
-        if (!map.ContainsKey(cindex)) return null;
-        return map[cindex].points.Get(posInChunk);*/
-
         var d = GetDataAtPosition(position);
         if (d.cindex == CIndex.NULL)
         {
             return null;
         }
-        if (!map.ContainsKey(d.cindex)) return null;
-        return map[d.cindex].points.Get(d.posInChunk);
+        if (!map.TryGetValue(d.cindex, out var value)) return null;
+        return value.Points.Get(d.posInChunk);
     }
 
-    public (CIndex cindex, Vector3Int posInChunk) GetDataAtPosition(Vector3 position)
+    private (CIndex cindex, Vector3Int posInChunk) GetDataAtPosition(Vector3 position)
     {
         if (!VectorInMap(position))
         {
@@ -170,7 +153,7 @@ public partial class PointMap
         return (cindex, posInChunk);
     }
 
-    public bool VectorInMap(Vector3 position)
+    private bool VectorInMap(Vector3 position)
     {
         return position.y >= 0 && position.y < Chunk.GetChunkMaxHeight();
     }
@@ -179,8 +162,7 @@ public partial class PointMap
     {
         return tasks.Count;
     }
-
-
+    
     public GridPoint FindFreePointAtPointMinDist(GridPoint point)
     {
         if (point == null)
@@ -189,26 +171,22 @@ public partial class PointMap
         }
         GridPoint res = null;
 
-        /*
-         * try find round
-        */
-
         int fidDist = 1;
-        CIndex cindex = point.chunk.cIndex;
+        CIndex cindex = point.Chunk.cIndex;
         float dist = float.MaxValue;
 
-        for (int z = cindex.z - fidDist; z <= cindex.z + 1; z++)
+        for (int z = cindex.Z - fidDist; z <= cindex.Z + 1; z++)
         {
-            for (int x = cindex.x - fidDist; x <= cindex.x + 1; x++)
+            for (int x = cindex.X - fidDist; x <= cindex.X + 1; x++)
             {
                 CIndex idx = new CIndex(x, z);
                 if (!map.ContainsKey(idx)) continue;
                 Chunk chunk = map[idx];
-                foreach (short pointIndex in chunk.indices)
+                foreach (short pointIndex in chunk.Indices)
                 {
-                    GridPoint gp = chunk.points.Get(pointIndex);
+                    GridPoint gp = chunk.Points.Get(pointIndex);
                     if (!gp.isFree) continue;
-                    float distance = (point.position - gp.position).sqrMagnitude;
+                    float distance = (point.Position - gp.Position).sqrMagnitude;
                     if (distance < dist)
                     {
                         dist = distance;
@@ -229,20 +207,20 @@ public partial class PointMap
         List<GridPoint> candidanes = new List<GridPoint>();
         minDist = minDist * minDist;
         maxDist = maxDist * maxDist;
-        int fidDist = 1;//fix
-        CIndex cindex = point.chunk.cIndex;
-        for (int z = cindex.z - fidDist; z <= cindex.z + 1; z++)
+        int fidDist = 1;
+        CIndex cindex = point.Chunk.cIndex;
+        for (int z = cindex.Z - fidDist; z <= cindex.Z + 1; z++)
         {
-            for (int x = cindex.x - fidDist; x <= cindex.x + 1; x++)
+            for (int x = cindex.X - fidDist; x <= cindex.X + 1; x++)
             {
                 CIndex idx = new CIndex(x, z);
                 if (!map.ContainsKey(idx)) continue;
                 Chunk chunk = map[idx];
-                foreach (short pointIndex in chunk.indices)
+                foreach (short pointIndex in chunk.Indices)
                 {
-                    GridPoint gp = chunk.points.Get(pointIndex);
+                    GridPoint gp = chunk.Points.Get(pointIndex);
                     if (!gp.isFree) continue;
-                    float distance = (point.position - gp.position).sqrMagnitude;
+                    float distance = (point.Position - gp.Position).sqrMagnitude;
                     if (distance >= minDist && distance <= maxDist)
                     {
                         candidanes.Add(gp);
@@ -254,23 +232,9 @@ public partial class PointMap
 
     }
 
-   /* public GridPoint FindFreeNearestPoint(Vector3 position)
-    {
-        var d = GetDataAtPosition(position);
-        if (d.cindex != CIndex.NULL)
-        {
-            if (map.ContainsKey(d.cindex))
-            {
-                var chunk = map[d.cindex];
-                if (GridPointIsFree(chunk, d.posInChunk)) return chunk.points.Get(d.posInChunk);
-                if (GridPointIsFree(chunk, d.posInChunk)) return chunk.points.Get(d.posInChunk);
-            }
-        }
-    }*/
-
     private bool GridPointIsFree(Chunk chunk, Vector3Int posInChunk)
     {
-        var p = chunk.points.Get(posInChunk);
+        var p = chunk.Points.Get(posInChunk);
         return p != null && p.isFree;
     }
 }

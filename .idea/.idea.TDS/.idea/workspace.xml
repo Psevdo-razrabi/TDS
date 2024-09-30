@@ -5,37 +5,58 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29a5753-791e-4621-b9e4-2a590a3f6737" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/AttackSensor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/AttackSensor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/CommanderAIGroup.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/CommanderAIGroup.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/ISensorTriggerCommander.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/ISensorTriggerCommander.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/A.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/A.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/Vector3Extensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Extensions/Vector3Extensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SimpleEnemy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SimpleEnemy.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TDS/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor-firstpass.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assembly-CSharp-firstpass.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp-firstpass.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assembly-CSharp.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Assembly-CSharp.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/3DContent/UndergroundFloorTile/FlatKit/[Render Pipeline] Built-In.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/3DContent/UndergroundFloorTile/FlatKit/[Render Pipeline] Universal (URP).unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AddressableAssetSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AnyAssets/AddressableAssetsData/AddressableAssetSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlatKit/[Render Pipeline] Built-In.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FlatKit/[Render Pipeline] Universal (URP).unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Model/Prefabs/Point.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Model/Prefabs/Point.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/AssetGroups/Default Local Group.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/AddressableAssetsData/AssetGroups/Default Local Group.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmod.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmod.so.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmodL.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmodL.so.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmodstudio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmodstudio.so.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmodstudioL.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libfmodstudioL.so.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libresonanceaudio.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/FMOD/platforms/android/lib/arm64-v8a/libresonanceaudio.so.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Scenes/GameMain.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scenes/GameMain.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Agent/GoapAgent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Any/Setuppers.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller/CancelGoal.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Canseller/CancelGoal.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Plan/GoapPlanner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/EyesSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/EyesSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Sensors/HitSensor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/MoveStrategy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Customs/Factory/StrategyFactory.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/Player/PlayerStateMashine/DataStateMashine/Name.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/Array3d.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/Array3d.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/CIndex.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/CIndex.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/Chunk.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/Chunk.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/GeneratorChunksRound.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/GeneratorChunksRound.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/GridPoint.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/GridPoint.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/NavGrid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/NavGrid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/PointMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/PointMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/SimpleSheduler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/SimpleSheduler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/A.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/Strategy/A.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Enemy/Enemy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BehaviourTree.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BehaviourTree.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Blackboard.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Blackboard.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BzKovSoft.RagdollHelper.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/BzKovSoft.RagdollHelper.Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExternAttributes.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExternAttributes.Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FMODUnity.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnity.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FMODUnityEditor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnityEditor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FMODUnityResonance.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnityResonance.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FMODUnityResonanceEditor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FMODUnityResonanceEditor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FlatKit.Utils.Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FlatKit.Utils.Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GOAP.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/GOAP.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MVVM.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/MVVM.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sirenix.OdinInspector.Modules.UnityMathematics.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Sirenix.OdinInspector.Modules.UnityMathematics.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UniRx.Examples.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniRx.Examples.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UniRx.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniRx.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UniTask.Addressables.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.Addressables.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UniTask.DOTween.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.DOTween.csproj" afterDir="false" />
@@ -43,7 +64,10 @@
       <change beforePath="$PROJECT_DIR$/UniTask.Linq.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.Linq.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UniTask.TextMeshPro.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.TextMeshPro.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UniTask.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/UniTask.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Unity.RenderPipelines.Universal.Runtime.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Unity.RenderPipelines.Universal.Runtime.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Zenject-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-IntegrationTests-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-IntegrationTests-Editor.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Zenject-IntegrationTests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-IntegrationTests.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Zenject-PoolMonitor-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-PoolMonitor-Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Zenject-ReflectionBaking-Editor.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-ReflectionBaking-Editor.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Zenject-TestFramework.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Zenject-TestFramework.csproj" afterDir="false" />
@@ -180,10 +204,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="40804">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="17040">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="40804" />
+      <option name="pid" value="17040" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -315,6 +339,8 @@
       <workItem from="1726735206701" duration="32584000" />
       <workItem from="1727001307313" duration="46482000" />
       <workItem from="1727522342596" duration="18846000" />
+      <workItem from="1727701602507" duration="1626000" />
+      <workItem from="1727704250369" duration="3873000" />
     </task>
     <task id="LOCAL-00001" summary="починка конфликов">
       <option name="closed" value="true" />
@@ -445,17 +471,17 @@
           <option name="timeStamp" value="108" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/AnyAi/GOAP/NavGrid/NavGrid.cs</url>
-          <line>106</line>
-          <properties documentPath="Z:\TDS\Assets\Scripts\AnyAi\GOAP\NavGrid\NavGrid.cs" containingFunctionPresentation="Method 'Awake'">
+          <url>file://$PROJECT_DIR$/Assets/SimpleEnemy.cs</url>
+          <line>40</line>
+          <properties documentPath="Z:\TDS\Assets\SimpleEnemy.cs" containingFunctionPresentation="Method 'ChangePosition'">
             <startOffsets>
-              <option value="3026" />
+              <option value="1061" />
             </startOffsets>
             <endOffsets>
-              <option value="3102" />
+              <option value="1118" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="111" />
+          <option name="timeStamp" value="114" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

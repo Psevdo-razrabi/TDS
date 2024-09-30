@@ -1,39 +1,37 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GeneratorChunksRound
 {
-    public readonly PointMap map;
-    public readonly Transform position;
-    public readonly float distanceChunkGenerate;
-    private CIndex prevCIndex = new CIndex(int.MaxValue, int.MaxValue);
+    private readonly PointMap _map;
+    private readonly Transform _position;
+    private readonly float _distanceChunkGenerate;
+    private CIndex _prevCIndex = new (int.MaxValue, int.MaxValue);
 
     public GeneratorChunksRound(PointMap map, Transform position, float distanceChunkGenerate)
     {
-        this.map = map;
-        this.position = position;
-        this.distanceChunkGenerate = Math.Max(distanceChunkGenerate, 1);
+        _map = map;
+        _position = position;
+        _distanceChunkGenerate = Math.Max(distanceChunkGenerate, 1);
     }
 
     public void Update()
     {
-        CIndex cindex = map.GetCIndexAtPosition(position.position);
-        if (!cindex.Equals(prevCIndex))
-        {
-            prevCIndex = cindex;
-            GenerateRoundChunks();
-        }
+        var index = _map.GetCIndexAtPosition(_position.position);
+        
+        if (index.Equals(_prevCIndex)) return;
+        _prevCIndex = index;
+        GenerateRoundChunks();
     }
 
     private void GenerateRoundChunks()
     {
-        int countChunks = (int)Math.Max(distanceChunkGenerate / Chunk.SXZ, 2);
-        for (int z = prevCIndex.z - countChunks; z <= prevCIndex.z + countChunks; z++)
+        var countChunks = (int)Math.Max(_distanceChunkGenerate / Chunk.SXZ, 2);
+        for (var z = _prevCIndex.Z - countChunks; z <= _prevCIndex.Z + countChunks; z++)
         {
-            for (int x = prevCIndex.x - countChunks; x <= prevCIndex.x + countChunks; x++)
+            for (var x = _prevCIndex.X - countChunks; x <= _prevCIndex.X + countChunks; x++)
             {
-                map.CreateGenerateChunkTack(new CIndex(x, z));
+                _map.CreateGenerateChunkTack(new CIndex(x, z));
             }
         }
     }
