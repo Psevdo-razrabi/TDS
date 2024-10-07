@@ -4,6 +4,7 @@
     {
         public override BTNodeStatus Status { get; protected set; }
         public sealed override string Name { get; protected set; }
+        private int _previouslyChild = 0;
 
         public Sequence(string name, int cost, IBTDebugger debugger) : base(cost, debugger)
         {
@@ -19,8 +20,7 @@
                     case BTNodeStatus.Running: return Status = BTNodeStatus.Running;
                     case BTNodeStatus.Failure: Stop();
                         return Status = BTNodeStatus.Failure;
-                    default: CurrentChild++;
-                        return Status = CurrentChild == _nodes.Count ? BTNodeStatus.Success : BTNodeStatus.Running;
+                    default: return CompleteLeaf();
                 }
             }
             
@@ -30,11 +30,28 @@
 
         public override void Start()
         {
-            base.Start();
+            Nodes[CurrentChild].Start();
             Debug(this, Name);
         }
 
+        public override void Stop()
+        {
+            Nodes[_previouslyChild].Stop();
+        }
 
         public override void AddChild(INode node) => _nodes.Add(node);
+
+        private BTNodeStatus CompleteLeaf()
+        {
+            _previouslyChild = CurrentChild;
+            CurrentChild++;
+            Status = CurrentChild == _nodes.Count ? BTNodeStatus.Success : BTNodeStatus.Running;
+            Stop();
+            if (Status != BTNodeStatus.Success)
+            {
+                Start();
+            }
+            return Status;
+        }
     }
 }

@@ -22,19 +22,12 @@ namespace BehaviourTree
         
         public virtual void Stop()
         {
-            CurrentChild = 0;
-            foreach (var node in _nodes)
-            {
-                node.Stop();
-            }
+            Nodes[CurrentChild].Stop();
         }
 
         public virtual void Start()
         {
-            foreach (var node in _nodes)
-            {
-                node.Start();
-            }
+            Nodes[CurrentChild].Start();
         }
 
         public void Reset()

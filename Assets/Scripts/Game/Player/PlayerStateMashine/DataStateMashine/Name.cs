@@ -27,11 +27,16 @@
         public static readonly string Animator = "AIAnimator";
         public static readonly string Agent = "NavMeshAgent";
         public static readonly string HealthAI = "Health";
-        public static readonly string PatrolPoints = "PatrolPoints";
         public static readonly string FoodPoint = "FoodPoint";
         public static readonly string ChillPoint = "ChillPoint";
         public static readonly string TransformAI = "Transform";
         public static readonly string PlayerTarget = "Player";
+        public static readonly string NavGrid = "NavGrid";
+        public static readonly string GeneratorChunks = "GeneratorChunks";
+        public static readonly string SearchEnemyRadius = "Radius";
+        public static readonly string TimeToSearchEnemy = "TimeSearch";
+        public static readonly string CountIterationSearchEnemy = "CountIteration";
+        public static readonly string EnemySearch = "EnemySearch";
     }
 
     public class NameExperts
@@ -51,5 +56,6 @@
         public static readonly string LocationFoodPredicate = "LocationFoodPredicate";
         public static readonly string LocationChillZone = "LocationChill";
         public static readonly string LocationChillZonePredicate = "LocationChillPredicate";
+        public static readonly string CommanderExpert = "CommanderExpert";
     }
 }

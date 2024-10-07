@@ -19,8 +19,7 @@ namespace GOAP
         [field: SerializeField] private CommanderAIGroup commanderAI;
 
         public Vector3? Target { get; private set; }
-        public bool IsTargetInSensor { get; private set; }
-
+        public ReactiveProperty<bool> IsActivate { get; } = new(false);
         private readonly Collider[] _colliders = new Collider[50];
         private readonly WedgeMeshBuilder _wedgeMeshBuilder = new();
         private List<GameObject> _objects = new();
@@ -29,7 +28,7 @@ namespace GOAP
         private IDisposable _disposable;
         
         public void SetTarget(Vector3 target) => Target = target;
-        public void SetIsTargetTrigger(bool isTargetDetected) => IsTargetInSensor = isTargetDetected;
+        public void SetIsTargetTrigger(bool isTargetDetected) => IsActivate.Value = isTargetDetected;
         
         private void OnEnable()
         {
@@ -65,16 +64,16 @@ namespace GOAP
         private void ClearTarget()
         {
             Target = null;
-            IsTargetInSensor = false;
+            IsActivate.Value = false;
         }
 
         private void SetTarget()
         {
             Target = Objects.FirstOrDefault(x => x.TryGetComponent(out PlayerComponents component))
                 ?.gameObject.transform.position;
-            IsTargetInSensor = Objects.Any(x => x.TryGetComponent(out PlayerComponents component));
+            IsActivate.Value = Objects.Any(x => x.TryGetComponent(out PlayerComponents component));
             
-            if(IsTargetInSensor) commanderAI.IsTargetDetect.OnNext(Unit.Default);
+            if(IsActivate.Value) commanderAI.IsTargetDetect.OnNext(Unit.Default);
         }
 
         private bool IsInSight(GameObject obj)

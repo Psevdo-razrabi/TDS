@@ -42,7 +42,7 @@ namespace CharacterOrEnemyEffect.Factory
             
             _beliefs.Add(key, 
                 belief
-                .WithCondition(() => sensor.IsTargetInSensor)
+                .WithCondition(() => sensor.IsActivate.Value)
                 .WithLocation(() => sensor.Target == null ? Vector3.zero : sensor.Target.Value)
                 .BuildBelief());
         }

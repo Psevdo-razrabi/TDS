@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\AnyAi\GOAP\Strategy\IActionStrategy.cs" />
     <Compile Include="Assets\Scripts\UI\Binders\GameObjectBinder.cs" />
     <Compile Include="Assets\Scripts\Game\Player\States\Ground\Parkour\PlayerClimbToObstacle.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Strategy\EnemySearchStrategy.cs" />
     <Compile Include="Assets\Scripts\Weapons\Commands\ChangePrefabWeapon.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\Demo\FPSFireManager.cs" />
     <Compile Include="Assets\Scripts\Weapons\InterfaceWeapon\IAction.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="Assets\Scripts\AnyAi\Blackboard\Interfaces\IExpert.cs" />
     <Compile Include="Assets\AnyAssets\KriptoFX\MuzzleFlashes\Scripts\FPSRandomRotateAngle.cs" />
     <Compile Include="Assets\Scripts\Weapons\Mediators\MediatorFireStrategy.cs" />
+    <Compile Include="Assets\Scripts\AnyAi\GOAP\Strategy\MoveAttackStrategy.cs" />
     <Compile Include="Assets\Scripts\AnyAi\BehaviourTree\Nodes\Selector.cs" />
     <Compile Include="Assets\Scripts\UI\Binders\ButtonBinder.cs" />
     <Compile Include="Assets\Scripts\DI\UI\ModelInstaller.cs" />

@@ -19,19 +19,24 @@ namespace GOAP
         public readonly HashSet<AgentAction> _action = new();
         
         [Header("Sensors")] 
-        [SerializeField] public EyesSensor _eyesSensor;
-        [SerializeField] public HitSensor _hitSensor;
-        [SerializeField] public AttackSensor _attackSensor;
+        [SerializeField] private EyesSensor _eyesSensor;
+        [SerializeField] private HitSensor _hitSensor;
+        [SerializeField] private AttackSensor _attackSensor;
+
+        [Header("NavMesh")] 
+        [SerializeField] private NavGrid _navGrid;
 
         [Header("Locations")] 
         [SerializeField] public Transform foodCort;
         [SerializeField] public Transform chilZone;
-        [SerializeField] public Transform[] patrolPoints;
-        [SerializeField] public Transform target;
+        [SerializeField] private Transform target;
 
         [Header("HealthStats")] 
-        [SerializeField] public float _health;
-        [SerializeField] public float _stamina;
+        [SerializeField] private float _health;
+        [SerializeField] private float _stamina;
+
+        [Header("Any Scripts")] 
+        [SerializeField] private CommanderAIGroup _commander;
         
         [Header("Goap Scripts")]
         private IGoapPlanner _goapPlanner;
@@ -91,10 +96,15 @@ namespace GOAP
             _blackboardController.SetValue(NameAIKeys.Agent, navMeshAgent);
             _blackboardController.SetValue(NameAIKeys.HealthAI, _health);
             _blackboardController.SetValue(NameAIKeys.FoodPoint, foodCort);
-            _blackboardController.SetValue(NameAIKeys.PatrolPoints, patrolPoints);
             _blackboardController.SetValue(NameAIKeys.ChillPoint, chilZone);
-            _blackboardController.SetValue(NameAIKeys.TransformAI, transform);
+            _blackboardController.SetValue(NameAIKeys.TransformAI, this.transform);
             _blackboardController.SetValue(NameAIKeys.PlayerTarget, target);
+            _blackboardController.SetValue(NameAIKeys.NavGrid, _navGrid);
+            _blackboardController.SetValue(NameAIKeys.SearchEnemyRadius, 5f);
+            _blackboardController.SetValue(NameAIKeys.TimeToSearchEnemy, 5f);
+            _blackboardController.SetValue(NameAIKeys.CountIterationSearchEnemy, 3);
+            _blackboardController.SetValue(NameAIKeys.EnemySearch, new bool());
+            _blackboardController.SetValue(NameAIKeys.GeneratorChunks, new GeneratorChunksRound(_navGrid.GetPointMap(), transform, 1));
             _blackboardController.SetValue<Func<bool>>(NameExperts.MovementPredicate, 
                 () => _blackboardController.GetValue<NavMeshAgent>(NameAIKeys.Agent).hasPath);
             _blackboardController.SetValue<Func<float>>(NameExperts.HealthStatsPredicate, 
@@ -108,6 +118,7 @@ namespace GOAP
             _blackboardController.SetValue<ISensor>(NameExperts.EyesSensor, _eyesSensor);
             _blackboardController.SetValue<ISensor>(NameExperts.HitSensor, _hitSensor);
             _blackboardController.SetValue<ISensor>(NameExperts.AttackSensor, _attackSensor);
+            _blackboardController.SetValue(NameExperts.CommanderExpert, _commander);
         }
 
         private void SetupTimers()
@@ -121,22 +132,12 @@ namespace GOAP
                 .Timer(TimeSpan.FromSeconds(2f), TimeSpan.FromSeconds(2f))
                 .Subscribe(_ => UpdateStats())
                 .AddTo(_disposable);
-
-            Observable.Timer(TimeSpan.FromSeconds(1f), TimeSpan.FromSeconds(1f)).Subscribe(_ =>
-            {
-                if (_actionPlan != null)
-                {
-                    Debug.Log("НИГГЕР");
-                    _cancelGoal.CancelCurrentStateAndComputeNewPlan(_behaviourTree, _agentGoal);
-                }
-                
-            }).AddTo(_disposable);
         }
 
         private void UpdateStats()
         {
             _stamina += chilZone.position.InRangeOf(transform.position, 3f) ? -10 : 20;
-            _health += foodCort.position.InRangeOf(transform.position, 2f) ? -10 : 20;
+            _health += foodCort.position.InRangeOf(transform.position, 3f) ? -10 : 20;
 
             _stamina = Math.Clamp(_stamina, 0f, 150f);
             _health = Math.Clamp(_health, 0f, 150f);
@@ -146,7 +147,9 @@ namespace GOAP
         {
             var sequencePlan = new Sequence("Sequence Leafs", 0, _debugger);
 
-            for (int i = 0; i < leafs.Count; i++)
+            var countLeafs = leafs.Count;
+            
+            for (int i = 0; i < countLeafs; i++)
             {
                 sequencePlan.AddChild(leafs.Pop());
             }
@@ -160,6 +163,11 @@ namespace GOAP
             if (_actionPlan == null)
             {
                 CreatePlan();
+            }
+            
+            if (_actionPlan != null)
+            { 
+                //_cancelGoal.CancelCurrentStateAndComputeNewPlan(_behaviourTree, _agentGoal);
             }
             
             CompletePlan();

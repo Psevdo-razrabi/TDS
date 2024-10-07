@@ -44,13 +44,13 @@ namespace GOAP
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("Walk")
-                .WithActionStrategy(_strategyFactory.CreatePatrolStrategy(_blackboard, 10f))
+                .WithActionStrategy(_strategyFactory.CreatePatrolStrategy(_blackboard, 20f))
                 .WithEffect(_agentBeliefs["AgentMoving"])
                 .WithPreconditionUse(HasPath)
                 .BuildAgentAction());
  
             _actions.Add(new ActionBuilder("MoveToEat")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _goapAgent.foodCort.transform.position, false))
+                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _goapAgent.foodCort.transform.position))
                 .WithEffect(_agentBeliefs["AgentAtFoodPosition"])
                 .BuildAgentAction());
 
@@ -62,24 +62,30 @@ namespace GOAP
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("PlayerLook")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInEyeSensor"].Location, true))
+                .WithActionStrategy(_strategyFactory.CreateMoveAttack(_blackboard))
                 .WithPrecondition(_agentBeliefs["PlayerInEyeSensor"])
-                .WithEffect(_agentBeliefs["PlayerToAttackSensor"])
-                .WithPreconditionUse(() => HasSensor(NameExperts.EyesSensor).IsTargetInSensor)
+                .WithEffect(_agentBeliefs["EnemySearch"])
+                .WithPreconditionUse(() => HasSensor(NameExperts.EyesSensor).IsActivate.Value)
                 .BuildAgentAction());
             
             _actions.Add(new ActionBuilder("PlayerHit")
-                .WithActionStrategy(_strategyFactory.CreateMoveToPointStrategy(_blackboard, () => _agentBeliefs["PlayerInHitSensor"].Location, true))
+                .WithActionStrategy(_strategyFactory.CreateMoveAttack(_blackboard))
                 .WithPrecondition(_agentBeliefs["PlayerInHitSensor"])
+                .WithEffect(_agentBeliefs["EnemySearch"])
+                .WithPreconditionUse(() => HasSensor(NameExperts.HitSensor).IsActivate.Value)
+                .BuildAgentAction());
+            
+            _actions.Add(new ActionBuilder("PlayerEscaped")
+                .WithActionStrategy(_strategyFactory.CreateEnemySearch(_blackboard))
+                .WithPrecondition(_agentBeliefs["EnemySearch"])
                 .WithEffect(_agentBeliefs["PlayerToAttackSensor"])
-                .WithPreconditionUse(() => HasSensor(NameExperts.HitSensor).IsTargetInSensor)
                 .BuildAgentAction());
 
             _actions.Add(new ActionBuilder("PlayerAttack")
                 .WithActionStrategy(_strategyFactory.CreateAttackStrategy())
                 .WithPrecondition(_agentBeliefs["PlayerToAttackSensor"])
                 .WithEffect(_agentBeliefs["AttackingPlayer"])
-                .WithPreconditionUse(() => HasSensor(NameExperts.AttackSensor).IsTargetInSensor)
+                .WithPreconditionUse(() => HasSensor(NameExperts.AttackSensor).IsActivate.Value)
                 .BuildAgentAction());
         }
 
@@ -101,6 +107,7 @@ namespace GOAP
             factory.AddSensorBelief("PlayerInHitSensor", HasSensor(NameExperts.HitSensor));
             factory.AddSensorBelief("PlayerToAttackSensor", HasSensor(NameExperts.AttackSensor));
             factory.AddBeliefCondition("AttackingPlayer", () => false);
+            factory.AddBeliefCondition("EnemySearch", () => _blackboard.GetValue<bool>(NameAIKeys.EnemySearch));
         }
 
         private bool HasPath()

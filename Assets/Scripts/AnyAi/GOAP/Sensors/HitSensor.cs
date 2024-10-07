@@ -12,7 +12,7 @@ namespace GOAP
         [SerializeField] private float _timeAggression;
         [SerializeField] private CommanderAIGroup commanderAI;
         public Vector3? Target { get; private set; }
-        public bool IsTargetInSensor { get; private set; }
+        public ReactiveProperty<bool> IsActivate { get; } = new(false);
         private CompositeDisposable _compositeDisposable = new();
         private CompositeDisposable _compositeDisposableRemoved = new();
 
@@ -34,13 +34,13 @@ namespace GOAP
         private void SubscribeTimer()
         {
             Target = _playerComponents.transform.position;
-            IsTargetInSensor = true;
+            IsActivate.Value = true;
             commanderAI.IsTargetDetect.OnNext(Unit.Default);
 
             Observable.Timer(TimeSpan.FromSeconds(_timeAggression)).Subscribe(_ =>
             {
                 Target = null;
-                IsTargetInSensor = false;
+                IsActivate.Value = false;
             }).AddTo(_compositeDisposableRemoved);
         }
 
@@ -54,6 +54,7 @@ namespace GOAP
         {
             UnsubscribeTriggers();
             UnsubscribeUpdate();
+            IsActivate.Dispose();
         }
 
         private void SubscribeTriggers()

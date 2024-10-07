@@ -2,7 +2,6 @@
 using BlackboardScripts;
 using GOAP;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace CharacterOrEnemyEffect.Factory
 {
@@ -14,8 +13,14 @@ namespace CharacterOrEnemyEffect.Factory
         public IActionStrategy CreatePatrolStrategy(BlackboardController blackboardController, float duration)
             => new PatrolStrategy(blackboardController, duration);
 
-        public IActionStrategy CreateMoveToPointStrategy(BlackboardController blackboardController, Func<Vector3> destination, bool isUpdate) 
-            => new MoveStrategy(blackboardController, destination, isUpdate);
+        public IActionStrategy CreateMoveToPointStrategy(BlackboardController blackboardController, Func<Vector3> destination) 
+            => new MoveStrategy(blackboardController, destination);
+        
+        public IActionStrategy CreateMoveAttack(BlackboardController blackboardController) 
+            => new MoveAttackStrategy(blackboardController);
+
+        public IActionStrategy CreateEnemySearch(BlackboardController blackboardController)
+            => new EnemySearchStrategy(blackboardController);
 
         public IActionStrategy CreateAttackStrategy() => new AttackStrategy();
     }

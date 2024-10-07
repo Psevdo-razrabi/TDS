@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Game.Player.AnyScripts;
 using UniRx;
 using UnityEngine;
@@ -14,6 +15,9 @@ namespace GOAP
         [field: SerializeField] private PlayerComponents _playerComponents;
 
         private IDisposable _disposable;
+
+        public bool IsTargetAttack => _hitSensorInGroopAI.Any(hit => hit.IsActivate.Value) ||
+                                      _eyesSensorsInGroopAI.Any(eyes => eyes.IsActivate.Value);
 
         private void OnEnable()
         {

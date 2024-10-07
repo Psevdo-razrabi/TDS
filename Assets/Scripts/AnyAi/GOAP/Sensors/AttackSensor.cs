@@ -14,7 +14,8 @@ namespace GOAP
         [SerializeField] private float _timeInterval;
         
         public Vector3? Target => _target ? _target.transform.position : Vector3.zero;
-        public bool IsTargetInSensor => Target != Vector3.zero;
+        public ReactiveProperty<bool> IsActivate { get; } = new();
+        //public bool IsTargetInSensor => Target != Vector3.zero;
 
         public Subject<Unit> OnTargetChange { get; } = new();
         private GameObject _target;
@@ -72,8 +73,9 @@ namespace GOAP
         private void UpdateTargetPosition(GameObject target = null)
         {
             _target = target;
+            IsActivate.Value = Target != Vector3.zero;
 
-            if (!IsTargetInSensor || (_lastKnownPosition == Target && _lastKnownPosition == Vector3.zero)) return;
+            if (!IsActivate.Value || (_lastKnownPosition == Target && _lastKnownPosition == Vector3.zero)) return;
             if (Target != null) _lastKnownPosition = Target.Value;
             OnTargetChange.OnNext(Unit.Default);
         }

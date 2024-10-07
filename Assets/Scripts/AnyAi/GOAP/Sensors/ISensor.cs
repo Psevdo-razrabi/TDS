@@ -1,10 +1,11 @@
-﻿using Vector3 = UnityEngine.Vector3;
+﻿using UniRx;
+using Vector3 = UnityEngine.Vector3;
 
 namespace GOAP
 {
     public interface ISensor
     {
         Vector3? Target { get; }
-        bool IsTargetInSensor { get; }
+        ReactiveProperty<bool> IsActivate { get; }
     }
 }

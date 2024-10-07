@@ -5,7 +5,6 @@ using Game.Core.Health;
 using Game.Player;
 using Game.Player.AnyScripts;
 using Game.Player.Interfaces;
-using ModestTree;
 using System.Collections.Generic;
 using UI.Storage;
 using UniRx;
@@ -30,10 +29,6 @@ namespace Enemy
         private BehaviourTree.BehaviourTree _behaviourTree;
         private IBTDebugger _debugger;
         private readonly Blackboard _blackboard = new();
-
-        //AI start
-        public GeneratorChunksRound _generatorChunksRound;
-        //AI  end
 
         public void InitModel(ValueCountStorage<float> valueCountStorage)
         {

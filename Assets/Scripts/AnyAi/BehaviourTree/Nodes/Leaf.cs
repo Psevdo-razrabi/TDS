@@ -26,7 +26,6 @@ namespace BehaviourTree
 
         public override void Start()
         {
-            base.Start();
             Debug(this, Name);
             AgentAction.Start();
         }
